@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "183787347560",
+    "firebase_url": "https://paparazzi-game-6f0d4.firebaseio.com",
+    "project_id": "paparazzi-game-6f0d4",
+    "storage_bucket": "paparazzi-game-6f0d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183787347560:android:c15fb5fa22bc33da",
+        "android_client_info": {
+          "package_name": "com.game.paparazzi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183787347560-t65k06t1kmc9guutnqkmsrp2nk0mksrm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.game.paparazzi",
+            "certificate_hash": "8eb54c98b2acb966540ee53d2ea4221ac9fd9aa7"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFzTK5clEGuEaSL5AhRkp4s19CWBJHzFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183787347560-gb81djlh5nl9sctqkdk6k86c50jrgaei.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentProfile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bggradient"
+    tools:context=".views.profile.FragmentProfile">
+
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bggradient"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center_vertical"
+            android:textColor="#2F3542"
+            android:maxLines="1"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:src="@drawable/profile_line" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:maxLines="1"
+            android:fontFamily="@font/roboto_regular"
+            android:textAlignment="center"
+            android:textColor="#586575"
+            android:textSize="14sp" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="84dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageProfile"
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:background="@drawable/oval"
+                android:cropToPadding="false"
+                android:foregroundGravity="center_horizontal"
+                android:padding="2dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/camera_background"
+                app:riv_oval="true" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+
+                android:layout_marginEnd="20dp"
+                android:layout_toStartOf="@+id/imageProfile"
+                android:cropToPadding="false"
+                android:elevation="18dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile_photo" />
+
+            <ImageView
+                android:id="@+id/imageView14"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imageProfile"
+                android:cropToPadding="false"
+                android:elevation="18dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile_settings" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:src="@drawable/profile_line_grey" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/myGames"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:padding="10dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        android:src="@drawable/clock"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        <TableLayout
+            android:paddingBottom="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="1">
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+                tools:layout_editor_absoluteX="13dp">
+
+                <LinearLayout
+                    android:id="@+id/myWins"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:adjustViewBounds="true"
+                        android:cropToPadding="true"
+                        android:src="@drawable/mywin" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="19dp"
+                        android:text="Мои выиграши"
+                        android:gravity="center_horizontal"
+                        android:textColor="#F05A23"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    android:src="@drawable/profile_line_grey" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="#586575"
+                    android:textAlignment="center"
+                    android:text="Текущие" />
+
+                <ListView
+                    android:id="@+id/list1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="#00000000"
+                    android:dividerHeight="12dp">
+                </ListView>
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="#586575"
+                    android:textAlignment="center"
+                    android:text="Будущие" />
+
+                <ListView
+                    android:id="@+id/list2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="#00000000"
+                    android:dividerHeight="12dp">
+                </ListView>
+
+
+            </LinearLayout>
+        </TableLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/targetView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/load_bg"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.74">
+
+        <com.airbnb.lottie.LottieAnimationView
+
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="activityindicator.json"
+            app:lottie_imageAssetsFolder="airbnb/"
+            app:lottie_loop="true" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="221dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75">
+
+
+        <ImageView
+            android:id="@+id/imageView23"
+            android:layout_width="159dp"
+            android:layout_height="159dp"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/empty" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Вы не учавствуете ни в одной игре"
+            android:textAlignment="center"
+            android:textColor="#80586575"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/imageButton"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:background="@drawable/registration_button_view"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Найти игры"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

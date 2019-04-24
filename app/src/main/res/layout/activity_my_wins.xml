@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bggradient"
+    tools:context="com.game.xogame.views.profile.MyWinsActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:paddingLeft="12dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            android:paddingRight="12dp"
+            android:src="@drawable/setting_back" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:layout_marginRight="42dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Мои выигрыши"
+            android:textAlignment="center"
+            android:textColor="#2F3542"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bggradient"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:src="@drawable/profile_line" />
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="19dp"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            app:srcCompat="@drawable/mywin_active" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="#F05A23"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="44dp"
+            android:src="#80586575" />
+
+
+    </LinearLayout>
+
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
+
+        <TableLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="1">
+
+            <ListView
+                android:id="@+id/gamelist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="#00000000"
+                android:dividerHeight="15dp"
+                android:clipToPadding="false"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@drawable/bggradient" />
+
+        </TableLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/targetView"
+        android:orientation="vertical"
+        android:background="@drawable/load_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="activityindicator.json"
+            app:lottie_imageAssetsFolder="airbnb/"
+            app:lottie_loop="true" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="159dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65999997">
+
+
+        <ImageView
+            android:id="@+id/imageView23"
+            android:layout_width="159dp"
+            android:layout_height="159dp"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/empty" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_centerVertical="true"
+            android:textAlignment="center"
+            android:textColor="#80586575"
+            android:textSize="16sp"
+            android:text="У вас пока нет выигрышей продолжайте играть"/>
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

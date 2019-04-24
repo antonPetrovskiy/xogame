@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.game.xogame.views.main.MainActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/imageView22"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="#F08C3C" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:foregroundGravity="bottom"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/imageView1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:scaleType="centerCrop"
+            app:lottie_fileName="hide_right.json"
+            app:lottie_imageAssetsFolder="airbnb/" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/imageView2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:scaleType="centerCrop"
+            app:lottie_fileName="hide_right.json"
+            app:lottie_imageAssetsFolder="airbnb/" />
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/imageView3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:scaleType="centerCrop"
+            app:lottie_fileName="hide_left.json"
+            app:lottie_imageAssetsFolder="airbnb/" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dp"
+            app:srcCompat="@drawable/icon_quests" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dp"
+            app:srcCompat="@drawable/icon_quest" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dp"
+            app:srcCompat="@drawable/icon_profile" />
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

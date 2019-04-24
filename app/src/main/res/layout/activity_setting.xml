@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bggradient"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    tools:context="com.game.xogame.views.profile.SettingActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="1">
+
+            <LinearLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:paddingTop="13dp"
+                    android:paddingLeft="10dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:src="@drawable/setting_back" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:layout_weight="1"
+                    android:text="Редактирование и настройки"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textAlignment="center"
+                    android:textColor="#2F3542"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:paddingTop="13dp"
+                    android:paddingRight="10dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:src="@drawable/setting_save" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+                app:layout_constraintVertical_bias="0.0">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:src="@drawable/profile_line" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Ваше имя"
+                    android:textColor="#586575"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/editText1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginRight="12dp"
+                    android:backgroundTint="#586575"
+                    android:fontFamily="@font/roboto_regular"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textColor="#2F3542"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="О себе"
+                    android:visibility="gone"
+                    android:textColor="#586575"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/editText2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginRight="12dp"
+                    android:backgroundTint="#586575"
+                    android:fontFamily="@font/roboto_regular"
+                    android:ems="10"
+                    android:visibility="gone"
+                    android:inputType="textPersonName"
+                    android:textColor="#2F3542"
+                    android:textColorHint="#586575"
+                    android:textSize="16sp"
+                    />
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Пол"
+                    android:textColor="#586575"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/editText3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginRight="12dp"
+                    android:backgroundTint="#586575"
+                    android:fontFamily="@font/roboto_regular"
+                    android:focusable="false"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textColor="#2F3542"
+                    android:textColorHint="#586575"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textView24"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Дата рождения"
+                    android:textColor="#586575"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/editText4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginRight="12dp"
+                    android:backgroundTint="#586575"
+                    android:fontFamily="@font/roboto_regular"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:inputType="textPersonName"
+                    android:textColor="#2F3542"
+                    android:textColorHint="#586575"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    android:src="#80586575" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Контактная информация"
+                    android:textColor="#2F3542"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Эл. адрес"
+                    android:textColor="#586575"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/editText5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginRight="12dp"
+                    android:backgroundTint="#586575"
+                    android:fontFamily="@font/roboto_regular"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textColor="#2F3542"
+                    android:textColorHint="#586575"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textView26"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Страна"
+                    android:textColor="#586575"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/editText6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginRight="12dp"
+                    android:backgroundTint="#586575"
+                    android:fontFamily="@font/roboto_regular"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textColor="#2F3542"
+                    android:textColorHint="#586575"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textView27"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Город"
+                    android:textColor="#586575"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/editText7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginRight="12dp"
+                    android:backgroundTint="#586575"
+                    android:fontFamily="@font/roboto_regular"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textColor="#2F3542"
+                    android:textColorHint="#586575"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    android:src="#80586575" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Кредитная карта"
+                    android:textColor="#2F3542"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Номер кредитной карты"
+                    android:textColor="#586575"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/editText8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginRight="12dp"
+                    android:backgroundTint="#586575"
+                    android:fontFamily="@font/roboto_regular"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textColor="#2F3542"
+                    android:textColorHint="#586575"
+                    android:textSize="16sp" />
+
+
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    android:src="#80586575" />
+
+
+
+
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingTop="17dp"
+                    android:text="Оценить приложение"
+                    android:textColor="#F08C3C"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingTop="17dp"
+                    android:text="Справка и поддержка"
+                    android:textColor="#F08C3C"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingTop="17dp"
+                    android:paddingBottom="17dp"
+                    android:text="Выйти из аккаунта"
+                    android:textColor="#F08C3C"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </TableLayout>
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/targetView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/load_bg"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="activityindicator.json"
+            app:lottie_imageAssetsFolder="airbnb/"
+            app:lottie_loop="true" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

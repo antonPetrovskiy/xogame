@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    tools:context=".views.authentication.ConfirmPhoneActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:srcCompat="@drawable/top" />
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/targetView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        android:layout_width="59dp"
+        android:layout_height="59dp"
+        app:lottie_fileName="timer.json"
+        app:lottie_imageAssetsFolder="airbnb/"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:layout_gravity="center"/>
+
+
+    <TextView
+        android:id="@+id/textView21"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        android:layout_width="59dp"
+        android:layout_height="59dp"
+        android:text="60"
+        android:fontFamily="@font/roboto_regular"
+        android:textAlignment="center"
+        android:gravity="center_vertical"
+        android:textSize="12sp"
+        android:textColor="#586575" />
+
+    <Button
+        android:id="@+id/imageButton1"
+        android:layout_width="290dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/registration_oval_button"
+        android:fontFamily="@font/roboto_regular"
+        android:visibility="gone"
+        android:text="Повторная отправка"
+        android:textColor="#F08C3C"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/roboto_regular"
+        android:text="На ваш номер выслано код с подтверждением"
+        android:textAlignment="center"
+        android:textColor="#586575"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Код подтверждения"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="@+id/editText3"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="000 00 00"
+        android:inputType="number"
+        android:textColor="#000000"
+        android:textColorHint="#55000000"
+        app:backgroundTint="#586575"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/imageButton"
+        android:layout_width="290dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/registration_button_view"
+        android:fontFamily="@font/roboto_regular"
+        android:text="ПРОДОЛЖИТЬ"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bggradient"
+    tools:context="com.game.xogame.views.game.GameInfoActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linearLayout55"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:paddingLeft="12dp"
+                android:paddingTop="13dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="13dp"
+                android:src="@drawable/setting_back" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:layout_marginRight="42dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="#2F3542"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:src="@drawable/profile_line" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingBottom="8dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="40dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                app:cardElevation="5dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true" />
+
+            </android.support.v7.widget.CardView>
+
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="12dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="When President Donald Trump first tried to stop citizens from seven predominantly Muslim countries from entering the United States, he cited the Sept. 11 terrorist attacks as his rationale. Yet none of the men behind those attacks hailed from these countries. In fact, a Cato Institute analysis shows that between 1975 and 2015 no one from these countries killed a single American in a U.S. terrorist attack."
+                android:textColor="#586575"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView10"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginBottom="12dp"
+                            android:adjustViewBounds="true"
+                            app:srcCompat="@drawable/game_icon_date" />
+
+                        <ImageView
+                            android:id="@+id/imageView11"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginBottom="12dp"
+                            android:adjustViewBounds="true"
+                            app:srcCompat="@drawable/game_icon_tasks" />
+
+                        <ImageView
+                            android:id="@+id/imageView12"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:adjustViewBounds="true"
+                            app:srcCompat="@drawable/game_icon_users" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView28"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="12dp"
+                            android:text="21.12.12-21.12.12"
+                            android:textColor="#ABB2BA"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/textView29"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="12dp"
+                            android:text="20 заданий"
+                            android:textColor="#ABB2BA"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/textView31"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="1232 человек"
+                            android:textColor="#ABB2BA"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView13"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginBottom="12dp"
+                            android:adjustViewBounds="true"
+                            app:srcCompat="@drawable/game_icon_time" />
+
+                        <ImageView
+                            android:id="@+id/imageView14"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginBottom="12dp"
+                            android:adjustViewBounds="true"
+                            app:srcCompat="@drawable/game_icon_money" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView32"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="12dp"
+                            android:text="12:00 - 15:00"
+                            android:textColor="#ABB2BA"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/textView33"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="12dp"
+                            android:text="1000 uah"
+                            android:textColor="#ABB2BA"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+            <Button
+                android:id="@+id/imageButton"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/registration_button_view"
+                android:fontFamily="@font/roboto_regular"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:text="участвовать"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText3" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bggradient"
+    tools:context="com.game.xogame.views.game.RatingActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView17">
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="42dp"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:paddingTop="13dp"
+                android:src="@drawable/setting_back" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:layout_marginRight="42dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Рейтинг"
+                android:textAlignment="center"
+                android:textColor="#2F3542"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/profile_line" />
+
+    </LinearLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ListView
+            android:id="@+id/gamelist"
+            android:touchscreenBlocksFocus="true"
+            android:isScrollContainer="false"
+            android:nestedScrollingEnabled="false"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/bggradient"
+            android:clipToPadding="false"
+            android:paddingLeft="5dp"
+            android:paddingTop="9dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="59dp"
+            />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/targetView"
+        android:orientation="vertical"
+        android:background="@drawable/load_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="activityindicator.json"
+            app:lottie_imageAssetsFolder="airbnb/"
+            app:lottie_loop="true" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="221dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.55">
+
+
+        <ImageView
+            android:id="@+id/imageView23"
+            android:layout_width="159dp"
+            android:layout_height="159dp"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/empty" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Вы не учавствуете ни в одной игре"
+            android:textAlignment="center"
+            android:textColor="#80586575"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/imageButton"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/registration_button_view"
+            android:fontFamily="@font/roboto_regular"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:text="Найти игры"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

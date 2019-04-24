@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="270dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bggradient"
+    android:orientation="vertical">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/dialog_frame"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/imageView13"
+            android:layout_width="38dp"
+            android:layout_height="18dp"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/dialog_left" />
+
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="38dp"
+            android:layout_height="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/dialog_right" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="title"
+            android:textColor="#586575"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/imageView24"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView1"
+            app:srcCompat="@drawable/king"
+            android:scaleType="centerCrop"
+            app:cardElevation="10dp"
+            app:cardCornerRadius="40dp"
+            app:cardBackgroundColor="#DFE4EA">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageView"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:clipToPadding="false"
+                android:scaleType="centerCrop"
+                app:riv_oval="true" />
+
+        </android.support.v7.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/oval_grey"
+            android:gravity="center_vertical"
+            android:text="0:59"
+            android:textAlignment="center"
+            android:textColor="#80586575"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView24" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            android:background="@drawable/popup_bot"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="#80586575"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/imageView1"
+
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="2dp"
+            android:src="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:riv_oval="true" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</LinearLayout>

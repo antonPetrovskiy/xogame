@@ -1,0 +1,92 @@
+package com.game.xogame.presenters;
+
+import android.content.ContentValues;
+import android.util.Log;
+
+import com.game.xogame.entity.Feed;
+import com.game.xogame.models.GamesModel;
+import com.game.xogame.models.UserInfoModel;
+import com.game.xogame.views.game.FragmentFeeds;
+import com.game.xogame.views.game.FragmentGames;
+import com.game.xogame.views.profile.FragmentProfile;
+import com.game.xogame.views.main.MainActivity;
+
+import java.util.LinkedList;
+import java.util.List;
+
+public class MainPresenter {
+    private MainActivity viewMain;
+    private final UserInfoModel model;
+    private final GamesModel modelGames;
+
+    public MainPresenter(UserInfoModel model, GamesModel modelGames) {
+        this.model = model;
+        this.modelGames = modelGames;
+    }
+
+    public void attachMainView(MainActivity mainActivity) {
+        viewMain = mainActivity;
+    }
+
+    public void detachView() {
+        viewMain = null;
+    }
+
+
+
+    public void showUserInfo(final FragmentProfile fragment) {
+        model.getInfo(new UserInfoModel.GetInfoCallback() {
+            @Override
+            public void onGet() {
+                Log.i("LOG_log" , model.user.getPhoto());
+                fragment.setName(model.user.getName()+"");
+                fragment.setNickName(model.user.getNickname()+"");
+
+                if(!model.user.getPhoto().equals(""))
+                    fragment.setPhoto(model.user.getPhoto());
+            }
+        });
+
+    }
+
+    public void editPhoto(final FragmentProfile fragment) {
+        ContentValues cv = new ContentValues(1);
+        cv.put("IMAGE", fragment.getPhoto());
+        model.editPhoto(cv, new UserInfoModel.EditPhotoCallback() {
+            @Override
+            public void onEdit() {
+                fragment.isPhoto = false;
+            }
+        });
+    }
+
+    public void showGames(final FragmentGames fragment){
+        modelGames.getGames(new GamesModel.GetGamesCallback() {
+            @Override
+            public void onGet() {
+                fragment.setList(modelGames.gameList);
+            }
+        });
+    }
+
+    public void showFeeds(final FragmentFeeds fragment){
+    modelGames.getFeeds(new GamesModel.GetFeedsCallback() {
+            @Override
+            public void onGet() {
+                fragment.setList(modelGames.feedList);
+            }
+        });
+
+    }
+
+    public void showMyGames(final FragmentProfile fragment){
+        model.getProfileGames(new UserInfoModel.GetProfileGamesCallback() {
+            @Override
+            public void onGet() {
+                fragment.setList(model.profileNowGameList);
+            }
+        });
+    }
+
+
+}
