@@ -111,7 +111,43 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:adjustViewBounds="true"
-            android:cropToPadding="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/profile_line_grey" />
+
+        <LinearLayout
+            android:id="@+id/myWins"
+            android:layout_marginTop="11dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:src="@drawable/mywin" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="19dp"
+                android:gravity="center_horizontal"
+                android:text="Мои выиграши"
+                android:textColor="#F05A23"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
             android:src="@drawable/profile_line_grey" />
     </LinearLayout>
 
@@ -126,67 +162,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
+        android:paddingBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-        <TableLayout
-            android:paddingBottom="50dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:stretchColumns="1">
             <LinearLayout
                 android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-                tools:layout_editor_absoluteX="13dp">
-
-                <LinearLayout
-                    android:id="@+id/myWins"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/imageView11"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:adjustViewBounds="true"
-                        android:cropToPadding="true"
-                        android:src="@drawable/mywin" />
-
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="19dp"
-                        android:text="Мои выиграши"
-                        android:gravity="center_horizontal"
-                        android:textColor="#F05A23"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="11dp"
-                    android:src="@drawable/profile_line_grey" />
-
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
                 <TextView
                     android:id="@+id/textView9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
                     android:textSize="12sp"
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="#586575"
@@ -196,17 +195,21 @@
                 <ListView
                     android:id="@+id/list1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
                     android:divider="#00000000"
-                    android:dividerHeight="12dp">
-                </ListView>
+                    android:dividerHeight="15dp"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="9dp"
+                    android:paddingRight="12dp"
+                    android:paddingBottom="9dp"></ListView>
 
                 <TextView
                     android:id="@+id/textView10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:textSize="12sp"
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="#586575"
@@ -216,14 +219,18 @@
                 <ListView
                     android:id="@+id/list2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
                     android:divider="#00000000"
-                    android:dividerHeight="12dp">
-                </ListView>
+                    android:dividerHeight="15dp"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="9dp"
+                    android:paddingRight="12dp"
+                    android:paddingBottom="9dp"></ListView>
 
 
             </LinearLayout>
-        </TableLayout>
+
     </ScrollView>
 
     <LinearLayout

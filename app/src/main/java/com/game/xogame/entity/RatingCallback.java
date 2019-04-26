@@ -9,7 +9,7 @@ public class RatingCallback {
     @SerializedName("status")
     @Expose
     private String status;
-    @SerializedName("rating")
+    @SerializedName("games")
     @Expose
     private ArrayList<Rating> rating = new ArrayList<>();
 

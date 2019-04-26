@@ -43,6 +43,9 @@ public class Game {
     @SerializedName("reward")
     @Expose
     private String reward;
+    @SerializedName("complited")
+    @Expose
+    private String complited;
     @SerializedName("sub")
     @Expose
     private String sub;
@@ -104,4 +107,7 @@ public class Game {
         return endtime;
     }
 
+    public String getComplited() {
+        return complited;
+    }
 }

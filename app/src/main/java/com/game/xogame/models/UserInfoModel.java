@@ -71,7 +71,6 @@ public class UserInfoModel {
                     @Override
                     public void onResponse(Call<UserCallback> call, Response<UserCallback> response) {
                         if (response.isSuccessful()) {
-                            //Log.i("LOG_photo" , "Success(code): " + response.body().getCode());
 
                             UserCallback userCallback = response.body();
                             if(userCallback.getStatus().equals("success")){
@@ -404,7 +403,7 @@ public class UserInfoModel {
                             Log.i("LOG_getprofilegames" , "Success(error): " + response.body().getStatus());
                             if(response.body().getStatus().equals("success")){
                                 profileNowGameList = response.body().getGames().getNowGames();
-                                profileFutureGameList = response.body().getGames().getNowGames();
+                                profileFutureGameList = response.body().getGames().getFutureGames();
                                 callback.onGet();
                             }
                         } else {

@@ -134,7 +134,13 @@ public class SettingActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         month = month + 1;
-                        String date = month + "/" + day + "/" + year;
+                        String date;
+                        if(month<10){
+                            date = day + ".0" + month + "." + year;
+                        }else{
+                            date = day + "." + month + "." + year;
+                        }
+
                         age.setText(date);
                     }
                 };
@@ -168,12 +174,6 @@ public class SettingActivity extends AppCompatActivity {
 
 
     }
-
-
-
-
-
-
 
     public void onBack(){
         super.onBackPressed();

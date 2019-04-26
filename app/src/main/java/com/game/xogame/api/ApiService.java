@@ -4,6 +4,7 @@ import com.game.xogame.entity.DefaultCallback;
 import com.game.xogame.entity.FeedCallback;
 import com.game.xogame.entity.GamesCallback;
 import com.game.xogame.entity.ProfileGamesCallback;
+import com.game.xogame.entity.RatingCallback;
 import com.game.xogame.entity.RegistrationCallback;
 import com.game.xogame.entity.UserCallback;
 
@@ -52,7 +53,7 @@ public interface ApiService {
                                 @Field("name") String name,
                                 @Field("mail") String mail,
                                 @Field("gender") String gender,
-                                @Field("age") String age,
+                                @Field("birthday") String age,
                                 @Field("country") String country,
                                 @Field("city") String city,
                                 @Field("ccard") String ccard);
@@ -63,8 +64,14 @@ public interface ApiService {
     Call<GamesCallback> getFullGames(@Field("token") String token);
 
     @FormUrlEncoded
+    @POST("game/rate/")
+    Call<RatingCallback> getFullRating(@Field("token") String token);
+
+    @FormUrlEncoded
     @POST("game/lenta/")
-    Call<FeedCallback> getFullFeeds(@Field("token") String token);
+    Call<FeedCallback> getFullFeeds(@Field("token") String token,
+                                    @Field("flag") String flag,
+                                    @Field("limit") String limit);
 
     @FormUrlEncoded
     @POST("game/like/")

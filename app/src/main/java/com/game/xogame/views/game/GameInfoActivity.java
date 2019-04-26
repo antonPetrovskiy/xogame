@@ -1,5 +1,6 @@
 package com.game.xogame.views.game;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
 import com.game.xogame.models.GamesModel;
 import com.game.xogame.presenters.GameInfoPresenter;
+import com.game.xogame.views.StartActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -29,16 +31,19 @@ public class GameInfoActivity extends AppCompatActivity {
     private TextView title;
     private TextView description;
 
+    private TextView name;
     private TextView date;
     private TextView time;
     private TextView tasks;
     private TextView money;
     private TextView people;
 
+    private ImageView statistic;
     private ImageView logo;
     private ImageView background;
     private ImageView back;
     private Button subscribe;
+    private String count;
 
     private String gameid;
 
@@ -62,12 +67,14 @@ public class GameInfoActivity extends AppCompatActivity {
         subscribe = findViewById(R.id.imageButton);
         title = findViewById(R.id.textView1);
         description = findViewById(R.id.textView30);
+        name = findViewById(R.id.textView0);
 
         date = findViewById(R.id.textView28);
         time = findViewById(R.id.textView32);
         tasks = findViewById(R.id.textView29);
         money = findViewById(R.id.textView33);
         people = findViewById(R.id.textView31);
+        statistic = findViewById(R.id.imageView0);
         logo = findViewById(R.id.imageView3);
         background = findViewById(R.id.imageView4);
 
@@ -76,12 +83,14 @@ public class GameInfoActivity extends AppCompatActivity {
         gameid = extras.getString("GAMEID");
         title.setText(extras.getString("TITLE")+"");
         description.setText(extras.getString("DESCRIPTION")+"");
+        name.setText(extras.getString("NAME")+"");
 
         date.setText(extras.getString("DATE")+"");
         time.setText(extras.getString("TIME")+"");
         tasks.setText(extras.getString("TASKS")+" заданий");
         money.setText(extras.getString("MONEY")+" uah");
         people.setText(extras.getString("PEOPLE")+" человек");
+        count = extras.getString("PEOPLE");
         Picasso.with(this).load(extras.getString("LOGO")).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(logo);
         Picasso.with(this).load(extras.getString("BACKGROUND")).placeholder(R.drawable.unknow_wide).error(R.drawable.unknow_wide).into(background);
 
@@ -102,11 +111,21 @@ public class GameInfoActivity extends AppCompatActivity {
             }
         });
 
+        statistic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GameInfoActivity.this, RatingGameActivity.class);
+                startActivity(intent);
+            }
+        });
+
         subscribe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(subscribe.getText().equals("Участвовать")){
                     presenter.subscribeGame();
+                    people.setText((Integer.parseInt(count)+1)+" человек");
+                    count = (Integer.parseInt(count)+1)+"";
                     FirebaseMessaging.getInstance().subscribeToTopic(gameid)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -116,6 +135,8 @@ public class GameInfoActivity extends AppCompatActivity {
                             });
                 }else{
                     presenter.unsubscribeGame();
+                    people.setText((Integer.parseInt(count)-1)+" человек");
+                    count = (Integer.parseInt(count)-1)+"";
                     FirebaseMessaging.getInstance().unsubscribeFromTopic(gameid)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -141,7 +162,7 @@ public class GameInfoActivity extends AppCompatActivity {
 
     public void showToast(String text){
         Toast.makeText(getApplicationContext(), text,
-                Toast.LENGTH_LONG).show();
+                Toast.LENGTH_SHORT).show();
     }
 
     public String getGameid(){

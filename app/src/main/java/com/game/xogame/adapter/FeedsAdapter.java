@@ -4,6 +4,7 @@ package com.game.xogame.adapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.ExifInterface;
 import android.net.ConnectivityManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.game.xogame.R;
 import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
@@ -38,7 +40,6 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
     private LayoutInflater mInflater;
     private LinearLayout lay;
 
-    private int[] colors;
 
     // Constructors
     public FeedsAdapter(Context context, List<Feed> objects) {
@@ -46,7 +47,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
         feedList = objects;
-        colors = context.getResources().getIntArray(R.array.rainbow);
+
     }
 
     @Override
@@ -84,26 +85,69 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
         vh.textViewTag.setText(item.getTaskComment());
 
 
+            vh.placeholder1.setText(item.getCompany().substring(0, 1));
+            vh.imageViewCompany.setImageResource(getPlaceholder(item.getCompany()));
+        if(item.getUserName().length()!=0 ) {
+            vh.placeholder2.setText(item.getUserName().substring(0, 1));
+        }else{
+            vh.placeholder2.setText("a");
+        }
+            vh.imageViewPhoto.setImageResource(getPlaceholder(item.getCompany()));
 
-        Picasso.with(context).load(item.getLogoSponsorUrl()+"").placeholder(android.R.color.holo_red_dark).error(android.R.color.holo_red_dark).into(vh.imageViewCompany);
-        Picasso.with(context).load(item.getUserPhotoUrl()+"").placeholder(android.R.color.holo_red_dark).error(android.R.color.holo_red_dark).into(vh.imageViewUser);
-        Picasso.with(context).load(item.getTaskPhotoUrl()+"").placeholder(R.drawable.unknow).error(R.drawable.unknow).into(vh.imageViewPhoto);
+
+        //Glide.with(context).load(item.getTaskPhotoUrl()).thumbnail(0.3f).into(vh.imageViewPhoto);
+        Picasso.with(context).load(item.getLogoSponsorUrl()+"").placeholder(getPlaceholder(item.getCompany())).error(getPlaceholder(item.getCompany())).into(vh.imageViewCompany, new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+                vh.placeholder1.setText("");
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+        Picasso.with(context).load(item.getUserPhotoUrl()+"").placeholder(getPlaceholder(item.getUserNickname())).error(getPlaceholder(item.getUserNickname())).into(vh.imageViewUser, new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+                vh.placeholder2.setText("");
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+        ExifInterface ei = null;
+        try {
+            ei = new ExifInterface(item.getTaskPhotoUrl());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                ExifInterface.ORIENTATION_UNDEFINED);
+        Log.i("LOG_orientation", "got orientation " + orientation);
+
+        Picasso.with(context).load(item.getTaskPhotoUrl()+"").centerCrop().resize(1024,1024).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(vh.imageViewPhoto);
         if(item.getUserLike().equals("0")){
             vh.imageViewLike.setImageResource(R.drawable.like_unused);
+            vh.imageViewLike.setTag("unused");
         }else{
             vh.imageViewLike.setImageResource(R.drawable.like);
+            vh.imageViewLike.setTag("used");
         }
-        //Picasso.with(context).load(item.getBackground()+"").placeholder(R.drawable.unknow).error(R.drawable.unknow).into(vh.imageViewLike);
 
         vh.imageViewLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(vh.imageViewLike.getDrawable() == context.getDrawable(R.drawable.like)){
+                if(String.valueOf(vh.imageViewLike.getTag()).equals("used")){
                     vh.imageViewLike.setImageResource(R.drawable.like_unused);
-                    vh.textViewLike.setText(Integer.parseInt(item.getFeedLikes()));
+                    vh.textViewLike.setText(Integer.parseInt(item.getFeedLikes())+"");
+                    vh.imageViewLike.setTag("unused");
                 }else{
                     vh.imageViewLike.setImageResource(R.drawable.like);
-                    vh.textViewLike.setText(Integer.parseInt(item.getFeedLikes())+1);
+                    vh.textViewLike.setText((Integer.parseInt(item.getFeedLikes())+1)+"");
+                    vh.imageViewLike.setTag("used");
                 }
 
 
@@ -111,12 +155,12 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
                 String id = sharedPref.getString("token", "null");
                 ApiService api = RetroClient.getApiService();
                 if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
-                    Call<DefaultCallback> call = api.setLike(id,item.getFeedTaskId());
+                    Call<DefaultCallback> call = api.setLike(id,item.getFeedId());
                     call.enqueue(new Callback<DefaultCallback>() {
                         @Override
                         public void onResponse(Call<DefaultCallback> call, Response<DefaultCallback> response) {
                             if (response.isSuccessful()) {
-                                Log.i("LOG_like" , "Success(error): " + response.body().getStatus()+item.getFeedTaskId());
+                                Log.i("LOG_like" , "Success(error): " + response.body().getStatus()+item.getFeedId());
                             } else {
                                 String jObjError = null;
                                 try {
@@ -144,9 +188,70 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
         return vh.rootView;
     }
 
-    public int getPlaceholder(){
-        int n = new Random().nextInt(5);
-        return colors[n];
+    public int getPlaceholder(String s){
+        String abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZЯЧСМИТЬБЮФЫВАПРОЛДЖЭЁЙЦУКЕНГШЩЗХЪІЄ0123456789";
+        int n = abc.indexOf(s.substring(0,1).toUpperCase());
+        if(n == 0 || n == 20 || n == 40 || n == 60){
+            return R.color.color1;
+        }
+        if(n == 1 || n == 21 || n == 41 || n == 61){
+            return R.color.color2;
+        }
+        if(n == 2 || n == 22 || n == 42 || n == 62){
+            return R.color.color3;
+        }
+        if(n == 3 || n == 23 || n == 43 || n == 63){
+            return R.color.color4;
+        }
+        if(n == 4 || n == 24 || n == 44 || n == 64){
+            return R.color.color5;
+        }
+        if(n == 5 || n == 25 || n == 45 || n == 65){
+            return R.color.color6;
+        }
+        if(n == 6 || n == 26 || n == 46 || n == 66){
+            return R.color.color7;
+        }
+        if(n == 7 || n == 27 || n == 47 || n == 67){
+            return R.color.color8;
+        }
+        if(n == 8 || n == 28 || n == 48 || n == 68){
+            return R.color.color9;
+        }
+        if(n == 9 || n == 29 || n == 49 || n == 69){
+            return R.color.color10;
+        }
+        if(n == 10 || n == 30 || n == 50 || n == 70){
+            return R.color.color11;
+        }
+        if(n == 11 || n == 31 || n == 51 || n == 71){
+            return R.color.color12;
+        }
+        if(n == 12 || n == 32 || n == 52 || n == 72){
+            return R.color.color13;
+        }
+        if(n == 13 || n == 33 || n == 53 || n == 73){
+            return R.color.color14;
+        }
+        if(n == 14 || n == 34 || n == 54 || n == 74){
+            return R.color.color15;
+        }
+        if(n == 15 || n == 35 || n == 55 || n == 75){
+            return R.color.color16;
+        }
+        if(n == 16 || n == 36 || n == 56 || n == 76){
+            return R.color.color17;
+        }
+        if(n == 17 || n == 37 || n == 57 || n == 77){
+            return R.color.color18;
+        }
+        if(n == 18 || n == 38 || n == 58 || n == 78){
+            return R.color.color19;
+        }
+        if(n == 19 || n == 39 || n == 59 || n == 79){
+            return R.color.color20;
+        }
+        return R.color.color1;
     }
 
     private static class ViewHolder {
@@ -164,9 +269,11 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
         public final TextView textViewTask;
         public final TextView textViewLike;
         public final TextView textViewTag;
+        public final TextView placeholder1;
+        public final TextView placeholder2;
 
 
-        private ViewHolder(LinearLayout rootView, ImageView imageView, ImageView imageView1, ImageView imageView2, ImageView imageView3, TextView textView1, TextView textView2, TextView textView3, TextView textView4, TextView textView5, TextView textView6, TextView textView7, TextView textView8, TextView textView9) {
+        private ViewHolder(LinearLayout rootView, ImageView imageView, ImageView imageView1, ImageView imageView2, ImageView imageView3, TextView textView1, TextView textView2, TextView textView3, TextView textView4, TextView textView5, TextView textView6, TextView textView7, TextView textView8, TextView textView9, TextView placeholder1, TextView placeholder2) {
             this.rootView = rootView;
             this.imageViewCompany = imageView;
             this.imageViewUser = imageView1;
@@ -181,6 +288,8 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
             this.textViewLike = textView7;
             this.textViewTag = textView8;
             this.textViewTitle = textView1;
+            this.placeholder1 = placeholder1;
+            this.placeholder2 = placeholder2;
         }
 
         public static FeedsAdapter.ViewHolder create(LinearLayout rootView) {
@@ -197,7 +306,9 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
             TextView textViewLike = (TextView) rootView.findViewById(R.id.textView8);
             TextView textViewTag = (TextView) rootView.findViewById(R.id.textView9);
             TextView textViewTitle = (TextView) rootView.findViewById(R.id.textView0);
-            return new FeedsAdapter.ViewHolder(rootView, imageViewCompany, imageViewUser, imageViewPhoto, imageViewLike, textViewCompany, textViewName, textViewNickname, textViewTime, textViewDescription, textViewTask, textViewLike, textViewTag, textViewTitle);
+            TextView placeholder1 = (TextView) rootView.findViewById(R.id.textHolder1);
+            TextView placeholder2 = (TextView) rootView.findViewById(R.id.textHolder2);
+            return new FeedsAdapter.ViewHolder(rootView, imageViewCompany, imageViewUser, imageViewPhoto, imageViewLike, textViewCompany, textViewName, textViewNickname, textViewTime, textViewDescription, textViewTask, textViewLike, textViewTag, textViewTitle, placeholder1, placeholder2);
         }
 
     }

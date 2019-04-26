@@ -25,9 +25,6 @@ public class User {
     @SerializedName("photo")
     @Expose
     private String photo;
-    @SerializedName("about")
-    @Expose
-    private String about;
     @SerializedName("gender")
     @Expose
     private String gender;
@@ -62,16 +59,8 @@ public class User {
         return name;
     }
 
-    public String getGameid() {
-        return gameid;
-    }
-
     public String getPhoto() {
         return photo;
-    }
-
-    public String getAbout() {
-        return about;
     }
 
     public String getGender() {

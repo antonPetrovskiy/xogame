@@ -92,7 +92,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="10dp"
+            android:padding="13dp"
             app:srcCompat="@drawable/icon_quests" />
 
         <ImageView
@@ -108,7 +108,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="10dp"
+            android:padding="12dp"
             app:srcCompat="@drawable/icon_profile" />
     </LinearLayout>
 

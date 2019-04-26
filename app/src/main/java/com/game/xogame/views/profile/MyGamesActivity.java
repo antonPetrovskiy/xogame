@@ -85,7 +85,7 @@ public class MyGamesActivity extends AppCompatActivity {
     }
 
     public void setList(List<Game> list){
-        HistoryAdapter adapter = new HistoryAdapter(this, list);
+        GamesAdapter adapter = new GamesAdapter(this, list);
         listView.setAdapter(adapter);
         load.setVisibility(View.GONE);
 
@@ -96,6 +96,11 @@ public class MyGamesActivity extends AppCompatActivity {
         }else{
             empty.setVisibility(View.GONE);
             count.setText(list.size()+"");
+            int n=0;
+            for(int i = 0; i < list.size(); i ++){
+                n+=Integer.parseInt(list.get(i).getComplited());
+            }
+            time.setText(n+"");
         }
     }
 }

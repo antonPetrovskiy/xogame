@@ -95,6 +95,7 @@ public class FragmentGames extends Fragment {
                 intent.putExtra("GAMEID",l.get(position).getGameid());
                 intent.putExtra("SUBSCRIBE",l.get(position).getSubscribe());
                 intent.putExtra("TITLE", l.get(position).getTitle());
+                intent.putExtra("NAME", l.get(position).getCompany());
                 intent.putExtra("LOGO", l.get(position).getLogo());
                 intent.putExtra("BACKGROUND", l.get(position).getBackground());
                 intent.putExtra("DATE", l.get(position).getStartdate()+"-"+l.get(position).getEnddate());

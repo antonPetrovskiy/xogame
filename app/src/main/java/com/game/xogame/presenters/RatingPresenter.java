@@ -2,9 +2,11 @@ package com.game.xogame.presenters;
 
 import com.game.xogame.models.RatingModel;
 import com.game.xogame.views.game.RatingActivity;
+import com.game.xogame.views.game.RatingGameActivity;
 
 public class RatingPresenter {
     private RatingActivity view;
+    private RatingGameActivity viewGame;
     private final RatingModel model;
 
     public RatingPresenter(RatingModel model) {
@@ -15,21 +17,30 @@ public class RatingPresenter {
         view = mainActivity;
     }
 
+    public void attacRatingGamehView(RatingGameActivity gameActivity) {
+        viewGame = gameActivity;
+    }
+
     public void detachView() {
         view = null;
     }
 
+
+    public void showGameRating() {
+        model.getGameRating(new RatingModel.GetGameRatingCallback() {
+            @Override
+            public void onGet() {
+                //view.setList(model.game);
+            }
+        });
+    }
+
     public void showRating() {
-//        ContentValues cv = new ContentValues(1);
-//        cv.put("IMAGE", view.getImage());
-//        cv.put("TASKID", view.getTaskid());
-//        cv.put("COMMENT", view.getComment());
-//        cv.put("TASKTIME", view.getTasktime());
-//        model.doTask(cv,new PlayModel.DoTaskCallback() {
-//            @Override
-//            public void onDo() {
-//                view.toMainActivityWin();
-//            }
-//        });
+        model.getRating(new RatingModel.GetRatingCallback() {
+            @Override
+            public void onGet() {
+                view.setList(model.ratingList);
+            }
+        });
     }
 }

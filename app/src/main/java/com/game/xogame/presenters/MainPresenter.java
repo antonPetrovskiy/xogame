@@ -38,7 +38,7 @@ public class MainPresenter {
         model.getInfo(new UserInfoModel.GetInfoCallback() {
             @Override
             public void onGet() {
-                Log.i("LOG_log" , model.user.getPhoto());
+                Log.i("LOG_log" , model.user.getPhoto()+"");
                 fragment.setName(model.user.getName()+"");
                 fragment.setNickName(model.user.getNickname()+"");
 
@@ -69,8 +69,8 @@ public class MainPresenter {
         });
     }
 
-    public void showFeeds(final FragmentFeeds fragment){
-    modelGames.getFeeds(new GamesModel.GetFeedsCallback() {
+    public void showFeeds(final FragmentFeeds fragment, String flag, String limit){
+    modelGames.getFeeds(flag,limit,new GamesModel.GetFeedsCallback() {
             @Override
             public void onGet() {
                 fragment.setList(modelGames.feedList);
@@ -83,7 +83,8 @@ public class MainPresenter {
         model.getProfileGames(new UserInfoModel.GetProfileGamesCallback() {
             @Override
             public void onGet() {
-                fragment.setList(model.profileNowGameList);
+                fragment.setNowList(model.profileNowGameList);
+                fragment.setFutureList(model.profileFutureGameList);
             }
         });
     }

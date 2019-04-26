@@ -6,10 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.game.xogame.R;
 import com.game.xogame.adapter.FeedsAdapter;
 import com.game.xogame.adapter.RatingAdapter;
 import com.game.xogame.api.ApiService;
@@ -29,12 +31,13 @@ public class RatingActivity extends AppCompatActivity {
     private ApiService api;
     private RatingPresenter presenter;
 
-    RatingAdapter adapter;
+    private RatingAdapter adapter;
     private LinearLayout load;
     private ListView listView;
     private SwipeRefreshLayout pullToRefresh;
     private RelativeLayout empty;
     private Button find;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class RatingActivity extends AppCompatActivity {
         presenter = new RatingPresenter(gamesModel);
         presenter.attachView(this);
         init();
+        presenter.showRating();
     }
 
     public void init(){
@@ -53,9 +57,12 @@ public class RatingActivity extends AppCompatActivity {
         listView = findViewById(R.id.gamelist);
         empty = findViewById(R.id.empty);
         find = findViewById(R.id.imageButton);
+        back = findViewById(R.id.imageView1);
         pullToRefresh = findViewById(R.id.swiperefresh);
         final List<Rating> list = new LinkedList<>();
         adapter = new RatingAdapter(this,list);
+
+
 
         find.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +81,13 @@ public class RatingActivity extends AppCompatActivity {
                 presenter.showRating();
                 adapter.notifyDataSetChanged();
                 pullToRefresh.setRefreshing(false);
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
 

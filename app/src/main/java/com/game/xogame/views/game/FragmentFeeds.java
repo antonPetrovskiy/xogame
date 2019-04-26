@@ -6,11 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -35,13 +38,17 @@ public class FragmentFeeds extends Fragment {
     private static MainPresenter presenter;
     private LinearLayout load;
     private ListView listView;
+    private ImageView sort;
+    private ImageView rating;
     private View rootView;
     static private Context context;
     static FeedsAdapter adapter;
     private SwipeRefreshLayout pullToRefresh;
-
+    private String flag = "false";
+    private int preLast;
     private RelativeLayout empty;
     private Button find;
+    private List<Feed> listFeeds = new LinkedList<>();
 
     public FragmentFeeds() {
 
@@ -58,9 +65,8 @@ public class FragmentFeeds extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_feeds, container, false);
-
         init();
-        presenter.showFeeds(this);
+        presenter.showFeeds(this,flag,"0");
 
         return rootView;
     }
@@ -70,10 +76,38 @@ public class FragmentFeeds extends Fragment {
         listView = rootView.findViewById(R.id.gamelist);
         empty = rootView.findViewById(R.id.empty);
         find = rootView.findViewById(R.id.imageButton);
+        sort = rootView.findViewById(R.id.imageView1);
+        rating = rootView.findViewById(R.id.imageView2);
         pullToRefresh = rootView.findViewById(R.id.swiperefresh);
         api = RetroClient.getApiService();
-        final List<Feed> list = new LinkedList<>();
-        adapter = new FeedsAdapter(context,list);
+
+
+        rating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, RatingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        sort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(flag.equals("false")){
+                    flag = "true";
+                    sort.setImageResource(R.drawable.feed_type_used);
+                    listFeeds = new LinkedList<>();
+                    adapter = null;
+                    presenter.showFeeds(FragmentFeeds.this,flag,"0");
+                }else{
+                    flag = "false";
+                    sort.setImageResource(R.drawable.feed_type);
+                    listFeeds = new LinkedList<>();
+                    adapter = null;
+                    presenter.showFeeds(FragmentFeeds.this,flag,"0");
+                }
+            }
+        });
 
         find.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,23 +120,65 @@ public class FragmentFeeds extends Fragment {
 
             @Override
             public void onRefresh() {
-                presenter.showFeeds(FragmentFeeds.this);
-                adapter.notifyDataSetChanged();
+                listFeeds = new LinkedList<>();
+                adapter = null;
+                presenter.showFeeds(FragmentFeeds.this,flag,"0");
                 pullToRefresh.setRefreshing(false);
             }
         });
 
     }
 
-    public void setList(List<Feed> list){
-        adapter = new FeedsAdapter(context, list);
-        listView.setAdapter(adapter);
+
+
+    public void setList(final List<Feed> list){
+        if(list.size()>0)
+            Log.i("LOG_scroll" , list.get(list.size()-1).getFeedId()+"");
+        listFeeds.addAll(list);
+        if (adapter == null) {
+            adapter = new FeedsAdapter(context, listFeeds);
+            listView.setAdapter(adapter);
+        } else {
+            adapter.notifyDataSetChanged();
+        }
+
+
+        //adapter.notifyDataSetChanged();
+
+
+
+
+
         load.setVisibility(View.GONE);
-        if(list.size()==0) {
+        if(listFeeds.size()==0) {
             empty.setVisibility(View.VISIBLE);
         }else{
             empty.setVisibility(View.GONE);
         }
+
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                final int lastItem = firstVisibleItem + visibleItemCount;
+                if(lastItem == totalItemCount)
+                {
+                    //Log.i("LOG_scroll" , "not last  "+list.get(list.size()-1).getFeedId());
+                    if(preLast!=lastItem)
+                    {
+                        Log.i("LOG_scroll" , "last");
+                        //to avoid multiple calls for last item
+                        if(list.size()>0)
+                            presenter.showFeeds(FragmentFeeds.this,flag, (Integer.parseInt(list.get(list.size()-1).getFeedId())-1)+"");
+                        preLast = lastItem;
+                    }
+                }
+            }
+        });
     }
 
 }

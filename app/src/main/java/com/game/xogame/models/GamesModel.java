@@ -27,7 +27,8 @@ public class GamesModel {
     private ApiService api;
     private Context context;
     private String id;
-
+    private String flag;
+    private String limit;
     public List<Game> gameList;
     public List<Feed> feedList;
 
@@ -218,9 +219,11 @@ public class GamesModel {
     }
 
 
-    public void getFeeds(GamesModel.GetFeedsCallback callback) {
+    public void getFeeds(String flag,String limit,GamesModel.GetFeedsCallback callback) {
         GamesModel.GetFeedsTask getFeedsTask = new GamesModel.GetFeedsTask(callback);
         getFeedsTask.execute();
+        this.flag = flag;
+        this.limit = limit;
     }
     public interface GetFeedsCallback {
         void onGet();
@@ -237,7 +240,7 @@ public class GamesModel {
         protected Void doInBackground(ContentValues... params) {
 
             if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
-                Call<FeedCallback> call = api.getFullFeeds(id);
+                Call<FeedCallback> call = api.getFullFeeds(id,flag,limit);
                 call.enqueue(new Callback<FeedCallback>() {
                     @Override
                     public void onResponse(Call<FeedCallback> call, Response<FeedCallback> response) {

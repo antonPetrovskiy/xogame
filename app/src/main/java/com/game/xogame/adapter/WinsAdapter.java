@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.game.xogame.R;
@@ -41,7 +42,7 @@ public class WinsAdapter extends ArrayAdapter<Game> {
         final WinsAdapter.ViewHolder vh;
         if (convertView == null) {
             View view = mInflater.inflate(R.layout.layout_mywins, parent, false);
-            vh = WinsAdapter.ViewHolder.create((LinearLayout) view);
+            vh = WinsAdapter.ViewHolder.create((RelativeLayout) view);
             view.setTag(vh);
         } else {
             vh = (WinsAdapter.ViewHolder) convertView.getTag();
@@ -52,8 +53,8 @@ public class WinsAdapter extends ArrayAdapter<Game> {
 
         vh.textViewName1.setText(item.getTitle());
         vh.textViewName2.setText(item.getReward()+" ₴");
-        vh.textViewTasks.setText(item.getEnddate());
-        vh.textViewDate.setText("1/"+item.getFollowers());
+        vh.textViewTasks.setText(item.getTitle()+"");
+        vh.textViewDate.setText(item.getEnddate()+"");
         vh.rootView.setClipToOutline(true);
         Picasso.with(context).load(item.getLogo()+"").placeholder(R.drawable.unknow).error(R.drawable.unknow).into(vh.imageView);
 
@@ -61,14 +62,14 @@ public class WinsAdapter extends ArrayAdapter<Game> {
     }
 
     private static class ViewHolder {
-        public final LinearLayout rootView;
+        public final RelativeLayout rootView;
         public final ImageView imageView;
         public final TextView textViewName1;
         public final TextView textViewName2;
         public final TextView textViewTasks;
         public final TextView textViewDate;
 
-        private ViewHolder(LinearLayout rootView, ImageView imageView, TextView textViewName1, TextView textViewName2, TextView textViewTasks, TextView textViewDate) {
+        private ViewHolder(RelativeLayout rootView, ImageView imageView, TextView textViewName1, TextView textViewName2, TextView textViewTasks, TextView textViewDate) {
             this.rootView = rootView;
             this.imageView = imageView;
             this.textViewName1 = textViewName1;
@@ -77,7 +78,7 @@ public class WinsAdapter extends ArrayAdapter<Game> {
             this.textViewDate = textViewDate;
         }
 
-        public static WinsAdapter.ViewHolder create(LinearLayout rootView) {
+        public static WinsAdapter.ViewHolder create(RelativeLayout rootView) {
             ImageView imageView = (ImageView) rootView.findViewById(R.id.imageView);
             TextView textViewName1 = (TextView) rootView.findViewById(R.id.name1);
             TextView textViewName2 = (TextView) rootView.findViewById(R.id.name2);

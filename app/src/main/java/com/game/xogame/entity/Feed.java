@@ -7,7 +7,7 @@ public class Feed {
 
     @SerializedName("postId")
     @Expose
-    private String feedTaskId;
+    private String feedId;
     @SerializedName("company")
     @Expose
     private String company;
@@ -51,8 +51,8 @@ public class Feed {
     @Expose
     private String feedLikes;
 
-    public String getFeedTaskId() {
-        return feedTaskId;
+    public String getFeedId() {
+        return feedId;
     }
 
     public String getTitle() {

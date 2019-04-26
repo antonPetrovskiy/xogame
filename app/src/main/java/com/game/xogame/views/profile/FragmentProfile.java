@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -263,37 +265,33 @@ public class FragmentProfile extends Fragment {
         }
     }
 
-    public void setList(List<Game> list){
-//        List<Game> l1 = new ArrayList<>();
-//        for(int i = 0; i < list.size(); i ++){
-//            if(list.get(i).getSubscribe().equals("1")){
-//                l1.add(list.get(i));
-//            }
-//        }
-//
+    public void setNowList(List<Game> list){
         if(adapter1==null) {
             adapter1 = new GamesAdapter(context, list);
         }else{
             adapter1.notifyDataSetChanged();
         }
         list1.setAdapter(adapter1);
+        setListViewHeightBasedOnChildren(list1);
         load.setVisibility(View.GONE);
         if(list.size()==0) {
             empty.setVisibility(View.VISIBLE);
         }else{
             empty.setVisibility(View.GONE);
         }
-//        size1 = list.size();
-//
-//
-//        if(adapter2==null) {
-//            adapter2 = new GamesAdapter(context, l1);
-//        }else{
-//            adapter2.notifyDataSetChanged();
-//        }
-//        list2.setAdapter(adapter2);
-//        size2 = l1.size();
-//
+
+    }
+
+    public void setFutureList(List<Game> list){
+        if(adapter2==null) {
+            adapter2 = new GamesAdapter(context, list);
+        }else{
+            adapter2.notifyDataSetChanged();
+        }
+        list2.setAdapter(adapter2);
+        setListViewHeightBasedOnChildren(list2);
+
+
 
     }
 
@@ -341,7 +339,7 @@ public class FragmentProfile extends Fragment {
     }
 
     public void setPhoto(String s){
-        Picasso.with(context).load(s).placeholder(R.drawable.camera_background).error(R.drawable.camera_background).into(photo_view);
+        Picasso.with(context).load(s).placeholder(R.drawable.camera_background).centerCrop().resize(1024,1024).error(R.drawable.camera_background).into(photo_view);
     }
 
     public void setName(String s){
@@ -352,5 +350,35 @@ public class FragmentProfile extends Fragment {
         nickName.setText(s);
     }
 
+    public static void setListViewHeightBasedOnChildren(ListView listView)
+    {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight=0;
+        View view = null;
+
+        for (int i = 0; i < listAdapter.getCount(); i++)
+        {
+            view = listAdapter.getView(i, view, listView);
+
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + ((listView.getDividerHeight()) * (listAdapter.getCount()));
+
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+
+    }
 
 }

@@ -89,7 +89,7 @@
                     android:gravity="center_vertical"
                     android:textAlignment="viewEnd"
                     android:fontFamily="@font/roboto_regular"
-                    android:textColor="#2F3542"
+                    android:textColor="#31BB58"
                     android:textSize="10sp"
                     android:text="TextView" />
 

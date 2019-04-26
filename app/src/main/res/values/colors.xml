@@ -5,31 +5,26 @@
     <color name="colorAccent">#DFEEDB</color>
 
 
-    <color name="bright_pink">#FF007F</color>
-    <color name="red">#FF0000</color>
-    <color name="orange">#FF7F00</color>
-    <color name="yellow">#FFFF00</color>
-    <color name="chartreuse">#7FFF00</color>
-    <color name="green">#00FF00</color>
-    <color name="spring_green">#00FF7F</color>
-    <color name="cyan">#00FFFF</color>
-    <color name="azure">#007FFF</color>
-    <color name="blue">#0000FF</color>
-    <color name="violet">#7F00FF</color>
-    <color name="magenta">#FF00FF</color>
+    <color name="color1">#FFC312</color>
+    <color name="color2">#F79F1F</color>
+    <color name="color3">#EE5A24</color>
+    <color name="color4">#EA2027</color>
+    <color name="color5">#C4E538</color>
+    <color name="color6">#A3CB38</color>
+    <color name="color7">#009432</color>
+    <color name="color8">#006266</color>
+    <color name="color9">#12CBC4</color>
+    <color name="color10">#1289A7</color>
+    <color name="color11">#0652DD</color>
+    <color name="color12">#1B1464</color>
+    <color name="color13">#FDA7DF</color>
+    <color name="color14">#D980FA</color>
+    <color name="color15">#9980FA</color>
+    <color name="color16">#5758BB</color>
+    <color name="color17">#ED4C67</color>
+    <color name="color18">#833471</color>
+    <color name="color19">#B53471</color>
+    <color name="color20">#6F1E51</color>
 
-    <array name="rainbow">
-        <item>@color/bright_pink</item>
-        <item>@color/red</item>
-        <item>@color/orange</item>
-        <item>@color/yellow</item>
-        <item>@color/chartreuse</item>
-        <item>@color/green</item>
-        <item>@color/spring_green</item>
-        <item>@color/cyan</item>
-        <item>@color/azure</item>
-        <item>@color/blue</item>
-        <item>@color/violet</item>
-        <item>@color/magenta</item>
-    </array>
+
 </resources>

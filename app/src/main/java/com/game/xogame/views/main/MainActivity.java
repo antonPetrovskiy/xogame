@@ -2,6 +2,7 @@ package com.game.xogame.views.main;
 
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -100,6 +101,9 @@ public class MainActivity extends AppCompatActivity{
                     button1.setSpeed(-6f);
                     button1.playAnimation();
                 }
+                button4.setColorFilter(Color.parseColor("#ffffff"));
+                button5.setColorFilter(Color.parseColor("#9EA4AC"));
+                button6.setColorFilter(Color.parseColor("#9EA4AC"));
                 mViewPager.setCurrentItem(0);
                 currentItem = 1;
             }
@@ -124,6 +128,9 @@ public class MainActivity extends AppCompatActivity{
                     button2.setSpeed(-6f);
                     button2.playAnimation();
                 }
+                button5.setColorFilter(Color.parseColor("#ffffff"));
+                button4.setColorFilter(Color.parseColor("#9EA4AC"));
+                button6.setColorFilter(Color.parseColor("#9EA4AC"));
                 mViewPager.setCurrentItem(1);
                 currentItem = 2;
             }
@@ -147,6 +154,9 @@ public class MainActivity extends AppCompatActivity{
                 if(currentItem==3){
 
                 }
+                button6.setColorFilter(Color.parseColor("#ffffff"));
+                button4.setColorFilter(Color.parseColor("#9EA4AC"));
+                button5.setColorFilter(Color.parseColor("#9EA4AC"));
                 mViewPager.setCurrentItem(2);
                 currentItem = 3;
             }
