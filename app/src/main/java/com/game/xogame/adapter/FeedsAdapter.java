@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.game.xogame.R;
 import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
@@ -95,7 +96,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
             vh.imageViewPhoto.setImageResource(getPlaceholder(item.getCompany()));
 
 
-        //Glide.with(context).load(item.getTaskPhotoUrl()).thumbnail(0.3f).into(vh.imageViewPhoto);
+
         Picasso.with(context).load(item.getLogoSponsorUrl()+"").placeholder(getPlaceholder(item.getCompany())).error(getPlaceholder(item.getCompany())).into(vh.imageViewCompany, new com.squareup.picasso.Callback() {
             @Override
             public void onSuccess() {
@@ -118,17 +119,14 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
 
             }
         });
-        ExifInterface ei = null;
-        try {
-            ei = new ExifInterface(item.getTaskPhotoUrl());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
-                ExifInterface.ORIENTATION_UNDEFINED);
-        Log.i("LOG_orientation", "got orientation " + orientation);
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.unknow);
+        requestOptions.error(R.drawable.unknow);
+        requestOptions.override(1024,1024);
+        requestOptions.centerCrop();
 
-        Picasso.with(context).load(item.getTaskPhotoUrl()+"").centerCrop().resize(1024,1024).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(vh.imageViewPhoto);
+        Glide.with(context).setDefaultRequestOptions(requestOptions).load(item.getTaskPhotoUrl()).thumbnail(0.3f).into(vh.imageViewPhoto);
+        //Picasso.with(context).load(item.getTaskPhotoUrl()+"").centerCrop().resize(1024,1024).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(vh.imageViewPhoto);
         if(item.getUserLike().equals("0")){
             vh.imageViewLike.setImageResource(R.drawable.like_unused);
             vh.imageViewLike.setTag("unused");

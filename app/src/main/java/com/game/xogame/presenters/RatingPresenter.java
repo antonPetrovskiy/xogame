@@ -26,11 +26,11 @@ public class RatingPresenter {
     }
 
 
-    public void showGameRating() {
-        model.getGameRating(new RatingModel.GetGameRatingCallback() {
+    public void showGameRating(String gameid) {
+        model.getGameRating("1", new RatingModel.GetGameRatingCallback() {
             @Override
             public void onGet() {
-                //view.setList(model.game);
+                viewGame.setGameViews(model.ratingGame);
             }
         });
     }

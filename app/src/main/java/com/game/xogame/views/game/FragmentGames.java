@@ -104,6 +104,7 @@ public class FragmentGames extends Fragment {
                 intent.putExtra("TIME", l.get(position).getStarttime()+"-"+l.get(position).getEndtime());
                 intent.putExtra("MONEY", l.get(position).getReward());
                 intent.putExtra("PEOPLE", l.get(position).getFollowers());
+                intent.putExtra("STATISTIC", "false");
                 startActivity(intent);
             }
         });

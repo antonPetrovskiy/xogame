@@ -68,7 +68,6 @@ public class GameInfoActivity extends AppCompatActivity {
         title = findViewById(R.id.textView1);
         description = findViewById(R.id.textView30);
         name = findViewById(R.id.textView0);
-
         date = findViewById(R.id.textView28);
         time = findViewById(R.id.textView32);
         tasks = findViewById(R.id.textView29);
@@ -79,12 +78,10 @@ public class GameInfoActivity extends AppCompatActivity {
         background = findViewById(R.id.imageView4);
 
         final Bundle extras = getIntent().getExtras();
-
         gameid = extras.getString("GAMEID");
         title.setText(extras.getString("TITLE")+"");
         description.setText(extras.getString("DESCRIPTION")+"");
         name.setText(extras.getString("NAME")+"");
-
         date.setText(extras.getString("DATE")+"");
         time.setText(extras.getString("TIME")+"");
         tasks.setText(extras.getString("TASKS")+" заданий");
@@ -94,15 +91,25 @@ public class GameInfoActivity extends AppCompatActivity {
         Picasso.with(this).load(extras.getString("LOGO")).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(logo);
         Picasso.with(this).load(extras.getString("BACKGROUND")).placeholder(R.drawable.unknow_wide).error(R.drawable.unknow_wide).into(background);
 
-        if(extras.getString("SUBSCRIBE").equals("0")){
-            subscribe.setText("Участвовать");
-            subscribe.setBackgroundResource(R.drawable.regbtn);
-            subscribe.setTextColor(Color.parseColor("#ffffff"));
-        }else{
+        if(extras.getString("STATISTIC").equals("true")){
+            statistic.setVisibility(View.VISIBLE);
             subscribe.setText("Отказатся");
             subscribe.setBackgroundResource(R.drawable.registration_oval_button);
             subscribe.setTextColor(Color.parseColor("#F05A23"));
+        }else{
+            statistic.setVisibility(View.GONE);
+            if(extras.getString("SUBSCRIBE").equals("0")){
+                subscribe.setText("Участвовать");
+                subscribe.setBackgroundResource(R.drawable.regbtn);
+                subscribe.setTextColor(Color.parseColor("#ffffff"));
+            }else{
+                subscribe.setText("Отказатся");
+                subscribe.setBackgroundResource(R.drawable.registration_oval_button);
+                subscribe.setTextColor(Color.parseColor("#F05A23"));
+            }
         }
+
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +122,7 @@ public class GameInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GameInfoActivity.this, RatingGameActivity.class);
+                intent.putExtra("gameid",gameid);
                 startActivity(intent);
             }
         });

@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                         showToast("Нет подключения к интернету");
                     }
                 }else{
-                    showToast("Номер не верный "+ccp.getFullNumber());
+                    showToast("Номер не верный");
                 }
 
             }

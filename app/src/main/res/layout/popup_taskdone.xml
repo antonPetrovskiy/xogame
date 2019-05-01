@@ -59,14 +59,14 @@
             app:layout_constraintTop_toBottomOf="@+id/textView1"
             app:srcCompat="@drawable/king"
             android:scaleType="centerCrop"
-            app:cardElevation="10dp"
+            app:cardElevation="2dp"
             app:cardCornerRadius="40dp"
             app:cardBackgroundColor="#DFE4EA">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imageView"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:clipToPadding="false"
                 android:scaleType="centerCrop"

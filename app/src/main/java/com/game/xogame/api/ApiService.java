@@ -68,6 +68,12 @@ public interface ApiService {
     Call<RatingCallback> getFullRating(@Field("token") String token);
 
     @FormUrlEncoded
+    @POST("game/rate/")
+    Call<RatingCallback> getGameRating(@Field("token") String token,
+                                       @Field("gameid") String gameid);
+
+
+    @FormUrlEncoded
     @POST("game/lenta/")
     Call<FeedCallback> getFullFeeds(@Field("token") String token,
                                     @Field("flag") String flag,

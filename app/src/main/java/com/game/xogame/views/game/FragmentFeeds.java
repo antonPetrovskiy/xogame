@@ -141,14 +141,6 @@ public class FragmentFeeds extends Fragment {
         } else {
             adapter.notifyDataSetChanged();
         }
-
-
-        //adapter.notifyDataSetChanged();
-
-
-
-
-
         load.setVisibility(View.GONE);
         if(listFeeds.size()==0) {
             empty.setVisibility(View.VISIBLE);

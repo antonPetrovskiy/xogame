@@ -8,192 +8,729 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/game"
+        android:visibility="visible"
         android:layout_width="match_parent"
-        android:layout_height="81dp"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.CardView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="12dp"
-            android:clipToPadding="false"
-            android:elevation="18dp"
-            android:scaleType="centerCrop"
-            app:cardElevation="2dp"
-            app:cardCornerRadius="30dp"
-            app:cardBackgroundColor="#DFE4EA">
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imageView"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:clipToPadding="false"
-                android:scaleType="centerCrop"
-                app:riv_oval="true" />
-        </android.support.v7.widget.CardView>
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
+            android:id="@+id/linearLayout9"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="13dp"
-            android:orientation="vertical">
+            android:layout_height="81dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
 
+            <android.support.v7.widget.CardView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:clipToPadding="false"
+                android:elevation="18dp"
+                android:scaleType="centerCrop"
+                app:cardBackgroundColor="#DFE4EA"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="2dp">
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:fontFamily="@font/roboto_medium"
-                android:text="TextView"
-                android:textColor="#2F3542"
-                android:textSize="12sp" />
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:clipToPadding="false"
+                    android:scaleType="centerCrop"
+                    app:riv_oval="true" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:fontFamily="@font/roboto_regular"
-                android:textColor="#57606F"
-                android:textSize="12sp"
-                android:text="TextView" />
+                <TextView
+                    android:id="@+id/textHolder1"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center_vertical"
+                    android:textSize="14sp"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"/>
+            </android.support.v7.widget.CardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_marginLeft="13dp"
+                android:orientation="vertical">
+
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/textView1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/roboto_medium"
                     android:gravity="center_vertical"
-                    android:fontFamily="@font/roboto_regular"
                     android:text="TextView"
-                    android:textColor="#9EA4AC"
-                    android:textSize="10sp" />
+                    android:textColor="#2F3542"
+                    android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/textView2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="24dp"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:textAlignment="viewEnd"
                     android:fontFamily="@font/roboto_regular"
-                    android:textColor="#31BB58"
-                    android:textSize="10sp"
-                    android:text="TextView" />
+                    android:gravity="center_vertical"
+                    android:text="TextView"
+                    android:textColor="#57606F"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center_vertical"
+                        android:text="TextView"
+                        android:textColor="#9EA4AC"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="24dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="end"
+                        android:text="активно"
+                        android:textAlignment="viewEnd"
+                        android:textColor="#31BB58"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout9">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="#586575"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="#586575"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="#586575"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:id="@+id/linearLayout99"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout10">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:text="Участники"
+                android:textAlignment="center"
+                android:textColor="#ABB2BA"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:text="Задания"
+                android:textAlignment="center"
+                android:textColor="#ABB2BA"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:text="Награда"
+                android:textAlignment="center"
+                android:textColor="#ABB2BA"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/game">
+
+        <LinearLayout
+            android:id="@+id/layUser1"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:clipToPadding="false"
+                android:elevation="18dp"
+                android:scaleType="centerCrop"
+                app:cardBackgroundColor="#DFE4EA"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="2dp">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:clipToPadding="false"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/textHolder2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp" />
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center_vertical"
+                        android:text="TextView"
+                        android:textColor="#2F3542"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="12dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="TextView"
+                        android:textAlignment="viewEnd"
+                        android:textColor="#2F3542"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center_vertical"
+                    android:text="TextView"
+                    android:textColor="#ABB2BA"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <ProgressBar
+                        android:id="@+id/bar1"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="9"
+                        android:adjustViewBounds="true"
+                        android:max="100"
+                        android:progressDrawable="@drawable/progress" />
+
+                    <TextView
+                        android:id="@+id/textView14"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="12dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="end"
+                        android:text="19/20"
+                        android:textAlignment="viewEnd"
+                        android:textColor="#80586575"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layUser2"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:background="#20586575"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:clipToPadding="false"
+                android:elevation="18dp"
+                android:scaleType="centerCrop"
+                app:cardBackgroundColor="#DFE4EA"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="2dp">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/imageView12"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:clipToPadding="false"
+                    android:scaleType="centerCrop"
+                    app:riv_oval="true" />
+
+                <TextView
+                    android:id="@+id/textHolder3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp" />
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center_vertical"
+                        android:text="TextView"
+                        android:textColor="#2F3542"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="12dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="end"
+                        android:text="TextView"
+                        android:textAlignment="viewEnd"
+                        android:textColor="#2F3542"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center_vertical"
+                    android:text="TextView"
+                    android:textColor="#ABB2BA"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <ProgressBar
+                        android:id="@+id/bar2"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="9"
+                        android:adjustViewBounds="true"
+                        android:max="100"
+                        android:progressDrawable="@drawable/progress" />
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="12dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="end"
+                        android:text="19/20"
+                        android:textAlignment="viewEnd"
+                        android:textColor="#80586575"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layUser3"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:clipToPadding="false"
+                android:elevation="18dp"
+                android:scaleType="centerCrop"
+                app:cardBackgroundColor="#DFE4EA"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="2dp">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/imageView13"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:clipToPadding="false"
+                    android:scaleType="centerCrop"
+                    app:riv_oval="true" />
+
+                <TextView
+                    android:id="@+id/textHolder4"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp" />
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView19"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center_vertical"
+                        android:text="TextView"
+                        android:textColor="#2F3542"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/textView20"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="12dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="end"
+                        android:text="TextView"
+                        android:textAlignment="viewEnd"
+                        android:textColor="#2F3542"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center_vertical"
+                    android:text="TextView"
+                    android:textColor="#ABB2BA"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <ProgressBar
+                        android:id="@+id/bar3"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="9"
+                        android:adjustViewBounds="true"
+                        android:max="100"
+                        android:progressDrawable="@drawable/progress" />
+
+                    <TextView
+                        android:id="@+id/textView22"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="12dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="end"
+                        android:text="19/20"
+                        android:textAlignment="viewEnd"
+                        android:textColor="#80586575"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layUser4"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:background="#20586575"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:clipToPadding="false"
+                android:scaleType="centerCrop"
+                app:cardBackgroundColor="#DFE4EA"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="2dp">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/imageView14"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:clipToPadding="false"
+                    android:scaleType="centerCrop"
+                    app:riv_oval="true" />
+
+                <TextView
+                    android:id="@+id/textHolder5"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp" />
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="12sp"
+                android:layout_marginBottom="12dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView23"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center_vertical"
+                        android:text="TextView"
+                        android:textColor="#2F3542"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/textView24"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="12dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="end"
+                        android:text="TextView"
+                        android:textAlignment="viewEnd"
+                        android:textColor="#2F3542"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center_vertical"
+                    android:text="TextView"
+                    android:textColor="#ABB2BA"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <ProgressBar
+                        android:id="@+id/bar4"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="9"
+                        android:adjustViewBounds="true"
+                        android:max="100"
+                        android:progressDrawable="@drawable/progress" />
+
+                    <TextView
+                        android:id="@+id/textView26"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="12dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="end"
+                        android:text="19/20"
+                        android:textAlignment="viewEnd"
+                        android:textColor="#80586575"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:fontFamily="@font/roboto_medium"
-            android:gravity="center_vertical"
-            android:text="TextView"
-            android:textColor="#586575"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/roboto_medium"
-            android:gravity="center_vertical"
-            android:text="TextView"
-            android:textAlignment="center"
-            android:textColor="#586575"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:fontFamily="@font/roboto_medium"
-            android:gravity="center_vertical"
-            android:text="TextView"
-            android:textColor="#586575"
-            android:textSize="12sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:fontFamily="@font/roboto_medium"
-            android:gravity="center_vertical"
-            android:text="Участники"
-            android:textColor="#ABB2BA"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/roboto_medium"
-            android:gravity="center_vertical"
-            android:text="Задания"
-            android:textAlignment="center"
-            android:textColor="#ABB2BA"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:fontFamily="@font/roboto_medium"
-            android:gravity="center_vertical"
-            android:text="Награда"
-            android:textColor="#ABB2BA"
-            android:textSize="12sp" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_marginTop="13dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/profile_line_grey" />
 
 
 </LinearLayout>

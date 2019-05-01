@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="27dp"
-        android:text="Ваш никнейм"
+        android:text="Ваш никнейм (только английский)"
         android:textColor="#586575"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />

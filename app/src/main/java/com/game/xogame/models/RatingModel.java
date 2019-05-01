@@ -24,7 +24,9 @@ public class RatingModel {
     private ApiService api;
     private Context context;
     public List<Rating> ratingList;
+    public Rating ratingGame;
     private String id;
+    private String gameid;
 
     public RatingModel(ApiService a, Context c){
         api = a;
@@ -94,8 +96,9 @@ public class RatingModel {
         }
     }
 
-    public void getGameRating(RatingModel.GetGameRatingCallback callback) {
+    public void getGameRating(String gameid, RatingModel.GetGameRatingCallback callback) {
         RatingModel.GetGameRatingTask getGameRatingTask = new RatingModel.GetGameRatingTask(callback);
+        this.gameid = gameid;
         getGameRatingTask.execute();
     }
     public interface GetGameRatingCallback {
@@ -113,15 +116,17 @@ public class RatingModel {
         protected Void doInBackground(ContentValues... params) {
 
             if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
-                Call<RatingCallback> call = api.getFullRating(id);
+                Call<RatingCallback> call = api.getGameRating(id,gameid);
                 call.enqueue(new Callback<RatingCallback>() {
                     @Override
                     public void onResponse(Call<RatingCallback> call, Response<RatingCallback> response) {
                         if (response.isSuccessful()) {
                             Log.i("LOG_rating" , "Success(error): " + response.body().getStatus());
                             if(response.body().getStatus().equals("success")){
-                                ratingList = response.body().getRating();
-                                callback.onGet();
+                                if(response.body().getRating().size()!=0) {
+                                    ratingGame = response.body().getRating().get(0);
+                                    callback.onGet();
+                                }
                             }
                         } else {
                             String jObjError = null;

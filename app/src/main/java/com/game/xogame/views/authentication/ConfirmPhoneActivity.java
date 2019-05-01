@@ -110,7 +110,7 @@ public class ConfirmPhoneActivity extends AppCompatActivity {
     }
 
     public void startTimer(){
-        new CountDownTimer(10000, 1000) {
+        new CountDownTimer(60000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 time.setText((millisUntilFinished / 1000)+"");

@@ -31,8 +31,8 @@ public class EditInfoPresenter {
         model.editInfo(cv, new LoginModel.EditInfoCallback() {
             @Override
             public void onEdit() {
-                if(model.getError().equals("Bad nickname or already used")){
-                    viewEditInfo.showToast("Такой никнейм уже используется");
+                if(model.getStatus().equals("error")){
+                    viewEditInfo.showToast(model.getError()+"");
                 }else{
                     viewEditInfo.showToast("Данные сохранены");
                     viewEditInfo.toMainActivity();

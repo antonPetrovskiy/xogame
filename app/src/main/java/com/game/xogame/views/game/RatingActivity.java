@@ -1,6 +1,7 @@
 package com.game.xogame.views.game;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,7 +44,7 @@ public class RatingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating);
-
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         api = RetroClient.getApiService();
         RatingModel gamesModel = new RatingModel(api, getApplicationContext());
         presenter = new RatingPresenter(gamesModel);

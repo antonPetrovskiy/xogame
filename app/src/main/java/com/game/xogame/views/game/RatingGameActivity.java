@@ -1,14 +1,18 @@
 package com.game.xogame.views.game;
 
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.game.xogame.R;
 import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
+import com.game.xogame.entity.Rating;
 import com.game.xogame.models.RatingModel;
 import com.game.xogame.presenters.MyGamesPresenter;
 import com.game.xogame.presenters.RatingPresenter;
@@ -17,6 +21,12 @@ import com.squareup.picasso.Picasso;
 public class RatingGameActivity extends AppCompatActivity {
     private ApiService api;
     private RatingPresenter presenter;
+    private LinearLayout load;
+    private LinearLayout game;
+    private LinearLayout user1;
+    private LinearLayout user2;
+    private LinearLayout user3;
+    private LinearLayout user4;
 
     private ImageView photo;
     private TextView sponsor;
@@ -26,11 +36,35 @@ public class RatingGameActivity extends AppCompatActivity {
     private TextView people;
     private TextView tasks;
     private TextView prise;
+    private TextView placeholder;
     private TextView placeholder1;
     private TextView placeholder2;
     private TextView placeholder3;
     private TextView placeholder4;
-    private TextView placeholder5;
+    private ImageView photo1;
+    private ImageView photo2;
+    private ImageView photo3;
+    private ImageView photo4;
+    private TextView name1;
+    private TextView name2;
+    private TextView name3;
+    private TextView name4;
+    private TextView nickname1;
+    private TextView nickname2;
+    private TextView nickname3;
+    private TextView nickname4;
+    private TextView place1;
+    private TextView place2;
+    private TextView place3;
+    private TextView place4;
+    private TextView task1;
+    private TextView task2;
+    private TextView task3;
+    private TextView task4;
+    private ProgressBar bar1;
+    private ProgressBar bar2;
+    private ProgressBar bar3;
+    private ProgressBar bar4;
 
     ImageView back;
 
@@ -38,14 +72,22 @@ public class RatingGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_game);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         api = RetroClient.getApiService();
         RatingModel gamesModel = new RatingModel(api, getApplicationContext());
         presenter = new RatingPresenter(gamesModel);
         presenter.attacRatingGamehView(this);
         init();
+        presenter.showGameRating(getIntent().getStringExtra("gameid"));
     }
 
     public void init(){
+        load = findViewById(R.id.targetView);
+        game = findViewById(R.id.game);
+        user1 = findViewById(R.id.layUser1);
+        user2 = findViewById(R.id.layUser2);
+        user3 = findViewById(R.id.layUser3);
+        user4 = findViewById(R.id.layUser4);
         sponsor = findViewById(R.id.textView1);
         title = findViewById(R.id.textView2);
         time = findViewById(R.id.textView3);
@@ -54,12 +96,35 @@ public class RatingGameActivity extends AppCompatActivity {
         tasks = findViewById(R.id.textView6);
         prise = findViewById(R.id.textView7);
         photo = findViewById(R.id.imageView);
-        placeholder1 = findViewById(R.id.textHolder1);
-        placeholder2 = findViewById(R.id.textHolder2);
-        placeholder3 = findViewById(R.id.textHolder3);
-        placeholder4 = findViewById(R.id.textHolder4);
-        placeholder5 = findViewById(R.id.textHolder5);
-
+        placeholder = findViewById(R.id.textHolder1);
+        placeholder1 = findViewById(R.id.textHolder2);
+        placeholder2 = findViewById(R.id.textHolder3);
+        placeholder3 = findViewById(R.id.textHolder4);
+        placeholder4 = findViewById(R.id.textHolder5);
+        photo1 = findViewById(R.id.imageView11);
+        photo2 = findViewById(R.id.imageView12);
+        photo3 = findViewById(R.id.imageView13);
+        photo4 = findViewById(R.id.imageView14);
+        name1 = findViewById(R.id.textView11);
+        name2 = findViewById(R.id.textView15);
+        name3 = findViewById(R.id.textView19);
+        name4 = findViewById(R.id.textView23);
+        nickname1 = findViewById(R.id.textView13);
+        nickname2 = findViewById(R.id.textView17);
+        nickname3 = findViewById(R.id.textView21);
+        nickname4 = findViewById(R.id.textView25);
+        place1 = findViewById(R.id.textView12);
+        place2 = findViewById(R.id.textView16);
+        place3 = findViewById(R.id.textView20);
+        place4 = findViewById(R.id.textView24);
+        task1 = findViewById(R.id.textView14);
+        task2 = findViewById(R.id.textView18);
+        task3 = findViewById(R.id.textView22);
+        task4 = findViewById(R.id.textView26);
+        bar1 = findViewById(R.id.bar1);
+        bar2 = findViewById(R.id.bar2);
+        bar3 = findViewById(R.id.bar3);
+        bar4 = findViewById(R.id.bar4);
 
 
         back = findViewById(R.id.imageView0);
@@ -71,39 +136,141 @@ public class RatingGameActivity extends AppCompatActivity {
         });
     }
 
-    public void setGameViews(String photo, String sponsor, String title, String time, String active, String people, String tasks, String prise){
-        placeholder1.setText(sponsor.substring(0, 1));
-        this.photo.setImageResource(getPlaceholder(sponsor));
-        Picasso.with(this).load(photo+"").placeholder(getPlaceholder(sponsor)).error(getPlaceholder(sponsor)).into(this.photo, new com.squareup.picasso.Callback() {
+    public void setGameViews(Rating game){
+        this.game.setVisibility(View.VISIBLE);
+        load.setVisibility(View.GONE);
+        placeholder.setText(game.getCompany().substring(0, 1));
+        this.photo.setImageResource(getPlaceholder(game.getCompany()));
+        Picasso.with(this).load(game.getLogo()+"").placeholder(getPlaceholder(game.getCompany())).error(getPlaceholder(game.getCompany())).into(this.photo, new com.squareup.picasso.Callback() {
             @Override
             public void onSuccess() {
-                placeholder1.setText("");
+                placeholder.setText("");
             }
             @Override
             public void onError() {
 
             }
         });
+        this.sponsor.setText(game.getCompany()+"");
+        this.title.setText(game.getTitle()+"");
+        this.time.setText(game.getEnddate()+" " + game.getEndtime());
+        //this.active.setText(game.getActive()+"");
+        this.people.setText(game.getFollowers()+"");
+        this.tasks.setText(game.getTasks()+"");
+        this.prise.setText(game.getReward()+" uah");
 
-        this.sponsor.setText(sponsor+"");
-        this.title.setText(title+"");
-        this.time.setText(time+"");
-        this.active.setText(active+"");
-        this.people.setText(people+"");
-        this.tasks.setText(tasks+"");
-        this.prise.setText(prise+"");
+        if(game.getTop().size()>0){
+            this.user1.setVisibility(View.VISIBLE);
+            if(game.getTop().get(0).getName().length()!=0 ) {
+                this.placeholder1.setText(game.getTop().get(0).getName().substring(0, 1));
+            }else{
+                this.placeholder1.setText("a");
+            }
+            this.photo1.setImageResource(getPlaceholder(game.getTop().get(0).getNickname()));
+            Picasso.with(this).load(game.getTop().get(0).getPhoto()+"").placeholder(getPlaceholder(game.getTop().get(0).getNickname())).error(getPlaceholder(game.getTop().get(0).getNickname())).into(this.photo1, new com.squareup.picasso.Callback() {
+                @Override
+                public void onSuccess() {
+                    placeholder1.setText("");
+                }
+                @Override
+                public void onError() {
+
+                }
+            });
+            this.name1.setText(game.getTop().get(0).getName());
+            this.nickname1.setText(game.getTop().get(0).getNickname());
+            this.place1.setText(game.getTop().get(0).getPosition()+" место");
+            this.task1.setText(game.getTop().get(0).getComplited()+"/"+game.getTasks());
+            int n = 100/Integer.parseInt(game.getTasks());
+            n = n*Integer.parseInt(game.getTop().get(0).getComplited());
+            bar1.setProgress(n);
+        }
+
+        if(game.getTop().size()>1){
+            this.user2.setVisibility(View.VISIBLE);
+            if(game.getTop().get(1).getName().length()!=0 ) {
+                this.placeholder2.setText(game.getTop().get(1).getName().substring(0, 1));
+            }else{
+                this.placeholder2.setText("a");
+            }
+            this.photo2.setImageResource(getPlaceholder(game.getTop().get(1).getNickname()));
+            Picasso.with(this).load(game.getTop().get(1).getPhoto()+"").placeholder(getPlaceholder(game.getTop().get(1).getNickname())).error(getPlaceholder(game.getTop().get(1).getNickname())).into(this.photo2, new com.squareup.picasso.Callback() {
+                @Override
+                public void onSuccess() {
+                    placeholder2.setText("");
+                }
+                @Override
+                public void onError() {
+
+                }
+            });
+            this.name2.setText(game.getTop().get(1).getName());
+            this.nickname2.setText(game.getTop().get(1).getNickname());
+            this.place2.setText(game.getTop().get(1).getPosition()+" место");
+            this.task2.setText(game.getTop().get(1).getComplited()+"/"+game.getTasks());
+            int n = 100/Integer.parseInt(game.getTasks());
+            n = n*Integer.parseInt(game.getTop().get(1).getComplited());
+            bar2.setProgress(n);
+        }
+
+        if(game.getTop().size()>2){
+            this.user3.setVisibility(View.VISIBLE);
+            if(game.getTop().get(2).getName().length()!=0 ) {
+                this.placeholder3.setText(game.getTop().get(2).getName().substring(0, 1));
+            }else{
+                this.placeholder3.setText("a");
+            }
+            this.photo3.setImageResource(getPlaceholder(game.getTop().get(2).getNickname()));
+            Picasso.with(this).load(game.getTop().get(2).getPhoto()+"").placeholder(getPlaceholder(game.getTop().get(2).getNickname())).error(getPlaceholder(game.getTop().get(2).getNickname())).into(this.photo3, new com.squareup.picasso.Callback() {
+                @Override
+                public void onSuccess() {
+                    placeholder3.setText("");
+                }
+                @Override
+                public void onError() {
+
+                }
+            });
+            this.name3.setText(game.getTop().get(1).getName());
+            this.nickname3.setText(game.getTop().get(1).getNickname());
+            this.place3.setText(game.getTop().get(2).getPosition()+" место");
+            this.task3.setText(game.getTop().get(2).getComplited()+"/"+game.getTasks());
+            int n = 100/Integer.parseInt(game.getTasks());
+            n = n*Integer.parseInt(game.getTop().get(2).getComplited());
+            bar3.setProgress(n);
+        }
+
+        if(game.getTop().size()>3){
+            this.user4.setVisibility(View.VISIBLE);
+            if(game.getTop().get(3).getName().length()!=0 ) {
+                this.placeholder4.setText(game.getTop().get(3).getName().substring(0, 1));
+            }else{
+                this.placeholder4.setText("a");
+            }
+            this.photo4.setImageResource(getPlaceholder(game.getTop().get(3).getNickname()));
+            Picasso.with(this).load(game.getTop().get(3).getPhoto()+"").placeholder(getPlaceholder(game.getTop().get(3).getNickname())).error(getPlaceholder(game.getTop().get(3).getNickname())).into(this.photo4, new com.squareup.picasso.Callback() {
+                @Override
+                public void onSuccess() {
+                    placeholder4.setText("");
+                }
+                @Override
+                public void onError() {
+
+                }
+            });
+            this.name4.setText(game.getTop().get(3).getName());
+            this.nickname4.setText(game.getTop().get(3).getNickname());
+            this.place4.setText(game.getTop().get(3).getPosition()+" место");
+            this.task4.setText(game.getTop().get(3).getComplited()+"/"+game.getTasks());
+            int n = 100/Integer.parseInt(game.getTasks());
+            n = n*Integer.parseInt(game.getTop().get(3).getComplited());
+            bar4.setProgress(n);
+        }
+
+
     }
 
-    public void setGameViews(String sponsor, String title, String time, String active, String people, String tasks, String prise){
 
-        this.sponsor.setText(sponsor+"");
-        this.title.setText(title+"");
-        this.time.setText(time+"");
-        this.active.setText(active+"");
-        this.people.setText(people+"");
-        this.tasks.setText(tasks+"");
-        this.prise.setText(prise+"");
-    }
 
     public int getPlaceholder(String s){
         String abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZЯЧСМИТЬБЮФЫВАПРОЛДЖЭЁЙЦУКЕНГШЩЗХЪІЄ0123456789";

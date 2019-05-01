@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.game.xogame.R;
 import com.game.xogame.entity.Game;
 import com.squareup.picasso.Picasso;
@@ -81,8 +83,16 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
 
             }
         });
+
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.unknow_wide);
+        requestOptions.error(R.drawable.unknow_wide);
+        requestOptions.centerCrop();
+
+
         if(!item.getBackground().equals("")){
-            Picasso.with(context).load(item.getBackground()+"").placeholder(R.drawable.unknow_wide).error(R.drawable.unknow_wide).into(vh.imageView1);
+            Glide.with(context).setDefaultRequestOptions(requestOptions).load(item.getBackground()+"").thumbnail(0.3f).into(vh.imageView1);
+            //Picasso.with(context).load(item.getBackground()+"").placeholder(R.drawable.unknow_wide).error(R.drawable.unknow_wide).into(vh.imageView1);
         }
 
         return vh.rootView;

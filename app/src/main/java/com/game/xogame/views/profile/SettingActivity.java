@@ -164,11 +164,38 @@ public class SettingActivity extends AppCompatActivity {
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
-                sharedPref.edit().putString("token", "null").commit();
-                Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                LayoutInflater layoutInflater = LayoutInflater.from(SettingActivity.this);
+                View promptView = layoutInflater.inflate(R.layout.popup_genderchooser, null);
+                final AlertDialog alertD = new AlertDialog.Builder(SettingActivity.this).create();
+                TextView title = promptView.findViewById(R.id.textView1);
+                TextView btnAdd1 = promptView.findViewById(R.id.textView3);
+                TextView btnAdd2 = promptView.findViewById(R.id.textView2);
+                title.setText("Выйти из аккаунта?");
+                btnAdd1.setText("Да");
+                btnAdd2.setText("Нет");
+
+                btnAdd1.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
+                        sharedPref.edit().putString("token", "null").commit();
+                        Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        alertD.cancel();
+                    }
+                });
+
+                btnAdd2.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        alertD.cancel();
+                    }
+                });
+
+                alertD.setView(promptView);
+                alertD.show();
+
+
+
             }
         });
 

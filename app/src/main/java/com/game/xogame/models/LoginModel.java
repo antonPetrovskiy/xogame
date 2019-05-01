@@ -37,6 +37,7 @@ public class LoginModel {
     private static String phone;
     private static String newUser = "no";
     private static String error = "";
+    private static String status = "";
     private static String id;
 
 
@@ -243,11 +244,12 @@ public class LoginModel {
                             //Log.i("LOG_photo" , "Success(code): " + response.body().getCode());
                             Log.i("LOG_photo" , "Success(error): " + response.body().getError());
                             error = response.body().getError();
+                            status = response.body().getStatus();
                             if (callback != null && response.body().getStatus().equals("success")) {
                                 SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
                                 sharedPref.edit().putString("token", id).commit();
                                 callback.onEdit();
-                            }else if(response.body().getError().equals("Bad nickname or already used")){
+                            }else{
                                 callback.onEdit();
                             }
                         } else {
@@ -283,6 +285,9 @@ public class LoginModel {
     }
 
 
+    public String getStatus(){
+        return status;
+    }
 
     public String getError(){
         return error;

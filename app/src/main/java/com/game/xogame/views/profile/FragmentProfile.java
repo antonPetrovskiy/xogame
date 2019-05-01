@@ -15,10 +15,12 @@ import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,6 +33,7 @@ import com.game.xogame.R;
 import com.game.xogame.adapter.GamesAdapter;
 import com.game.xogame.entity.Game;
 import com.game.xogame.presenters.MainPresenter;
+import com.game.xogame.views.game.GameInfoActivity;
 import com.game.xogame.views.main.MainActivity;
 import com.squareup.picasso.Picasso;
 
@@ -61,8 +64,7 @@ public class FragmentProfile extends Fragment {
 
     private ListView list1;
     private ListView list2;
-    private int size1 = 0;
-    private int size2 = 0;
+    private SwipeRefreshLayout pullToRefresh;
 
     public boolean isPhoto = false;
     private RelativeLayout empty;
@@ -127,7 +129,14 @@ public class FragmentProfile extends Fragment {
         list1 = rootView.findViewById(R.id.list1);
         list2 = rootView.findViewById(R.id.list2);
         find = rootView.findViewById(R.id.imageButton);
-
+        pullToRefresh = rootView.findViewById(R.id.swiperefresh);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.showMyGames(FragmentProfile.this);
+                pullToRefresh.setRefreshing(false);
+            }
+        });
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -266,6 +275,7 @@ public class FragmentProfile extends Fragment {
     }
 
     public void setNowList(List<Game> list){
+        final List<Game> l = list;
         if(adapter1==null) {
             adapter1 = new GamesAdapter(context, list);
         }else{
@@ -279,6 +289,27 @@ public class FragmentProfile extends Fragment {
         }else{
             empty.setVisibility(View.GONE);
         }
+
+        list1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(context, GameInfoActivity.class);
+                intent.putExtra("GAMEID",l.get(position).getGameid());
+                intent.putExtra("SUBSCRIBE",l.get(position).getSubscribe());
+                intent.putExtra("TITLE", l.get(position).getTitle());
+                intent.putExtra("NAME", l.get(position).getCompany());
+                intent.putExtra("LOGO", l.get(position).getLogo());
+                intent.putExtra("BACKGROUND", l.get(position).getBackground());
+                intent.putExtra("DATE", l.get(position).getStartdate()+"-"+l.get(position).getEnddate());
+                intent.putExtra("DESCRIPTION", l.get(position).getDescription());
+                intent.putExtra("TASKS", l.get(position).getTasks());
+                intent.putExtra("TIME", l.get(position).getStarttime()+"-"+l.get(position).getEndtime());
+                intent.putExtra("MONEY", l.get(position).getReward());
+                intent.putExtra("PEOPLE", l.get(position).getFollowers());
+                intent.putExtra("STATISTIC", "true");
+                startActivity(intent);
+            }
+        });
 
     }
 
