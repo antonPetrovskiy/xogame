@@ -26,6 +26,9 @@ public class Feed {
     @SerializedName("userNickname")
     @Expose
     private String userNickname;
+    @SerializedName("userId")
+    @Expose
+    private String userId;
     @SerializedName("userLike")
     @Expose
     private String userLike;
@@ -77,6 +80,10 @@ public class Feed {
 
     public String getUserNickname() {
         return userNickname;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public String getUserLike() {

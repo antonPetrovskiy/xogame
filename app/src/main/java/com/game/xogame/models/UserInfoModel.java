@@ -32,6 +32,7 @@ public class UserInfoModel {
     private ApiService api;
     private Context context;
     public User user;
+    public String userid;
     public List<Game> gameList;
     public List<Game> winGameList;
 
@@ -437,4 +438,133 @@ public class UserInfoModel {
 
         }
     }
+
+    public void getUserGames(String userid, UserInfoModel.GetUserGamesCallback callback) {
+        UserInfoModel.GetUserGamesTask getUserGamesTask = new UserInfoModel.GetUserGamesTask(callback);
+        getUserGamesTask.execute();
+        this.userid = userid;
+    }
+    public interface GetUserGamesCallback {
+        void onGet();
+    }
+    class GetUserGamesTask extends AsyncTask<ContentValues, Void, Void> {
+
+        private final UserInfoModel.GetUserGamesCallback callback;
+
+        GetUserGamesTask(UserInfoModel.GetUserGamesCallback callback) {
+            this.callback = callback;
+        }
+
+        @Override
+        protected Void doInBackground(ContentValues... params) {
+            SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
+            String id = sharedPref.getString("token", "null");
+
+            if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
+                Call<GamesCallback> call = api.getUserGames(id,userid);
+                call.enqueue(new Callback<GamesCallback>() {
+                    @Override
+                    public void onResponse(Call<GamesCallback> call, Response<GamesCallback> response) {
+                        if (response.isSuccessful()) {
+                            Log.i("LOG_gethistory" , "Success(error): " + response.body().getStatus());
+                            if(response.body().getStatus().equals("success")){
+                                gameList = response.body().getGames();
+                                callback.onGet();
+                            }
+                        } else {
+                            String jObjError = null;
+                            try {
+                                jObjError = response.errorBody().string()+"";
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            Log.i("LOG_gethistory" , jObjError+" error");
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GamesCallback> call, Throwable t) {
+                        Log.i("LOG_gethistory" , t.getMessage()+" fail");
+                    }
+                });
+
+            } else {
+                Log.i("LOG_gethistory" , "error internet");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+        }
+    }
+
+    public void getUserProfileGames(String userid, UserInfoModel.GetUserProfileGamesCallback callback) {
+        UserInfoModel.GetUserProfileGamesTask getUserProfileGamesTask = new UserInfoModel.GetUserProfileGamesTask(callback);
+        getUserProfileGamesTask.execute();
+        this.userid = userid;
+    }
+    public interface GetUserProfileGamesCallback {
+        void onGet();
+    }
+    class GetUserProfileGamesTask extends AsyncTask<ContentValues, Void, Void> {
+
+        private final UserInfoModel.GetUserProfileGamesCallback callback;
+
+        GetUserProfileGamesTask(UserInfoModel.GetUserProfileGamesCallback callback) {
+            this.callback = callback;
+        }
+
+        @Override
+        protected Void doInBackground(ContentValues... params) {
+            SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
+            String id = sharedPref.getString("token", "null");
+            if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
+                Call<ProfileGamesCallback> call = api.getUserProfileGames(id,userid);
+                call.enqueue(new Callback<ProfileGamesCallback>() {
+                    @Override
+                    public void onResponse(Call<ProfileGamesCallback> call, Response<ProfileGamesCallback> response) {
+                        if (response.isSuccessful()) {
+                            Log.i("LOG_getprofilegames" , "Success(error): " + response.body().getStatus());
+                            if(response.body().getStatus().equals("success")){
+                                profileNowGameList = response.body().getGames().getNowGames();
+                                profileFutureGameList = response.body().getGames().getFutureGames();
+                                callback.onGet();
+                            }
+                        } else {
+                            String jObjError = null;
+                            try {
+                                jObjError = response.errorBody().string()+"";
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            Log.i("LOG_getprofilegames" , jObjError+" error");
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ProfileGamesCallback> call, Throwable t) {
+                        Log.i("LOG_getprofilegames" , t.getMessage()+" fail");
+                    }
+                });
+
+            } else {
+                Log.i("LOG_getprofilegames" , "error internet");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+        }
+    }
+
 }

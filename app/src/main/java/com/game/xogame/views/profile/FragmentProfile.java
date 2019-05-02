@@ -41,6 +41,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -73,6 +74,7 @@ public class FragmentProfile extends Fragment {
     private View rootView;
     static private Context context;
     static private MainPresenter presenter;
+    private List<Game> gameList = new LinkedList<>();
 
     String imagePath;
     File directory;
@@ -275,9 +277,10 @@ public class FragmentProfile extends Fragment {
     }
 
     public void setNowList(List<Game> list){
+        gameList = list;
         final List<Game> l = list;
         if(adapter1==null) {
-            adapter1 = new GamesAdapter(context, list);
+            adapter1 = new GamesAdapter(context, gameList);
         }else{
             adapter1.notifyDataSetChanged();
         }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.game.xogame">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,6 +11,8 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -18,8 +21,10 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".views.game.RatingGameActivity"></activity>
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".views.profile.UserProfileActivity"></activity>
+        <activity android:name=".views.game.RatingGameActivity" />
         <activity android:name=".views.game.PlayActivity">
             <intent-filter>
                 <action android:name="ACTIVITY_PLAY" />
@@ -42,7 +47,9 @@
         <activity android:name=".views.profile.MyWinsActivity" />
         <activity android:name=".views.profile.MyGamesActivity" />
         <activity android:name=".views.profile.SettingActivity" />
-        <activity android:name=".views.main.MainActivity" />
+        <activity
+            android:name=".views.main.MainActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".views.authentication.EditInfoActivity" />
 
         <receiver android:name=".models.SmsListener">

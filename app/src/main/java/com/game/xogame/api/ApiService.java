@@ -92,6 +92,16 @@ public interface ApiService {
     @POST("game/my/")
     Call<ProfileGamesCallback> getProfileGames(@Field("token") String token);
 
+    @FormUrlEncoded
+    @POST("game/ahistory/")
+    Call<GamesCallback> getUserGames(@Field("token") String token,
+                                     @Field("userid") String userid);
+
+    @FormUrlEncoded
+    @POST("game/amy/")
+    Call<ProfileGamesCallback> getUserProfileGames(@Field("token") String token,
+                                                   @Field("userid") String userid);
+
 
     @FormUrlEncoded
     @POST("game/rewards/")

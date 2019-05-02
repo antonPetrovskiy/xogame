@@ -1,10 +1,20 @@
 package com.game.xogame.views.main;
 
+import android.Manifest;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -28,6 +38,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+
 public class MainActivity extends AppCompatActivity{
 
     public static SectionsPagerAdapter mSectionsPagerAdapter;
@@ -46,12 +58,17 @@ public class MainActivity extends AppCompatActivity{
     private ImageView button6;
     public int currentItem=1;
 
+    private LocationManager locationManager;
+    private LocationListener listener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+
 
         SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
         token = sharedPref.getString("token", "null");
@@ -61,11 +78,17 @@ public class MainActivity extends AppCompatActivity{
         GamesModel modelGames = new GamesModel(api, getApplicationContext());
         presenter = new MainPresenter(model,modelGames);
         presenter.attachMainView(this);
-        initPUSH();
 
 
 
+        init();
 
+
+    }
+
+
+
+    public void init(){
         button1 = findViewById(R.id.imageView1);
         button2 = findViewById(R.id.imageView2);
         button3 = findViewById(R.id.imageView3);
@@ -170,10 +193,8 @@ public class MainActivity extends AppCompatActivity{
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(4);
         mViewPager.setCurrentItem(0);
-   
+
         //presenter.showUserInfo();
-
-
     }
 
     @Override

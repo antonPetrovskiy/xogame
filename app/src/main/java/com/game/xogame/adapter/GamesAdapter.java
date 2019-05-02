@@ -64,7 +64,7 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
         vh.textViewPrize.setText(item.getReward()+" ₴");
         vh.textViewPlay.setText(item.getFollowers()+" участников");
 
-        vh.textViewHolder.setText(item.getCompany().substring(0,1));
+        vh.textViewHolder.setText(item.getCompany().substring(0,1).toUpperCase());
         vh.imageView.setImageResource(getPlaceholder(item.getCompany()));
 
         if(item.getSubscribe()==null || item.getSubscribe().equals("0")){

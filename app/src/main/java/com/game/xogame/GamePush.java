@@ -89,6 +89,7 @@ public class GamePush extends FirebaseMessagingService {
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(data.get("title")))
                 .setContentText(data.get("body"))
                 .setAutoCancel(true)
+                .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.push))
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setDefaults(Notification.FLAG_AUTO_CANCEL | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent);

@@ -72,9 +72,9 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
         if(item.getTop().size()>0){
             vh.top1Layout.setVisibility(View.VISIBLE);
             if(item.getTop().get(0).getName().length()!=0 ) {
-                vh.placeholder1.setText(item.getTop().get(0).getName().substring(0, 1));
+                vh.placeholder1.setText(item.getTop().get(0).getName().substring(0, 1).toUpperCase());
             }else{
-                vh.placeholder1.setText("a");
+                vh.placeholder1.setText("А");
             }
             vh.photo1.setImageResource(getPlaceholder(item.getTop().get(0).getNickname()));
             Picasso.with(context).load(item.getTop().get(0).getPhoto()+"").placeholder(getPlaceholder(item.getTop().get(0).getNickname())).error(getPlaceholder(item.getTop().get(0).getNickname())).into(vh.photo1, new com.squareup.picasso.Callback() {
@@ -130,9 +130,9 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
         if(item.getTop().size()>2){
             vh.top3Layout.setVisibility(View.VISIBLE);
             if(item.getTop().get(2).getName().length()!=0 ) {
-                vh.placeholder3.setText(item.getTop().get(2).getName().substring(0, 1));
+                vh.placeholder3.setText(item.getTop().get(2).getName().substring(0, 1).toUpperCase());
             }else{
-                vh.placeholder3.setText("a");
+                vh.placeholder3.setText("А");
             }
             vh.photo3.setImageResource(getPlaceholder(item.getTop().get(2).getNickname()));
             Picasso.with(context).load(item.getTop().get(2).getPhoto()+"").placeholder(getPlaceholder(item.getTop().get(2).getNickname())).error(getPlaceholder(item.getTop().get(2).getNickname())).into(vh.photo3, new com.squareup.picasso.Callback() {
@@ -145,8 +145,8 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
 
                 }
             });
-            vh.name3.setText(item.getTop().get(1).getName());
-            vh.nickname3.setText(item.getTop().get(1).getNickname());
+            vh.name3.setText(item.getTop().get(2).getName());
+            vh.nickname3.setText(item.getTop().get(2).getNickname());
             vh.place3.setText(item.getTop().get(2).getPosition()+" место");
             vh.task3.setText(item.getTop().get(2).getComplited()+"/"+item.getTasks());
             int n = 100/Integer.parseInt(item.getTasks());

@@ -59,7 +59,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
         android:scaleType="centerCrop"
-        app:cardElevation="10dp"
+        app:cardElevation="2dp"
         app:cardCornerRadius="100dp"
         app:cardBackgroundColor="@android:color/white">
 

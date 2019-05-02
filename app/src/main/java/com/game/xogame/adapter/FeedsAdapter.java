@@ -2,6 +2,7 @@ package com.game.xogame.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.ExifInterface;
@@ -23,6 +24,7 @@ import com.game.xogame.api.RetroClient;
 import com.game.xogame.entity.DefaultCallback;
 import com.game.xogame.entity.Feed;
 import com.game.xogame.entity.Game;
+import com.game.xogame.views.profile.UserProfileActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -34,6 +36,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class FeedsAdapter extends ArrayAdapter<Feed> {
     public static List<Feed> feedList;
@@ -86,10 +89,10 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
         vh.textViewTag.setText(item.getTaskComment());
 
 
-            vh.placeholder1.setText(item.getCompany().substring(0, 1));
+            vh.placeholder1.setText(item.getCompany().substring(0, 1).toUpperCase());
             vh.imageViewCompany.setImageResource(getPlaceholder(item.getCompany()));
         if(item.getUserName().length()!=0 ) {
-            vh.placeholder2.setText(item.getUserName().substring(0, 1));
+            vh.placeholder2.setText(item.getUserName().substring(0, 1).toUpperCase());
         }else{
             vh.placeholder2.setText("a");
         }
@@ -180,6 +183,31 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
                 } else {
                     Log.i("LOG_gethistory" , "error internet");
                 }
+            }
+        });
+
+        vh.imageViewUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, UserProfileActivity.class);
+                intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("NAME", item.getUserName());
+                intent.putExtra("NICKNAME", item.getUserNickname());
+                intent.putExtra("PHOTO", item.getUserPhotoUrl());
+                intent.putExtra("USERID", item.getUserId());
+                context.startActivity(intent);
+            }
+        });
+        vh.textViewName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, UserProfileActivity.class);
+                intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("NAME", item.getUserName());
+                intent.putExtra("NICKNAME", item.getUserNickname());
+                intent.putExtra("PHOTO", item.getUserPhotoUrl());
+                intent.putExtra("USERID", item.getUserId());
+                context.startActivity(intent);
             }
         });
 

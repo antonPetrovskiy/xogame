@@ -134,7 +134,7 @@ public class GameInfoActivity extends AppCompatActivity {
                     presenter.subscribeGame();
                     people.setText((Integer.parseInt(count)+1)+" человек");
                     count = (Integer.parseInt(count)+1)+"";
-                    FirebaseMessaging.getInstance().subscribeToTopic(gameid)
+                    FirebaseMessaging.getInstance().subscribeToTopic("/topics/agame"+gameid)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -145,7 +145,7 @@ public class GameInfoActivity extends AppCompatActivity {
                     presenter.unsubscribeGame();
                     people.setText((Integer.parseInt(count)-1)+" человек");
                     count = (Integer.parseInt(count)-1)+"";
-                    FirebaseMessaging.getInstance().unsubscribeFromTopic(gameid)
+                    FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/agame"+gameid)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
