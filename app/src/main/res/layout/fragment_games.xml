@@ -41,7 +41,7 @@
 
             <ImageView
                 android:id="@+id/imageView1"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:adjustViewBounds="true"
@@ -51,6 +51,19 @@
                 android:paddingRight="12dp"
                 android:paddingBottom="13dp"
                 android:src="@drawable/search" />
+
+            <EditText
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textColor="#9FA5AD"
+                android:textColorHint="#9FA5AD"
+                android:background="@null"
+
+                android:inputType="textPersonName"
+                android:hint="поиск"/>
 
 
         </LinearLayout>

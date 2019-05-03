@@ -1,9 +1,11 @@
 package com.game.xogame.views.profile;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -29,6 +31,8 @@ public class UserProfileActivity extends AppCompatActivity {
     private String userid;
     private TextView name;
     private TextView nickname;
+    private TextView current;
+    private TextView future;
     private ImageView photo;
     private ImageView myGames;
     private ListView list1;
@@ -36,6 +40,8 @@ public class UserProfileActivity extends AppCompatActivity {
     private GamesAdapter adapter1;
     private GamesAdapter adapter2;
     private LinearLayout load;
+    private ImageView back;
+    private String photourl;
 
     private ApiService api;
     static private UserProfilePresenter presenter;
@@ -54,8 +60,43 @@ public class UserProfileActivity extends AppCompatActivity {
         photo = findViewById(R.id.imageProfile);
         name = findViewById(R.id.textView1);
         nickname = findViewById(R.id.textView2);
+        current = findViewById(R.id.textView9);
+        future = findViewById(R.id.textView10);
         myGames = findViewById(R.id.myGames);
         load = findViewById(R.id.targetView);
+        back = findViewById(R.id.imageViewBack);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        myGames.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserProfileActivity.this, MyGamesActivity.class);
+                intent.putExtra("USERID",userid);
+                startActivity(intent);
+            }
+        });
+
+        photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LayoutInflater layoutInflater = LayoutInflater.from(UserProfileActivity.this);
+                View promptView = layoutInflater.inflate(R.layout.popup_image, null);
+                final AlertDialog alertD = new AlertDialog.Builder(UserProfileActivity.this).create();
+                alertD.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                alertD.getWindow().setDimAmount(0.9f);
+                ImageView btnAdd1 = promptView.findViewById(R.id.imageView5);
+
+
+                Picasso.with(getApplicationContext()).load(photourl).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(btnAdd1);
+                //btnAdd1.setImageDrawable(image.getDrawable());
+                alertD.setView(promptView);
+                alertD.show();
+            }
+        });
 
         list1 = findViewById(R.id.list1);
         list2 = findViewById(R.id.list2);
@@ -67,6 +108,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if(extras!=null) {
+            photourl = extras.getString("PHOTO")+"";
             userid = extras.getString("USERID"+"");
             name.setText(extras.getString("NAME")+"");
             nickname.setText(extras.getString("NICKNAME")+"");
@@ -79,6 +121,7 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     public void setNowList(List<Game> list){
+        current.setVisibility(View.VISIBLE);
         final List<Game> l = list;
         if(adapter1==null) {
             adapter1 = new GamesAdapter(this, list);
@@ -93,6 +136,7 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     public void setFutureList(List<Game> list){
+        future.setVisibility(View.VISIBLE);
         if(adapter2==null) {
             adapter2 = new GamesAdapter(this, list);
         }else{

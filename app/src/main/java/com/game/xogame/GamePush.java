@@ -36,7 +36,6 @@ import static android.support.constraint.Constraints.TAG;
 
 public class GamePush extends FirebaseMessagingService {
 
-    public static int n = 60;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {

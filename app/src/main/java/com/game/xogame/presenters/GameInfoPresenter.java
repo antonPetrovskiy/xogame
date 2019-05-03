@@ -48,6 +48,8 @@ public class GameInfoPresenter {
             public void onUnsubscribe() {
                 viewMain.showToast("Вы отписались от игры");
                 viewMain.setButtonName("Участвовать");
+                if(viewMain.isStatistic.equals("true"))
+                    viewMain.onBackPressed();
             }
         });
     }

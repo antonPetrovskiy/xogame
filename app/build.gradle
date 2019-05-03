@@ -48,7 +48,10 @@ dependencies {
 
     // Load Images
     implementation 'com.squareup.picasso:picasso:2.5.2'
-
+// location play services
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
+    // dexter runtime permissions
+    implementation 'com.karumi:dexter:4.2.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

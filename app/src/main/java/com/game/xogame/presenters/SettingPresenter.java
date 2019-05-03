@@ -36,6 +36,7 @@ public class SettingPresenter {
                 viewSetting.setCountry(model.user.getCountry() + "");
                 viewSetting.setCity(model.user.getCity() + "");
                 viewSetting.getLoadView().setVisibility(View.GONE);
+                viewSetting.main.setVisibility(View.VISIBLE);
             }
         });
 

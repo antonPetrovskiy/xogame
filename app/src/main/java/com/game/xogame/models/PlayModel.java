@@ -78,10 +78,11 @@ public class PlayModel {
 
                             if(response.body().getStatus().equals("success")){
                                 if (callback != null) {
+                                    Log.i("LOG_dotask" , "Success(code): " + response.body().getError());
                                     callback.onDo();
                                 }
                             }else{
-                                Log.i("LOG_dotask" , "Success(code): " + response.body().getError());
+                                Log.i("LOG_dotask" , "Error(code): " + response.body().getError());
                             }
 
                         } else {

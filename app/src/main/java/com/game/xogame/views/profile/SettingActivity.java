@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.game.xogame.R;
@@ -36,6 +37,7 @@ public class SettingActivity extends AppCompatActivity {
     private EditText country;
     private EditText city;
     private EditText card;
+    public ScrollView main;
 
     private TextView exit;
     private TextView rules;
@@ -82,6 +84,7 @@ public class SettingActivity extends AppCompatActivity {
         exit = findViewById(R.id.textView14);
         rules = findViewById(R.id.textView13);
         rateus = findViewById(R.id.textView15);
+        main = findViewById(R.id.all);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +108,7 @@ public class SettingActivity extends AppCompatActivity {
                 View promptView = layoutInflater.inflate(R.layout.popup_genderchooser, null);
                 final AlertDialog alertD = new AlertDialog.Builder(SettingActivity.this).create();
 
-                TextView btnAdd1 = promptView.findViewById(R.id.textView1);
+                TextView btnAdd1 = promptView.findViewById(R.id.textView3);
                 TextView btnAdd2 = promptView.findViewById(R.id.textView2);
 
                 btnAdd1.setOnClickListener(new View.OnClickListener() {
@@ -178,6 +181,8 @@ public class SettingActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
                         sharedPref.edit().putString("token", "null").commit();
+                        sharedPref.edit().putString("lat", "null").commit();
+                        sharedPref.edit().putString("lng", "null").commit();
                         Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);

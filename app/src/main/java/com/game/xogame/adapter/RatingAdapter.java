@@ -64,8 +64,8 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
 
         vh.textViewPeople.setText(item.getFollowers());
         vh.textViewTasks.setText(item.getTasks());
-        vh.textViewPrise.setText(item.getReward());
-        Picasso.with(context).load(item.getLogo()+"").placeholder(android.R.color.holo_red_dark).error(android.R.color.holo_red_dark).into(vh.imageViewCompany);
+        vh.textViewPrise.setText(item.getReward()+" uah");
+        Picasso.with(context).load(item.getLogo()+"").placeholder(getPlaceholder(item.getCompany())).error(getPlaceholder(item.getCompany())).into(vh.imageViewCompany);
 //        Picasso.with(context).load(item.getUserPhotoUrl()+"").placeholder(android.R.color.holo_red_dark).error(android.R.color.holo_red_dark).into(vh.imageViewUser);
 //        Picasso.with(context).load(item.getTaskPhotoUrl()+"").placeholder(R.drawable.unknow).error(R.drawable.unknow).into(vh.imageViewPhoto);
 

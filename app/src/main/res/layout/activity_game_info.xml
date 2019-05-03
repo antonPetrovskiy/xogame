@@ -108,7 +108,7 @@
                 android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="14dp"
-                app:cardElevation="5dp"
+                app:cardElevation="3dp"
                 app:cardCornerRadius="40dp"
                 app:cardBackgroundColor="@android:color/white">
 
@@ -125,36 +125,24 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
-                app:cardElevation="5dp"
+                app:cardElevation="3dp"
                 app:cardBackgroundColor="@android:color/white">
 
                 <ImageView
                     android:id="@+id/imageView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:src="@drawable/unknow_wide"
                     android:adjustViewBounds="true"
                     android:cropToPadding="true"
                     android:scaleType="fitXY" />
 
             </android.support.v7.widget.CardView>
 
-
-            <TextView
-                android:id="@+id/textView30"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="12dp"
-                android:fontFamily="@font/roboto_regular"
-                android:text="When President Donald Trump first tried to stop citizens from seven predominantly Muslim countries from entering the United States, he cited the Sept. 11 terrorist attacks as his rationale. Yet none of the men behind those attacks hailed from these countries. In fact, a Cato Institute analysis shows that between 1975 and 2015 no one from these countries killed a single American in a U.S. terrorist attack."
-                android:textColor="#586575"
-                android:textSize="14sp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:orientation="horizontal">
@@ -290,7 +278,17 @@
 
             </LinearLayout>
 
-
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="12dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="When President Donald Trump first tried to stop citizens from seven predominantly Muslim countries from entering the United States, he cited the Sept. 11 terrorist attacks as his rationale. Yet none of the men behind those attacks hailed from these countries. In fact, a Cato Institute analysis shows that between 1975 and 2015 no one from these countries killed a single American in a U.S. terrorist attack."
+                android:textColor="#586575"
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/imageButton"

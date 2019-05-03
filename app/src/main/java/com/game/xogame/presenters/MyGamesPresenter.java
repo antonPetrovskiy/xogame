@@ -20,8 +20,16 @@ public class MyGamesPresenter {
     }
 
     public void getMyGames() {
-
         model.getMyGames(new UserInfoModel.GetMyGamesCallback() {
+            @Override
+            public void onGet() {
+                viewMyGames.setList(model.gameList);
+            }
+        });
+    }
+
+    public void getUserGames(String userid) {
+        model.getUserGames(userid, new UserInfoModel.GetUserGamesCallback() {
             @Override
             public void onGet() {
                 viewMyGames.setList(model.gameList);

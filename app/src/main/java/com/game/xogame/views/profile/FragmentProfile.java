@@ -74,9 +74,11 @@ public class FragmentProfile extends Fragment {
     private View rootView;
     static private Context context;
     static private MainPresenter presenter;
-    private List<Game> gameList = new LinkedList<>();
+    private List<Game> gameNowList;
+    private List<Game> gameFutureList;
 
     String imagePath;
+    String imageurl;
     File directory;
     File myFile;
     public static final int REQ_CODE_PICK_PHOTO = 0;
@@ -114,6 +116,11 @@ public class FragmentProfile extends Fragment {
     public void onResume() {
         if(!isPhoto)
             presenter.showUserInfo(this);
+        gameNowList = new LinkedList<>();
+        gameFutureList = new LinkedList<>();
+        adapter1 = null;
+        adapter2 = null;
+        presenter.showMyGames(this);
         super.onResume();
     }
 
@@ -135,6 +142,10 @@ public class FragmentProfile extends Fragment {
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                gameNowList = new LinkedList<>();
+                gameFutureList = new LinkedList<>();
+                adapter1 = null;
+                adapter2 = null;
                 presenter.showMyGames(FragmentProfile.this);
                 pullToRefresh.setRefreshing(false);
             }
@@ -167,6 +178,24 @@ public class FragmentProfile extends Fragment {
             @Override
             public void onClick(View v) {
                 MainActivity.mViewPager.setCurrentItem(0);
+            }
+        });
+
+        photo_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+                View promptView = layoutInflater.inflate(R.layout.popup_image, null);
+                final AlertDialog alertD = new AlertDialog.Builder(getActivity()).create();
+                alertD.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                alertD.getWindow().setDimAmount(0.9f);
+                ImageView btnAdd1 = promptView.findViewById(R.id.imageView5);
+
+
+                Picasso.with(context).load(imageurl+"").placeholder(R.drawable.unknow).error(R.drawable.unknow).into(btnAdd1);
+                //btnAdd1.setImageDrawable(image.getDrawable());
+                alertD.setView(promptView);
+                alertD.show();
             }
         });
 
@@ -277,21 +306,17 @@ public class FragmentProfile extends Fragment {
     }
 
     public void setNowList(List<Game> list){
-        gameList = list;
+        gameNowList = list;
         final List<Game> l = list;
         if(adapter1==null) {
-            adapter1 = new GamesAdapter(context, gameList);
+            adapter1 = new GamesAdapter(context, gameNowList);
         }else{
             adapter1.notifyDataSetChanged();
         }
         list1.setAdapter(adapter1);
         setListViewHeightBasedOnChildren(list1);
-        load.setVisibility(View.GONE);
-        if(list.size()==0) {
-            empty.setVisibility(View.VISIBLE);
-        }else{
-            empty.setVisibility(View.GONE);
-        }
+
+
 
         list1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -317,8 +342,9 @@ public class FragmentProfile extends Fragment {
     }
 
     public void setFutureList(List<Game> list){
+        gameFutureList = list;
         if(adapter2==null) {
-            adapter2 = new GamesAdapter(context, list);
+            adapter2 = new GamesAdapter(context, gameFutureList);
         }else{
             adapter2.notifyDataSetChanged();
         }
@@ -326,6 +352,12 @@ public class FragmentProfile extends Fragment {
         setListViewHeightBasedOnChildren(list2);
 
 
+        load.setVisibility(View.GONE);
+        if(gameNowList.size()==0 && gameFutureList.size()==0) {
+            empty.setVisibility(View.VISIBLE);
+        }else{
+            empty.setVisibility(View.GONE);
+        }
 
     }
 
@@ -373,6 +405,7 @@ public class FragmentProfile extends Fragment {
     }
 
     public void setPhoto(String s){
+        imageurl = s;
         Picasso.with(context).load(s).placeholder(R.drawable.camera_background).centerCrop().resize(1024,1024).error(R.drawable.camera_background).into(photo_view);
     }
 

@@ -54,7 +54,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="84dp"
+            android:layout_height="80dp"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -63,15 +63,13 @@
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imageProfile"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
-                android:background="@drawable/oval"
                 android:cropToPadding="false"
                 android:foregroundGravity="center_horizontal"
                 android:padding="2dp"
@@ -96,13 +94,27 @@
         android:id="@+id/myGames"
         android:layout_width="44dp"
         android:layout_height="44dp"
-        android:padding="10dp"
+        android:padding="12dp"
         android:adjustViewBounds="true"
         android:cropToPadding="true"
         android:src="@drawable/clock"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageViewBack"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_alignParentLeft="true"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        android:paddingLeft="12dp"
+        android:paddingTop="13dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="13dp"
+        android:src="@drawable/setting_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
         <ScrollView
@@ -130,6 +142,7 @@
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="#586575"
                     android:textAlignment="center"
+                    android:visibility="gone"
                     android:text="Текущие" />
 
                 <ListView
@@ -154,6 +167,7 @@
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="#586575"
                     android:textAlignment="center"
+                    android:visibility="gone"
                     android:text="Будущие" />
 
                 <ListView

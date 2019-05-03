@@ -126,6 +126,9 @@ public class RatingModel {
                                 if(response.body().getRating().size()!=0) {
                                     ratingGame = response.body().getRating().get(0);
                                     callback.onGet();
+                                }else{
+                                    //#TODO
+                                    //callback.onGet();
                                 }
                             }
                         } else {

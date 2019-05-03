@@ -27,7 +27,7 @@ public class RatingPresenter {
 
 
     public void showGameRating(String gameid) {
-        model.getGameRating("1", new RatingModel.GetGameRatingCallback() {
+        model.getGameRating(gameid, new RatingModel.GetGameRatingCallback() {
             @Override
             public void onGet() {
                 viewGame.setGameViews(model.ratingGame);

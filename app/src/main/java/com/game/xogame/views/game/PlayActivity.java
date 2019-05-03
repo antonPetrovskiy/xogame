@@ -49,6 +49,7 @@ import static com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotate
 public class PlayActivity extends AppCompatActivity {
     private ApiService api;
     private PlayPresenter presenter;
+
     //1st screen
     private TextView title;
     private TextView task;
@@ -68,11 +69,13 @@ public class PlayActivity extends AppCompatActivity {
     private ImageView photo;
     private EditText tags;
     private Button send;
+    public CountDownTimer timer;
 
     private String taskId;
     private String imagePath;
     File directory;
     File myFile;
+    private LinearLayout load;
     public static final int REQ_CODE_CAPTURE = 2;
 
     @Override
@@ -124,7 +127,7 @@ public class PlayActivity extends AppCompatActivity {
         time2 = findViewById(R.id.textView5);
         photo = findViewById(R.id.imageView3);
         send = findViewById(R.id.imageButton);
-
+        load = findViewById(R.id.targetView);
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,22 +142,31 @@ public class PlayActivity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                load.setVisibility(View.VISIBLE);
+                send.setClickable(false);
                 presenter.sendTask();
                 done = current;
             }
         });
 
-        new CountDownTimer(60000-sec, 1000) {
+        timer = new CountDownTimer(120000-sec, 1000) {
                 public void onTick(long millisUntilFinished) {
-                    time.setText("0:"+(millisUntilFinished / 1000));
-                    time2.setText("0:"+(millisUntilFinished / 1000)+"");
-                    long temp = (60000-millisUntilFinished)/1000;
+                    if(millisUntilFinished<60000) {
+                        time.setText("0:" + (millisUntilFinished / 1000));
+                        time2.setText("0:" + (millisUntilFinished / 1000) + "");
+                    }else{
+                        time.setText("1:" + ((millisUntilFinished / 1000)-60));
+                        time2.setText("1:" + ((millisUntilFinished / 1000)-60) + "");
+                    }
+                    long temp = (120000-millisUntilFinished)/1000;
                     current = temp+"";
                 }
 
                 public void onFinish() {
-                    if(current == null)
-                        toMainActivityLose();
+                    //if(current == null)
+                    time.setText("0:00");
+                    time2.setText("0:00");
+                    toMainActivityLose();
                 }
             }.start();
     }
@@ -176,6 +188,7 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     public void toMainActivityLose(){
+        load.setVisibility(View.GONE);
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View promptView = layoutInflater.inflate(R.layout.error, null);
         final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(this).create();
@@ -197,17 +210,23 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     public void toMainActivityWin(){
+        load.setVisibility(View.GONE);
         LayoutInflater layoutInflater = LayoutInflater.from(PlayActivity.this);
         View promptView = layoutInflater.inflate(R.layout.popup_taskdone, null);
         final AlertDialog alertD = new AlertDialog.Builder(this).create();
-        ImageView image = promptView.findViewById(R.id.imageView24);
+        ImageView image = promptView.findViewById(R.id.imageView);
         TextView title = promptView.findViewById(R.id.textView1);
         TextView time = promptView.findViewById(R.id.textView2);
         TextView position = promptView.findViewById(R.id.textView3);
         TextView task = promptView.findViewById(R.id.textView4);
         title.setText(title.getText()+"");
-        time.setText(current);
         task.setText(task.getText()+"");
+        if(Integer.parseInt(current)<60){
+            time.setText("0:"+current);
+        }else{
+            int n = Integer.parseInt(current)-60;
+            time.setText("1:"+n);
+        }
         Picasso.with(this).load(path).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(image);
 
         alertD.setView(promptView);

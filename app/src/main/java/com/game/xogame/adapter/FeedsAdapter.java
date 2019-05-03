@@ -82,15 +82,19 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
         vh.textViewTitle.setText(item.getTitle());
         vh.textViewName.setText(item.getUserName());
         vh.textViewNickname.setText(item.getUserNickname());
-        vh.textViewTime.setText(item.getTaskTime()+"sec");
         vh.textViewDescription.setText(item.getTaskDescription());
         vh.textViewTask.setText(item.getTaskNumber()+"/"+item.getTasks());
         vh.textViewLike.setText(item.getFeedLikes());
-        vh.textViewTag.setText(item.getTaskComment());
+        vh.textViewTag.setText("#"+item.getTaskComment());
+        if(Integer.parseInt(item.getTaskTime())>59){
+            int sec = Integer.parseInt(item.getTaskTime())-60;
+            vh.textViewTime.setText("1:"+sec);
+        }else{
+            vh.textViewTime.setText("0:"+item.getTaskTime());
+        }
 
-
-            vh.placeholder1.setText(item.getCompany().substring(0, 1).toUpperCase());
-            vh.imageViewCompany.setImageResource(getPlaceholder(item.getCompany()));
+        vh.placeholder1.setText(item.getCompany().substring(0, 1).toUpperCase());
+        vh.imageViewCompany.setImageResource(getPlaceholder(item.getCompany()));
         if(item.getUserName().length()!=0 ) {
             vh.placeholder2.setText(item.getUserName().substring(0, 1).toUpperCase());
         }else{

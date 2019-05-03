@@ -63,17 +63,29 @@
                 android:layout_marginLeft="13dp"
                 android:orientation="vertical">
 
-
-                <TextView
-                    android:id="@+id/textView1"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/roboto_medium"
-                    android:gravity="center_vertical"
-                    android:text="TextView"
-                    android:textColor="#2F3542"
-                    android:textSize="12sp" />
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="center_vertical"
+                        android:text="TextView"
+                        android:textColor="#2F3542"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="30dp"
+                        android:paddingRight="5dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/drop_button"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/textView2"

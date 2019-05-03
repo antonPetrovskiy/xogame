@@ -66,6 +66,8 @@ public class FragmentFeeds extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_feeds, container, false);
         init();
+        listFeeds = new LinkedList<>();
+        adapter = null;
         presenter.showFeeds(this,flag,"0");
 
         return rootView;
@@ -132,6 +134,8 @@ public class FragmentFeeds extends Fragment {
 
 
     public void setList(final List<Feed> list){
+
+
         if(list.size()>0)
             Log.i("LOG_scroll" , list.get(list.size()-1).getFeedId()+"");
         listFeeds.addAll(list);

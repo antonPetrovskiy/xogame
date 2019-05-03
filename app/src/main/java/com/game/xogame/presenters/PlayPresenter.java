@@ -34,6 +34,7 @@ public class PlayPresenter {
         model.doTask(cv,new PlayModel.DoTaskCallback() {
             @Override
             public void onDo() {
+                view.timer.cancel();
                 view.toMainActivityWin();
             }
         });

@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.game.xogame.R;
 import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
@@ -46,6 +48,7 @@ public class GameInfoActivity extends AppCompatActivity {
     private String count;
 
     private String gameid;
+    public String isStatistic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +91,15 @@ public class GameInfoActivity extends AppCompatActivity {
         money.setText(extras.getString("MONEY")+" uah");
         people.setText(extras.getString("PEOPLE")+" человек");
         count = extras.getString("PEOPLE");
-        Picasso.with(this).load(extras.getString("LOGO")).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(logo);
-        Picasso.with(this).load(extras.getString("BACKGROUND")).placeholder(R.drawable.unknow_wide).error(R.drawable.unknow_wide).into(background);
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.unknow_wide);
+        requestOptions.error(R.drawable.unknow_wide);
+        requestOptions.override(1920,1080);
+        requestOptions.centerCrop();
 
+        Glide.with(this).setDefaultRequestOptions(requestOptions).load(extras.getString("BACKGROUND")).thumbnail(0.3f).into(background);
+        Picasso.with(this).load(extras.getString("LOGO")).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(logo);
+        isStatistic = extras.getString("STATISTIC");
         if(extras.getString("STATISTIC").equals("true")){
             statistic.setVisibility(View.VISIBLE);
             subscribe.setText("Отказатся");

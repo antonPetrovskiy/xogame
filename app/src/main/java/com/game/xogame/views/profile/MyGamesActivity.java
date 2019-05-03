@@ -48,7 +48,14 @@ public class MyGamesActivity extends AppCompatActivity {
 
 
         init();
-        presenter.getMyGames();
+
+        String userid = getIntent().getStringExtra("USERID");
+        if(userid!=null){
+            presenter.getUserGames(userid);
+        }else{
+            presenter.getMyGames();
+        }
+
 
     }
 
