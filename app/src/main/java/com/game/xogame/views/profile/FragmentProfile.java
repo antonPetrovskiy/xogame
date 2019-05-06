@@ -33,6 +33,7 @@ import com.game.xogame.R;
 import com.game.xogame.adapter.GamesAdapter;
 import com.game.xogame.entity.Game;
 import com.game.xogame.presenters.MainPresenter;
+import com.game.xogame.views.game.FragmentFeeds;
 import com.game.xogame.views.game.GameInfoActivity;
 import com.game.xogame.views.main.MainActivity;
 import com.squareup.picasso.Picasso;
@@ -83,13 +84,16 @@ public class FragmentProfile extends Fragment {
     File myFile;
     public static final int REQ_CODE_PICK_PHOTO = 0;
     public static final int REQ_CODE_CAPTURE = 2;
+    private static FragmentProfile fragment;
 
     public FragmentProfile() {
     }
 
 
     public static FragmentProfile newInstance(Context c, MainPresenter p) {
-        FragmentProfile fragment = new FragmentProfile();
+        if(fragment==null){
+            fragment = new FragmentProfile();
+        }
         context = c;
         presenter = p;
 

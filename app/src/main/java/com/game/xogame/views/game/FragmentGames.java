@@ -12,9 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.game.xogame.R;
@@ -34,22 +36,27 @@ import static android.content.Context.MODE_PRIVATE;
 public class FragmentGames extends Fragment {
 
     private ApiService api;
-    private static MainPresenter presenter;
+    public static MainPresenter presenter;
     private LinearLayout load;
+    private RelativeLayout empty;
     private ListView listView;
     private View rootView;
+    private Button refresh;
     static private Context context;
     static GamesAdapter adapter;
     private SwipeRefreshLayout pullToRefresh;
     private List<Game> gameList;
     private List<Game> tmpgameList;
     private EditText search;
+    private static FragmentGames fragment;
 
     public FragmentGames() {
     }
 
     public static FragmentGames newInstance(Context c, MainPresenter p) {
-        FragmentGames fragment = new FragmentGames();
+        if(fragment==null){
+            fragment = new FragmentGames();
+        }
         context = c;
         presenter = p;
         return fragment;
@@ -74,24 +81,46 @@ public class FragmentGames extends Fragment {
         load = rootView.findViewById(R.id.targetView);
         listView = rootView.findViewById(R.id.gamelist);
         pullToRefresh = rootView.findViewById(R.id.swiperefresh);
+        empty = rootView.findViewById(R.id.empty);
+        refresh = rootView.findViewById(R.id.refresh);
         search = rootView.findViewById(R.id.search);
         api = RetroClient.getApiService();
 
         gameList = new LinkedList<>();
         adapter = null;
-//        SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
-//        String lat = sharedPref.getString("lat", "null");
-//        if(!lat.equals("null"))
-        presenter.showGames(FragmentGames.this);
+
+        if(!context.getSharedPreferences("myPref", MODE_PRIVATE).getString("lat", "null").equals("null")){
+            presenter.showGames(FragmentGames.this);
+        }else{
+            empty.setVisibility(View.VISIBLE);
+            load.setVisibility(View.GONE);
+        }
+
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                gameList = new LinkedList<>();
-                adapter = null;
-                presenter.showGames(FragmentGames.this);
+                if(!context.getSharedPreferences("myPref", MODE_PRIVATE).getString("lat", "null").equals("null")){
+                    gameList = new LinkedList<>();
+                    adapter = null;
+                    presenter.showGames(FragmentGames.this);
+                    empty.setVisibility(View.GONE);
+                }else{
+                    load.setVisibility(View.GONE);
+                    empty.setVisibility(View.VISIBLE);
+                }
+
                 pullToRefresh.setRefreshing(false);
             }
         });
+
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).coord();
+                update();
+            }
+        });
+
         search.addTextChangedListener(new TextWatcher() {
 
 
@@ -128,12 +157,22 @@ public class FragmentGames extends Fragment {
 
     @Override
     public void onResume() {
-        gameList = new LinkedList<>();
-        adapter = null;
-        presenter.showGames(FragmentGames.this);
+        update();
         super.onResume();
     }
 
+    public void update(){
+        if(!context.getSharedPreferences("myPref", MODE_PRIVATE).getString("lat", "null").equals("null")){
+            gameList = new LinkedList<>();
+            adapter = null;
+            presenter.showGames(FragmentGames.this);
+            empty.setVisibility(View.GONE);
+        }else{
+            empty.setVisibility(View.VISIBLE);
+            load.setVisibility(View.GONE);
+        }
+
+    }
 
 
     public void setList(List<Game> list){

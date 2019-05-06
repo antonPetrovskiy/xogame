@@ -1,6 +1,7 @@
 package com.game.xogame.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,11 @@ import android.widget.TextView;
 import com.game.xogame.R;
 import com.game.xogame.entity.Feed;
 import com.game.xogame.entity.Rating;
+import com.game.xogame.views.profile.UserProfileActivity;
 import com.squareup.picasso.Picasso;
 import java.util.List;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class RatingAdapter extends ArrayAdapter<Rating> {
     public static List<Rating> ratingList;
@@ -94,6 +98,30 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
             int n = 100/Integer.parseInt(item.getTasks());
             n = n*Integer.parseInt(item.getTop().get(0).getComplited());
             vh.bar1.setProgress(n);
+            vh.photo1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", item.getTop().get(0).getName());
+                    intent.putExtra("NICKNAME", item.getTop().get(0).getNickname());
+                    intent.putExtra("PHOTO", item.getTop().get(0).getPhoto());
+                    intent.putExtra("USERID", item.getTop().get(0).getUserid());
+                    context.startActivity(intent);
+                }
+            });
+            vh.name1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", item.getTop().get(0).getName());
+                    intent.putExtra("NICKNAME", item.getTop().get(0).getNickname());
+                    intent.putExtra("PHOTO", item.getTop().get(0).getPhoto());
+                    intent.putExtra("USERID", item.getTop().get(0).getUserid());
+                    context.startActivity(intent);
+                }
+            });
         }else{
             vh.top1Layout.setVisibility(View.GONE);
         }
@@ -123,6 +151,30 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
             int n = 100/Integer.parseInt(item.getTasks());
             n = n*Integer.parseInt(item.getTop().get(1).getComplited());
             vh.bar2.setProgress(n);
+            vh.photo2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", item.getTop().get(1).getName());
+                    intent.putExtra("NICKNAME", item.getTop().get(1).getNickname());
+                    intent.putExtra("PHOTO", item.getTop().get(1).getPhoto());
+                    intent.putExtra("USERID", item.getTop().get(1).getUserid());
+                    context.startActivity(intent);
+                }
+            });
+            vh.name2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", item.getTop().get(1).getName());
+                    intent.putExtra("NICKNAME", item.getTop().get(1).getNickname());
+                    intent.putExtra("PHOTO", item.getTop().get(1).getPhoto());
+                    intent.putExtra("USERID", item.getTop().get(1).getUserid());
+                    context.startActivity(intent);
+                }
+            });
         }else{
             vh.top2Layout.setVisibility(View.GONE);
         }
@@ -152,6 +204,30 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
             int n = 100/Integer.parseInt(item.getTasks());
             n = n*Integer.parseInt(item.getTop().get(2).getComplited());
             vh.bar3.setProgress(n);
+            vh.photo3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", item.getTop().get(2).getName());
+                    intent.putExtra("NICKNAME", item.getTop().get(2).getNickname());
+                    intent.putExtra("PHOTO", item.getTop().get(2).getPhoto());
+                    intent.putExtra("USERID", item.getTop().get(2).getUserid());
+                    context.startActivity(intent);
+                }
+            });
+            vh.name3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", item.getTop().get(2).getName());
+                    intent.putExtra("NICKNAME", item.getTop().get(2).getNickname());
+                    intent.putExtra("PHOTO", item.getTop().get(2).getPhoto());
+                    intent.putExtra("USERID", item.getTop().get(2).getUserid());
+                    context.startActivity(intent);
+                }
+            });
         }else{
             vh.top3Layout.setVisibility(View.GONE);
         }
@@ -181,6 +257,30 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
             int n = 100/Integer.parseInt(item.getTasks());
             n = n*Integer.parseInt(item.getTop().get(3).getComplited());
             vh.bar4.setProgress(n);
+            vh.photo4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", item.getTop().get(3).getName());
+                    intent.putExtra("NICKNAME", item.getTop().get(3).getNickname());
+                    intent.putExtra("PHOTO", item.getTop().get(3).getPhoto());
+                    intent.putExtra("USERID", item.getTop().get(3).getUserid());
+                    context.startActivity(intent);
+                }
+            });
+            vh.name4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", item.getTop().get(3).getName());
+                    intent.putExtra("NICKNAME", item.getTop().get(3).getNickname());
+                    intent.putExtra("PHOTO", item.getTop().get(3).getPhoto());
+                    intent.putExtra("USERID", item.getTop().get(0).getUserid());
+                    context.startActivity(intent);
+                }
+            });
         }else{
             vh.top4Layout.setVisibility(View.GONE);
         }
@@ -195,6 +295,7 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
                 }
             }
         });
+
 
         return vh.rootView;
     }

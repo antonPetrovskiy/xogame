@@ -49,13 +49,16 @@ public class FragmentFeeds extends Fragment {
     private RelativeLayout empty;
     private Button find;
     private List<Feed> listFeeds = new LinkedList<>();
+    private static FragmentFeeds fragment;
 
     public FragmentFeeds() {
 
     }
 
     public static FragmentFeeds newInstance(Context c, MainPresenter p) {
-        FragmentFeeds fragment = new FragmentFeeds();
+        if(fragment==null){
+            fragment = new FragmentFeeds();
+        }
         context = c;
         presenter = p;
         return fragment;
@@ -131,7 +134,11 @@ public class FragmentFeeds extends Fragment {
 
     }
 
-
+    public void update(){
+        listFeeds = new LinkedList<>();
+        adapter = null;
+        presenter.showFeeds(this,flag,"0");
+    }
 
     public void setList(final List<Feed> list){
 

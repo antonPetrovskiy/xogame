@@ -119,6 +119,7 @@
             android:layout_height="84dp"
             android:layout_marginLeft="46dp"
             android:layout_marginRight="46dp"
+            android:visibility="visible"
             android:src="@drawable/camera" />
 
         <TextView

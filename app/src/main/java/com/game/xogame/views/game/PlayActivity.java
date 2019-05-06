@@ -1,5 +1,7 @@
 package com.game.xogame.views.game;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,6 +22,9 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -70,6 +75,7 @@ public class PlayActivity extends AppCompatActivity {
     private EditText tags;
     private Button send;
     public CountDownTimer timer;
+    private Animation mEnlargeAnimation;
 
     private String taskId;
     private String imagePath;
@@ -126,7 +132,11 @@ public class PlayActivity extends AppCompatActivity {
         tags = findViewById(R.id.editText1);
         time2 = findViewById(R.id.textView5);
         photo = findViewById(R.id.imageView3);
+// подключаем файл анимации
+        mEnlargeAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse);
         send = findViewById(R.id.imageButton);
+        // при запуске начинаем с эффекта увеличения
+        camera.startAnimation(mEnlargeAnimation);
         load = findViewById(R.id.targetView);
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +158,9 @@ public class PlayActivity extends AppCompatActivity {
                 done = current;
             }
         });
+
+
+
 
         timer = new CountDownTimer(120000-sec, 1000) {
                 public void onTick(long millisUntilFinished) {

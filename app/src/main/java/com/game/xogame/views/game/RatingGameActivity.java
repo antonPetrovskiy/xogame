@@ -1,5 +1,6 @@
 package com.game.xogame.views.game;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,11 +13,15 @@ import android.widget.TextView;
 import com.game.xogame.R;
 import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
+import com.game.xogame.entity.Game;
 import com.game.xogame.entity.Rating;
 import com.game.xogame.models.RatingModel;
 import com.game.xogame.presenters.MyGamesPresenter;
 import com.game.xogame.presenters.RatingPresenter;
+import com.game.xogame.views.profile.UserProfileActivity;
 import com.squareup.picasso.Picasso;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class RatingGameActivity extends AppCompatActivity {
     private ApiService api;
@@ -158,6 +163,7 @@ public class RatingGameActivity extends AppCompatActivity {
         this.people.setText(game.getFollowers()+"");
         this.tasks.setText(game.getTasks()+"");
         this.prise.setText(game.getReward()+" uah");
+        final Rating game1 = game;
 
         if(game.getTop().size()>0){
             this.user1.setVisibility(View.VISIBLE);
@@ -184,6 +190,30 @@ public class RatingGameActivity extends AppCompatActivity {
             int n = 100/Integer.parseInt(game.getTasks());
             n = n*Integer.parseInt(game.getTop().get(0).getComplited());
             bar1.setProgress(n);
+            photo1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(RatingGameActivity.this, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", game1.getTop().get(0).getName());
+                    intent.putExtra("NICKNAME", game1.getTop().get(0).getNickname());
+                    intent.putExtra("PHOTO", game1.getTop().get(0).getPhoto());
+                    intent.putExtra("USERID", game1.getTop().get(0).getUserid());
+                    startActivity(intent);
+                }
+            });
+            name1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(RatingGameActivity.this, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", game1.getTop().get(0).getName());
+                    intent.putExtra("NICKNAME", game1.getTop().get(0).getNickname());
+                    intent.putExtra("PHOTO", game1.getTop().get(0).getPhoto());
+                    intent.putExtra("USERID", game1.getTop().get(0).getUserid());
+                    startActivity(intent);
+                }
+            });
         }
 
         if(game.getTop().size()>1){
@@ -211,6 +241,30 @@ public class RatingGameActivity extends AppCompatActivity {
             int n = 100/Integer.parseInt(game.getTasks());
             n = n*Integer.parseInt(game.getTop().get(1).getComplited());
             bar2.setProgress(n);
+            photo2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(RatingGameActivity.this, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", game1.getTop().get(1).getName());
+                    intent.putExtra("NICKNAME", game1.getTop().get(1).getNickname());
+                    intent.putExtra("PHOTO", game1.getTop().get(1).getPhoto());
+                    intent.putExtra("USERID", game1.getTop().get(1).getUserid());
+                    startActivity(intent);
+                }
+            });
+            name2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(RatingGameActivity.this, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", game1.getTop().get(1).getName());
+                    intent.putExtra("NICKNAME", game1.getTop().get(1).getNickname());
+                    intent.putExtra("PHOTO", game1.getTop().get(1).getPhoto());
+                    intent.putExtra("USERID", game1.getTop().get(1).getUserid());
+                    startActivity(intent);
+                }
+            });
         }
 
         if(game.getTop().size()>2){
@@ -231,13 +285,37 @@ public class RatingGameActivity extends AppCompatActivity {
 
                 }
             });
-            this.name3.setText(game.getTop().get(1).getName());
-            this.nickname3.setText(game.getTop().get(1).getNickname());
+            this.name3.setText(game.getTop().get(2).getName());
+            this.nickname3.setText(game.getTop().get(2).getNickname());
             this.place3.setText(game.getTop().get(2).getPosition()+" место");
             this.task3.setText(game.getTop().get(2).getComplited()+"/"+game.getTasks());
             int n = 100/Integer.parseInt(game.getTasks());
             n = n*Integer.parseInt(game.getTop().get(2).getComplited());
             bar3.setProgress(n);
+            photo3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(RatingGameActivity.this, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", game1.getTop().get(2).getName());
+                    intent.putExtra("NICKNAME", game1.getTop().get(2).getNickname());
+                    intent.putExtra("PHOTO", game1.getTop().get(2).getPhoto());
+                    intent.putExtra("USERID", game1.getTop().get(2).getUserid());
+                    startActivity(intent);
+                }
+            });
+            name3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(RatingGameActivity.this, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", game1.getTop().get(2).getName());
+                    intent.putExtra("NICKNAME", game1.getTop().get(2).getNickname());
+                    intent.putExtra("PHOTO", game1.getTop().get(2).getPhoto());
+                    intent.putExtra("USERID", game1.getTop().get(2).getUserid());
+                    startActivity(intent);
+                }
+            });
         }
 
         if(game.getTop().size()>3){
@@ -265,11 +343,33 @@ public class RatingGameActivity extends AppCompatActivity {
             int n = 100/Integer.parseInt(game.getTasks());
             n = n*Integer.parseInt(game.getTop().get(3).getComplited());
             bar4.setProgress(n);
+            photo4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(RatingGameActivity.this, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", game1.getTop().get(3).getName());
+                    intent.putExtra("NICKNAME", game1.getTop().get(3).getNickname());
+                    intent.putExtra("PHOTO", game1.getTop().get(3).getPhoto());
+                    intent.putExtra("USERID", game1.getTop().get(3).getUserid());
+                    startActivity(intent);
+                }
+            });
+            name4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(RatingGameActivity.this, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", game1.getTop().get(3).getName());
+                    intent.putExtra("NICKNAME", game1.getTop().get(3).getNickname());
+                    intent.putExtra("PHOTO", game1.getTop().get(3).getPhoto());
+                    intent.putExtra("USERID", game1.getTop().get(3).getUserid());
+                    startActivity(intent);
+                }
+            });
         }
 
-
     }
-
 
 
     public int getPlaceholder(String s){
