@@ -1,10 +1,9 @@
 package com.game.xogame.views.profile;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -18,26 +17,26 @@ public class MoneyActivity extends AppCompatActivity {
     private String type;
     private String count;
 
-    private TextView header;
-    private TextView money;
-    private TextView way;
-    private TextView info;
-    private ImageView back;
-    private Button ok;
+    public TextView header;
+    public TextView money;
+    public TextView way;
+    public TextView info;
+    public ImageView back;
+    public Button ok;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_money);
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         Bundle extras = getIntent().getExtras();
-        if(extras == null) {
+        if (extras == null) {
             type = null;
             count = null;
         } else {
-            type= extras.getString("type");
-            count= extras.getString("money");
+            type = extras.getString("type");
+            count = extras.getString("money");
         }
 
         init();
@@ -45,7 +44,7 @@ public class MoneyActivity extends AppCompatActivity {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    public void init(){
+    public void init() {
         header = findViewById(R.id.textView1);
         money = findViewById(R.id.textView2);
         way = findViewById(R.id.textView3);
@@ -53,14 +52,15 @@ public class MoneyActivity extends AppCompatActivity {
         back = findViewById(R.id.imageView1);
         ok = findViewById(R.id.imageButton);
 
-        if(type.equals("phone")){
+        //todo
+        if (type.equals("phone")) {
             header.setText("Перевести деньги на телефон");
-            money.setText(count+" ₴");
+            money.setText(count + " ₴");
             way.setText("Телефон");
             info.setText("+380958403060");
-        }else{
+        } else {
             header.setText("Перевести деньги на карту");
-            money.setText(count+" ₴");
+            money.setText(count + " ₴");
             way.setText("Кредитная карта");
             info.setText("1234 1234 1234 1234");
         }
@@ -88,7 +88,6 @@ public class MoneyActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
 }

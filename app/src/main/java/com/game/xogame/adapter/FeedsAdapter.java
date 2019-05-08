@@ -73,7 +73,6 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
             view.setTag(vh);
 
 
-
         } else {
             vh = (FeedsAdapter.ViewHolder) convertView.getTag();
         }
@@ -89,28 +88,27 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
         vh.textViewName.setText(item.getUserName());
         vh.textViewNickname.setText(item.getUserNickname());
         vh.textViewDescription.setText(item.getTaskDescription());
-        vh.textViewTask.setText(item.getTaskNumber()+"/"+item.getTasks());
+        vh.textViewTask.setText(item.getTaskNumber() + "/" + item.getTasks());
         vh.textViewLike.setText(item.getFeedLikes());
-        vh.textViewTag.setText("#"+item.getTaskComment());
-        if(Integer.parseInt(item.getTaskTime())>59){
-            int sec = Integer.parseInt(item.getTaskTime())-60;
-            vh.textViewTime.setText("1:"+sec);
-        }else{
-            vh.textViewTime.setText("0:"+item.getTaskTime());
+        vh.textViewTag.setText("#" + item.getTaskComment());
+        if (Integer.parseInt(item.getTaskTime()) > 59) {
+            int sec = Integer.parseInt(item.getTaskTime()) - 60;
+            vh.textViewTime.setText("1:" + sec);
+        } else {
+            vh.textViewTime.setText("0:" + item.getTaskTime());
         }
 
         vh.placeholder1.setText(item.getCompany().substring(0, 1).toUpperCase());
         vh.imageViewCompany.setImageResource(getPlaceholder(item.getCompany()));
-        if(item.getUserName().length()!=0 ) {
+        if (item.getUserName().length() != 0) {
             vh.placeholder2.setText(item.getUserName().substring(0, 1).toUpperCase());
-        }else{
+        } else {
             vh.placeholder2.setText("a");
         }
-            vh.imageViewPhoto.setImageResource(getPlaceholder(item.getCompany()));
+        vh.imageViewPhoto.setImageResource(getPlaceholder(item.getCompany()));
 
 
-
-        Picasso.with(context).load(item.getLogoSponsorUrl()+"").placeholder(getPlaceholder(item.getCompany())).error(getPlaceholder(item.getCompany())).into(vh.imageViewCompany, new com.squareup.picasso.Callback() {
+        Picasso.with(context).load(item.getLogoSponsorUrl() + "").placeholder(getPlaceholder(item.getCompany())).error(getPlaceholder(item.getCompany())).into(vh.imageViewCompany, new com.squareup.picasso.Callback() {
             @Override
             public void onSuccess() {
                 vh.placeholder1.setText("");
@@ -121,7 +119,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
 
             }
         });
-        Picasso.with(context).load(item.getUserPhotoUrl()+"").placeholder(getPlaceholder(item.getUserNickname())).error(getPlaceholder(item.getUserNickname())).into(vh.imageViewUser, new com.squareup.picasso.Callback() {
+        Picasso.with(context).load(item.getUserPhotoUrl() + "").placeholder(getPlaceholder(item.getUserNickname())).error(getPlaceholder(item.getUserNickname())).into(vh.imageViewUser, new com.squareup.picasso.Callback() {
             @Override
             public void onSuccess() {
                 vh.placeholder2.setText("");
@@ -135,15 +133,15 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.placeholder(R.drawable.unknow);
         requestOptions.error(R.drawable.unknow);
-        requestOptions.override(1024,1024);
+        requestOptions.override(1024, 1024);
         requestOptions.centerCrop();
 
         Glide.with(context).setDefaultRequestOptions(requestOptions).load(item.getTaskPhotoUrl()).thumbnail(0.3f).into(vh.imageViewPhoto);
         //Picasso.with(context).load(item.getTaskPhotoUrl()+"").centerCrop().resize(1024,1024).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(vh.imageViewPhoto);
-        if(item.getUserLike().equals("0")){
+        if (item.getUserLike().equals("0")) {
             vh.imageViewLike.setImageResource(R.drawable.like_unused);
             vh.imageViewLike.setTag("unused");
-        }else{
+        } else {
             vh.imageViewLike.setImageResource(R.drawable.like);
             vh.imageViewLike.setTag("used");
         }
@@ -152,13 +150,13 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                if(String.valueOf(vh.imageViewLike.getTag()).equals("used")){
+                if (String.valueOf(vh.imageViewLike.getTag()).equals("used")) {
                     vh.imageViewLike.setImageResource(R.drawable.like_unused);
-                    vh.textViewLike.setText(Integer.parseInt(item.getFeedLikes())+"");
+                    vh.textViewLike.setText(Integer.parseInt(item.getFeedLikes()) + "");
                     vh.imageViewLike.setTag("unused");
-                }else{
+                } else {
                     vh.imageViewLike.setImageResource(R.drawable.like);
-                    vh.textViewLike.setText((Integer.parseInt(item.getFeedLikes())+1)+"");
+                    vh.textViewLike.setText((Integer.parseInt(item.getFeedLikes()) + 1) + "");
                     vh.imageViewLike.setTag("used");
                 }
 
@@ -167,34 +165,34 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
                 String id = sharedPref.getString("token", "null");
                 ApiService api = RetroClient.getApiService();
                 if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
-                    Call<DefaultCallback> call = api.setLike(id,item.getFeedId());
+                    Call<DefaultCallback> call = api.setLike(id, item.getFeedId());
                     call.enqueue(new Callback<DefaultCallback>() {
                         @Override
                         public void onResponse(Call<DefaultCallback> call, Response<DefaultCallback> response) {
                             if (response.isSuccessful()) {
                                 assert response.body() != null;
-                                Log.i("LOG_like" , "Success(error): " + response.body().getStatus()+item.getFeedId());
+                                Log.i("LOG_like", "Success(error): " + response.body().getStatus() + item.getFeedId());
                             } else {
                                 String jObjError = null;
                                 try {
                                     assert response.errorBody() != null;
-                                    jObjError = response.errorBody().string()+"";
+                                    jObjError = response.errorBody().string() + "";
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
-                                Log.i("LOG_like" , jObjError+" error");
+                                Log.i("LOG_like", jObjError + " error");
 
                             }
                         }
 
                         @Override
-                        public void onFailure( Call<DefaultCallback> call, Throwable t) {
-                            Log.i("LOG_like" , t.getMessage()+" fail");
+                        public void onFailure(Call<DefaultCallback> call, Throwable t) {
+                            Log.i("LOG_like", t.getMessage() + " fail");
                         }
                     });
 
                 } else {
-                    Log.i("LOG_gethistory" , "error internet");
+                    Log.i("LOG_gethistory", "error internet");
                 }
             }
         });
@@ -204,7 +202,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
         return vh.rootView;
     }
 
-    private void actions(final FeedsAdapter.ViewHolder vh, final Feed item){
+    private void actions(final FeedsAdapter.ViewHolder vh, final Feed item) {
         vh.imageViewUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -276,11 +274,11 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
 
                 btn2.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        if(btn3.getVisibility()==View.GONE){
+                        if (btn3.getVisibility() == View.GONE) {
                             btn3.setVisibility(View.VISIBLE);
                             btn4.setVisibility(View.VISIBLE);
                             btn5.setVisibility(View.VISIBLE);
-                        }else{
+                        } else {
                             btn3.setVisibility(View.GONE);
                             btn4.setVisibility(View.GONE);
                             btn5.setVisibility(View.GONE);
@@ -317,76 +315,72 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
                 alertD.show();
 
 
-
-
-
             }
         });
     }
 
 
-
-    private int getPlaceholder(String s){
+    private int getPlaceholder(String s) {
         String abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZЯЧСМИТЬБЮФЫВАПРОЛДЖЭЁЙЦУКЕНГШЩЗХЪІЄ0123456789";
-        int n = abc.indexOf(s.substring(0,1).toUpperCase());
-        if(n == 0 || n == 20 || n == 40 || n == 60){
+        int n = abc.indexOf(s.substring(0, 1).toUpperCase());
+        if (n == 0 || n == 20 || n == 40 || n == 60) {
             return R.color.color1;
         }
-        if(n == 1 || n == 21 || n == 41 || n == 61){
+        if (n == 1 || n == 21 || n == 41 || n == 61) {
             return R.color.color2;
         }
-        if(n == 2 || n == 22 || n == 42 || n == 62){
+        if (n == 2 || n == 22 || n == 42 || n == 62) {
             return R.color.color3;
         }
-        if(n == 3 || n == 23 || n == 43 || n == 63){
+        if (n == 3 || n == 23 || n == 43 || n == 63) {
             return R.color.color4;
         }
-        if(n == 4 || n == 24 || n == 44 || n == 64){
+        if (n == 4 || n == 24 || n == 44 || n == 64) {
             return R.color.color5;
         }
-        if(n == 5 || n == 25 || n == 45 || n == 65){
+        if (n == 5 || n == 25 || n == 45 || n == 65) {
             return R.color.color6;
         }
-        if(n == 6 || n == 26 || n == 46 || n == 66){
+        if (n == 6 || n == 26 || n == 46 || n == 66) {
             return R.color.color7;
         }
-        if(n == 7 || n == 27 || n == 47 || n == 67){
+        if (n == 7 || n == 27 || n == 47 || n == 67) {
             return R.color.color8;
         }
-        if(n == 8 || n == 28 || n == 48 || n == 68){
+        if (n == 8 || n == 28 || n == 48 || n == 68) {
             return R.color.color9;
         }
-        if(n == 9 || n == 29 || n == 49 || n == 69){
+        if (n == 9 || n == 29 || n == 49 || n == 69) {
             return R.color.color10;
         }
-        if(n == 10 || n == 30 || n == 50 || n == 70){
+        if (n == 10 || n == 30 || n == 50 || n == 70) {
             return R.color.color11;
         }
-        if(n == 11 || n == 31 || n == 51 || n == 71){
+        if (n == 11 || n == 31 || n == 51 || n == 71) {
             return R.color.color12;
         }
-        if(n == 12 || n == 32 || n == 52 || n == 72){
+        if (n == 12 || n == 32 || n == 52 || n == 72) {
             return R.color.color13;
         }
-        if(n == 13 || n == 33 || n == 53 || n == 73){
+        if (n == 13 || n == 33 || n == 53 || n == 73) {
             return R.color.color14;
         }
-        if(n == 14 || n == 34 || n == 54 || n == 74){
+        if (n == 14 || n == 34 || n == 54 || n == 74) {
             return R.color.color15;
         }
-        if(n == 15 || n == 35 || n == 55 || n == 75){
+        if (n == 15 || n == 35 || n == 55 || n == 75) {
             return R.color.color16;
         }
-        if(n == 16 || n == 36 || n == 56 || n == 76){
+        if (n == 16 || n == 36 || n == 56 || n == 76) {
             return R.color.color17;
         }
-        if(n == 17 || n == 37 || n == 57 || n == 77){
+        if (n == 17 || n == 37 || n == 57 || n == 77) {
             return R.color.color18;
         }
-        if(n == 18 || n == 38 || n == 58 || n == 78){
+        if (n == 18 || n == 38 || n == 58 || n == 78) {
             return R.color.color19;
         }
-        if(n == 19 || n == 39 || n == 59 || n == 79){
+        if (n == 19 || n == 39 || n == 59 || n == 79) {
             return R.color.color20;
         }
         return R.color.color1;

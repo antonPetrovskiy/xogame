@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.game.xogame.BuildConfig;
 import com.game.xogame.R;

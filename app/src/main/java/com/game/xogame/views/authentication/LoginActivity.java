@@ -1,28 +1,19 @@
 package com.game.xogame.views.authentication;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
-import android.os.StrictMode;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.game.xogame.R;
@@ -33,30 +24,31 @@ import com.game.xogame.presenters.LoginPresenter;
 import com.game.xogame.views.main.MainActivity;
 import com.hbb20.CountryCodePicker;
 
-import br.com.sapereaude.maskedEditText.MaskedEditText;
-
 public class LoginActivity extends AppCompatActivity {
 
 
-    private ApiService api;
+    @SuppressLint("StaticFieldLeak")
+    static CountryCodePicker ccp;
+    EditText editTextCarrierNumber;
+    public ApiService api;
     private LoginPresenter presenter;
-    //private MaskedEditText phoneNumber;
     private Button next;
 
-    static CountryCodePicker ccp;
-
-    EditText editTextCarrierNumber;
+    public static CountryCodePicker getPhoneView() {
+        return ccp;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // get or create SharedPreferences
         SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
         String token = sharedPref.getString("token", "null");
-        if(!token.equals("null")){
+        assert token != null;
+        if (!token.equals("null")) {
             toMainActivity();
         }
 
@@ -65,14 +57,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    public void init(){
+    public void init() {
         api = RetroClient.getApiService();
         LoginModel usersModel = new LoginModel(api, getApplicationContext());
         presenter = new LoginPresenter(usersModel);
         presenter.attachLoginView(this);
 
-        ccp = (CountryCodePicker) findViewById(R.id.ccp);
-        editTextCarrierNumber = (EditText) findViewById(R.id.phone_input);
+        ccp = findViewById(R.id.ccp);
+        editTextCarrierNumber = findViewById(R.id.phone_input);
         ccp.registerCarrierNumberEditText(editTextCarrierNumber);
 
         ccp.setDialogEventsListener(new CountryCodePicker.DialogEventsListener() {
@@ -103,14 +95,14 @@ public class LoginActivity extends AppCompatActivity {
                         break;
                     case MotionEvent.ACTION_UP: // отпускание
                         next.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
-                        if(ccp.getFullNumber().length()==12){
+                        if (ccp.getFullNumber().length() == 12) {
                             if (((ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
                                 presenter.login();
                                 //loading...
-                            }else{
+                            } else {
                                 showToast("Нет подключения к интернету");
                             }
-                        }else{
+                        } else {
                             showToast("Номер не верный");
                         }
                         break;
@@ -120,29 +112,22 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
-
-
     }
 
-    public void toConfirmPhoneActivity(){
+    public void toConfirmPhoneActivity() {
         Intent intent = new Intent(LoginActivity.this, ConfirmPhoneActivity.class);
         intent.putExtra("NUMBER", ccp.getFullNumber());
         startActivity(intent);
     }
 
-    public void toMainActivity(){
+    public void toMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }
 
-    public static CountryCodePicker getPhoneView(){
-        return ccp;
-    }
-
-    public void showToast(String s){
+    public void showToast(String s) {
 //        LayoutInflater layoutInflater = LayoutInflater.from(this);
 //        View promptView = layoutInflater.inflate(R.layout.error, null);
 //        final AlertDialog alertD = new AlertDialog.Builder(this).create();
@@ -154,16 +139,5 @@ public class LoginActivity extends AppCompatActivity {
 //        alertD.show();
         Toast.makeText(getApplicationContext(), s,
                 Toast.LENGTH_SHORT).show();
-    }
-
-    public static void hideKeyboard(Activity activity) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        //Find the currently focused view, so we can grab the correct window token from it.
-        View view = activity.getCurrentFocus();
-        //If no view currently has focus, create a new one, just so we can grab a window token from it
-        if (view == null) {
-            view = new View(activity);
-        }
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

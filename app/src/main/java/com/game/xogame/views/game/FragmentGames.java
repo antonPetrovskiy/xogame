@@ -3,7 +3,6 @@ package com.game.xogame.views.game;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -19,7 +18,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.game.xogame.R;
 import com.game.xogame.adapter.GamesAdapter;
@@ -29,7 +27,6 @@ import com.game.xogame.entity.Game;
 import com.game.xogame.presenters.MainPresenter;
 import com.game.xogame.views.main.MainActivity;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,26 +34,29 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class FragmentGames extends Fragment {
 
-    private ApiService api;
     public static MainPresenter presenter;
+    @SuppressLint("StaticFieldLeak")
+    static GamesAdapter adapter;
+    @SuppressLint("StaticFieldLeak")
+    static private Context context;
+    @SuppressLint("StaticFieldLeak")
+    private static FragmentGames fragment;
+    public ApiService api;
     private LinearLayout load;
     private RelativeLayout empty;
     private ListView listView;
     private View rootView;
     private Button refresh;
-    static private Context context;
-    static GamesAdapter adapter;
     private SwipeRefreshLayout pullToRefresh;
     private List<Game> gameList;
     private List<Game> tmpgameList;
-    private EditText search;
-    private static FragmentGames fragment;
+    public EditText search;
 
     public FragmentGames() {
     }
 
     public static FragmentGames newInstance(Context c, MainPresenter p) {
-        if(fragment==null){
+        if (fragment == null) {
             fragment = new FragmentGames();
         }
         context = c;
@@ -74,13 +74,11 @@ public class FragmentGames extends Fragment {
         init();
 
 
-
-
         return rootView;
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    public void init(){
+    public void init() {
         load = rootView.findViewById(R.id.targetView);
         listView = rootView.findViewById(R.id.gamelist);
         pullToRefresh = rootView.findViewById(R.id.swiperefresh);
@@ -92,9 +90,9 @@ public class FragmentGames extends Fragment {
         gameList = new LinkedList<>();
         adapter = null;
 
-        if(!context.getSharedPreferences("myPref", MODE_PRIVATE).getString("lat", "null").equals("null")){
+        if (!context.getSharedPreferences("myPref", MODE_PRIVATE).getString("lat", "null").equals("null")) {
             presenter.showGames(FragmentGames.this);
-        }else{
+        } else {
             empty.setVisibility(View.VISIBLE);
             load.setVisibility(View.GONE);
         }
@@ -102,12 +100,12 @@ public class FragmentGames extends Fragment {
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(!context.getSharedPreferences("myPref", MODE_PRIVATE).getString("lat", "null").equals("null")){
+                if (!context.getSharedPreferences("myPref", MODE_PRIVATE).getString("lat", "null").equals("null")) {
                     gameList = new LinkedList<>();
                     adapter = null;
                     presenter.showGames(FragmentGames.this);
                     empty.setVisibility(View.GONE);
-                }else{
+                } else {
                     load.setVisibility(View.GONE);
                     empty.setVisibility(View.VISIBLE);
                 }
@@ -126,7 +124,7 @@ public class FragmentGames extends Fragment {
                         break;
                     case MotionEvent.ACTION_UP: // отпускание
                         refresh.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
-                        ((MainActivity)getActivity()).coord();
+                        ((MainActivity) getActivity()).coord();
                         update();
                         break;
                 }
@@ -144,13 +142,13 @@ public class FragmentGames extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tmpgameList= new LinkedList<>();
+                tmpgameList = new LinkedList<>();
 //                Toast toast = Toast.makeText(rootView.getContext(),
 //                        gameList.size()+"no", Toast.LENGTH_SHORT);
 //                toast.show();
-                for(int j = 0; j < gameList.size(); j ++){
+                for (int j = 0; j < gameList.size(); j++) {
 
-                    if(gameList.get(j).getTitle().toLowerCase().contains(s.toString().toLowerCase())){
+                    if (gameList.get(j).getTitle().toLowerCase().contains(s.toString().toLowerCase())) {
 
                         tmpgameList.add(gameList.get(j));
                     }
@@ -174,13 +172,13 @@ public class FragmentGames extends Fragment {
         super.onResume();
     }
 
-    public void update(){
-        if(!context.getSharedPreferences("myPref", MODE_PRIVATE).getString("lat", "null").equals("null")){
+    public void update() {
+        if (!context.getSharedPreferences("myPref", MODE_PRIVATE).getString("lat", "null").equals("null")) {
             gameList = new LinkedList<>();
             adapter = null;
             presenter.showGames(FragmentGames.this);
             empty.setVisibility(View.GONE);
-        }else{
+        } else {
             empty.setVisibility(View.VISIBLE);
             load.setVisibility(View.GONE);
         }
@@ -188,7 +186,7 @@ public class FragmentGames extends Fragment {
     }
 
 
-    public void setList(List<Game> list){
+    public void setList(List<Game> list) {
         final List<Game> l = list;
         tmpgameList = list;
         gameList = list;
@@ -205,16 +203,16 @@ public class FragmentGames extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(context, GameInfoActivity.class);
-                intent.putExtra("GAMEID",tmpgameList.get(position).getGameid());
-                intent.putExtra("SUBSCRIBE",tmpgameList.get(position).getSubscribe());
+                intent.putExtra("GAMEID", tmpgameList.get(position).getGameid());
+                intent.putExtra("SUBSCRIBE", tmpgameList.get(position).getSubscribe());
                 intent.putExtra("TITLE", tmpgameList.get(position).getTitle());
                 intent.putExtra("NAME", tmpgameList.get(position).getCompany());
                 intent.putExtra("LOGO", tmpgameList.get(position).getLogo());
                 intent.putExtra("BACKGROUND", tmpgameList.get(position).getBackground());
-                intent.putExtra("DATE", tmpgameList.get(position).getStartdate()+"-"+l.get(position).getEnddate());
+                intent.putExtra("DATE", tmpgameList.get(position).getStartdate() + "-" + l.get(position).getEnddate());
                 intent.putExtra("DESCRIPTION", tmpgameList.get(position).getDescription());
                 intent.putExtra("TASKS", tmpgameList.get(position).getTasks());
-                intent.putExtra("TIME", tmpgameList.get(position).getStarttime()+" - "+l.get(position).getEndtime());
+                intent.putExtra("TIME", tmpgameList.get(position).getStarttime() + " - " + l.get(position).getEndtime());
                 intent.putExtra("MONEY", tmpgameList.get(position).getReward());
                 intent.putExtra("PEOPLE", tmpgameList.get(position).getFollowers());
                 intent.putExtra("STATISTIC", "false");
@@ -222,8 +220,6 @@ public class FragmentGames extends Fragment {
             }
         });
     }
-
-
 
 
 }

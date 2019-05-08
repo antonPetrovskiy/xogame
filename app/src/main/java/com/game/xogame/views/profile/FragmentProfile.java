@@ -9,9 +9,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-
-import androidx.exifinterface.media.ExifInterface;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -33,6 +30,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.exifinterface.media.ExifInterface;
+
 import com.game.xogame.R;
 import com.game.xogame.adapter.GamesAdapter;
 import com.game.xogame.entity.Game;
@@ -53,42 +52,38 @@ import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 
 public class FragmentProfile extends Fragment {
 
+    public static final int REQ_CODE_PICK_PHOTO = 0;
+    public static final int REQ_CODE_CAPTURE = 2;
+    @SuppressLint("StaticFieldLeak")
+    static private Context context;
+    static private MainPresenter presenter;
+    @SuppressLint("StaticFieldLeak")
+    private static FragmentProfile fragment;
+    public boolean isPhoto = false;
+    String imagePath;
+    String imageurl;
+    File directory;
+    File myFile;
     private ImageView settings;
     private ImageView photo_view;
     private ImageView photo_edit;
     private TextView name;
     private TextView nickName;
-
-
     private ImageView myGames;
     private LinearLayout myWins;
     private LinearLayout load;
     private Button find;
-
     private ListView list1;
     private ListView list2;
     private SwipeRefreshLayout pullToRefresh;
     private TextView current;
     private TextView future;
-    public boolean isPhoto = false;
     private RelativeLayout empty;
     private GamesAdapter adapter1;
     private GamesAdapter adapter2;
     private View rootView;
-    @SuppressLint("StaticFieldLeak")
-    static private Context context;
-    static private MainPresenter presenter;
     private List<Game> gameNowList;
     private List<Game> gameFutureList;
-
-    String imagePath;
-    String imageurl;
-    File directory;
-    File myFile;
-    public static final int REQ_CODE_PICK_PHOTO = 0;
-    public static final int REQ_CODE_CAPTURE = 2;
-    @SuppressLint("StaticFieldLeak")
-    private static FragmentProfile fragment;
 
     public FragmentProfile() {
     }
@@ -101,6 +96,42 @@ public class FragmentProfile extends Fragment {
         context = c;
         presenter = p;
         return fragment;
+    }
+
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
+                matrix, true);
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + ((listView.getDividerHeight()) * (listAdapter.getCount()));
+
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+
     }
 
     @Override
@@ -434,7 +465,6 @@ public class FragmentProfile extends Fragment {
 
     }
 
-
     private String getFilePath(Intent data) {
         String imagePath;
         Uri selectedImage = data.getData();
@@ -468,13 +498,6 @@ public class FragmentProfile extends Fragment {
             directory.mkdirs();
     }
 
-    public static Bitmap rotateImage(Bitmap source, float angle) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(angle);
-        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
-                matrix, true);
-    }
-
     public String getPhoto() {
         return imagePath + "";
     }
@@ -490,35 +513,6 @@ public class FragmentProfile extends Fragment {
 
     public void setNickName(String s) {
         nickName.setText(s);
-    }
-
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null)
-            return;
-
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
-        int totalHeight = 0;
-        View view = null;
-
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-
-            if (i == 0)
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth,
-                        ViewGroup.LayoutParams.MATCH_PARENT));
-
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
-
-        }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + ((listView.getDividerHeight()) * (listAdapter.getCount()));
-
-        listView.setLayoutParams(params);
-        listView.requestLayout();
-
     }
 
 }

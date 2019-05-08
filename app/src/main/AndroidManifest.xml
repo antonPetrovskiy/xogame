@@ -22,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".views.game.ReportActivity"></activity>
+        <activity android:name=".views.game.ReportActivity"/>
         <activity android:name=".views.profile.UserProfileActivity" />
         <activity android:name=".views.game.RatingGameActivity" />
         <activity android:name=".views.game.PlayActivity">

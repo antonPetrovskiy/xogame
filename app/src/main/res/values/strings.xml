@@ -56,6 +56,7 @@
     <string name="txt_active">активно</string>
     <string name="txt_reward">Награда</string>
     <string name="txt_reportDescription">Укажите причину жалобы</string>
+    <string name="txt_userDontParticipate">Пользователь не учавствуете ни в одной игре</string>
 
 
 </resources>

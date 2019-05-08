@@ -9,13 +9,12 @@
     tools:context=".views.profile.UserProfileActivity">
 
 
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:background="@drawable/bggradient"
+        android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -23,11 +22,11 @@
             android:layout_width="wrap_content"
             android:layout_height="44dp"
             android:layout_gravity="center_horizontal"
-            android:textAlignment="center"
             android:fontFamily="@font/roboto_regular"
             android:gravity="center_vertical"
-            android:textColor="#2F3542"
             android:maxLines="1"
+            android:textAlignment="center"
+            android:textColor="#2F3542"
             android:textSize="16sp" />
 
         <ImageView
@@ -37,7 +36,8 @@
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:scaleType="fitXY"
-            android:src="@drawable/profile_line" />
+            android:src="@drawable/profile_line"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/textView2"
@@ -45,8 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:maxLines="1"
             android:fontFamily="@font/roboto_regular"
+            android:maxLines="1"
             android:textAlignment="center"
             android:textColor="#586575"
             android:textSize="14sp" />
@@ -69,9 +69,10 @@
                 android:layout_centerHorizontal="true"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                app:cardElevation="5dp"
+                app:cardBackgroundColor="@android:color/white"
                 app:cardCornerRadius="40dp"
-                app:cardBackgroundColor="@android:color/white">
+                app:cardElevation="5dp">
+
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/imageProfile"
                     android:layout_width="80dp"
@@ -97,7 +98,8 @@
             android:layout_marginTop="10dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@drawable/profile_line_grey" />
+            android:src="@drawable/profile_line_grey"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 
@@ -105,18 +107,19 @@
         android:id="@+id/myGames"
         android:layout_width="44dp"
         android:layout_height="44dp"
-        android:padding="12dp"
         android:adjustViewBounds="true"
         android:cropToPadding="true"
+        android:padding="12dp"
         android:src="@drawable/clock"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/imageViewBack"
         android:layout_width="44dp"
         android:layout_height="44dp"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:adjustViewBounds="true"
         android:cropToPadding="true"
         android:paddingLeft="12dp"
@@ -125,84 +128,89 @@
         android:paddingBottom="13dp"
         android:src="@drawable/setting_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
 
-        <ScrollView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:fillViewport="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-            <LinearLayout
-                android:id="@+id/linearLayout3"
+
+            <TextView
+                android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="4dp"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/roboto_medium"
-                    android:textColor="#586575"
-                    android:textAlignment="center"
-                    android:visibility="gone"
-                    android:text="Текущие" />
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/txt_current"
+                android:textAlignment="center"
+                android:textColor="#586575"
+                android:textSize="12sp"
+                android:visibility="gone" />
 
-                <ListView
-                    android:id="@+id/list1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:divider="#00000000"
-                    android:dividerHeight="15dp"
-                    android:paddingLeft="12dp"
-                    android:paddingTop="9dp"
-                    android:paddingRight="12dp"
-                    android:paddingBottom="9dp"/>
+            <ListView
+                android:id="@+id/list1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:divider="#00000000"
+                android:dividerHeight="15dp"
+                android:paddingLeft="12dp"
+                android:paddingTop="9dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="9dp"
+                tools:ignore="NestedScrolling" />
 
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/roboto_medium"
-                    android:textColor="#586575"
-                    android:textAlignment="center"
-                    android:visibility="gone"
-                    android:text="Будущие" />
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/txt_future"
+                android:textAlignment="center"
+                android:textColor="#586575"
+                android:textSize="12sp"
+                android:visibility="gone" />
 
-                <ListView
-                    android:id="@+id/list2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:divider="#00000000"
-                    android:dividerHeight="15dp"
-                    android:paddingLeft="12dp"
-                    android:paddingTop="9dp"
-                    android:paddingRight="12dp"
-                    android:paddingBottom="9dp"/>
+            <ListView
+                android:id="@+id/list2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:divider="#00000000"
+                android:dividerHeight="15dp"
+                android:paddingLeft="12dp"
+                android:paddingTop="9dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="9dp"
+                tools:ignore="NestedScrolling" />
 
 
-            </LinearLayout>
+        </LinearLayout>
 
-        </ScrollView>
+    </ScrollView>
 
 
     <LinearLayout
+        android:id="@+id/targetView"
         android:layout_width="159dp"
         android:layout_height="159dp"
-        android:id="@+id/targetView"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -242,7 +250,8 @@
             android:layout_width="159dp"
             android:layout_height="159dp"
             android:layout_centerHorizontal="true"
-            app:srcCompat="@drawable/empty" />
+            app:srcCompat="@drawable/empty"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="match_parent"
@@ -251,13 +260,12 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="Пользователь не учавствуете ни в одной игре"
+            android:text="@string/txt_userDontParticipate"
             android:textAlignment="center"
             android:textColor="#80586575"
             android:textSize="16sp" />
 
     </RelativeLayout>
-
 
 
 </android.support.constraint.ConstraintLayout>

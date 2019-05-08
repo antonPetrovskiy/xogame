@@ -4,13 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +21,6 @@ import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
 import com.game.xogame.models.GamesModel;
 import com.game.xogame.presenters.GameInfoPresenter;
-import com.game.xogame.views.StartActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -30,33 +28,30 @@ import com.squareup.picasso.Picasso;
 
 public class GameInfoActivity extends AppCompatActivity {
 
+    public String isStatistic;
     private ApiService api;
     private GameInfoPresenter presenter;
     private TextView title;
     private TextView description;
-
     private TextView name;
     private TextView date;
     private TextView time;
     private TextView tasks;
     private TextView money;
     private TextView people;
-
     private ImageView statistic;
     private ImageView logo;
     private ImageView background;
     private ImageView back;
     private Button subscribe;
     private String count;
-
     private String gameid;
-    public String isStatistic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_info);
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         api = RetroClient.getApiService();
         GamesModel gamesModel = new GamesModel(api, getApplicationContext());
@@ -68,7 +63,7 @@ public class GameInfoActivity extends AppCompatActivity {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    public void init(){
+    public void init() {
         back = findViewById(R.id.imageView1);
         subscribe = findViewById(R.id.imageButton);
         title = findViewById(R.id.textView1);
@@ -85,42 +80,41 @@ public class GameInfoActivity extends AppCompatActivity {
 
         final Bundle extras = getIntent().getExtras();
         gameid = extras.getString("GAMEID");
-        title.setText(extras.getString("TITLE")+"");
-        description.setText(extras.getString("DESCRIPTION")+"");
-        name.setText(extras.getString("NAME")+"");
-        date.setText(extras.getString("DATE")+"");
-        time.setText(extras.getString("TIME")+"");
-        tasks.setText(extras.getString("TASKS")+" заданий");
-        money.setText(extras.getString("MONEY")+" uah");
-        people.setText(extras.getString("PEOPLE")+" человек");
+        title.setText(extras.getString("TITLE") + "");
+        description.setText(extras.getString("DESCRIPTION") + "");
+        name.setText(extras.getString("NAME") + "");
+        date.setText(extras.getString("DATE") + "");
+        time.setText(extras.getString("TIME") + "");
+        tasks.setText(extras.getString("TASKS") + " заданий");
+        money.setText(extras.getString("MONEY") + " uah");
+        people.setText(extras.getString("PEOPLE") + " человек");
         count = extras.getString("PEOPLE");
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.placeholder(R.drawable.unknow_wide);
         requestOptions.error(R.drawable.unknow_wide);
-        requestOptions.override(1920,1080);
+        requestOptions.override(1920, 1080);
         requestOptions.centerCrop();
 
         Glide.with(this).setDefaultRequestOptions(requestOptions).load(extras.getString("BACKGROUND")).thumbnail(0.3f).into(background);
         Picasso.with(this).load(extras.getString("LOGO")).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(logo);
         isStatistic = extras.getString("STATISTIC");
-        if(extras.getString("STATISTIC").equals("true")){
+        if (extras.getString("STATISTIC").equals("true")) {
             statistic.setVisibility(View.VISIBLE);
             subscribe.setText("Отказатся");
             subscribe.setBackgroundResource(R.drawable.registration_oval_button);
             subscribe.setTextColor(Color.parseColor("#F05A23"));
-        }else{
+        } else {
             statistic.setVisibility(View.GONE);
-            if(extras.getString("SUBSCRIBE").equals("0")){
+            if (extras.getString("SUBSCRIBE").equals("0")) {
                 subscribe.setText("Участвовать");
                 subscribe.setBackgroundResource(R.drawable.regbtn);
                 subscribe.setTextColor(Color.parseColor("#ffffff"));
-            }else{
+            } else {
                 subscribe.setText("Отказатся");
                 subscribe.setBackgroundResource(R.drawable.registration_oval_button);
                 subscribe.setTextColor(Color.parseColor("#F05A23"));
             }
         }
-
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +128,7 @@ public class GameInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GameInfoActivity.this, RatingGameActivity.class);
-                intent.putExtra("gameid",gameid);
+                intent.putExtra("gameid", gameid);
                 startActivity(intent);
             }
         });
@@ -148,22 +142,22 @@ public class GameInfoActivity extends AppCompatActivity {
                         break;
                     case MotionEvent.ACTION_UP: // отпускание
                         subscribe.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
-                        if(subscribe.getText().equals("Участвовать")){
+                        if (subscribe.getText().equals("Участвовать")) {
                             presenter.subscribeGame();
-                            people.setText((Integer.parseInt(count)+1)+" человек");
-                            count = (Integer.parseInt(count)+1)+"";
-                            FirebaseMessaging.getInstance().subscribeToTopic("/topics/agame"+gameid)
+                            people.setText((Integer.parseInt(count) + 1) + " человек");
+                            count = (Integer.parseInt(count) + 1) + "";
+                            FirebaseMessaging.getInstance().subscribeToTopic("/topics/agame" + gameid)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
 
                                         }
                                     });
-                        }else{
+                        } else {
                             presenter.unsubscribeGame();
-                            people.setText((Integer.parseInt(count)-1)+" человек");
-                            count = (Integer.parseInt(count)-1)+"";
-                            FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/agame"+gameid)
+                            people.setText((Integer.parseInt(count) - 1) + " человек");
+                            count = (Integer.parseInt(count) - 1) + "";
+                            FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/agame" + gameid)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
@@ -179,23 +173,23 @@ public class GameInfoActivity extends AppCompatActivity {
 
     }
 
-    public void setButtonName(String s){
-        if(s.equals("Участвовать")){
+    public void setButtonName(String s) {
+        if (s.equals("Участвовать")) {
             subscribe.setBackgroundResource(R.drawable.regbtn);
             subscribe.setTextColor(Color.parseColor("#ffffff"));
-        }else{
+        } else {
             subscribe.setBackgroundResource(R.drawable.registration_oval_button);
             subscribe.setTextColor(Color.parseColor("#F05A23"));
         }
         subscribe.setText(s);
     }
 
-    public void showToast(String text){
+    public void showToast(String text) {
         Toast.makeText(getApplicationContext(), text,
                 Toast.LENGTH_SHORT).show();
     }
 
-    public String getGameid(){
+    public String getGameid() {
         return gameid;
     }
 

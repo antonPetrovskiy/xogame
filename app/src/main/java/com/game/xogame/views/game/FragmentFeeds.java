@@ -26,38 +26,39 @@ import com.game.xogame.api.RetroClient;
 import com.game.xogame.entity.Feed;
 import com.game.xogame.presenters.MainPresenter;
 import com.game.xogame.views.main.MainActivity;
+
 import java.util.LinkedList;
 import java.util.List;
 
 
 public class FragmentFeeds extends Fragment {
 
-    public ApiService api;
+    @SuppressLint("StaticFieldLeak")
+    static FeedsAdapter adapter;
     private static MainPresenter presenter;
+    @SuppressLint("StaticFieldLeak")
+    static private Context context;
+    @SuppressLint("StaticFieldLeak")
+    private static FragmentFeeds fragment;
+    public ApiService api;
     private LinearLayout load;
     private ListView listView;
     private ImageView sort;
     private ImageView rating;
     private View rootView;
-    @SuppressLint("StaticFieldLeak")
-    static private Context context;
-    @SuppressLint("StaticFieldLeak")
-    static FeedsAdapter adapter;
     private SwipeRefreshLayout pullToRefresh;
     private String flag = "false";
     private int preLast;
     private RelativeLayout empty;
     private Button find;
     private List<Feed> listFeeds = new LinkedList<>();
-    @SuppressLint("StaticFieldLeak")
-    private static FragmentFeeds fragment;
 
     public FragmentFeeds() {
 
     }
 
     public static FragmentFeeds newInstance(Context c, MainPresenter p) {
-        if(fragment==null){
+        if (fragment == null) {
             fragment = new FragmentFeeds();
         }
         context = c;
@@ -72,13 +73,13 @@ public class FragmentFeeds extends Fragment {
         init();
         listFeeds = new LinkedList<>();
         adapter = null;
-        presenter.showFeeds(this,flag,"0");
+        presenter.showFeeds(this, flag, "0");
 
         return rootView;
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    public void init(){
+    public void init() {
         load = rootView.findViewById(R.id.targetView);
         listView = rootView.findViewById(R.id.gamelist);
         empty = rootView.findViewById(R.id.empty);
@@ -115,18 +116,18 @@ public class FragmentFeeds extends Fragment {
                         break;
                     case MotionEvent.ACTION_UP: // отпускание
                         sort.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
-                        if(flag.equals("false")){
+                        if (flag.equals("false")) {
                             flag = "true";
                             sort.setImageResource(R.drawable.feed_type_used);
                             listFeeds = new LinkedList<>();
                             adapter = null;
-                            presenter.showFeeds(FragmentFeeds.this,flag,"0");
-                        }else{
+                            presenter.showFeeds(FragmentFeeds.this, flag, "0");
+                        } else {
                             flag = "false";
                             sort.setImageResource(R.drawable.feed_type);
                             listFeeds = new LinkedList<>();
                             adapter = null;
-                            presenter.showFeeds(FragmentFeeds.this,flag,"0");
+                            presenter.showFeeds(FragmentFeeds.this, flag, "0");
                         }
                         break;
                 }
@@ -157,24 +158,24 @@ public class FragmentFeeds extends Fragment {
             public void onRefresh() {
                 listFeeds = new LinkedList<>();
                 adapter = null;
-                presenter.showFeeds(FragmentFeeds.this,flag,"0");
+                presenter.showFeeds(FragmentFeeds.this, flag, "0");
                 pullToRefresh.setRefreshing(false);
             }
         });
 
     }
 
-    public void update(){
+    public void update() {
         listFeeds = new LinkedList<>();
         adapter = null;
-        presenter.showFeeds(this,flag,"0");
+        presenter.showFeeds(this, flag, "0");
     }
 
-    public void setList(final List<Feed> list){
+    public void setList(final List<Feed> list) {
 
 
-        if(list.size()>0)
-            Log.i("LOG_scroll" , list.get(list.size()-1).getFeedId()+"");
+        if (list.size() > 0)
+            Log.i("LOG_scroll", list.get(list.size() - 1).getFeedId() + "");
         listFeeds.addAll(list);
         if (adapter == null) {
             adapter = new FeedsAdapter(context, listFeeds);
@@ -183,9 +184,9 @@ public class FragmentFeeds extends Fragment {
             adapter.notifyDataSetChanged();
         }
         load.setVisibility(View.GONE);
-        if(listFeeds.size()==0) {
+        if (listFeeds.size() == 0) {
             empty.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             empty.setVisibility(View.GONE);
         }
 
@@ -198,15 +199,13 @@ public class FragmentFeeds extends Fragment {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 final int lastItem = firstVisibleItem + visibleItemCount;
-                if(lastItem == totalItemCount)
-                {
+                if (lastItem == totalItemCount) {
                     //Log.i("LOG_scroll" , "not last  "+list.get(list.size()-1).getFeedId());
-                    if(preLast!=lastItem)
-                    {
-                        Log.i("LOG_scroll" , "last");
+                    if (preLast != lastItem) {
+                        Log.i("LOG_scroll", "last");
                         //to avoid multiple calls for last item
-                        if(list.size()>0)
-                            presenter.showFeeds(FragmentFeeds.this,flag, (Integer.parseInt(list.get(list.size()-1).getFeedId())-1)+"");
+                        if (list.size() > 0)
+                            presenter.showFeeds(FragmentFeeds.this, flag, (Integer.parseInt(list.get(list.size() - 1).getFeedId()) - 1) + "");
                         preLast = lastItem;
                     }
                 }

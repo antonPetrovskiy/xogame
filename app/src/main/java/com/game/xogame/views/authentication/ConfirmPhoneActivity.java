@@ -52,7 +52,6 @@ public class ConfirmPhoneActivity extends AppCompatActivity {
             //TODO
             text.setText("На ваш номер +"+phone+" выслано сообщение с кодом подтверждения");
         }
-        //new SmsListener();
     }
 
     @SuppressLint("ClickableViewAccessibility")

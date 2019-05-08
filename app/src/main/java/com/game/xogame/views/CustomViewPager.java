@@ -1,5 +1,6 @@
 package com.game.xogame.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -26,6 +27,7 @@ public class CustomViewPager extends ViewPager {
         return false;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // Never allow swiping to switch between pages
@@ -46,7 +48,7 @@ public class CustomViewPager extends ViewPager {
     }
 
     public class MyScroller extends Scroller {
-        public MyScroller(Context context) {
+        private MyScroller(Context context) {
             super(context, new DecelerateInterpolator());
         }
 
