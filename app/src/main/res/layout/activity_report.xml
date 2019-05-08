@@ -14,7 +14,8 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UseCompoundDrawables">
 
 
         <ImageView
@@ -25,18 +26,19 @@
             android:cropToPadding="true"
             android:paddingLeft="12dp"
             android:paddingTop="13dp"
-            android:paddingBottom="13dp"
             android:paddingRight="12dp"
-            android:src="@drawable/setting_back" />
+            android:paddingBottom="13dp"
+            android:src="@drawable/setting_back"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
-            android:layout_marginRight="42dp"
+            android:layout_marginEnd="42dp"
             android:fontFamily="@font/roboto_regular"
-            android:text="Пожаловаться"
+            android:text="@string/txt_report"
             android:textAlignment="center"
             android:textColor="#2F3542"
             android:textSize="16sp" />
@@ -61,17 +63,18 @@
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:scaleType="fitXY"
-            android:src="@drawable/profile_line" />
+            android:src="@drawable/profile_line"
+            tools:ignore="ContentDescription" />
 
 
         <TextView
             android:id="@+id/textView20"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Укажите причину жалобы"
-            android:textAlignment="center"
-            android:gravity="center_vertical"
             android:fontFamily="@font/roboto_regular"
+            android:gravity="center_vertical"
+            android:text="@string/txt_reportDescription"
+            android:textAlignment="center"
             android:textColor="#586575"
             android:textSize="16sp" />
 
@@ -80,7 +83,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="44dp"
-            android:src="#80586575" />
+            android:src="#80586575"
+            tools:ignore="ContentDescription" />
 
 
     </LinearLayout>
@@ -99,24 +103,24 @@
             android:id="@+id/editText9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:maxLines="10"
             android:layout_margin="12dp"
+            android:ems="10"
             android:inputType="textPersonName"
+            android:maxLines="10"
+            android:textColor="#586575"
             android:textSize="14sp"
-            android:textColor="#586575" />
+            tools:ignore="Autofill,LabelFor" />
 
         <Button
             android:id="@+id/imageButton"
             android:layout_width="match_parent"
             android:layout_height="42dp"
-            android:layout_alignParentBottom="true"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/registration_button_view"
-            android:fontFamily="@font/roboto_regular"
             android:layout_marginLeft="35dp"
             android:layout_marginRight="35dp"
-            android:text="Отправить"
+            android:background="@drawable/registration_button_view"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/txt_push"
             android:textColor="#ffffff"
             android:textSize="16sp" />
     </LinearLayout>

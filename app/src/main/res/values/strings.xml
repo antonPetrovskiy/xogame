@@ -55,6 +55,7 @@
     <string name="txt_place">место</string>
     <string name="txt_active">активно</string>
     <string name="txt_reward">Награда</string>
+    <string name="txt_reportDescription">Укажите причину жалобы</string>
 
 
 </resources>
