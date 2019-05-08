@@ -14,7 +14,8 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UseCompoundDrawables">
 
 
         <ImageView
@@ -27,16 +28,17 @@
             android:paddingTop="13dp"
             android:paddingBottom="13dp"
             android:paddingRight="12dp"
-            android:src="@drawable/setting_back" />
+            android:src="@drawable/setting_back"
+            tools:ignore="ContentDescription"/>
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
-            android:layout_marginRight="42dp"
+            android:layout_marginEnd="42dp"
             android:fontFamily="@font/roboto_regular"
-            android:text="Мои выигрыши"
+            android:text="@string/txt_myWins"
             android:textAlignment="center"
             android:textColor="#2F3542"
             android:textSize="16sp" />
@@ -60,7 +62,8 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:cropToPadding="true"
-            android:src="@drawable/profile_line" />
+            android:src="@drawable/profile_line"
+            tools:ignore="ContentDescription"/>
 
         <ImageView
             android:id="@+id/imageView12"
@@ -70,7 +73,8 @@
             android:layout_marginTop="19dp"
             android:adjustViewBounds="true"
             android:cropToPadding="true"
-            app:srcCompat="@drawable/mywin_active" />
+            app:srcCompat="@drawable/mywin_active"
+            tools:ignore="ContentDescription"/>
 
         <TextView
             android:id="@+id/textView20"
@@ -87,13 +91,14 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="44dp"
-            android:src="#80586575" />
+            android:src="#80586575"
+            tools:ignore="ContentDescription"/>
 
 
     </LinearLayout>
 
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
 
@@ -106,7 +111,7 @@
         <TableLayout
 
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:stretchColumns="1">
 
             <ListView
@@ -120,7 +125,8 @@
                 android:paddingRight="12dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="10dp"
-                android:background="@drawable/bggradient" />
+                android:background="@drawable/bggradient"
+                tools:ignore="NestedScrolling" />
 
         </TableLayout>
     </ScrollView>
@@ -167,7 +173,8 @@
             android:layout_width="159dp"
             android:layout_height="159dp"
             android:layout_centerHorizontal="true"
-            app:srcCompat="@drawable/empty" />
+            app:srcCompat="@drawable/empty"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="match_parent"
@@ -179,7 +186,7 @@
             android:textAlignment="center"
             android:textColor="#80586575"
             android:textSize="16sp"
-            android:text="У вас пока нет выигрышей продолжайте играть"/>
+            android:text="@string/txt_dontWin"/>
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

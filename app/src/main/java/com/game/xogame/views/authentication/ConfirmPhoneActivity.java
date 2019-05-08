@@ -1,29 +1,22 @@
 package com.game.xogame.views.authentication;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.net.Uri;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.VideoView;
-
 import com.airbnb.lottie.LottieAnimationView;
-import com.bumptech.glide.Glide;
 import com.game.xogame.R;
 import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
 import com.game.xogame.models.LoginModel;
-import com.game.xogame.models.SmsListener;
 import com.game.xogame.presenters.LoginPresenter;
-import com.game.xogame.presenters.MainPresenter;
 import com.game.xogame.views.main.MainActivity;
 
 
@@ -31,10 +24,10 @@ import com.game.xogame.views.main.MainActivity;
 
 public class ConfirmPhoneActivity extends AppCompatActivity {
 
-    private ApiService api;
+    public ApiService api;
     private LoginPresenter presenter;
-    private String phone;
-    public static EditText codeText;
+    public String phone;
+    private EditText codeText;
 
     private Button next;
     private Button resent;
@@ -56,11 +49,13 @@ public class ConfirmPhoneActivity extends AppCompatActivity {
             phone = null;
         } else {
             phone = extras.getString("NUMBER");
+            //TODO
             text.setText("На ваш номер +"+phone+" выслано сообщение с кодом подтверждения");
         }
         //new SmsListener();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public void init(){
         text = findViewById(R.id.textView5);
         load = findViewById(R.id.targetView);
@@ -72,10 +67,19 @@ public class ConfirmPhoneActivity extends AppCompatActivity {
         presenter.attachCofirmPhoneView(this);
 
         next = findViewById(R.id.imageButton);
-        next.setOnClickListener(new View.OnClickListener() {
+        next.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                presenter.confirmPhone();
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: // нажатие
+                        next.animate().setDuration(200).scaleX(0.9f).scaleY(0.9f).start();
+                        break;
+                    case MotionEvent.ACTION_UP: // отпускание
+                        next.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
+                        presenter.confirmPhone();
+                        break;
+                }
+                return true;
             }
         });
 
@@ -112,6 +116,7 @@ public class ConfirmPhoneActivity extends AppCompatActivity {
     public void startTimer(){
         new CountDownTimer(60000, 1000) {
 
+            @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
                 time.setText((millisUntilFinished / 1000)+"");
             }
@@ -128,8 +133,8 @@ public class ConfirmPhoneActivity extends AppCompatActivity {
         return codeText;
     }
 
-    public void showToast(String s){
-        Toast.makeText(getApplicationContext(), s,
-                Toast.LENGTH_SHORT).show();
-    }
+//    public void showToast(String s){
+//        Toast.makeText(getApplicationContext(), s,
+//                Toast.LENGTH_SHORT).show();
+//    }
 }

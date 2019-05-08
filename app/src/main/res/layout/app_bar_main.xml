@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.game.xogame.views.main.MainActivity">
 
-    <android.support.v4.view.ViewPager
+    <com.game.xogame.views.CustomViewPager
         android:id="@+id/container"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -48,7 +49,6 @@
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:scaleType="centerCrop"
-            app:lottie_fileName="hide_right.json"
             app:lottie_imageAssetsFolder="airbnb/" />
 
         <com.airbnb.lottie.LottieAnimationView
@@ -60,7 +60,6 @@
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:scaleType="centerCrop"
-            app:lottie_fileName="hide_right.json"
             app:lottie_imageAssetsFolder="airbnb/" />
 
 
@@ -73,7 +72,6 @@
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:scaleType="centerCrop"
-            app:lottie_fileName="hide_left.json"
             app:lottie_imageAssetsFolder="airbnb/" />
 
     </LinearLayout>

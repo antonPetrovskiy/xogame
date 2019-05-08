@@ -1,12 +1,14 @@
 package com.game.xogame.adapter;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.media.ExifInterface;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -23,13 +26,15 @@ import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
 import com.game.xogame.entity.DefaultCallback;
 import com.game.xogame.entity.Feed;
-import com.game.xogame.entity.Game;
+import com.game.xogame.views.game.ReportActivity;
 import com.game.xogame.views.profile.UserProfileActivity;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,10 +44,9 @@ import static android.content.Context.MODE_PRIVATE;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class FeedsAdapter extends ArrayAdapter<Feed> {
-    public static List<Feed> feedList;
-    Context context;
+    private static List<Feed> feedList;
+    private Context context;
     private LayoutInflater mInflater;
-    private LinearLayout lay;
 
 
     // Constructors
@@ -59,6 +63,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
         return feedList.get(position);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final FeedsAdapter.ViewHolder vh;
@@ -78,6 +83,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
 
         final Feed item = getItem(position);
         vh.rootView.setClipToOutline(true);
+        assert item != null;
         vh.textViewCompany.setText(item.getCompany());
         vh.textViewTitle.setText(item.getTitle());
         vh.textViewName.setText(item.getUserName());
@@ -143,6 +149,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
         }
 
         vh.imageViewLike.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
                 if(String.valueOf(vh.imageViewLike.getTag()).equals("used")){
@@ -165,10 +172,12 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
                         @Override
                         public void onResponse(Call<DefaultCallback> call, Response<DefaultCallback> response) {
                             if (response.isSuccessful()) {
+                                assert response.body() != null;
                                 Log.i("LOG_like" , "Success(error): " + response.body().getStatus()+item.getFeedId());
                             } else {
                                 String jObjError = null;
                                 try {
+                                    assert response.errorBody() != null;
                                     jObjError = response.errorBody().string()+"";
                                 } catch (IOException e) {
                                     e.printStackTrace();
@@ -179,7 +188,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
                         }
 
                         @Override
-                        public void onFailure(Call<DefaultCallback> call, Throwable t) {
+                        public void onFailure( Call<DefaultCallback> call, Throwable t) {
                             Log.i("LOG_like" , t.getMessage()+" fail");
                         }
                     });
@@ -190,6 +199,12 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
             }
         });
 
+        actions(vh, item);
+
+        return vh.rootView;
+    }
+
+    private void actions(final FeedsAdapter.ViewHolder vh, final Feed item){
         vh.imageViewUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,11 +229,104 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
                 context.startActivity(intent);
             }
         });
+        vh.setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        return vh.rootView;
+                LayoutInflater layoutInflater = LayoutInflater.from(v.getRootView().getContext());
+                @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_settings, null);
+                final android.support.v7.app.AlertDialog alertD = new android.support.v7.app.AlertDialog.Builder(v.getRootView().getContext()).create();
+                final TextView btn1 = promptView.findViewById(R.id.textView1);
+                final TextView btn2 = promptView.findViewById(R.id.textView2);
+                final TextView btn3 = promptView.findViewById(R.id.textView3);
+                final TextView btn4 = promptView.findViewById(R.id.textView4);
+                final TextView btn5 = promptView.findViewById(R.id.textView5);
+
+
+                btn1.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        //to get the image from the ImageView (say iv)
+                        BitmapDrawable draw = (BitmapDrawable) vh.imageViewPhoto.getDrawable();
+                        Bitmap bitmap = draw.getBitmap();
+
+                        FileOutputStream outStream = null;
+                        File sdCard = Environment.getExternalStorageDirectory();
+                        File dir = new File(sdCard.getAbsolutePath() + "/paparazzi");
+                        dir.mkdirs();
+                        @SuppressLint("DefaultLocale") String fileName = String.format("%d.jpg", System.currentTimeMillis());
+                        File outFile = new File(dir, fileName);
+                        try {
+                            outStream = new FileOutputStream(outFile);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
+                        try {
+                            assert outStream != null;
+                            outStream.flush();
+                            outStream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        Toast.makeText(v.getRootView().getContext(), "Фото сохранено",
+                                Toast.LENGTH_SHORT).show();
+                        alertD.cancel();
+                    }
+                });
+
+                btn2.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        if(btn3.getVisibility()==View.GONE){
+                            btn3.setVisibility(View.VISIBLE);
+                            btn4.setVisibility(View.VISIBLE);
+                            btn5.setVisibility(View.VISIBLE);
+                        }else{
+                            btn3.setVisibility(View.GONE);
+                            btn4.setVisibility(View.GONE);
+                            btn5.setVisibility(View.GONE);
+                        }
+                    }
+                });
+
+                btn3.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Toast.makeText(v.getRootView().getContext(), "Жалоба отправлена",
+                                Toast.LENGTH_SHORT).show();
+                        alertD.cancel();
+                    }
+                });
+
+                btn4.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Toast.makeText(v.getRootView().getContext(), "Жалоба отправлена",
+                                Toast.LENGTH_SHORT).show();
+                        alertD.cancel();
+                    }
+                });
+
+                btn5.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, ReportActivity.class);
+                        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                        alertD.cancel();
+                    }
+                });
+
+                alertD.setView(promptView);
+                alertD.show();
+
+
+
+
+
+            }
+        });
     }
 
-    public int getPlaceholder(String s){
+
+
+    private int getPlaceholder(String s){
         String abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZЯЧСМИТЬБЮФЫВАПРОЛДЖЭЁЙЦУКЕНГШЩЗХЪІЄ0123456789";
         int n = abc.indexOf(s.substring(0,1).toUpperCase());
         if(n == 0 || n == 20 || n == 40 || n == 60){
@@ -285,25 +393,26 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
     }
 
     private static class ViewHolder {
-        public final LinearLayout rootView;
-        public final ImageView imageViewCompany;
-        public final ImageView imageViewUser;
-        public final ImageView imageViewPhoto;
-        public final ImageView imageViewLike;
-        public final TextView textViewCompany;
-        public final TextView textViewTitle;
-        public final TextView textViewName;
-        public final TextView textViewNickname;
-        public final TextView textViewTime;
-        public final TextView textViewDescription;
-        public final TextView textViewTask;
-        public final TextView textViewLike;
-        public final TextView textViewTag;
-        public final TextView placeholder1;
-        public final TextView placeholder2;
+        private final LinearLayout rootView;
+        private final ImageView imageViewCompany;
+        private final ImageView imageViewUser;
+        private final ImageView imageViewPhoto;
+        private final ImageView imageViewLike;
+        private final TextView textViewCompany;
+        private final TextView textViewTitle;
+        private final TextView textViewName;
+        private final TextView textViewNickname;
+        private final TextView textViewTime;
+        private final TextView textViewDescription;
+        private final TextView textViewTask;
+        private final TextView textViewLike;
+        private final TextView textViewTag;
+        private final TextView placeholder1;
+        private final TextView placeholder2;
+        private final ImageView setting;
 
 
-        private ViewHolder(LinearLayout rootView, ImageView imageView, ImageView imageView1, ImageView imageView2, ImageView imageView3, TextView textView1, TextView textView2, TextView textView3, TextView textView4, TextView textView5, TextView textView6, TextView textView7, TextView textView8, TextView textView9, TextView placeholder1, TextView placeholder2) {
+        private ViewHolder(LinearLayout rootView, ImageView imageView, ImageView imageView1, ImageView imageView2, ImageView imageView3, TextView textView1, TextView textView2, TextView textView3, TextView textView4, TextView textView5, TextView textView6, TextView textView7, TextView textView8, TextView textView9, TextView placeholder1, TextView placeholder2, ImageView setting) {
             this.rootView = rootView;
             this.imageViewCompany = imageView;
             this.imageViewUser = imageView1;
@@ -320,25 +429,27 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
             this.textViewTitle = textView1;
             this.placeholder1 = placeholder1;
             this.placeholder2 = placeholder2;
+            this.setting = setting;
         }
 
         public static FeedsAdapter.ViewHolder create(LinearLayout rootView) {
-            ImageView imageViewCompany = (ImageView) rootView.findViewById(R.id.imageView1);
-            ImageView imageViewUser = (ImageView) rootView.findViewById(R.id.imageView2);
-            ImageView imageViewPhoto = (ImageView) rootView.findViewById(R.id.imageView3);
-            ImageView imageViewLike = (ImageView) rootView.findViewById(R.id.imageView4);
-            TextView textViewCompany = (TextView) rootView.findViewById(R.id.textView1);
-            TextView textViewName = (TextView) rootView.findViewById(R.id.textView2);
-            TextView textViewNickname = (TextView) rootView.findViewById(R.id.textView3);
-            TextView textViewTime = (TextView) rootView.findViewById(R.id.textView4);
-            TextView textViewDescription = (TextView) rootView.findViewById(R.id.textView6);
-            TextView textViewTask = (TextView) rootView.findViewById(R.id.textView7);
-            TextView textViewLike = (TextView) rootView.findViewById(R.id.textView8);
-            TextView textViewTag = (TextView) rootView.findViewById(R.id.textView9);
-            TextView textViewTitle = (TextView) rootView.findViewById(R.id.textView0);
-            TextView placeholder1 = (TextView) rootView.findViewById(R.id.textHolder1);
-            TextView placeholder2 = (TextView) rootView.findViewById(R.id.textHolder2);
-            return new FeedsAdapter.ViewHolder(rootView, imageViewCompany, imageViewUser, imageViewPhoto, imageViewLike, textViewCompany, textViewName, textViewNickname, textViewTime, textViewDescription, textViewTask, textViewLike, textViewTag, textViewTitle, placeholder1, placeholder2);
+            ImageView imageViewCompany = rootView.findViewById(R.id.imageView1);
+            ImageView imageViewUser = rootView.findViewById(R.id.imageView2);
+            ImageView imageViewPhoto = rootView.findViewById(R.id.imageView3);
+            ImageView imageViewLike = rootView.findViewById(R.id.imageView4);
+            TextView textViewCompany = rootView.findViewById(R.id.textView1);
+            TextView textViewName = rootView.findViewById(R.id.textView2);
+            TextView textViewNickname = rootView.findViewById(R.id.textView3);
+            TextView textViewTime = rootView.findViewById(R.id.textView4);
+            TextView textViewDescription = rootView.findViewById(R.id.textView6);
+            TextView textViewTask = rootView.findViewById(R.id.textView7);
+            TextView textViewLike = rootView.findViewById(R.id.textView8);
+            TextView textViewTag = rootView.findViewById(R.id.textView9);
+            TextView textViewTitle = rootView.findViewById(R.id.textView0);
+            TextView placeholder1 = rootView.findViewById(R.id.textHolder1);
+            TextView placeholder2 = rootView.findViewById(R.id.textHolder2);
+            ImageView setting = rootView.findViewById(R.id.imageView0);
+            return new FeedsAdapter.ViewHolder(rootView, imageViewCompany, imageViewUser, imageViewPhoto, imageViewLike, textViewCompany, textViewName, textViewNickname, textViewTime, textViewDescription, textViewTask, textViewLike, textViewTag, textViewTitle, placeholder1, placeholder2, setting);
         }
 
     }

@@ -1,5 +1,6 @@
 package com.game.xogame.views.authentication;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -15,6 +16,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -62,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public void init(){
         api = RetroClient.getApiService();
         LoginModel usersModel = new LoginModel(api, getApplicationContext());
@@ -91,22 +94,31 @@ public class LoginActivity extends AppCompatActivity {
 
         //phoneNumber = findViewById(R.id.phone_input);
         next = findViewById(R.id.imageButton);
-        next.setOnClickListener(new View.OnClickListener() {
+        next.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                if(ccp.getFullNumber().length()==12){
-                    if (((ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
-                        presenter.login();
-                        //loading...
-                    }else{
-                        showToast("Нет подключения к интернету");
-                    }
-                }else{
-                    showToast("Номер не верный");
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: // нажатие
+                        next.animate().setDuration(200).scaleX(0.9f).scaleY(0.9f).start();
+                        break;
+                    case MotionEvent.ACTION_UP: // отпускание
+                        next.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
+                        if(ccp.getFullNumber().length()==12){
+                            if (((ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
+                                presenter.login();
+                                //loading...
+                            }else{
+                                showToast("Нет подключения к интернету");
+                            }
+                        }else{
+                            showToast("Номер не верный");
+                        }
+                        break;
                 }
-
+                return true;
             }
         });
+
 
 
 

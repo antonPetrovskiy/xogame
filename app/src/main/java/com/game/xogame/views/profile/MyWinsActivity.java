@@ -1,5 +1,6 @@
 package com.game.xogame.views.profile;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -27,11 +28,11 @@ import java.util.List;
 
 public class MyWinsActivity extends AppCompatActivity {
 
-    private ApiService api;
+    public ApiService api;
     private MyWinsPresenter presenter;
 
 
-    private ImageView back;
+    public ImageView back;
     private TextView money;
     private LinearLayout load;
     private ListView listView;
@@ -69,19 +70,20 @@ public class MyWinsActivity extends AppCompatActivity {
         });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LayoutInflater layoutInflater = LayoutInflater.from(MyWinsActivity.this);
-                View promptView = layoutInflater.inflate(R.layout.popup_genderchooser, null);
+                @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_genderchooser, null);
                 final AlertDialog alertD = new AlertDialog.Builder(MyWinsActivity.this).create();
 
                 final int i = position;
                 TextView title = promptView.findViewById(R.id.textView1);
                 TextView btnAdd1 = promptView.findViewById(R.id.textView3);
                 TextView btnAdd2 = promptView.findViewById(R.id.textView2);
-                title.setText("Перевести "+ presenter.getWinsList().get(position).getReward()+" ₴");
-                btnAdd1.setText("Мобильный");
-                btnAdd2.setText("Кредитная карта");
+                title.setText(getString(R.string.txt_sent)+" "+ presenter.getWinsList().get(position).getReward()+" ₴");
+                btnAdd1.setText(getString(R.string.txt_mobile));
+                btnAdd2.setText(getString(R.string.txt_card));
 
                 btnAdd1.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
@@ -109,6 +111,7 @@ public class MyWinsActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("SetTextI18n")
     public void setList(List<Game> list){
 
             WinsAdapter adapter = new WinsAdapter(this, list);
@@ -127,7 +130,8 @@ public class MyWinsActivity extends AppCompatActivity {
                 try {
                     sum += Integer.parseInt(list.get(i).getReward());
                 } catch (NumberFormatException e) {
-                    }
+                    sum = 0;
+                }
             }
             money.setText(sum + " ₴");
             money.setTextColor(Color.parseColor("#F05A23"));

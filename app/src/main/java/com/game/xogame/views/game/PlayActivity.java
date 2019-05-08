@@ -1,16 +1,13 @@
 package com.game.xogame.views.game;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -24,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,15 +28,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.game.xogame.GamePush;
+import androidx.exifinterface.media.ExifInterface;
+
 import com.game.xogame.R;
 import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
 import com.game.xogame.models.PlayModel;
-import com.game.xogame.presenters.EditInfoPresenter;
 import com.game.xogame.presenters.PlayPresenter;
-import com.game.xogame.views.authentication.ConfirmPhoneActivity;
-import com.game.xogame.views.authentication.EditInfoActivity;
 import com.game.xogame.views.main.MainActivity;
 import com.squareup.picasso.Picasso;
 
@@ -48,11 +42,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Objects;
 
 import static com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage;
 
 public class PlayActivity extends AppCompatActivity {
-    private ApiService api;
+    public ApiService api;
     private PlayPresenter presenter;
 
     //1st screen
@@ -61,7 +56,7 @@ public class PlayActivity extends AppCompatActivity {
     private TextView number;
     private TextView time;
     private ImageView logo;
-    private ImageView camera;
+    public ImageView camera;
     private CardView card;
     private LinearLayout buttons;
     long sec;
@@ -75,7 +70,7 @@ public class PlayActivity extends AppCompatActivity {
     private EditText tags;
     private Button send;
     public CountDownTimer timer;
-    private Animation mEnlargeAnimation;
+    public Animation mEnlargeAnimation;
 
     private String taskId;
     private String imagePath;
@@ -84,18 +79,18 @@ public class PlayActivity extends AppCompatActivity {
     private LinearLayout load;
     public static final int REQ_CODE_CAPTURE = 2;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         Bundle extras = getIntent().getExtras();
-        Log.i("WTF", "time1 "+extras.getString("TIME"));
-        Log.i("WTF", "time2 "+Long.parseLong(extras.getString("TIME")));
         long currentTime1 = Calendar.getInstance().getTimeInMillis();
-        long currentTime2 = Long.parseLong(extras.getString("TIME"));
-        sec = currentTime1-currentTime2;
+        assert extras != null;
+        long currentTime2 = Long.parseLong(Objects.requireNonNull(extras.getString("TIME")));
+        sec = currentTime1 - currentTime2;
 
 
         createDirectory();
@@ -105,15 +100,12 @@ public class PlayActivity extends AppCompatActivity {
         title.setText(extras.getString("TITLE"));
         Picasso.with(this).load(extras.getString("LOGO")).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(logo);
         task.setText(extras.getString("TASK"));
-        number.setText(extras.getString("NUMBERTASK")+"/"+extras.getString("TASKS"));
+        number.setText(extras.getString("NUMBERTASK") + "/" + extras.getString("TASKS"));
         path = extras.getString("LOGO");
-
-
-        //sec=Integer.parseInt((currentTime1-currentTime2)+"");
-        //task.setText((sec/100)+"");
     }
 
-    public void init(){
+    @SuppressLint("SetTextI18n")
+    public void init() {
         api = RetroClient.getApiService();
         PlayModel usersModel = new PlayModel(api, getApplicationContext());
         presenter = new PlayPresenter(usersModel);
@@ -156,54 +148,54 @@ public class PlayActivity extends AppCompatActivity {
                 send.setClickable(false);
                 presenter.sendTask();
                 done = current;
+                timer.cancel();
             }
         });
 
 
+        timer = new CountDownTimer(120000 - sec, 1000) {
 
-
-        timer = new CountDownTimer(120000-sec, 1000) {
-                public void onTick(long millisUntilFinished) {
-                    if(millisUntilFinished<60000) {
-                        time.setText("0:" + (millisUntilFinished / 1000));
-                        time2.setText("0:" + (millisUntilFinished / 1000) + "");
-                    }else{
-                        time.setText("1:" + ((millisUntilFinished / 1000)-60));
-                        time2.setText("1:" + ((millisUntilFinished / 1000)-60) + "");
-                    }
-                    long temp = (120000-millisUntilFinished)/1000;
-                    current = temp+"";
+            public void onTick(long millisUntilFinished) {
+                if (millisUntilFinished < 60000) {
+                    time.setText("0:" + (millisUntilFinished / 1000));
+                    time2.setText("0:" + (millisUntilFinished / 1000) + "");
+                } else {
+                    time.setText("1:" + ((millisUntilFinished / 1000) - 60));
+                    time2.setText("1:" + ((millisUntilFinished / 1000) - 60) + "");
                 }
+                long temp = (120000 - millisUntilFinished) / 1000;
+                current = temp + "";
+            }
 
-                public void onFinish() {
-                    //if(current == null)
-                    time.setText("0:00");
-                    time2.setText("0:00");
-                    toMainActivityLose();
-                }
-            }.start();
+            public void onFinish() {
+                //if(current == null)
+                time.setText("0:00");
+                time2.setText("0:00");
+                toMainActivityLose();
+            }
+        }.start();
     }
 
-    public String getImage(){
-        return imagePath+"";
+    public String getImage() {
+        return imagePath + "";
     }
 
-    public String getComment(){
-        return tags.getText()+"";
+    public String getComment() {
+        return tags.getText() + "";
     }
 
-    public String getTaskid(){
-        return taskId+"";
+    public String getTaskid() {
+        return taskId + "";
     }
 
-    public String getTasktime(){
-        return current+"";
+    public String getTasktime() {
+        return current + "";
     }
 
-    public void toMainActivityLose(){
+    public void toMainActivityLose() {
         load.setVisibility(View.GONE);
         LayoutInflater layoutInflater = LayoutInflater.from(this);
-        View promptView = layoutInflater.inflate(R.layout.error, null);
+        @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
         final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(this).create();
 
         TextView btnAdd1 = promptView.findViewById(R.id.textView1);
@@ -222,23 +214,25 @@ public class PlayActivity extends AppCompatActivity {
 
     }
 
-    public void toMainActivityWin(){
+    @SuppressLint("SetTextI18n")
+    public void toMainActivityWin() {
         load.setVisibility(View.GONE);
         LayoutInflater layoutInflater = LayoutInflater.from(PlayActivity.this);
-        View promptView = layoutInflater.inflate(R.layout.popup_taskdone, null);
+        @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_taskdone, null);
         final AlertDialog alertD = new AlertDialog.Builder(this).create();
         ImageView image = promptView.findViewById(R.id.imageView);
         TextView title = promptView.findViewById(R.id.textView1);
         TextView time = promptView.findViewById(R.id.textView2);
         TextView position = promptView.findViewById(R.id.textView3);
         TextView task = promptView.findViewById(R.id.textView4);
-        title.setText(title.getText()+"");
-        task.setText(task.getText()+"");
-        if(Integer.parseInt(current)<60){
-            time.setText("0:"+current);
-        }else{
-            int n = Integer.parseInt(current)-60;
-            time.setText("1:"+n);
+        title.setText(title.getText() + "");
+        position.setText(getString(R.string.txt_place));
+        task.setText(number.getText().toString());
+        if (Integer.parseInt(done) < 60) {
+            time.setText("0:" + done);
+        } else {
+            int n = Integer.parseInt(done) - 60;
+            time.setText("1:" + n);
         }
         Picasso.with(this).load(path).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(image);
 
@@ -272,15 +266,16 @@ public class PlayActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            assert ei != null;
             int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
                     ExifInterface.ORIENTATION_UNDEFINED);
 
-            Bitmap rotatedBitmap = null;
+            Bitmap rotatedBitmap;
 
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(myFile.getAbsolutePath(), options);
-            switch(orientation) {
+            switch (orientation) {
                 case ExifInterface.ORIENTATION_ROTATE_90:
                     rotatedBitmap = rotateImage(bitmap, 90);
                     break;
@@ -298,7 +293,7 @@ public class PlayActivity extends AppCompatActivity {
                     rotatedBitmap = bitmap;
             }
             try (FileOutputStream out = new FileOutputStream(myFile)) {
-                rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out); // bmp is your Bitmap instance
+                rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, out); // bmp is your Bitmap instance
                 // PNG is a lossless format, the compression factor (100) is ignored
             } catch (IOException e) {
                 e.printStackTrace();
@@ -316,7 +311,7 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     private Uri generateFileUri() {
-        File file = null;
+        File file;
         file = new File(directory.getPath() + "/" + "photo_" + System.currentTimeMillis() + ".jpg");
         Log.i("PHOTO", "fileName = " + file);
         myFile = file;

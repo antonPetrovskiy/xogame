@@ -3,6 +3,7 @@ package com.game.xogame.views.main;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
@@ -25,7 +26,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -38,6 +41,7 @@ import com.game.xogame.api.RetroClient;
 import com.game.xogame.models.GamesModel;
 import com.game.xogame.models.UserInfoModel;
 import com.game.xogame.presenters.MainPresenter;
+import com.game.xogame.views.CustomViewPager;
 import com.game.xogame.views.game.FragmentGames;
 import com.game.xogame.views.game.FragmentFeeds;
 import com.game.xogame.views.profile.FragmentProfile;
@@ -72,7 +76,7 @@ import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 public class MainActivity extends AppCompatActivity {
 
     public static SectionsPagerAdapter mSectionsPagerAdapter;
-    public static ViewPager mViewPager;
+    public static CustomViewPager mViewPager;
 
     private ApiService api;
     private MainPresenter presenter;
@@ -157,6 +161,51 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).check();
 
+        Dexter.withActivity(this)
+                .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        if (response.isPermanentlyDenied()) {
+                            // open device settings when the permission is
+                            // denied permanently
+                            openSettings();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
+
+        Dexter.withActivity(this)
+                .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        if (response.isPermanentlyDenied()) {
+                            // open device settings when the permission is
+                            // denied permanently
+                            openSettings();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
 
     }
 
@@ -164,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    @SuppressLint("ClickableViewAccessibility")
     public void init(){
         button1 = findViewById(R.id.imageView1);
         button2 = findViewById(R.id.imageView2);
@@ -173,14 +223,9 @@ public class MainActivity extends AppCompatActivity {
         button6 = findViewById(R.id.imageView6);
         button4.setColorFilter(Color.parseColor("#ffffff"));
         button1.setAnimation("hide_right.json");
-        button2.setAnimation("hide_left.json");
-        button3.setAnimation("hide_left.json");
         button1.setSpeed(-6f);
-        button2.setSpeed(6f);
-        button3.setSpeed(6f);
         button1.playAnimation();
-        button2.playAnimation();
-        button3.playAnimation();
+
 
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
                     button1.playAnimation();
                 }
                 if(currentItem==3){
+                    button3.setAnimation("hide_left.json");
                     button3.setSpeed(6f);
                     button3.playAnimation();
                     button1.setSpeed(-6f);
@@ -241,6 +287,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(currentItem==1){
+                    button1.setAnimation("hide_right.json");
+                    button3.setAnimation("hide_left.json");
                     button1.setSpeed(6f);
                     button1.playAnimation();
                     button3.setSpeed(-6f);
@@ -248,6 +296,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(currentItem==2){
                     button2.setAnimation("hide_right.json");
+                    button3.setAnimation("hide_left.json");
                     button2.setSpeed(6f);
                     button2.playAnimation();
                     button3.setSpeed(-6f);
@@ -269,7 +318,19 @@ public class MainActivity extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager =  findViewById(R.id.container);
+        mViewPager.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                return true;
+            }
+
+
+        });
+
+
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(4);
         mViewPager.setCurrentItem(0);
@@ -328,6 +389,7 @@ public class MainActivity extends AppCompatActivity {
             // Show 3 total pages.
             return 3;
         }
+
 
 
     }

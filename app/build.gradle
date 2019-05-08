@@ -7,8 +7,8 @@ android {
         applicationId "com.game.paparazzi"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -16,6 +16,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 }
 
@@ -52,6 +58,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:15.0.1'
     // dexter runtime permissions
     implementation 'com.karumi:dexter:4.2.0'
+    implementation 'androidx.exifinterface:exifinterface:1.1.0-alpha01'
 }
 
 apply plugin: 'com.google.gms.google-services'

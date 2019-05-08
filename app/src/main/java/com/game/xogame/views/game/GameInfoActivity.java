@@ -1,11 +1,13 @@
 package com.game.xogame.views.game;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -65,6 +67,7 @@ public class GameInfoActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public void init(){
         back = findViewById(R.id.imageView1);
         subscribe = findViewById(R.id.imageButton);
@@ -136,34 +139,44 @@ public class GameInfoActivity extends AppCompatActivity {
             }
         });
 
-        subscribe.setOnClickListener(new View.OnClickListener() {
+        subscribe.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                if(subscribe.getText().equals("Участвовать")){
-                    presenter.subscribeGame();
-                    people.setText((Integer.parseInt(count)+1)+" человек");
-                    count = (Integer.parseInt(count)+1)+"";
-                    FirebaseMessaging.getInstance().subscribeToTopic("/topics/agame"+gameid)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: // нажатие
+                        subscribe.animate().setDuration(200).scaleX(0.9f).scaleY(0.9f).start();
+                        break;
+                    case MotionEvent.ACTION_UP: // отпускание
+                        subscribe.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
+                        if(subscribe.getText().equals("Участвовать")){
+                            presenter.subscribeGame();
+                            people.setText((Integer.parseInt(count)+1)+" человек");
+                            count = (Integer.parseInt(count)+1)+"";
+                            FirebaseMessaging.getInstance().subscribeToTopic("/topics/agame"+gameid)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
 
-                                }
-                            });
-                }else{
-                    presenter.unsubscribeGame();
-                    people.setText((Integer.parseInt(count)-1)+" человек");
-                    count = (Integer.parseInt(count)-1)+"";
-                    FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/agame"+gameid)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
+                                        }
+                                    });
+                        }else{
+                            presenter.unsubscribeGame();
+                            people.setText((Integer.parseInt(count)-1)+" человек");
+                            count = (Integer.parseInt(count)-1)+"";
+                            FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/agame"+gameid)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
 
-                                }
-                            });
+                                        }
+                                    });
+                        }
+                        break;
                 }
+                return true;
             }
         });
+
     }
 
     public void setButtonName(String s){

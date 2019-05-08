@@ -1,5 +1,6 @@
 package com.game.xogame.views.profile;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,11 +27,11 @@ import com.game.xogame.presenters.SettingPresenter;
 import com.game.xogame.views.authentication.LoginActivity;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 public class SettingActivity extends AppCompatActivity {
 
     private EditText name;
-    //private EditText info;
     private EditText gender;
     private EditText age;
     private EditText email;
@@ -39,16 +40,15 @@ public class SettingActivity extends AppCompatActivity {
     private EditText card;
     public ScrollView main;
 
-    private TextView exit;
-    private TextView rules;
-    private TextView rateus;
+    public TextView exit;
+    //private TextView rules;
+    //private TextView rateus;
     private LinearLayout load;
 
-    private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
-    private ImageView save;
-    private ImageView back;
+    public ImageView save;
+    public ImageView back;
 
     ApiService api;
     SettingPresenter presenter;
@@ -58,7 +58,7 @@ public class SettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         init();
 
         api = RetroClient.getApiService();
@@ -69,9 +69,8 @@ public class SettingActivity extends AppCompatActivity {
         presenter.showUserInfo();
     }
 
-    public void init(){
+    public void init() {
         name = findViewById(R.id.editText1);
-        //info = findViewById(R.id.editText2);
         gender = findViewById(R.id.editText3);
         age = findViewById(R.id.editText4);
         email = findViewById(R.id.editText5);
@@ -82,8 +81,8 @@ public class SettingActivity extends AppCompatActivity {
         back = findViewById(R.id.imageView1);
         load = findViewById(R.id.targetView);
         exit = findViewById(R.id.textView14);
-        rules = findViewById(R.id.textView13);
-        rateus = findViewById(R.id.textView15);
+        //rules = findViewById(R.id.textView13);
+        //rateus = findViewById(R.id.textView15);
         main = findViewById(R.id.all);
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +104,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LayoutInflater layoutInflater = LayoutInflater.from(SettingActivity.this);
-                View promptView = layoutInflater.inflate(R.layout.popup_genderchooser, null);
+                @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_genderchooser, null);
                 final AlertDialog alertD = new AlertDialog.Builder(SettingActivity.this).create();
 
                 TextView btnAdd1 = promptView.findViewById(R.id.textView3);
@@ -113,14 +112,14 @@ public class SettingActivity extends AppCompatActivity {
 
                 btnAdd1.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        gender.setText("мужской");
+                        gender.setText(getString(R.string.txt_man));
                         alertD.cancel();
                     }
                 });
 
                 btnAdd2.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        gender.setText("женский");
+                        gender.setText(getString(R.string.txt_woman));
                         alertD.cancel();
                     }
                 });
@@ -138,9 +137,9 @@ public class SettingActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         month = month + 1;
                         String date;
-                        if(month<10){
+                        if (month < 10) {
                             date = day + ".0" + month + "." + year;
-                        }else{
+                        } else {
                             date = day + "." + month + "." + year;
                         }
 
@@ -157,8 +156,8 @@ public class SettingActivity extends AppCompatActivity {
                         SettingActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         mDateSetListener,
-                        year,month,day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        year, month, day);
+                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
         });
@@ -168,7 +167,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LayoutInflater layoutInflater = LayoutInflater.from(SettingActivity.this);
-                View promptView = layoutInflater.inflate(R.layout.popup_genderchooser, null);
+                @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_genderchooser, null);
                 final AlertDialog alertD = new AlertDialog.Builder(SettingActivity.this).create();
                 TextView title = promptView.findViewById(R.id.textView1);
                 TextView btnAdd1 = promptView.findViewById(R.id.textView3);
@@ -178,6 +177,7 @@ public class SettingActivity extends AppCompatActivity {
                 btnAdd2.setText("Нет");
 
                 btnAdd1.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("ApplySharedPref")
                     public void onClick(View v) {
                         SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
                         sharedPref.edit().putString("token", "null").commit();
@@ -200,40 +200,24 @@ public class SettingActivity extends AppCompatActivity {
                 alertD.show();
 
 
-
             }
         });
 
 
     }
 
-    public void onBack(){
+    public void onBack() {
         super.onBackPressed();
     }
 
-    public LinearLayout getLoadView(){
+    public LinearLayout getLoadView() {
         return load;
     }
 
-    public void showToast(String s){
-        LayoutInflater layoutInflater = LayoutInflater.from(this);
-        View promptView = layoutInflater.inflate(R.layout.error, null);
-        final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(this).create();
-
-        TextView btnAdd1 = promptView.findViewById(R.id.textView1);
-        btnAdd1.setText(s);
-
-        alertD.setView(promptView);
-        alertD.show();
-    }
 
     public String getName() {
         return name.getText().toString();
     }
-
-//    public String getInfo() {
-//        return info.getText().toString();
-//    }
 
     public String getGender() {
         return gender.getText().toString();

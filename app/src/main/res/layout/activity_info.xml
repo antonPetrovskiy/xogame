@@ -18,7 +18,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/top2" />
+        app:srcCompat="@drawable/top2"
+        tools:ignore="ContentDescription" />
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageView"
@@ -45,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="27dp"
-        android:text="Ваш никнейм (только английский)"
+        android:text="@string/txt_nickname"
         android:textColor="#586575"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
@@ -62,7 +63,8 @@
         app:backgroundTint="#586575"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        tools:ignore="Autofill,LabelFor" />
 
     <TextView
         android:id="@+id/textView7"
@@ -70,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
-        android:text="Почта"
+        android:text="@string/txt_mail"
         android:textColor="#586575"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
@@ -87,7 +89,8 @@
         app:backgroundTint="#586575"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        tools:ignore="Autofill,LabelFor"/>
 
     <Button
         android:id="@+id/button4"
@@ -96,7 +99,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/registration_button_view"
         android:fontFamily="@font/first"
-        android:text="ПРОДОЛЖИТЬ"
+        android:text="@string/btn_continue"
         android:textColor="#ffffff"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -112,7 +115,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:text="Ваша последующая регистрация означает, что Вы приняли на себя ответственность за безусловное соблюдение данного Соглашения."
+        android:text="@string/txt_term"
         android:textColor="#586575"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

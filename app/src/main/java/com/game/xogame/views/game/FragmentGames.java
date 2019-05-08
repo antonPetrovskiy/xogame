@@ -1,5 +1,6 @@
 package com.game.xogame.views.game;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -77,6 +79,7 @@ public class FragmentGames extends Fragment {
         return rootView;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public void init(){
         load = rootView.findViewById(R.id.targetView);
         listView = rootView.findViewById(R.id.gamelist);
@@ -113,11 +116,21 @@ public class FragmentGames extends Fragment {
             }
         });
 
-        refresh.setOnClickListener(new View.OnClickListener() {
+
+        refresh.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                ((MainActivity)getActivity()).coord();
-                update();
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: // нажатие
+                        refresh.animate().setDuration(200).scaleX(0.9f).scaleY(0.9f).start();
+                        break;
+                    case MotionEvent.ACTION_UP: // отпускание
+                        refresh.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
+                        ((MainActivity)getActivity()).coord();
+                        update();
+                        break;
+                }
+                return true;
             }
         });
 

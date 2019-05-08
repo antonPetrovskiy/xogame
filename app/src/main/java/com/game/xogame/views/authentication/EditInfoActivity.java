@@ -1,7 +1,7 @@
 package com.game.xogame.views.authentication;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
@@ -11,16 +11,12 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.game.xogame.R;
 import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
@@ -30,9 +26,8 @@ import com.game.xogame.views.main.MainActivity;
 
 import java.io.File;
 
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
+import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+
 
 public class EditInfoActivity extends AppCompatActivity {
 
@@ -41,7 +36,7 @@ public class EditInfoActivity extends AppCompatActivity {
     private EditText name_view;
     private EditText email_view;
     public static final int REQ_CODE_PICK_PHOTO = 0;
-    private ApiService api;
+    public ApiService api;
     private EditInfoPresenter presenter;
     String imagePath;
 
@@ -55,6 +50,7 @@ public class EditInfoActivity extends AppCompatActivity {
         init();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public void init(){
         api = RetroClient.getApiService();
         LoginModel usersModel = new LoginModel(api, getApplicationContext());
@@ -63,23 +59,32 @@ public class EditInfoActivity extends AppCompatActivity {
 
 
         next = findViewById(R.id.button4);
-        next.setOnClickListener(new View.OnClickListener() {
+        next.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                if(!getName().equals("")) {
-                    presenter.editInfo();
-                }else{
-                    showToast("Введите никнейм");
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: // нажатие
+                        next.animate().setDuration(200).scaleX(0.9f).scaleY(0.9f).start();
+                        break;
+                    case MotionEvent.ACTION_UP: // отпускание
+                        next.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
+                        if(!getName().equals("")) {
+                            presenter.editInfo();
+                        }else{
+                            showToast("Введите никнейм");
+                        }
+                        break;
                 }
-
+                return true;
             }
         });
 
         photo_view = findViewById(R.id.imageView);
         photo_view.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("IntentReset")
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent intent = new Intent(Intent.ACTION_PICK, EXTERNAL_CONTENT_URI);
                 intent.setType("image/*");
                 intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
                 startActivityForResult(intent,  REQ_CODE_PICK_PHOTO);
@@ -145,7 +150,9 @@ public class EditInfoActivity extends AppCompatActivity {
         String imagePath;
         Uri selectedImage = data.getData();
         String[] filePathColumn = {MediaStore.Images.Media.DATA};
+        assert selectedImage != null;
         Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+        assert cursor != null;
         cursor.moveToFirst();
         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
         imagePath = cursor.getString(columnIndex);

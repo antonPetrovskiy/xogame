@@ -51,6 +51,6 @@ public class SmsListener extends BroadcastReceiver {
         Toast toast = Toast.makeText(c,
                 code, Toast.LENGTH_SHORT);
         toast.show();
-        ConfirmPhoneActivity.codeText.setText(code);
+        //ConfirmPhoneActivity.codeText.setText(code);
     }
 }

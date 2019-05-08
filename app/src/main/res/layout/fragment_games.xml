@@ -20,7 +20,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:id="@+id/linearLayout7"
@@ -50,20 +51,21 @@
                 android:paddingTop="13dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="13dp"
-                android:src="@drawable/search" />
+                android:src="@drawable/search"
+                tools:ignore="ContentDescription" />
 
             <EditText
                 android:id="@+id/search"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
                 android:textColor="#9FA5AD"
                 android:textColorHint="#9FA5AD"
                 android:background="@null"
-
                 android:inputType="textPersonName"
-                android:hint="поиск"/>
+                android:hint="@string/txt_search"
+                tools:ignore="Autofill" />
 
 
         </LinearLayout>
@@ -75,11 +77,12 @@
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:scaleType="fitXY"
-            android:src="@drawable/profile_line" />
+            android:src="@drawable/profile_line"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
@@ -92,11 +95,10 @@
         <TableLayout
 
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:stretchColumns="1">
 
             <android.support.v4.widget.SwipeRefreshLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/swiperefresh"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -113,7 +115,8 @@
                     android:paddingRight="12dp"
                     android:paddingTop="9dp"
                     android:paddingBottom="59dp"
-                    android:background="@drawable/bggradient" />
+                    android:background="@drawable/bggradient"
+                    tools:ignore="NestedScrolling" />
 
             </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -157,7 +160,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5">
+        app:layout_constraintVertical_bias="0.55">
 
 
         <ImageView
@@ -165,8 +168,8 @@
             android:layout_width="159dp"
             android:layout_height="159dp"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/empty" />
+            app:srcCompat="@drawable/empty"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="match_parent"
@@ -174,8 +177,11 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
+            android:layout_alignTop="@id/imageView23"
+            android:layout_alignBottom="@id/imageView23"
+            android:gravity="center_vertical"
             android:fontFamily="@font/roboto_medium"
-            android:text="Включите геолокацию и обновите страницу"
+            android:text="@string/txt_location"
             android:textAlignment="center"
             android:textColor="#80586575"
             android:textSize="16sp" />
@@ -190,7 +196,7 @@
             android:fontFamily="@font/roboto_regular"
             android:layout_marginLeft="35dp"
             android:layout_marginRight="35dp"
-            android:text="Обновить"
+            android:text="@string/btn_refresh"
             android:textColor="#ffffff"
             android:textSize="16sp" />
     </RelativeLayout>

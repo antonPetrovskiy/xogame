@@ -14,7 +14,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView17">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/linearLayout5"
@@ -25,12 +25,12 @@
 
             <TextView
                 android:id="@+id/textView1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"
-                android:text="Burger KING"
+                tools:text="Burger KING"
                 android:textAlignment="center"
                 android:textColor="#2F3542"
                 android:textSize="16sp" />
@@ -44,9 +44,11 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:cropToPadding="true"
-            android:src="@drawable/profile_line" />
+            android:src="@drawable/profile_line"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
+
     <android.support.v7.widget.CardView
         android:id="@+id/card"
         android:layout_width="200dp"
@@ -55,13 +57,13 @@
         android:layout_marginTop="76dp"
         android:layout_marginEnd="8dp"
         android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="100dp"
+        app:cardElevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
-        android:scaleType="centerCrop"
-        app:cardElevation="2dp"
-        app:cardCornerRadius="100dp"
-        app:cardBackgroundColor="@android:color/white">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imageView1"
@@ -80,9 +82,9 @@
         android:layout_marginStart="13dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="13dp"
-        android:textAlignment="center"
         android:fontFamily="@font/roboto_regular"
-        android:text="Сфотографируйте вывеску ресторана Birger KING"
+        tools:text="Сфотографируйте вывеску ресторана Birger KING"
+        android:textAlignment="center"
         android:textColor="#586575"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -108,7 +110,7 @@
             android:layout_gravity="center_vertical"
             android:background="@drawable/oval_grey"
             android:gravity="center_vertical"
-            android:text="1/10"
+            tools:text="1/10"
             android:textAlignment="center"
             android:textColor="#80586575"
             android:textSize="16sp" />
@@ -119,8 +121,9 @@
             android:layout_height="84dp"
             android:layout_marginLeft="46dp"
             android:layout_marginRight="46dp"
+            android:src="@drawable/camera"
             android:visibility="visible"
-            android:src="@drawable/camera" />
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/textView4"
@@ -129,7 +132,7 @@
             android:layout_gravity="center_vertical"
             android:background="@drawable/oval_grey"
             android:gravity="center_vertical"
-            android:text="0:00"
+            tools:text="0:00"
             android:textAlignment="center"
             android:textColor="#80586575" />
     </LinearLayout>
@@ -154,7 +157,8 @@
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
             android:cropToPadding="true"
-            android:src="@drawable/profile_line" />
+            android:src="@drawable/profile_line"
+            tools:ignore="ContentDescription" />
 
 
         <ImageView
@@ -170,7 +174,8 @@
             android:layout_marginEnd="12dp"
             android:layout_marginRight="12dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/imageView25"
@@ -179,7 +184,8 @@
             android:layout_alignStart="@+id/imageView3"
             android:layout_alignEnd="@+id/imageView3"
             android:layout_alignBottom="@+id/imageView3"
-            android:src="#80586575" />
+            android:src="#80586575"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/textView5"
@@ -190,7 +196,7 @@
             android:layout_marginBottom="18dp"
             android:background="@drawable/oval_grey"
             android:gravity="center_vertical"
-            android:text="0:60"
+            tools:text="0:60"
             android:textAlignment="center"
             android:textColor="#ffffff" />
 
@@ -201,12 +207,13 @@
             android:layout_below="@+id/imageView3"
             android:layout_marginLeft="11dp"
             android:layout_marginRight="11dp"
-            android:ems="10"
-            android:hint="# Добавьте подпись"
-            android:inputType="textPersonName"
-            android:textColorHint="#586575"
             android:backgroundTint="#586575"
-            android:textColor="#586575" />
+            android:ems="10"
+            android:hint="@string/txt_addHashtag"
+            android:inputType="textPersonName"
+            android:textColor="#586575"
+            android:textColorHint="#586575"
+            tools:ignore="Autofill" />
 
         <Button
             android:id="@+id/imageButton"
@@ -217,16 +224,16 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/registration_button_view"
             android:fontFamily="@font/roboto_regular"
-            android:text="отправить"
+            android:text="@string/txt_push"
             android:textColor="#ffffff"
             android:textSize="16sp" />
 
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/targetView"
         android:layout_width="159dp"
         android:layout_height="159dp"
-        android:id="@+id/targetView"
         android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

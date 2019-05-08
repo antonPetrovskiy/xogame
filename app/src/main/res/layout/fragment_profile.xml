@@ -37,7 +37,8 @@
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:scaleType="fitXY"
-            android:src="@drawable/profile_line" />
+            android:src="@drawable/profile_line"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/textView2"
@@ -99,7 +100,8 @@
                 android:cropToPadding="false"
                 android:elevation="3dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/profile_photo" />
+                android:src="@drawable/profile_photo"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/imageView14"
@@ -111,7 +113,8 @@
                 android:cropToPadding="false"
                 android:elevation="3dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/profile_settings" />
+                android:src="@drawable/profile_settings"
+                tools:ignore="ContentDescription"/>
 
         </RelativeLayout>
 
@@ -122,7 +125,8 @@
             android:layout_marginTop="10dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@drawable/profile_line_grey" />
+            android:src="@drawable/profile_line_grey"
+            tools:ignore="ContentDescription"/>
 
     </LinearLayout>
 
@@ -141,7 +145,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="11dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:id="@+id/imageView11"
@@ -149,15 +154,16 @@
                 android:layout_height="20dp"
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
-                android:src="@drawable/mywin" />
+                android:src="@drawable/mywin"
+                tools:ignore="ContentDescription"/>
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="19dp"
+                android:layout_marginStart="19dp"
                 android:gravity="center_horizontal"
-                android:text="Мои выиграши"
+                android:text="@string/txt_myWins"
                 android:textColor="#F08C3C"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -169,7 +175,8 @@
             android:layout_marginTop="11dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@drawable/profile_line_grey" />
+            android:src="@drawable/profile_line_grey"
+            tools:ignore="ContentDescription"/>
     </LinearLayout>
 
     <ImageView
@@ -181,10 +188,11 @@
         android:cropToPadding="true"
         android:src="@drawable/clock"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription"/>
 
 
-    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -218,7 +226,8 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="Текущие"
+                    android:text="@string/txt_current"
+                    android:visibility="gone"
                     android:textAlignment="center"
                     android:textColor="#586575"
                     android:textSize="12sp" />
@@ -233,7 +242,8 @@
                     android:paddingLeft="12dp"
                     android:paddingTop="9dp"
                     android:paddingRight="12dp"
-                    android:paddingBottom="9dp" />
+                    android:paddingBottom="9dp"
+                    tools:ignore="NestedScrolling" />
 
                 <TextView
                     android:id="@+id/textView10"
@@ -242,7 +252,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="Будущие"
+                    android:text="@string/txt_future"
+                    android:visibility="gone"
                     android:textAlignment="center"
                     android:textColor="#586575"
                     android:textSize="12sp" />
@@ -257,7 +268,8 @@
                     android:paddingLeft="12dp"
                     android:paddingTop="9dp"
                     android:paddingRight="12dp"
-                    android:paddingBottom="9dp" />
+                    android:paddingBottom="9dp"
+                    tools:ignore="NestedScrolling" />
 
 
             </LinearLayout>
@@ -309,7 +321,8 @@
             android:layout_width="159dp"
             android:layout_height="159dp"
             android:layout_centerHorizontal="true"
-            app:srcCompat="@drawable/empty" />
+            app:srcCompat="@drawable/empty"
+            tools:ignore="ContentDescription"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -318,7 +331,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="Вы не учавствуете ни в одной игре"
+            android:text="@string/txt_dontparticipate"
             android:textAlignment="center"
             android:textColor="#80586575"
             android:textSize="16sp" />
@@ -333,7 +346,7 @@
             android:layout_marginRight="35dp"
             android:background="@drawable/registration_button_view"
             android:fontFamily="@font/roboto_regular"
-            android:text="Найти игры"
+            android:text="@string/btn_findgames"
             android:textColor="#ffffff"
             android:textSize="16sp" />
     </RelativeLayout>

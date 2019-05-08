@@ -1,5 +1,6 @@
 package com.game.xogame.views.profile;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -8,7 +9,9 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.media.ExifInterface;
+
+import androidx.exifinterface.media.ExifInterface;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -18,6 +21,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -33,7 +37,6 @@ import com.game.xogame.R;
 import com.game.xogame.adapter.GamesAdapter;
 import com.game.xogame.entity.Game;
 import com.game.xogame.presenters.MainPresenter;
-import com.game.xogame.views.game.FragmentFeeds;
 import com.game.xogame.views.game.GameInfoActivity;
 import com.game.xogame.views.main.MainActivity;
 import com.squareup.picasso.Picasso;
@@ -41,13 +44,11 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
+import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 
 
 public class FragmentProfile extends Fragment {
@@ -67,12 +68,14 @@ public class FragmentProfile extends Fragment {
     private ListView list1;
     private ListView list2;
     private SwipeRefreshLayout pullToRefresh;
-
+    private TextView current;
+    private TextView future;
     public boolean isPhoto = false;
     private RelativeLayout empty;
-    private  GamesAdapter adapter1;
-    private  GamesAdapter adapter2;
+    private GamesAdapter adapter1;
+    private GamesAdapter adapter2;
     private View rootView;
+    @SuppressLint("StaticFieldLeak")
     static private Context context;
     static private MainPresenter presenter;
     private List<Game> gameNowList;
@@ -84,6 +87,7 @@ public class FragmentProfile extends Fragment {
     File myFile;
     public static final int REQ_CODE_PICK_PHOTO = 0;
     public static final int REQ_CODE_CAPTURE = 2;
+    @SuppressLint("StaticFieldLeak")
     private static FragmentProfile fragment;
 
     public FragmentProfile() {
@@ -91,15 +95,11 @@ public class FragmentProfile extends Fragment {
 
 
     public static FragmentProfile newInstance(Context c, MainPresenter p) {
-        if(fragment==null){
+        if (fragment == null) {
             fragment = new FragmentProfile();
         }
         context = c;
         presenter = p;
-
-        //Bundle args = new Bundle();
-        //args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        //fragment.setArguments(args);
         return fragment;
     }
 
@@ -118,7 +118,7 @@ public class FragmentProfile extends Fragment {
 
     @Override
     public void onResume() {
-        if(!isPhoto)
+        if (!isPhoto)
             presenter.showUserInfo(this);
         gameNowList = new LinkedList<>();
         gameFutureList = new LinkedList<>();
@@ -128,13 +128,15 @@ public class FragmentProfile extends Fragment {
         super.onResume();
     }
 
-    public void init(){
+    @SuppressLint("ClickableViewAccessibility")
+    public void init() {
         photo_view = rootView.findViewById(R.id.imageProfile);
         photo_edit = rootView.findViewById(R.id.imageView);
         name = rootView.findViewById(R.id.textView1);
         nickName = rootView.findViewById(R.id.textView2);
         settings = rootView.findViewById(R.id.imageView14);
-
+        current = rootView.findViewById(R.id.textView9);
+        future = rootView.findViewById(R.id.textView10);
         myGames = rootView.findViewById(R.id.myGames);
         myWins = rootView.findViewById(R.id.myWins);
         load = rootView.findViewById(R.id.targetView);
@@ -154,106 +156,148 @@ public class FragmentProfile extends Fragment {
                 pullToRefresh.setRefreshing(false);
             }
         });
-        settings.setOnClickListener(new View.OnClickListener() {
+        settings.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, SettingActivity.class);
-                startActivity(intent);
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: // нажатие
+                        settings.animate().setDuration(200).scaleX(0.9f).scaleY(0.9f).start();
+                        break;
+                    case MotionEvent.ACTION_UP: // отпускание
+                        settings.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
+                        Intent intent = new Intent(context, SettingActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                return true;
             }
         });
 
-        myGames.setOnClickListener(new View.OnClickListener() {
+        myGames.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, MyGamesActivity.class);
-                startActivity(intent);
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: // нажатие
+                        myGames.animate().setDuration(200).scaleX(0.9f).scaleY(0.9f).start();
+                        break;
+                    case MotionEvent.ACTION_UP: // отпускание
+                        myGames.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
+                        Intent intent = new Intent(context, MyGamesActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                return true;
             }
         });
 
-        myWins.setOnClickListener(new View.OnClickListener() {
+        myWins.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, MyWinsActivity.class);
-                startActivity(intent);
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: // нажатие
+                        myWins.animate().setDuration(200).alpha(0.5f).start();
+                        return true;
+                    case MotionEvent.ACTION_UP: // отпускание
+                    case MotionEvent.ACTION_CANCEL:
+                        myWins.animate().setDuration(100).alpha(1.0f).start();
+                        Intent intent = new Intent(context, MyWinsActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                return true;
             }
         });
 
-        find.setOnClickListener(new View.OnClickListener() {
+        find.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                MainActivity.mViewPager.setCurrentItem(0);
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: // нажатие
+                        find.animate().setDuration(200).scaleX(0.9f).scaleY(0.9f).start();
+                        break;
+                    case MotionEvent.ACTION_UP: // отпускание
+                        find.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
+                        MainActivity.mViewPager.setCurrentItem(0);
+                        break;
+                }
+                return true;
             }
         });
+
 
         photo_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-                View promptView = layoutInflater.inflate(R.layout.popup_image, null);
+                @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_image, null);
                 final AlertDialog alertD = new AlertDialog.Builder(getActivity()).create();
-                alertD.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                Objects.requireNonNull(alertD.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
                 alertD.getWindow().setDimAmount(0.9f);
                 ImageView btnAdd1 = promptView.findViewById(R.id.imageView5);
-
-
-                Picasso.with(context).load(imageurl+"").placeholder(R.drawable.unknow).error(R.drawable.unknow).into(btnAdd1);
-                //btnAdd1.setImageDrawable(image.getDrawable());
+                Picasso.with(context).load(imageurl + "").placeholder(R.drawable.unknow).error(R.drawable.unknow).into(btnAdd1);
                 alertD.setView(promptView);
                 alertD.show();
             }
         });
 
-        photo_edit.setOnClickListener(new View.OnClickListener() {
+        photo_edit.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-                View promptView = layoutInflater.inflate(R.layout.popup_imagechooser, null);
-                final AlertDialog alertD = new AlertDialog.Builder(getActivity()).create();
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: // нажатие
+                        photo_edit.animate().setDuration(200).scaleX(0.9f).scaleY(0.9f).start();
+                        break;
+                    case MotionEvent.ACTION_UP: // отпускание
+                        photo_edit.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
+                        LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+                        @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_imagechooser, null);
+                        final AlertDialog alertD = new AlertDialog.Builder(getActivity()).create();
 
-                TextView btnAdd1 = promptView.findViewById(R.id.textView1);
-                TextView btnAdd2 = promptView.findViewById(R.id.textView2);
+                        TextView btnAdd1 = promptView.findViewById(R.id.textView1);
+                        TextView btnAdd2 = promptView.findViewById(R.id.textView2);
 
-                btnAdd1.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        alertD.cancel();
-                        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-                        StrictMode.setVmPolicy(builder.build());
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, generateFileUri());
-                        startActivityForResult(intent, REQ_CODE_CAPTURE);
-                    }
-                });
+                        btnAdd1.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                alertD.cancel();
+                                StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                                StrictMode.setVmPolicy(builder.build());
+                                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                intent.putExtra(MediaStore.EXTRA_OUTPUT, generateFileUri());
+                                startActivityForResult(intent, REQ_CODE_CAPTURE);
+                            }
+                        });
 
-                btnAdd2.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        alertD.cancel();
-                        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        intent.setType("image/*");
-                        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-                        startActivityForResult(intent,  REQ_CODE_PICK_PHOTO);
+                        btnAdd2.setOnClickListener(new View.OnClickListener() {
+                            @SuppressLint("IntentReset")
+                            public void onClick(View v) {
+                                alertD.cancel();
+                                Intent intent = new Intent(Intent.ACTION_PICK, EXTERNAL_CONTENT_URI);
+                                intent.setType("image/*");
+                                intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+                                startActivityForResult(intent, REQ_CODE_PICK_PHOTO);
+                            }
+                        });
 
-                        //Crop.pickImage(InformationActivity.this);
-                    }
-                });
-
-                alertD.setView(promptView);
-                alertD.show();
+                        alertD.setView(promptView);
+                        alertD.show();
+                        break;
+                }
+                return true;
             }
         });
+
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         isPhoto = true;
-        if (requestCode == REQ_CODE_PICK_PHOTO && resultCode == Activity.RESULT_OK){
-            if ((data != null) && (data.getData() != null)){
+        if (requestCode == REQ_CODE_PICK_PHOTO && resultCode == Activity.RESULT_OK) {
+            if ((data != null) && (data.getData() != null)) {
 
 
                 imagePath = getFilePath(data);
                 File file = new File(imagePath);
-                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                MultipartBody.Part photo = MultipartBody.Part.createFormData("photo", file.getName(), requestFile);
 
                 Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
                 photo_view.setImageBitmap(myBitmap);
@@ -270,15 +314,16 @@ public class FragmentProfile extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            assert ei != null;
             int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
                     ExifInterface.ORIENTATION_UNDEFINED);
 
-            Bitmap rotatedBitmap = null;
+            Bitmap rotatedBitmap;
 
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(myFile.getAbsolutePath(), options);
-            switch(orientation) {
+            switch (orientation) {
                 case ExifInterface.ORIENTATION_ROTATE_90:
                     rotatedBitmap = rotateImage(bitmap, 90);
                     break;
@@ -309,33 +354,34 @@ public class FragmentProfile extends Fragment {
         }
     }
 
-    public void setNowList(List<Game> list){
+    public void setNowList(List<Game> list) {
         gameNowList = list;
         final List<Game> l = list;
-        if(adapter1==null) {
+        if (adapter1 == null) {
             adapter1 = new GamesAdapter(context, gameNowList);
-        }else{
+        } else {
             adapter1.notifyDataSetChanged();
         }
         list1.setAdapter(adapter1);
         setListViewHeightBasedOnChildren(list1);
-
+        if (gameNowList.size() != 0)
+            current.setVisibility(View.VISIBLE);
 
 
         list1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(context, GameInfoActivity.class);
-                intent.putExtra("GAMEID",l.get(position).getGameid());
-                intent.putExtra("SUBSCRIBE",l.get(position).getSubscribe());
+                intent.putExtra("GAMEID", l.get(position).getGameid());
+                intent.putExtra("SUBSCRIBE", l.get(position).getSubscribe());
                 intent.putExtra("TITLE", l.get(position).getTitle());
                 intent.putExtra("NAME", l.get(position).getCompany());
                 intent.putExtra("LOGO", l.get(position).getLogo());
                 intent.putExtra("BACKGROUND", l.get(position).getBackground());
-                intent.putExtra("DATE", l.get(position).getStartdate()+"-"+l.get(position).getEnddate());
+                intent.putExtra("DATE", l.get(position).getStartdate() + "-" + l.get(position).getEnddate());
                 intent.putExtra("DESCRIPTION", l.get(position).getDescription());
                 intent.putExtra("TASKS", l.get(position).getTasks());
-                intent.putExtra("TIME", l.get(position).getStarttime()+"-"+l.get(position).getEndtime());
+                intent.putExtra("TIME", l.get(position).getStarttime() + "-" + l.get(position).getEndtime());
                 intent.putExtra("MONEY", l.get(position).getReward());
                 intent.putExtra("PEOPLE", l.get(position).getFollowers());
                 intent.putExtra("STATISTIC", "true");
@@ -345,23 +391,46 @@ public class FragmentProfile extends Fragment {
 
     }
 
-    public void setFutureList(List<Game> list){
+    public void setFutureList(List<Game> list) {
+        final List<Game> l = list;
         gameFutureList = list;
-        if(adapter2==null) {
+        if (adapter2 == null) {
             adapter2 = new GamesAdapter(context, gameFutureList);
-        }else{
+        } else {
             adapter2.notifyDataSetChanged();
         }
         list2.setAdapter(adapter2);
         setListViewHeightBasedOnChildren(list2);
-
+        if (gameFutureList.size() != 0)
+            future.setVisibility(View.VISIBLE);
 
         load.setVisibility(View.GONE);
-        if(gameNowList.size()==0 && gameFutureList.size()==0) {
+        if (gameNowList.size() == 0 && gameFutureList.size() == 0) {
             empty.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             empty.setVisibility(View.GONE);
         }
+
+        list2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(context, GameInfoActivity.class);
+                intent.putExtra("GAMEID", l.get(position).getGameid());
+                intent.putExtra("SUBSCRIBE", l.get(position).getSubscribe());
+                intent.putExtra("TITLE", l.get(position).getTitle());
+                intent.putExtra("NAME", l.get(position).getCompany());
+                intent.putExtra("LOGO", l.get(position).getLogo());
+                intent.putExtra("BACKGROUND", l.get(position).getBackground());
+                intent.putExtra("DATE", l.get(position).getStartdate() + "-" + l.get(position).getEnddate());
+                intent.putExtra("DESCRIPTION", l.get(position).getDescription());
+                intent.putExtra("TASKS", l.get(position).getTasks());
+                intent.putExtra("TIME", l.get(position).getStarttime() + "-" + l.get(position).getEndtime());
+                intent.putExtra("MONEY", l.get(position).getReward());
+                intent.putExtra("PEOPLE", l.get(position).getFollowers());
+                intent.putExtra("STATISTIC", "true");
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -370,7 +439,9 @@ public class FragmentProfile extends Fragment {
         String imagePath;
         Uri selectedImage = data.getData();
         String[] filePathColumn = {MediaStore.Images.Media.DATA};
+        assert selectedImage != null;
         Cursor cursor = context.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+        assert cursor != null;
         cursor.moveToFirst();
         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
         imagePath = cursor.getString(columnIndex);
@@ -381,7 +452,7 @@ public class FragmentProfile extends Fragment {
     }
 
     private Uri generateFileUri() {
-        File file = null;
+        File file;
         file = new File(directory.getPath() + "/" + "photo_" + System.currentTimeMillis() + ".jpg");
         Log.i("PHOTO", "fileName = " + file);
         myFile = file;
@@ -404,35 +475,33 @@ public class FragmentProfile extends Fragment {
                 matrix, true);
     }
 
-    public String getPhoto(){
-        return imagePath+"";
+    public String getPhoto() {
+        return imagePath + "";
     }
 
-    public void setPhoto(String s){
+    public void setPhoto(String s) {
         imageurl = s;
-        Picasso.with(context).load(s).placeholder(R.drawable.camera_background).centerCrop().resize(1024,1024).error(R.drawable.camera_background).into(photo_view);
+        Picasso.with(context).load(s).placeholder(R.drawable.camera_background).centerCrop().resize(1024, 1024).error(R.drawable.camera_background).into(photo_view);
     }
 
-    public void setName(String s){
+    public void setName(String s) {
         name.setText(s);
     }
 
-    public void setNickName(String s){
+    public void setNickName(String s) {
         nickName.setText(s);
     }
 
-    public static void setListViewHeightBasedOnChildren(ListView listView)
-    {
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null)
             return;
 
         int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
-        int totalHeight=0;
+        int totalHeight = 0;
         View view = null;
 
-        for (int i = 0; i < listAdapter.getCount(); i++)
-        {
+        for (int i = 0; i < listAdapter.getCount(); i++) {
             view = listAdapter.getView(i, view, listView);
 
             if (i == 0)

@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -23,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".views.profile.UserProfileActivity"></activity>
+        <activity android:name=".views.game.ReportActivity"></activity>
+        <activity android:name=".views.profile.UserProfileActivity" />
         <activity android:name=".views.game.RatingGameActivity" />
         <activity android:name=".views.game.PlayActivity">
             <intent-filter>
@@ -52,11 +52,6 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".views.authentication.EditInfoActivity" />
 
-        <receiver android:name=".models.SmsListener">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
-        </receiver>
 
         <activity
             android:name=".views.authentication.ConfirmPhoneActivity"

@@ -1,17 +1,16 @@
 package com.game.xogame.adapter;
 
-
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -19,14 +18,11 @@ import com.game.xogame.R;
 import com.game.xogame.entity.Game;
 import com.squareup.picasso.Picasso;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class GamesAdapter  extends ArrayAdapter<Game> {
-    public List<Game> gameList;
-    Context context;
+    private List<Game> gameList;
+    private Context context;
     private LayoutInflater mInflater;
-    private LinearLayout lay;
 
     // Constructors
     public GamesAdapter(Context context, List<Game> objects) {
@@ -41,6 +37,8 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
         return gameList.get(position);
     }
 
+
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final GamesAdapter.ViewHolder vh;
@@ -54,15 +52,16 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
         }
 
         final Game item = getItem(position);
+        assert item != null;
         Log.i("LOG_allgames" , item.getBackground()+" 0123");
 
         vh.rootView.setClipToOutline(true);
         vh.textViewName1.setText(item.getCompany());
         vh.textViewName2.setText(item.getTitle());
         vh.textViewDate.setText(item.getStartdate()+" - "+item.getEnddate()+"   "+item.getStarttime()+" - "+item.getEndtime());
-        vh.textViewTasks.setText(item.getTasks()+" заданий");
+        vh.textViewTasks.setText(item.getTasks()+" "+context.getString(R.string.txt_tasks));
         vh.textViewPrize.setText(item.getReward()+" ₴");
-        vh.textViewPlay.setText(item.getFollowers()+" участников");
+        vh.textViewPlay.setText(item.getFollowers()+" "+context.getString(R.string.txt_participates));
 
         vh.textViewHolder.setText(item.getCompany().substring(0,1).toUpperCase());
         vh.imageView.setImageResource(getPlaceholder(item.getCompany()));
@@ -98,7 +97,7 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
         return vh.rootView;
     }
 
-    public int getPlaceholder(String s){
+    private int getPlaceholder(String s){
         String abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZЯЧСМИТЬБЮФЫВАПРОЛДЖЭЁЙЦУКЕНГШЩЗХЪІЄ0123456789";
         int n = abc.indexOf(s.substring(0,1).toUpperCase());
         Log.i("LOG_allgames" , n+" "+s.substring(0,1).toUpperCase());
@@ -166,17 +165,17 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
     }
 
     private static class ViewHolder {
-        public final RelativeLayout rootView;
+        private final RelativeLayout rootView;
         public final ImageView imageView;
         public final ImageView imageView1;
         public final ImageView imageView2;
-        public final TextView textViewName1;
-        public final TextView textViewName2;
-        public final TextView textViewTasks;
-        public final TextView textViewDate;
-        public final TextView textViewPlay;
-        public final TextView textViewPrize;
-        public final TextView textViewHolder;
+        private final TextView textViewName1;
+        private final TextView textViewName2;
+        private final TextView textViewTasks;
+        private final TextView textViewDate;
+        private final TextView textViewPlay;
+        private final TextView textViewPrize;
+        private final TextView textViewHolder;
 
         private ViewHolder(RelativeLayout rootView, ImageView imageView, ImageView imageView1, ImageView imageView2, TextView textViewName1, TextView textViewName2, TextView textViewTasks, TextView textViewDate, TextView textViewPrize, TextView textViewPlay, TextView textViewHolder) {
             this.rootView = rootView;
@@ -193,16 +192,16 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
         }
 
         public static GamesAdapter.ViewHolder create(RelativeLayout rootView) {
-            ImageView imageView = (ImageView) rootView.findViewById(R.id.imageView);
-            ImageView imageView1 = (ImageView) rootView.findViewById(R.id.imageView1);
-            ImageView imageView2 = (ImageView) rootView.findViewById(R.id.imageView2);
-            TextView textViewName1 = (TextView) rootView.findViewById(R.id.name1);
-            TextView textViewName2 = (TextView) rootView.findViewById(R.id.name2);
-            TextView textViewTasks = (TextView) rootView.findViewById(R.id.name4);
-            TextView textViewDate = (TextView) rootView.findViewById(R.id.name3);
-            TextView textViewPrize = (TextView) rootView.findViewById(R.id.name5);
-            TextView textViewPlay = (TextView) rootView.findViewById(R.id.name6);
-            TextView textViewHolder = (TextView) rootView.findViewById(R.id.textHolder1);
+            ImageView imageView = rootView.findViewById(R.id.imageView);
+            ImageView imageView1 = rootView.findViewById(R.id.imageView1);
+            ImageView imageView2 = rootView.findViewById(R.id.imageView2);
+            TextView textViewName1 = rootView.findViewById(R.id.name1);
+            TextView textViewName2 = rootView.findViewById(R.id.name2);
+            TextView textViewTasks = rootView.findViewById(R.id.name4);
+            TextView textViewDate = rootView.findViewById(R.id.name3);
+            TextView textViewPrize = rootView.findViewById(R.id.name5);
+            TextView textViewPlay = rootView.findViewById(R.id.name6);
+            TextView textViewHolder = rootView.findViewById(R.id.textHolder1);
             return new GamesAdapter.ViewHolder(rootView, imageView, imageView1, imageView2, textViewName1, textViewName2, textViewTasks, textViewDate, textViewPrize, textViewPlay, textViewHolder);
         }
 

@@ -20,7 +20,8 @@
             android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:id="@+id/imageView1"
@@ -28,19 +29,20 @@
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
-                android:paddingLeft="12dp"
+                android:paddingStart="12dp"
                 android:paddingTop="13dp"
-                android:paddingRight="15dp"
-                android:src="@drawable/setting_back" />
+                android:paddingEnd="15dp"
+                android:src="@drawable/setting_back"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
-                android:layout_marginRight="42dp"
+                android:layout_marginEnd="42dp"
                 android:fontFamily="@font/roboto_regular"
-                android:text="Рейтинг"
+                android:text="@string/txt_rating"
                 android:textAlignment="center"
                 android:textColor="#2F3542"
                 android:textSize="16sp" />
@@ -56,12 +58,12 @@
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:scaleType="fitXY"
-            android:src="@drawable/profile_line" />
+            android:src="@drawable/profile_line"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -73,24 +75,23 @@
 
         <ListView
             android:id="@+id/gamelist"
-            android:touchscreenBlocksFocus="true"
-            android:isScrollContainer="false"
-            android:nestedScrollingEnabled="false"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:divider="#00000000"
-            android:dividerHeight="3dp"
             android:background="@drawable/bggradient"
             android:clipToPadding="false"
+            android:divider="#00000000"
+            android:dividerHeight="3dp"
+            android:isScrollContainer="false"
+            android:nestedScrollingEnabled="false"
             android:paddingBottom="59dp"
-            />
+            android:touchscreenBlocksFocus="true" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <LinearLayout
+        android:id="@+id/targetView"
         android:layout_width="159dp"
         android:layout_height="159dp"
-        android:id="@+id/targetView"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -130,16 +131,19 @@
             android:layout_width="159dp"
             android:layout_height="159dp"
             android:layout_centerHorizontal="true"
-            app:srcCompat="@drawable/empty" />
+            app:srcCompat="@drawable/empty"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_alignTop="@id/imageView23"
+            android:layout_alignBottom="@id/imageView23"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="Вы не учавствуете ни в одной игре"
+            android:gravity="center_vertical"
+            android:text="@string/txt_noActiveGames"
             android:textAlignment="center"
             android:textColor="#80586575"
             android:textSize="16sp" />
@@ -150,11 +154,11 @@
             android:layout_height="42dp"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/registration_button_view"
-            android:fontFamily="@font/roboto_regular"
             android:layout_marginLeft="35dp"
             android:layout_marginRight="35dp"
-            android:text="Найти игры"
+            android:background="@drawable/registration_button_view"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/btn_findgames"
             android:textColor="#ffffff"
             android:textSize="16sp" />
     </RelativeLayout>

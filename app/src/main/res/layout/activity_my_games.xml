@@ -24,7 +24,8 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseCompoundDrawables">
 
 
             <ImageView
@@ -36,16 +37,17 @@
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:paddingTop="13dp"
-                android:src="@drawable/setting_back" />
+                android:src="@drawable/setting_back"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
-                android:layout_marginRight="42dp"
+                android:layout_marginEnd="42dp"
                 android:fontFamily="@font/roboto_regular"
-                android:text="История"
+                android:text="@string/txt_history"
                 android:textAlignment="center"
                 android:textColor="#2F3542"
                 android:textSize="16sp" />
@@ -60,7 +62,8 @@
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:scaleType="fitXY"
-            android:src="@drawable/profile_line" />
+            android:src="@drawable/profile_line"
+            tools:ignore="ContentDescription"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,7 +76,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
@@ -83,17 +86,18 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Игры"
+                    android:text="@string/txt_games"
                     android:textAlignment="center"
                     android:textColor="#586575"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    tools:ignore="NestedWeights" />
 
                 <TextView
                     android:id="@+id/textView19"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Выполненные задания"
+                    android:text="@string/txt_doneTasks"
                     android:textAlignment="center"
                     android:textColor="#586575"
                     android:textSize="12sp" />
@@ -132,13 +136,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="13dp"
-                android:src="#80586575" />
+                android:src="#80586575"
+                tools:ignore="ContentDescription"/>
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
@@ -149,7 +154,7 @@
         <TableLayout
 
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:stretchColumns="1">
 
             <ListView
@@ -163,7 +168,8 @@
                 android:paddingRight="5dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:background="@drawable/bggradient" />
+                android:background="@drawable/bggradient"
+                tools:ignore="NestedScrolling" />
 
         </TableLayout>
     </ScrollView>
@@ -210,7 +216,8 @@
             android:layout_width="159dp"
             android:layout_height="159dp"
             android:layout_centerHorizontal="true"
-            app:srcCompat="@drawable/empty" />
+            app:srcCompat="@drawable/empty"
+            tools:ignore="ContentDescription"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -219,7 +226,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="Вы не играли ни в одну игру"
+            android:text="@string/txt_dontParticipated"
             android:textAlignment="center"
             android:textColor="#80586575"
             android:textSize="16sp" />
@@ -234,7 +241,7 @@
             android:fontFamily="@font/roboto_regular"
             android:layout_marginLeft="35dp"
             android:layout_marginRight="35dp"
-            android:text="Найти игры"
+            android:text="@string/btn_findgames"
             android:textColor="#ffffff"
             android:textSize="16sp" />
     </RelativeLayout>

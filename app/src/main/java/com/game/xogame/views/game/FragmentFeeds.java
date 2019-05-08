@@ -1,6 +1,7 @@
 package com.game.xogame.views.game;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +9,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,25 +24,24 @@ import com.game.xogame.adapter.FeedsAdapter;
 import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
 import com.game.xogame.entity.Feed;
-import com.game.xogame.entity.Game;
 import com.game.xogame.presenters.MainPresenter;
 import com.game.xogame.views.main.MainActivity;
-
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 
 public class FragmentFeeds extends Fragment {
 
-    private ApiService api;
+    public ApiService api;
     private static MainPresenter presenter;
     private LinearLayout load;
     private ListView listView;
     private ImageView sort;
     private ImageView rating;
     private View rootView;
+    @SuppressLint("StaticFieldLeak")
     static private Context context;
+    @SuppressLint("StaticFieldLeak")
     static FeedsAdapter adapter;
     private SwipeRefreshLayout pullToRefresh;
     private String flag = "false";
@@ -49,6 +49,7 @@ public class FragmentFeeds extends Fragment {
     private RelativeLayout empty;
     private Button find;
     private List<Feed> listFeeds = new LinkedList<>();
+    @SuppressLint("StaticFieldLeak")
     private static FragmentFeeds fragment;
 
     public FragmentFeeds() {
@@ -76,6 +77,7 @@ public class FragmentFeeds extends Fragment {
         return rootView;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public void init(){
         load = rootView.findViewById(R.id.targetView);
         listView = rootView.findViewById(R.id.gamelist);
@@ -87,39 +89,67 @@ public class FragmentFeeds extends Fragment {
         api = RetroClient.getApiService();
 
 
-        rating.setOnClickListener(new View.OnClickListener() {
+        rating.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, RatingActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        sort.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(flag.equals("false")){
-                    flag = "true";
-                    sort.setImageResource(R.drawable.feed_type_used);
-                    listFeeds = new LinkedList<>();
-                    adapter = null;
-                    presenter.showFeeds(FragmentFeeds.this,flag,"0");
-                }else{
-                    flag = "false";
-                    sort.setImageResource(R.drawable.feed_type);
-                    listFeeds = new LinkedList<>();
-                    adapter = null;
-                    presenter.showFeeds(FragmentFeeds.this,flag,"0");
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: // нажатие
+                        rating.animate().setDuration(200).scaleX(0.9f).scaleY(0.9f).start();
+                        break;
+                    case MotionEvent.ACTION_UP: // отпускание
+                        rating.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
+                        Intent intent = new Intent(context, RatingActivity.class);
+                        startActivity(intent);
+                        break;
                 }
+                return true;
             }
         });
 
-        find.setOnClickListener(new View.OnClickListener() {
+        sort.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                MainActivity.mViewPager.setCurrentItem(0);
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: // нажатие
+                        sort.animate().setDuration(200).scaleX(0.9f).scaleY(0.9f).start();
+                        break;
+                    case MotionEvent.ACTION_UP: // отпускание
+                        sort.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
+                        if(flag.equals("false")){
+                            flag = "true";
+                            sort.setImageResource(R.drawable.feed_type_used);
+                            listFeeds = new LinkedList<>();
+                            adapter = null;
+                            presenter.showFeeds(FragmentFeeds.this,flag,"0");
+                        }else{
+                            flag = "false";
+                            sort.setImageResource(R.drawable.feed_type);
+                            listFeeds = new LinkedList<>();
+                            adapter = null;
+                            presenter.showFeeds(FragmentFeeds.this,flag,"0");
+                        }
+                        break;
+                }
+                return true;
             }
         });
+
+        find.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: // нажатие
+                        find.animate().setDuration(200).scaleX(0.9f).scaleY(0.9f).start();
+                        break;
+                    case MotionEvent.ACTION_UP: // отпускание
+                        find.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
+                        MainActivity.mViewPager.setCurrentItem(0);
+                        break;
+                }
+                return true;
+            }
+        });
+
 
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 

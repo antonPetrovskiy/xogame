@@ -34,7 +34,7 @@ public class LoginPresenter {
         model.registratePhone(cv,new LoginModel.RegistratePhoneCallback() {
             @Override
             public void onRegistrate() {
-                viewLogin.showToast("Смc отправлен");
+                //viewLogin.showToast("Смc отправлен");
                 viewLogin.toConfirmPhoneActivity();
             }
         });
@@ -66,7 +66,7 @@ public class LoginPresenter {
         model.registratePhone(cv,new LoginModel.RegistratePhoneCallback() {
             @Override
             public void onRegistrate() {
-                viewConfirmPhone.showToast("Смc отправлен еще раз");
+                //viewConfirmPhone.showToast("Смc отправлен еще раз");
             }
         });
     }

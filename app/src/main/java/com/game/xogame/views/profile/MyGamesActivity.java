@@ -1,5 +1,6 @@
 package com.game.xogame.views.profile;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
@@ -14,30 +15,28 @@ import android.widget.TextView;
 
 import com.game.xogame.adapter.GamesAdapter;
 import com.game.xogame.R;
-import com.game.xogame.adapter.HistoryAdapter;
 import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
 import com.game.xogame.entity.Game;
 import com.game.xogame.models.UserInfoModel;
 import com.game.xogame.presenters.MyGamesPresenter;
-import com.game.xogame.views.authentication.EditInfoActivity;
 import com.game.xogame.views.main.MainActivity;
 
 import java.util.List;
 
 public class MyGamesActivity extends AppCompatActivity {
-    private ApiService api;
+    public ApiService api;
     private MyGamesPresenter presenter;
 
 
-    private ImageView back;
+    public ImageView back;
     private TextView count;
     private TextView time;
     private LinearLayout load;
     private ListView listView;
 
     private RelativeLayout empty;
-    private Button find;
+    public Button find;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +90,7 @@ public class MyGamesActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("SetTextI18n")
     public void setList(List<Game> list){
         GamesAdapter adapter = new GamesAdapter(this, list);
         listView.setAdapter(adapter);

@@ -34,7 +34,7 @@ public class GameInfoPresenter {
         model.subscribeGame(cv,new GamesModel.SubscribeGameCallback() {
             @Override
             public void onSubscribe() {
-                viewMain.showToast("Вы подписались на игру");
+                //viewMain.showToast("Вы подписались на игру");
                 viewMain.setButtonName("Отказатся");
             }
         });
@@ -46,7 +46,7 @@ public class GameInfoPresenter {
         model.unsubscribeGame(cv,new GamesModel.UnsubscribeGameCallback() {
             @Override
             public void onUnsubscribe() {
-                viewMain.showToast("Вы отписались от игры");
+                //viewMain.showToast("Вы отписались от игры");
                 viewMain.setButtonName("Участвовать");
                 if(viewMain.isStatistic.equals("true"))
                     viewMain.onBackPressed();

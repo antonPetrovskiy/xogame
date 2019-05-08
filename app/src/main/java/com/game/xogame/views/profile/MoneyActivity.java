@@ -1,8 +1,11 @@
 package com.game.xogame.views.profile;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -41,6 +44,7 @@ public class MoneyActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public void init(){
         header = findViewById(R.id.textView1);
         money = findViewById(R.id.textView2);
@@ -60,6 +64,22 @@ public class MoneyActivity extends AppCompatActivity {
             way.setText("Кредитная карта");
             info.setText("1234 1234 1234 1234");
         }
+
+        ok.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: // нажатие
+                        ok.animate().setDuration(200).scaleX(0.9f).scaleY(0.9f).start();
+                        break;
+                    case MotionEvent.ACTION_UP: // отпускание
+                        ok.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
+                        onBackPressed();
+                        break;
+                }
+                return true;
+            }
+        });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

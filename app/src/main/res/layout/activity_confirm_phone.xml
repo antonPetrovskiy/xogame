@@ -21,7 +21,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:srcCompat="@drawable/top" />
+        app:srcCompat="@drawable/top"
+        tools:ignore="ContentDescription" />
 
 
     <com.airbnb.lottie.LottieAnimationView
@@ -50,7 +51,8 @@
         android:textAlignment="center"
         android:gravity="center_vertical"
         android:textSize="12sp"
-        android:textColor="#586575" />
+        android:textColor="#586575"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/imageButton1"
@@ -60,7 +62,7 @@
         android:background="@drawable/registration_oval_button"
         android:fontFamily="@font/roboto_regular"
         android:visibility="gone"
-        android:text="Повторная отправка"
+        android:text="@string/btn_resent"
         android:textColor="#F08C3C"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +77,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/roboto_regular"
-        android:text="На ваш номер выслано код с подтверждением"
+        android:text="@string/txt_yournumber"
         android:textAlignment="center"
         android:textColor="#586575"
         android:textSize="16sp"
@@ -88,7 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Код подтверждения"
+        android:text="@string/txt_confirmcode"
         android:fontFamily="@font/roboto_regular"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="@+id/editText3"
@@ -98,9 +100,9 @@
         android:id="@+id/editText3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="000 00 00"
         android:inputType="number"
@@ -110,16 +112,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="Autofill,HardcodedText" />
 
     <Button
         android:id="@+id/imageButton"
-        android:layout_width="290dp"
+        android:layout_width="match_parent"
         android:layout_height="42dp"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
         android:background="@drawable/registration_button_view"
         android:fontFamily="@font/roboto_regular"
-        android:text="ПРОДОЛЖИТЬ"
+        android:text="@string/btn_continue"
         android:textColor="#ffffff"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
