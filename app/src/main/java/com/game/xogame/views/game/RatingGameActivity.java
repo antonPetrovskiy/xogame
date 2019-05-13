@@ -140,6 +140,8 @@ public class RatingGameActivity extends AppCompatActivity {
     public void setGameViews(Rating game) {
         this.game.setVisibility(View.VISIBLE);
         load.setVisibility(View.GONE);
+        if(game == null)
+            return;
         placeholder.setText(game.getCompany().substring(0, 1));
         this.photo.setImageResource(getPlaceholder(game.getCompany()));
         Picasso.with(this).load(game.getLogo() + "").placeholder(getPlaceholder(game.getCompany())).error(getPlaceholder(game.getCompany())).into(this.photo, new com.squareup.picasso.Callback() {
@@ -185,7 +187,7 @@ public class RatingGameActivity extends AppCompatActivity {
             this.nickname1.setText(game.getTop().get(0).getNickname());
             this.place1.setText(game.getTop().get(0).getPosition() + " " + getString(R.string.txt_place));
             this.task1.setText(game.getTop().get(0).getComplited() + "/" + game.getTasks());
-            int n = 100 / Integer.parseInt(game.getTasks());
+            int n = 1000 / Integer.parseInt(game.getTasks());
             n = n * Integer.parseInt(game.getTop().get(0).getComplited());
             bar1.setProgress(n);
             photo1.setOnClickListener(new View.OnClickListener() {
@@ -237,7 +239,7 @@ public class RatingGameActivity extends AppCompatActivity {
             this.nickname2.setText(game.getTop().get(1).getNickname());
             this.place2.setText(game.getTop().get(1).getPosition() + " " + getString(R.string.txt_place));
             this.task2.setText(game.getTop().get(1).getComplited() + "/" + game.getTasks());
-            int n = 100 / Integer.parseInt(game.getTasks());
+            int n = 1000 / Integer.parseInt(game.getTasks());
             n = n * Integer.parseInt(game.getTop().get(1).getComplited());
             bar2.setProgress(n);
             photo2.setOnClickListener(new View.OnClickListener() {
@@ -289,7 +291,7 @@ public class RatingGameActivity extends AppCompatActivity {
             this.nickname3.setText(game.getTop().get(2).getNickname());
             this.place3.setText(game.getTop().get(2).getPosition() + " " + getString(R.string.txt_place));
             this.task3.setText(game.getTop().get(2).getComplited() + "/" + game.getTasks());
-            int n = 100 / Integer.parseInt(game.getTasks());
+            int n = 1000 / Integer.parseInt(game.getTasks());
             n = n * Integer.parseInt(game.getTop().get(2).getComplited());
             bar3.setProgress(n);
             photo3.setOnClickListener(new View.OnClickListener() {
@@ -341,7 +343,7 @@ public class RatingGameActivity extends AppCompatActivity {
             this.nickname4.setText(game.getTop().get(3).getNickname());
             this.place4.setText(game.getTop().get(3).getPosition() + " " + getString(R.string.txt_place));
             this.task4.setText(game.getTop().get(3).getComplited() + "/" + game.getTasks());
-            int n = 100 / Integer.parseInt(game.getTasks());
+            int n = 1000 / Integer.parseInt(game.getTasks());
             n = n * Integer.parseInt(game.getTop().get(3).getComplited());
             bar4.setProgress(n);
             photo4.setOnClickListener(new View.OnClickListener() {

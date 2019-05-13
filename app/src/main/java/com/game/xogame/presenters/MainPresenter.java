@@ -55,7 +55,7 @@ public class MainPresenter {
         model.editPhoto(cv, new UserInfoModel.EditPhotoCallback() {
             @Override
             public void onEdit() {
-                fragment.isPhoto = false;
+                fragment.update();
             }
         });
     }

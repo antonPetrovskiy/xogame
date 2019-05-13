@@ -49,8 +49,7 @@ public class ConfirmPhoneActivity extends AppCompatActivity {
             phone = null;
         } else {
             phone = extras.getString("NUMBER");
-            //TODO
-            text.setText("На ваш номер +"+phone+" выслано сообщение с кодом подтверждения");
+            text.setText(getString(R.string.txt_onYourNumber)+" +"+phone+" "+getString(R.string.txt_wasSent));
         }
     }
 

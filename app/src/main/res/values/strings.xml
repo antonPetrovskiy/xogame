@@ -57,6 +57,22 @@
     <string name="txt_reward">Награда</string>
     <string name="txt_reportDescription">Укажите причину жалобы</string>
     <string name="txt_userDontParticipate">Пользователь не учавствуете ни в одной игре</string>
+    <string name="txt_sentMoneyPhone">Перевести деньги на телефон</string>
+    <string name="txt_sentMoneyCard">Перевести деньги на карту</string>
+    <string name="txt_people">человек</string>
+    <string name="btn_leave">Отказатся</string>
+    <string name="btn_join">Участвовать</string>
+    <string name="txt_sentMoneyOn">Перевести деньги на</string>
+    <string name="btn_confirm">подтверидить</string>
+    <string name="toast_enterNickname">Введите никнейм</string>
+    <string name="toast_wrongNumber">Номер не верный</string>
+    <string name="txt_onYourNumber">На ваш номер</string>
+    <string name="txt_wasSent">выслано сообщение с кодом подтверждения</string>
+    <string name="txt_emptyRating">Нету рейтинга</string>
+    <string name="txt_logout">Выйти из аккаунта?</string>
+    <string name="txt_yes">Да</string>
+    <string name="txt_no">Нет</string>
+    <string name="txt_timeIsOut">Время вышло</string>
 
 
 </resources>

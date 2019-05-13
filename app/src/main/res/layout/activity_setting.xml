@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:stretchColumns="1">
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/linearLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,14 +37,15 @@
 
                 <ImageView
                     android:id="@+id/imageView1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
                     android:adjustViewBounds="true"
                     android:cropToPadding="true"
                     android:paddingLeft="10dp"
                     android:paddingTop="15dp"
+                    android:paddingBottom="10dp"
                     android:paddingRight="10dp"
+                    android:layout_alignParentLeft="true"
                     android:src="@drawable/setting_back"
                     tools:ignore="ContentDescription" />
 
@@ -53,7 +54,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="13dp"
-                    android:layout_weight="1"
+                    android:layout_toStartOf="@+id/imageView2"
+                    android:layout_toEndOf="@+id/imageView1"
                     android:fontFamily="@font/roboto_regular"
                     android:text="@string/txt_settings"
                     android:textAlignment="center"
@@ -62,16 +64,17 @@
 
                 <ImageView
                     android:id="@+id/imageView2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_alignParentRight="true"
                     android:adjustViewBounds="true"
                     android:cropToPadding="true"
-                    android:paddingTop="13dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     android:paddingEnd="10dp"
                     android:src="@drawable/setting_save"
                     tools:ignore="ContentDescription,RtlSymmetry" />
-            </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -88,7 +91,6 @@
                     android:id="@+id/imageView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="13dp"
                     android:adjustViewBounds="true"
                     android:cropToPadding="true"
                     android:src="@drawable/profile_line"

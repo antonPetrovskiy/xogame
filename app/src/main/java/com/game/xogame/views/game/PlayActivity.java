@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -52,6 +53,7 @@ public class PlayActivity extends AppCompatActivity {
 
     //1st screen
     private TextView title;
+    private TextView company;
     private TextView task;
     private TextView number;
     private TextView time;
@@ -74,6 +76,7 @@ public class PlayActivity extends AppCompatActivity {
 
     private String taskId;
     private String imagePath;
+    public String position_str;
     File directory;
     File myFile;
     private LinearLayout load;
@@ -102,6 +105,7 @@ public class PlayActivity extends AppCompatActivity {
         task.setText(extras.getString("TASK"));
         number.setText(extras.getString("NUMBERTASK") + "/" + extras.getString("TASKS"));
         path = extras.getString("LOGO");
+        company.setText(extras.getString("COMPANY"));
     }
 
     @SuppressLint("SetTextI18n")
@@ -112,6 +116,7 @@ public class PlayActivity extends AppCompatActivity {
         presenter.attachView(this);
 
         title = findViewById(R.id.textView1);
+        company = findViewById(R.id.textView6);
         task = findViewById(R.id.textView2);
         number = findViewById(R.id.textView3);
         time = findViewById(R.id.textView4);
@@ -194,12 +199,14 @@ public class PlayActivity extends AppCompatActivity {
 
     public void toMainActivityLose() {
         load.setVisibility(View.GONE);
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.fail);
+        mp.start();
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
         final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(this).create();
 
         TextView btnAdd1 = promptView.findViewById(R.id.textView1);
-        btnAdd1.setText("Время вышло");
+        btnAdd1.setText(getString(R.string.txt_timeIsOut));
         alertD.setView(promptView);
         alertD.show();
         alertD.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -225,8 +232,10 @@ public class PlayActivity extends AppCompatActivity {
         TextView time = promptView.findViewById(R.id.textView2);
         TextView position = promptView.findViewById(R.id.textView3);
         TextView task = promptView.findViewById(R.id.textView4);
+        TextView company = promptView.findViewById(R.id.textView5);
         title.setText(title.getText() + "");
-        position.setText(getString(R.string.txt_place));
+        company.setText(company.getText() + "");
+        position.setText(position_str+" " + getString(R.string.txt_place));
         task.setText(number.getText().toString());
         if (Integer.parseInt(done) < 60) {
             time.setText("0:" + done);

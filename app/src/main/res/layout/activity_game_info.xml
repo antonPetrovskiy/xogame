@@ -11,10 +11,10 @@
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical">
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:id="@+id/linearLayout55"
@@ -30,23 +30,26 @@
                 android:id="@+id/imageView1"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
+                android:layout_alignParentLeft="true"
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
                 android:paddingLeft="12dp"
                 android:paddingTop="13dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="13dp"
-                android:layout_alignParentLeft="true"
                 android:src="@drawable/setting_back" />
 
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="44dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="13dp"
+                android:layout_marginLeft="44dp"
+                android:layout_marginRight="44dp"
                 android:fontFamily="@font/roboto_regular"
                 android:textAlignment="center"
+                android:gravity="center_vertical"
+                tools:text = "text"
                 android:textColor="#2F3542"
                 android:textSize="16sp" />
 
@@ -54,13 +57,13 @@
                 android:id="@+id/imageView0"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
+                android:layout_alignParentRight="true"
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
                 android:paddingLeft="12dp"
                 android:paddingTop="13dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="13dp"
-                android:layout_alignParentRight="true"
                 android:src="@drawable/feed_statistics" />
 
         </RelativeLayout>
@@ -77,8 +80,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingBottom="0dp"
         android:fillViewport="true"
+        android:paddingBottom="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,9 +111,9 @@
                 android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="14dp"
-                app:cardElevation="3dp"
+                app:cardBackgroundColor="@android:color/white"
                 app:cardCornerRadius="40dp"
-                app:cardBackgroundColor="@android:color/white">
+                app:cardElevation="3dp">
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/imageView3"
@@ -125,25 +128,25 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
-                app:cardElevation="3dp"
-                app:cardBackgroundColor="@android:color/white">
+                app:cardBackgroundColor="@android:color/white"
+                app:cardElevation="3dp">
 
                 <ImageView
                     android:id="@+id/imageView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/unknow_wide"
                     android:adjustViewBounds="true"
                     android:cropToPadding="true"
-                    android:scaleType="fitXY" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/unknow_wide" />
 
             </android.support.v7.widget.CardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginRight="12dp"
                 android:orientation="horizontal">
 
@@ -295,12 +298,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="35dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="35dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/registration_button_view"
                 android:fontFamily="@font/roboto_regular"
-                android:layout_marginLeft="35dp"
-                android:layout_marginRight="35dp"
                 android:text="участвовать"
                 android:textColor="#ffffff"
                 android:textSize="16sp"
@@ -312,7 +315,6 @@
         </LinearLayout>
 
     </ScrollView>
-
 
 
 </android.support.constraint.ConstraintLayout>

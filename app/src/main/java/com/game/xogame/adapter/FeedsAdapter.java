@@ -103,7 +103,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
         if (item.getUserName().length() != 0) {
             vh.placeholder2.setText(item.getUserName().substring(0, 1).toUpperCase());
         } else {
-            vh.placeholder2.setText("a");
+            vh.placeholder2.setText("A");
         }
         vh.imageViewPhoto.setImageResource(getPlaceholder(item.getCompany()));
 

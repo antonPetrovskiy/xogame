@@ -71,7 +71,7 @@ public class EditInfoActivity extends AppCompatActivity {
                         if(!getName().equals("")) {
                             presenter.editInfo();
                         }else{
-                            showToast("Введите никнейм");
+                            showToast(getString(R.string.toast_enterNickname));
                         }
                         break;
                 }

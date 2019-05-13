@@ -453,6 +453,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check for the integer request code originally supplied to startResolutionForResult().
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i("LOG_photo1" , "0");
         if (requestCode == REQUEST_CHECK_SETTINGS) {
             switch (resultCode) {
                 case Activity.RESULT_OK:

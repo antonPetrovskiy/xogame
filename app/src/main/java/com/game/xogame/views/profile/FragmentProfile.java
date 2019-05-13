@@ -54,10 +54,8 @@ public class FragmentProfile extends Fragment {
 
     public static final int REQ_CODE_PICK_PHOTO = 0;
     public static final int REQ_CODE_CAPTURE = 2;
-    @SuppressLint("StaticFieldLeak")
     static private Context context;
     static private MainPresenter presenter;
-    @SuppressLint("StaticFieldLeak")
     private static FragmentProfile fragment;
     public boolean isPhoto = false;
     String imagePath;
@@ -281,7 +279,7 @@ public class FragmentProfile extends Fragment {
                     case MotionEvent.ACTION_UP: // отпускание
                         photo_edit.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
                         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-                        @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_imagechooser, null);
+                        View promptView = layoutInflater.inflate(R.layout.popup_imagechooser, null);
                         final AlertDialog alertD = new AlertDialog.Builder(getActivity()).create();
 
                         TextView btnAdd1 = promptView.findViewById(R.id.textView1);
@@ -305,6 +303,7 @@ public class FragmentProfile extends Fragment {
                                 Intent intent = new Intent(Intent.ACTION_PICK, EXTERNAL_CONTENT_URI);
                                 intent.setType("image/*");
                                 intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+                                Log.i("LOG_photo1" , "-1");
                                 startActivityForResult(intent, REQ_CODE_PICK_PHOTO);
                             }
                         });
@@ -325,8 +324,6 @@ public class FragmentProfile extends Fragment {
         isPhoto = true;
         if (requestCode == REQ_CODE_PICK_PHOTO && resultCode == Activity.RESULT_OK) {
             if ((data != null) && (data.getData() != null)) {
-
-
                 imagePath = getFilePath(data);
                 File file = new File(imagePath);
 
@@ -372,7 +369,7 @@ public class FragmentProfile extends Fragment {
                     rotatedBitmap = bitmap;
             }
             try (FileOutputStream out = new FileOutputStream(myFile)) {
-                rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out); // bmp is your Bitmap instance
+                rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, out); // bmp is your Bitmap instance
                 // PNG is a lossless format, the compression factor (100) is ignored
             } catch (IOException e) {
                 e.printStackTrace();
@@ -383,6 +380,10 @@ public class FragmentProfile extends Fragment {
             imagePath = myFile.getAbsolutePath();
             presenter.editPhoto(this);
         }
+    }
+
+    public void update(){
+        presenter.showUserInfo(this);
     }
 
     public void setNowList(List<Game> list) {
@@ -458,7 +459,8 @@ public class FragmentProfile extends Fragment {
                 intent.putExtra("TIME", l.get(position).getStarttime() + "-" + l.get(position).getEndtime());
                 intent.putExtra("MONEY", l.get(position).getReward());
                 intent.putExtra("PEOPLE", l.get(position).getFollowers());
-                intent.putExtra("STATISTIC", "true");
+                intent.putExtra("SHARE", l.get(position).getSiteurl());
+                intent.putExtra("STATISTIC", "false");
                 startActivity(intent);
             }
         });

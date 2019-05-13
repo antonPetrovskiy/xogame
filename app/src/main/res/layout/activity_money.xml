@@ -14,7 +14,8 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UseCompoundDrawables">
 
 
         <ImageView
@@ -25,18 +26,19 @@
             android:cropToPadding="true"
             android:paddingLeft="12dp"
             android:paddingTop="13dp"
-            android:paddingBottom="13dp"
             android:paddingRight="12dp"
-            android:src="@drawable/setting_back" />
+            android:paddingBottom="13dp"
+            android:src="@drawable/setting_back"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
-            android:layout_marginRight="42dp"
+            android:layout_marginEnd="42dp"
             android:fontFamily="@font/roboto_regular"
-            android:text="Перевести деньги на"
+            android:text="@string/txt_sentMoneyOn"
             android:textAlignment="center"
             android:textColor="#2F3542"
             android:textSize="16sp" />
@@ -60,7 +62,8 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:cropToPadding="true"
-            android:src="@drawable/profile_line" />
+            android:src="@drawable/profile_line"
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/imageView12"
@@ -72,14 +75,15 @@
             android:background="@drawable/oval_grey"
             android:cropToPadding="true"
             android:padding="15dp"
-            app:srcCompat="@drawable/mywin" />
+            app:srcCompat="@drawable/mywin"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="3000 грн"
+            tools:text="3000 грн"
             android:textAlignment="center"
             android:textColor="#F05A23"
             android:textSize="16sp" />
@@ -89,7 +93,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="44dp"
-            android:src="#80586575" />
+            android:src="#80586575"
+            tools:ignore="ContentDescription" />
 
 
     </LinearLayout>
@@ -98,32 +103,32 @@
         android:id="@+id/linearLayout8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="27dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
             android:layout_weight="1"
             android:fontFamily="@font/roboto_light"
-            android:text="TextView"
-            android:layout_marginLeft="12dp"
+            tools:text="TextView"
             android:textColor="#586575"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="12dp"
             android:layout_weight="1"
-            android:layout_marginRight="12dp"
-            android:layout_marginLeft="10dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="TextView"
+            tools:text="TextView"
             android:textColor="#2F3542"
             android:textSize="14sp" />
     </LinearLayout>
@@ -131,8 +136,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="10dp"
+        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
 
         <ImageView
@@ -141,18 +146,19 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:cropToPadding="true"
-            app:srcCompat="@drawable/profile_line_grey" />
+            app:srcCompat="@drawable/profile_line_grey"
+            tools:ignore="ContentDescription" />
 
 
         <Button
             android:id="@+id/imageButton"
             android:layout_width="290dp"
             android:layout_height="42dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:background="@drawable/registration_button_view"
             android:fontFamily="@font/roboto_regular"
-            android:layout_gravity="center_horizontal"
-            android:text="подтверидить"
+            android:text="@string/btn_confirm"
             android:textColor="#ffffff"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"

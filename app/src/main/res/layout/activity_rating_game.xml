@@ -374,10 +374,10 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="9"
                     android:adjustViewBounds="true"
-                    android:max="100"
+                    android:max="1000"
                     android:progressDrawable="@drawable/progress"
-                    tools:progress="60"
-                    tools:ignore="NestedWeights" />
+                    tools:ignore="NestedWeights"
+                    tools:progress="60" />
 
                 <TextView
                     android:id="@+id/textView14"
@@ -507,7 +507,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="9"
                     android:adjustViewBounds="true"
-                    android:max="100"
+                    android:max="1000"
                     android:progressDrawable="@drawable/progress"
                     tools:ignore="NestedWeights" />
 
@@ -638,7 +638,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="9"
                     android:adjustViewBounds="true"
-                    android:max="100"
+                    android:max="1000"
                     android:progressDrawable="@drawable/progress"
                     tools:ignore="NestedWeights" />
 
@@ -769,7 +769,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="9"
                     android:adjustViewBounds="true"
-                    android:max="100"
+                    android:max="1000"
                     android:progressDrawable="@drawable/progress"
                     tools:ignore="NestedWeights" />
 

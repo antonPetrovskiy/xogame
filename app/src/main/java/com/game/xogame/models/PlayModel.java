@@ -10,6 +10,7 @@ import android.util.Log;
 import com.game.xogame.api.ApiService;
 import com.game.xogame.entity.DefaultCallback;
 import com.game.xogame.entity.Game;
+import com.game.xogame.entity.TaskCallback;
 import com.game.xogame.entity.User;
 import com.game.xogame.entity.UserCallback;
 
@@ -29,6 +30,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class PlayModel {
     private ApiService api;
     private Context context;
+    public String position;
 
 
     public PlayModel(ApiService a, Context c){
@@ -64,21 +66,22 @@ public class PlayModel {
             MultipartBody.Part photo = MultipartBody.Part.createFormData("photo", file.getName(), requestFile);
 
             if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
-                Call<DefaultCallback> call = api.doTask(token,photo,taskid,comment,taskTime);
+                Call<TaskCallback> call = api.doTask(token,photo,taskid,comment,taskTime);
                 Log.i("LOG_dotask" , " token - "+token);
                 Log.i("LOG_dotask" , " taskid - "+taskid);
                 Log.i("LOG_dotask" , " comment - "+comment);
                 Log.i("LOG_dotask" , " imagePath - "+imagePath);
                 Log.i("LOG_dotask" , " taskTime - "+taskTime);
-                call.enqueue(new Callback<DefaultCallback>() {
+                call.enqueue(new Callback<TaskCallback>() {
                     @Override
-                    public void onResponse(Call<DefaultCallback> call, Response<DefaultCallback> response) {
+                    public void onResponse(Call<TaskCallback> call, Response<TaskCallback> response) {
                         if (response.isSuccessful()) {
                             Log.i("LOG_dotask" , "Success(code): " + response.body().getError());
 
                             if(response.body().getStatus().equals("success")){
                                 if (callback != null) {
                                     Log.i("LOG_dotask" , "Success(code): " + response.body().getError());
+                                    position = response.body().getPosition();
                                     callback.onDo();
                                 }
                             }else{
@@ -97,7 +100,7 @@ public class PlayModel {
                     }
 
                     @Override
-                    public void onFailure(Call<DefaultCallback> call, Throwable t) {
+                    public void onFailure(Call<TaskCallback> call, Throwable t) {
                         Log.i("LOG_dotask" , t.getMessage()+" fail");
                     }
                 });

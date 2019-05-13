@@ -128,7 +128,7 @@ public class RatingModel {
                                     callback.onGet();
                                 }else{
                                     //#TODO
-                                    //callback.onGet();
+                                    callback.onGet();
                                 }
                             }
                         } else {

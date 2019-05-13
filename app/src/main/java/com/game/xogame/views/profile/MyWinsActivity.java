@@ -89,6 +89,7 @@ public class MyWinsActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(MyWinsActivity.this, MoneyActivity.class);
                         intent.putExtra("type", "phone");
+                        intent.putExtra("gameid", presenter.getWinsList().get(i).getGameid());
                         intent.putExtra("money", presenter.getWinsList().get(i).getReward());
                         startActivity(intent);
                         alertD.cancel();
@@ -99,6 +100,7 @@ public class MyWinsActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(MyWinsActivity.this, MoneyActivity.class);
                         intent.putExtra("type", "card");
+                        intent.putExtra("gameid", presenter.getWinsList().get(i).getGameid());
                         intent.putExtra("money", presenter.getWinsList().get(i).getReward());
                         startActivity(intent);
                         alertD.cancel();

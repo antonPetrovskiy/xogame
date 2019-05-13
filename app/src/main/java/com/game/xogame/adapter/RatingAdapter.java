@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.game.xogame.R;
@@ -75,6 +76,8 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
 //        Picasso.with(context).load(item.getUserPhotoUrl()+"").placeholder(android.R.color.holo_red_dark).error(android.R.color.holo_red_dark).into(vh.imageViewUser);
 //        Picasso.with(context).load(item.getTaskPhotoUrl()+"").placeholder(R.drawable.unknow).error(R.drawable.unknow).into(vh.imageViewPhoto);
 
+
+
         if (item.getTop().size() > 0) {
             vh.top1Layout.setVisibility(View.VISIBLE);
             if (item.getTop().get(0).getName().length() != 0) {
@@ -98,7 +101,7 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
             vh.nickname1.setText(item.getTop().get(0).getNickname());
             vh.place1.setText(item.getTop().get(0).getPosition() + " " + context.getString(R.string.txt_place));
             vh.task1.setText(item.getTop().get(0).getComplited() + "/" + item.getTasks());
-            int n = 100 / Integer.parseInt(item.getTasks());
+            int n = 1000 / Integer.parseInt(item.getTasks());
             n = n * Integer.parseInt(item.getTop().get(0).getComplited());
             vh.bar1.setProgress(n);
             vh.photo1.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +137,7 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
             if (item.getTop().get(1).getName().length() != 0) {
                 vh.placeholder2.setText(item.getTop().get(1).getName().substring(0, 1));
             } else {
-                vh.placeholder2.setText("a");
+                vh.placeholder2.setText("А");
             }
             vh.photo2.setImageResource(getPlaceholder(item.getTop().get(1).getNickname()));
             Picasso.with(context).load(item.getTop().get(1).getPhoto() + "").placeholder(getPlaceholder(item.getTop().get(1).getNickname())).error(getPlaceholder(item.getTop().get(1).getNickname())).into(vh.photo2, new com.squareup.picasso.Callback() {
@@ -152,7 +155,7 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
             vh.nickname2.setText(item.getTop().get(1).getNickname());
             vh.place2.setText(item.getTop().get(1).getPosition() + " " + context.getString(R.string.txt_place));
             vh.task2.setText(item.getTop().get(1).getComplited() + "/" + item.getTasks());
-            int n = 100 / Integer.parseInt(item.getTasks());
+            int n = 1000 / Integer.parseInt(item.getTasks());
             n = n * Integer.parseInt(item.getTop().get(1).getComplited());
             vh.bar2.setProgress(n);
             vh.photo2.setOnClickListener(new View.OnClickListener() {
@@ -206,7 +209,7 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
             vh.nickname3.setText(item.getTop().get(2).getNickname());
             vh.place3.setText(item.getTop().get(2).getPosition() + " " + context.getString(R.string.txt_place));
             vh.task3.setText(item.getTop().get(2).getComplited() + "/" + item.getTasks());
-            int n = 100 / Integer.parseInt(item.getTasks());
+            int n = 1000 / Integer.parseInt(item.getTasks());
             n = n * Integer.parseInt(item.getTop().get(2).getComplited());
             vh.bar3.setProgress(n);
             vh.photo3.setOnClickListener(new View.OnClickListener() {
@@ -242,7 +245,7 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
             if (item.getTop().get(3).getName().length() != 0) {
                 vh.placeholder4.setText(item.getTop().get(3).getName().substring(0, 1));
             } else {
-                vh.placeholder4.setText("a");
+                vh.placeholder4.setText("А");
             }
             vh.photo4.setImageResource(getPlaceholder(item.getTop().get(3).getNickname()));
             Picasso.with(context).load(item.getTop().get(3).getPhoto() + "").placeholder(getPlaceholder(item.getTop().get(3).getNickname())).error(getPlaceholder(item.getTop().get(3).getNickname())).into(vh.photo4, new com.squareup.picasso.Callback() {
@@ -260,7 +263,7 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
             vh.nickname4.setText(item.getTop().get(3).getNickname());
             vh.place4.setText(item.getTop().get(3).getPosition() + " " + context.getString(R.string.txt_place));
             vh.task4.setText(item.getTop().get(3).getComplited() + "/" + item.getTasks());
-            int n = 100 / Integer.parseInt(item.getTasks());
+            int n = 1000 / Integer.parseInt(item.getTasks());
             n = n * Integer.parseInt(item.getTop().get(3).getComplited());
             vh.bar4.setProgress(n);
             vh.photo4.setOnClickListener(new View.OnClickListener() {
@@ -289,6 +292,10 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
             });
         } else {
             vh.top4Layout.setVisibility(View.GONE);
+        }
+
+        if (item.getTop().size()<1){
+            vh.emptyLayout.setVisibility(View.VISIBLE);
         }
 
         vh.gameLayout.setOnClickListener(new View.OnClickListener() {
@@ -389,6 +396,7 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
         private final LinearLayout top2Layout;
         private final LinearLayout top3Layout;
         private final LinearLayout top4Layout;
+        private final RelativeLayout emptyLayout;
 
         private final TextView placeholder1;
         private final TextView placeholder2;
@@ -419,7 +427,7 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
         private final ProgressBar bar3;
         private final ProgressBar bar4;
 
-        private ViewHolder(LinearLayout rootView, LinearLayout gameLayout, LinearLayout topLayout, LinearLayout top1Layout, LinearLayout top2Layout, LinearLayout top3Layout, LinearLayout top4Layout, ImageView imageView, TextView textView1, TextView textView2, TextView textView3, TextView textView4, TextView textView5, TextView textView6, TextView textView7,
+        private ViewHolder(LinearLayout rootView, LinearLayout gameLayout, LinearLayout topLayout, LinearLayout top1Layout, LinearLayout top2Layout, LinearLayout top3Layout, LinearLayout top4Layout, RelativeLayout emptyLayout, ImageView imageView, TextView textView1, TextView textView2, TextView textView3, TextView textView4, TextView textView5, TextView textView6, TextView textView7,
                            TextView placeholder1, TextView placeholder2, TextView placeholder3, TextView placeholder4, ImageView photo1, ImageView photo2, ImageView photo3, ImageView photo4, TextView name1, TextView name2, TextView name3, TextView name4,
                            TextView nickname1, TextView nickname2, TextView nickname3, TextView nickname4, TextView place1, TextView place2, TextView place3, TextView place4,
                            TextView task1, TextView task2, TextView task3, TextView task4, ProgressBar bar1, ProgressBar bar2, ProgressBar bar3, ProgressBar bar4) {
@@ -439,6 +447,7 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
             this.top2Layout = top2Layout;
             this.top3Layout = top3Layout;
             this.top4Layout = top4Layout;
+            this.emptyLayout = emptyLayout;
 
             this.placeholder1 = placeholder1;
             this.placeholder2 = placeholder2;
@@ -486,6 +495,7 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
             LinearLayout top2Layout = rootView.findViewById(R.id.layUser2);
             LinearLayout top3Layout = rootView.findViewById(R.id.layUser3);
             LinearLayout top4Layout = rootView.findViewById(R.id.layUser4);
+            RelativeLayout emptyLayout = rootView.findViewById(R.id.layEmpty);
 
             TextView placeholder1 = rootView.findViewById(R.id.textHolder2);
             TextView placeholder2 = rootView.findViewById(R.id.textHolder3);
@@ -516,7 +526,7 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
             ProgressBar bar3 = rootView.findViewById(R.id.bar3);
             ProgressBar bar4 = rootView.findViewById(R.id.bar4);
 
-            return new RatingAdapter.ViewHolder(rootView, gameLayout, topLayout, top1Layout, top2Layout, top3Layout, top4Layout, imageViewCompany, textViewCompany, textViewTitle, textViewTime, textViewTimeLeft, textViewPeople, textViewTasks, textViewPrise,
+            return new RatingAdapter.ViewHolder(rootView, gameLayout, topLayout, top1Layout, top2Layout, top3Layout, top4Layout, emptyLayout, imageViewCompany, textViewCompany, textViewTitle, textViewTime, textViewTimeLeft, textViewPeople, textViewTasks, textViewPrise,
                     placeholder1, placeholder2, placeholder3, placeholder4, photo1, photo2, photo3, photo4, name1, name2, name3, name4,
                     nickname1, nickname2, nickname3, nickname4, place1, place2, place3, place4,
                     task1, task2, task3, task4, bar1, bar2, bar3, bar4);

@@ -1,6 +1,7 @@
 package com.game.xogame.views.profile;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,11 +12,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.game.xogame.R;
+import com.game.xogame.api.ApiService;
+import com.game.xogame.api.RetroClient;
+import com.game.xogame.models.UserInfoModel;
+import com.game.xogame.presenters.MoneyPresenter;
 
 public class MoneyActivity extends AppCompatActivity {
-
+    public ApiService api;
+    public MoneyPresenter presenter;
     private String type;
     private String count;
+    private String gameid;
 
     public TextView header;
     public TextView money;
@@ -37,14 +44,21 @@ public class MoneyActivity extends AppCompatActivity {
         } else {
             type = extras.getString("type");
             count = extras.getString("money");
+            gameid = extras.getString("gameid");
         }
 
         init();
 
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     public void init() {
+
+        api = RetroClient.getApiService();
+        UserInfoModel model = new UserInfoModel(api, getApplicationContext());
+        presenter = new MoneyPresenter(model);
+        presenter.attachView(this);
+
         header = findViewById(R.id.textView1);
         money = findViewById(R.id.textView2);
         way = findViewById(R.id.textView3);
@@ -52,17 +66,25 @@ public class MoneyActivity extends AppCompatActivity {
         back = findViewById(R.id.imageView1);
         ok = findViewById(R.id.imageButton);
 
-        //todo
+        SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
+        String phone = sharedPref.getString("phone", "");
+        String ccard = sharedPref.getString("ccard", "");
         if (type.equals("phone")) {
-            header.setText("Перевести деньги на телефон");
+            header.setText(getString(R.string.txt_sentMoneyPhone));
             money.setText(count + " ₴");
-            way.setText("Телефон");
-            info.setText("+380958403060");
+            way.setText(getString(R.string.txt_phone));
+            info.setText(phone);
+            assert phone != null;
+            if(phone.equals(""))
+                ok.setEnabled(false);
         } else {
-            header.setText("Перевести деньги на карту");
+            header.setText(getString(R.string.txt_sentMoneyCard));
             money.setText(count + " ₴");
-            way.setText("Кредитная карта");
-            info.setText("1234 1234 1234 1234");
+            way.setText(getString(R.string.txt_card));
+            info.setText(ccard);
+            assert ccard != null;
+            if(ccard.equals(""))
+                ok.setEnabled(false);
         }
 
         ok.setOnTouchListener(new View.OnTouchListener() {
@@ -74,6 +96,7 @@ public class MoneyActivity extends AppCompatActivity {
                         break;
                     case MotionEvent.ACTION_UP: // отпускание
                         ok.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
+                        presenter.sendMoney(type,gameid);
                         onBackPressed();
                         break;
                 }

@@ -344,7 +344,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="9"
                         android:adjustViewBounds="true"
-                        android:max="100"
+                        android:max="1000"
                         android:progressDrawable="@drawable/progress"
                         tools:ignore="NestedWeights" />
 
@@ -429,10 +429,10 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center_vertical"
-                        tools:text="TextView"
                         android:textColor="#2F3542"
                         android:textSize="14sp"
-                        tools:ignore="NestedWeights" />
+                        tools:ignore="NestedWeights"
+                        tools:text="TextView" />
 
                     <TextView
                         android:id="@+id/textView16"
@@ -442,10 +442,10 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_medium"
                         android:gravity="end"
-                        tools:text="TextView"
                         android:textAlignment="viewEnd"
                         android:textColor="#2F3542"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="TextView" />
 
                 </LinearLayout>
 
@@ -456,9 +456,9 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="center_vertical"
-                    tools:text="TextView"
                     android:textColor="#ABB2BA"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    tools:text="TextView" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -475,7 +475,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="9"
                         android:adjustViewBounds="true"
-                        android:max="100"
+                        android:max="1000"
                         android:progressDrawable="@drawable/progress"
                         tools:ignore="NestedWeights" />
 
@@ -487,11 +487,11 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="end"
-                        tools:text="19/20"
                         android:textAlignment="viewEnd"
                         android:textColor="#80586575"
                         android:textSize="10sp"
-                        tools:ignore="SmallSp" />
+                        tools:ignore="SmallSp"
+                        tools:text="19/20" />
 
                 </LinearLayout>
 
@@ -559,10 +559,10 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center_vertical"
-                        tools:text="TextView"
                         android:textColor="#2F3542"
                         android:textSize="14sp"
-                        tools:ignore="NestedWeights" />
+                        tools:ignore="NestedWeights"
+                        tools:text="TextView" />
 
                     <TextView
                         android:id="@+id/textView20"
@@ -572,10 +572,10 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_medium"
                         android:gravity="end"
-                        tools:text="TextView"
                         android:textAlignment="viewEnd"
                         android:textColor="#2F3542"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="TextView" />
 
                 </LinearLayout>
 
@@ -586,9 +586,9 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="center_vertical"
-                    tools:text="TextView"
                     android:textColor="#ABB2BA"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    tools:text="TextView" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -605,7 +605,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="9"
                         android:adjustViewBounds="true"
-                        android:max="100"
+                        android:max="1000"
                         android:progressDrawable="@drawable/progress"
                         tools:ignore="NestedWeights" />
 
@@ -617,11 +617,11 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="end"
-                        tools:text="19/20"
                         android:textAlignment="viewEnd"
                         android:textColor="#80586575"
                         android:textSize="10sp"
-                        tools:ignore="SmallSp" />
+                        tools:ignore="SmallSp"
+                        tools:text="19/20" />
 
                 </LinearLayout>
 
@@ -689,10 +689,10 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center_vertical"
-                        tools:text="TextView"
                         android:textColor="#2F3542"
                         android:textSize="14sp"
-                        tools:ignore="NestedWeights" />
+                        tools:ignore="NestedWeights"
+                        tools:text="TextView" />
 
                     <TextView
                         android:id="@+id/textView24"
@@ -702,10 +702,10 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_medium"
                         android:gravity="end"
-                        tools:text="TextView"
                         android:textAlignment="viewEnd"
                         android:textColor="#2F3542"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="TextView" />
 
                 </LinearLayout>
 
@@ -716,9 +716,9 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="center_vertical"
-                    tools:text="TextView"
                     android:textColor="#ABB2BA"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    tools:text="TextView" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -735,7 +735,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="9"
                         android:adjustViewBounds="true"
-                        android:max="100"
+                        android:max="1000"
                         android:progressDrawable="@drawable/progress"
                         tools:ignore="NestedWeights" />
 
@@ -747,11 +747,11 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="end"
-                        tools:text="19/20"
                         android:textAlignment="viewEnd"
                         android:textColor="#80586575"
                         android:textSize="10sp"
-                        tools:ignore="SmallSp" />
+                        tools:ignore="SmallSp"
+                        tools:text="19/20" />
 
                 </LinearLayout>
 
@@ -759,7 +759,36 @@
             </LinearLayout>
         </LinearLayout>
 
-    </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/layEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:visibility="gone"
+            android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/imageView23"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:padding="5dp"
+                android:layout_centerHorizontal="true"
+                app:srcCompat="@drawable/empty"
+                tools:ignore="ContentDescription"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center_vertical"
+                android:textAlignment="center"
+                android:text="@string/txt_emptyRating"
+                android:textColor="#9EA4AC"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -34,7 +34,7 @@ public class EditInfoPresenter {
                 if(model.getStatus().equals("error")){
                     viewEditInfo.showToast(model.getError()+"");
                 }else{
-                    viewEditInfo.showToast("Данные сохранены");
+                    //viewEditInfo.showToast("Данные сохранены");
                     viewEditInfo.toMainActivity();
                 }
 

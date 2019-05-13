@@ -137,7 +137,7 @@ public class LoginModel {
         @Override
         protected Void doInBackground(ContentValues... params) {
             String code = params[0].getAsString("CODE");
-            String number = params[0].getAsString("NUMBER");
+            final String number = params[0].getAsString("NUMBER");
             Log.i("LOG_checkCode" , code);
             Log.i("LOG_checkCode" , number);
             if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
@@ -155,6 +155,7 @@ public class LoginModel {
                                 if(newUser.equals("false")){
                                     SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
                                     sharedPref.edit().putString("token", id).commit();
+                                    sharedPref.edit().putString("phone", number).commit();
                                 }
                             }
 

@@ -6,6 +6,7 @@ import com.game.xogame.entity.GamesCallback;
 import com.game.xogame.entity.ProfileGamesCallback;
 import com.game.xogame.entity.RatingCallback;
 import com.game.xogame.entity.RegistrationCallback;
+import com.game.xogame.entity.TaskCallback;
 import com.game.xogame.entity.UserCallback;
 
 import okhttp3.MultipartBody;
@@ -64,6 +65,18 @@ public interface ApiService {
     Call<GamesCallback> getFullGames(@Field("token") String token);
 
     @FormUrlEncoded
+    @POST("game/money/")
+    Call<DefaultCallback> getMoneyPhone(@Field("token") String token,
+                                   @Field("gameid") String gameid,
+                                   @Field("number") String number);
+
+    @FormUrlEncoded
+    @POST("game/money/")
+    Call<DefaultCallback> getMoneyCard(@Field("token") String token,
+                                        @Field("gameid") String gameid,
+                                        @Field("ccard") String ccard);
+
+    @FormUrlEncoded
     @POST("game/rate/")
     Call<RatingCallback> getFullRating(@Field("token") String token);
 
@@ -119,10 +132,10 @@ public interface ApiService {
 
     @Multipart
     @POST("game/task/")
-    Call<DefaultCallback> doTask(@Part("token") String token,
-                                      @Part MultipartBody.Part photo,
-                                      @Part("taskid") String taskid,
-                                      @Part("comment") String comment,
-                                      @Part("taskTime") String tasktime);
+    Call<TaskCallback> doTask(@Part("token") String token,
+                              @Part MultipartBody.Part photo,
+                              @Part("taskid") String taskid,
+                              @Part("comment") String comment,
+                              @Part("taskTime") String tasktime);
 
 }

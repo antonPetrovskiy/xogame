@@ -172,9 +172,9 @@ public class SettingActivity extends AppCompatActivity {
                 TextView title = promptView.findViewById(R.id.textView1);
                 TextView btnAdd1 = promptView.findViewById(R.id.textView3);
                 TextView btnAdd2 = promptView.findViewById(R.id.textView2);
-                title.setText("Выйти из аккаунта?");
-                btnAdd1.setText("Да");
-                btnAdd2.setText("Нет");
+                title.setText(getString(R.string.txt_logout));
+                btnAdd1.setText(getString(R.string.txt_yes));
+                btnAdd2.setText(getString(R.string.txt_no));
 
                 btnAdd1.setOnClickListener(new View.OnClickListener() {
                     @SuppressLint("ApplySharedPref")

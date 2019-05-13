@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.game.xogame.api.ApiService;
+import com.game.xogame.entity.DefaultCallback;
 import com.game.xogame.entity.Game;
 import com.game.xogame.entity.GamesCallback;
 import com.game.xogame.entity.ProfileGamesCallback;
@@ -32,7 +33,9 @@ public class UserInfoModel {
     private ApiService api;
     private Context context;
     public User user;
+    public String type;
     public String userid;
+    public String gameid;
     public List<Game> gameList;
     public List<Game> winGameList;
 
@@ -145,6 +148,7 @@ public class UserInfoModel {
                         if (response.isSuccessful()) {
                             //Log.i("LOG_photo" , "Success(code): " + response.body().getCode());
                             Log.i("LOG_photo1" , "Success(error): " + response.body().getError());
+                            callback.onEdit();
                         } else {
                             String jObjError = null;
                             try {
@@ -202,7 +206,7 @@ public class UserInfoModel {
             String email = params[0].getAsString("EMAIL");
             String country = params[0].getAsString("COUNTRY");
             String city = params[0].getAsString("CITY");
-            String card = params[0].getAsString("CARD");
+            final String card = params[0].getAsString("CARD");
             SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
             String id = sharedPref.getString("token", "null");
             Log.i("LOG_edit" , id);
@@ -215,6 +219,8 @@ public class UserInfoModel {
                             //Log.i("LOG_photo" , "Success(code): " + response.body().getCode());
                             Log.i("LOG_edit" , "Success(error): " + response.body().getStatus());
                             Log.i("LOG_edit" , "Success(error): " + response.body().getError());
+                            SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
+                            sharedPref.edit().putString("ccard", card).commit();
                             callback.onEdit();
                         } else {
                             String jObjError = null;
@@ -567,4 +573,77 @@ public class UserInfoModel {
         }
     }
 
+    public void sendMoney(String type, String gameid, UserInfoModel.SendMoneyCallback callback) {
+        UserInfoModel.SendMoneyTask sendMoneyTask = new UserInfoModel.SendMoneyTask(callback);
+        sendMoneyTask.execute();
+        this.type = type;
+        this.gameid = gameid;
+    }
+    public interface SendMoneyCallback {
+        void onSend();
+    }
+    class SendMoneyTask extends AsyncTask<ContentValues, Void, Void> {
+
+        private final UserInfoModel.SendMoneyCallback callback;
+
+        SendMoneyTask(UserInfoModel.SendMoneyCallback callback) {
+            this.callback = callback;
+        }
+
+        @Override
+        protected Void doInBackground(ContentValues... params) {
+            SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
+            String id = sharedPref.getString("token", "null");
+            String phone = sharedPref.getString("phone", "null");
+            String ccard = sharedPref.getString("ccard", "null");
+            if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
+                Call<DefaultCallback> call;
+                if(type.equals("phone")){
+                    call = api.getMoneyPhone(id,gameid,phone);
+                }else{
+                    call = api.getMoneyCard(id,gameid,ccard);
+                }
+                Log.i("LOG_money" , "token: " + id);
+                Log.i("LOG_money" , "gameid: " + gameid);
+                Log.i("LOG_money" , "phone: " + phone);
+                call.enqueue(new Callback<DefaultCallback>() {
+                    @Override
+                    public void onResponse(Call<DefaultCallback> call, Response<DefaultCallback> response) {
+                        if (response.isSuccessful()) {
+                            Log.i("LOG_money" , "Success(error): " + response.body().getStatus());
+                            Log.i("LOG_money" , "Success(error): " + response.body().getError());
+                            if(response.body().getStatus().equals("success")){
+                                callback.onSend();
+                            }
+                        } else {
+                            String jObjError = null;
+                            try {
+                                jObjError = response.errorBody().string()+"";
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            Log.i("LOG_money" , jObjError+" error");
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DefaultCallback> call, Throwable t) {
+                        Log.i("LOG_money" , t.getMessage()+" fail");
+                    }
+                });
+
+            } else {
+                Log.i("LOG_money" , "error internet");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+        }
+    }
 }
