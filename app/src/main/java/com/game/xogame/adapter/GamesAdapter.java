@@ -59,9 +59,9 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
         vh.textViewName1.setText(item.getCompany());
         vh.textViewName2.setText(item.getTitle());
         vh.textViewDate.setText(item.getStartdate()+" - "+item.getEnddate()+"   "+item.getStarttime()+" - "+item.getEndtime());
-        vh.textViewTasks.setText(item.getTasks()+" "+context.getString(R.string.txt_tasks));
+        vh.textViewTasks.setText(item.getTasks()+" "+context.getString(R.string.adapterGames_tasks));
         vh.textViewPrize.setText(item.getReward()+" ₴");
-        vh.textViewPlay.setText(item.getFollowers()+" "+context.getString(R.string.txt_participates));
+        vh.textViewPlay.setText(item.getFollowers()+" "+context.getString(R.string.adapterGames_participates));
 
         vh.textViewHolder.setText(item.getCompany().substring(0,1).toUpperCase());
         vh.imageView.setImageResource(getPlaceholder(item.getCompany()));

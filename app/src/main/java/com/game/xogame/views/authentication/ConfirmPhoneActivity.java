@@ -49,7 +49,7 @@ public class ConfirmPhoneActivity extends AppCompatActivity {
             phone = null;
         } else {
             phone = extras.getString("NUMBER");
-            text.setText(getString(R.string.txt_onYourNumber)+" +"+phone+" "+getString(R.string.txt_wasSent));
+            text.setText(getString(R.string.activityConfirmPhone_onYourNumber)+" +"+phone+" "+getString(R.string.activityConfirmPhone_wasSent));
         }
     }
 

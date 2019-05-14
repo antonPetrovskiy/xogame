@@ -45,7 +45,7 @@
                     android:paddingTop="15dp"
                     android:paddingBottom="10dp"
                     android:paddingRight="10dp"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:src="@drawable/setting_back"
                     tools:ignore="ContentDescription" />
 
@@ -57,7 +57,7 @@
                     android:layout_toStartOf="@+id/imageView2"
                     android:layout_toEndOf="@+id/imageView1"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="@string/txt_settings"
+                    android:text="@string/activitySetting_settings"
                     android:textAlignment="center"
                     android:textColor="#2F3542"
                     android:textSize="16sp" />
@@ -66,7 +66,7 @@
                     android:id="@+id/imageView2"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:adjustViewBounds="true"
                     android:cropToPadding="true"
                     android:paddingTop="10dp"
@@ -103,7 +103,7 @@
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="11dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="@string/txt_yourName"
+                    android:text="@string/activitySetting_yourName"
                     android:textColor="#586575"
                     android:textSize="12sp" />
 
@@ -128,7 +128,7 @@
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="11dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="@string/txt_aboutMyself"
+                    android:text="@string/activitySetting_aboutMyself"
                     android:textColor="#586575"
                     android:textSize="12sp"
                     android:visibility="gone" />
@@ -157,7 +157,7 @@
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="11dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="@string/txt_gender"
+                    android:text="@string/activitySetting_gender"
                     android:textColor="#586575"
                     android:textSize="12sp" />
 
@@ -184,7 +184,7 @@
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="11dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="@string/txt_birthday"
+                    android:text="@string/activitySetting_birthday"
                     android:textColor="#586575"
                     android:textSize="12sp" />
 
@@ -219,7 +219,7 @@
                     android:layout_marginStart="13dp"
                     android:layout_marginTop="9dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="@string/txt_contactInformation"
+                    android:text="@string/activitySetting_contactInformation"
                     android:textColor="#2F3542"
                     android:textSize="14sp" />
 
@@ -230,7 +230,7 @@
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="11dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="@string/txt_mail"
+                    android:text="@string/activitySetting_mail"
                     android:textColor="#586575"
                     android:textSize="12sp" />
 
@@ -256,7 +256,7 @@
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="11dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="@string/txt_country"
+                    android:text="@string/activitySetting_country"
                     android:textColor="#586575"
                     android:textSize="12sp" />
 
@@ -282,7 +282,7 @@
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="11dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="@string/txt_city"
+                    android:text="@string/activitySetting_city"
                     android:textColor="#586575"
                     android:textSize="12sp" />
 
@@ -316,7 +316,7 @@
                     android:layout_marginStart="13dp"
                     android:layout_marginTop="9dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="@string/txt_card"
+                    android:text="@string/activitySetting_card"
                     android:textColor="#2F3542"
                     android:textSize="14sp" />
 
@@ -327,7 +327,7 @@
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="9dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="@string/txt_cardNumber"
+                    android:text="@string/activitySetting_cardNumber"
                     android:textColor="#586575"
                     android:textSize="12sp" />
 
@@ -362,7 +362,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:paddingTop="17dp"
-                    android:text="@string/txt_rate"
+                    android:text="@string/activitySetting_rate"
                     android:textColor="#F08C3C"
                     android:textSize="14sp" />
 
@@ -372,7 +372,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:paddingTop="17dp"
-                    android:text="@string/txt_support"
+                    android:text="@string/activitySetting_support"
                     android:textColor="#F08C3C"
                     android:textSize="14sp" />
 
@@ -383,7 +383,7 @@
                     android:layout_gravity="center_horizontal"
                     android:paddingTop="17dp"
                     android:paddingBottom="17dp"
-                    android:text="@string/txt_exit"
+                    android:text="@string/activitySetting_exit"
                     android:textColor="#F08C3C"
                     android:textSize="14sp" />
 

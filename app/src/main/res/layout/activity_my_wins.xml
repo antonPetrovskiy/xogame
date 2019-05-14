@@ -38,7 +38,7 @@
             android:layout_marginTop="13dp"
             android:layout_marginEnd="42dp"
             android:fontFamily="@font/roboto_regular"
-            android:text="@string/txt_myWins"
+            android:text="@string/activityMyWins_myWins"
             android:textAlignment="center"
             android:textColor="#2F3542"
             android:textSize="16sp" />
@@ -186,7 +186,7 @@
             android:textAlignment="center"
             android:textColor="#80586575"
             android:textSize="16sp"
-            android:text="@string/txt_dontWin"/>
+            android:text="@string/activityMyWins_dontWin"/>
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

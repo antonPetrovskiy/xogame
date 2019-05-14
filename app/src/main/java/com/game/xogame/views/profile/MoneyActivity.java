@@ -70,17 +70,17 @@ public class MoneyActivity extends AppCompatActivity {
         String phone = sharedPref.getString("phone", "");
         String ccard = sharedPref.getString("ccard", "");
         if (type.equals("phone")) {
-            header.setText(getString(R.string.txt_sentMoneyPhone));
+            header.setText(getString(R.string.activityMoney_sentMoneyPhone));
             money.setText(count + " ₴");
-            way.setText(getString(R.string.txt_phone));
+            way.setText(getString(R.string.popupImageChooser_phone));
             info.setText(phone);
             assert phone != null;
             if(phone.equals(""))
                 ok.setEnabled(false);
         } else {
-            header.setText(getString(R.string.txt_sentMoneyCard));
+            header.setText(getString(R.string.activityMoney_sentMoneyCard));
             money.setText(count + " ₴");
-            way.setText(getString(R.string.txt_card));
+            way.setText(getString(R.string.activityMoney_card));
             info.setText(ccard);
             assert ccard != null;
             if(ccard.equals(""))

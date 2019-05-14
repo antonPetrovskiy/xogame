@@ -94,8 +94,9 @@ public class PlayActivity extends AppCompatActivity {
         assert extras != null;
         long currentTime2 = Long.parseLong(Objects.requireNonNull(extras.getString("TIME")));
         sec = currentTime1 - currentTime2;
-
-
+        Log.i("LOG_play", "time1: " + currentTime1);
+        Log.i("LOG_play", "time2: " + currentTime2);
+        Log.i("LOG_play", "time: " + sec);
         createDirectory();
         init();
 
@@ -206,7 +207,7 @@ public class PlayActivity extends AppCompatActivity {
         final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(this).create();
 
         TextView btnAdd1 = promptView.findViewById(R.id.textView1);
-        btnAdd1.setText(getString(R.string.txt_timeIsOut));
+        btnAdd1.setText(getString(R.string.error_timeIsOut));
         alertD.setView(promptView);
         alertD.show();
         alertD.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -235,7 +236,7 @@ public class PlayActivity extends AppCompatActivity {
         TextView company = promptView.findViewById(R.id.textView5);
         title.setText(title.getText() + "");
         company.setText(company.getText() + "");
-        position.setText(position_str+" " + getString(R.string.txt_place));
+        position.setText(position_str+" " + getString(R.string.adapterRating_place));
         task.setText(number.getText().toString());
         if (Integer.parseInt(done) < 60) {
             time.setText("0:" + done);

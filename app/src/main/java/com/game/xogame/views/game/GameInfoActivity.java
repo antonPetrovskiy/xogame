@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -86,9 +85,9 @@ public class GameInfoActivity extends AppCompatActivity {
         name.setText(extras.getString("NAME") + "");
         date.setText(extras.getString("DATE") + "");
         time.setText(extras.getString("TIME") + "");
-        tasks.setText(extras.getString("TASKS") + " " + getString(R.string.txt_tasks));
+        tasks.setText(extras.getString("TASKS") + " " + getString(R.string.activityGameInfo_tasks));
         money.setText(extras.getString("MONEY") + " ₴");
-        people.setText(extras.getString("PEOPLE") + " " + getString(R.string.txt_people));
+        people.setText(extras.getString("PEOPLE") + " " + getString(R.string.activityGameInfo_people));
         count = extras.getString("PEOPLE");
         share = extras.getString("SHARE");
         RequestOptions requestOptions = new RequestOptions();
@@ -111,7 +110,7 @@ public class GameInfoActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-            subscribe.setText(getString(R.string.btn_leave));
+            subscribe.setText(getString(R.string.activityGameInfo_leave));
             subscribe.setBackgroundResource(R.drawable.registration_oval_button);
             subscribe.setTextColor(Color.parseColor("#F05A23"));
         } else {
@@ -128,11 +127,11 @@ public class GameInfoActivity extends AppCompatActivity {
                 }
             });
             if (extras.getString("SUBSCRIBE").equals("0")) {
-                subscribe.setText(getString(R.string.btn_join));
+                subscribe.setText(getString(R.string.activityGameInfo_join));
                 subscribe.setBackgroundResource(R.drawable.regbtn);
                 subscribe.setTextColor(Color.parseColor("#ffffff"));
             } else {
-                subscribe.setText(getString(R.string.btn_leave));
+                subscribe.setText(getString(R.string.activityGameInfo_leave));
                 subscribe.setBackgroundResource(R.drawable.registration_oval_button);
                 subscribe.setTextColor(Color.parseColor("#F05A23"));
             }
@@ -157,9 +156,9 @@ public class GameInfoActivity extends AppCompatActivity {
                         break;
                     case MotionEvent.ACTION_UP: // отпускание
                         subscribe.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
-                        if (subscribe.getText().equals(getString(R.string.btn_join))) {
+                        if (subscribe.getText().equals(getString(R.string.activityGameInfo_join))) {
                             presenter.subscribeGame();
-                            people.setText((Integer.parseInt(count) + 1) + " " + getString(R.string.txt_people));
+                            people.setText((Integer.parseInt(count) + 1) + " " + getString(R.string.activityGameInfo_people));
                             count = (Integer.parseInt(count) + 1) + "";
                             FirebaseMessaging.getInstance().subscribeToTopic("/topics/agame" + gameid)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -170,7 +169,7 @@ public class GameInfoActivity extends AppCompatActivity {
                                     });
                         } else {
                             presenter.unsubscribeGame();
-                            people.setText((Integer.parseInt(count) - 1) + " " + getString(R.string.txt_people));
+                            people.setText((Integer.parseInt(count) - 1) + " " + getString(R.string.activityGameInfo_people));
                             count = (Integer.parseInt(count) - 1) + "";
                             FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/agame" + gameid)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -189,7 +188,7 @@ public class GameInfoActivity extends AppCompatActivity {
     }
 
     public void setButtonName(String s) {
-        if (s.equals(getString(R.string.btn_join))) {
+        if (s.equals(getString(R.string.activityGameInfo_join))) {
             subscribe.setBackgroundResource(R.drawable.regbtn);
             subscribe.setTextColor(Color.parseColor("#ffffff"));
         } else {

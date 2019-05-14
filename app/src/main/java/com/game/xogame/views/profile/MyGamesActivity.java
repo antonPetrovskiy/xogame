@@ -32,6 +32,7 @@ public class MyGamesActivity extends AppCompatActivity {
     public ImageView back;
     private TextView count;
     private TextView time;
+    private TextView title;
     private LinearLayout load;
     private ListView listView;
 
@@ -50,6 +51,7 @@ public class MyGamesActivity extends AppCompatActivity {
 
         String userid = getIntent().getStringExtra("USERID");
         if(userid!=null){
+            title.setText(getString(R.string.activityNotMyGames_history));
             presenter.getUserGames(userid);
         }else{
             presenter.getMyGames();
@@ -64,6 +66,7 @@ public class MyGamesActivity extends AppCompatActivity {
         time = findViewById(R.id.textView17);
         load = findViewById(R.id.targetView);
         listView = findViewById(R.id.gamelist);
+        title = findViewById(R.id.textView1);
         empty = findViewById(R.id.empty);
         find = findViewById(R.id.imageButton);
         api = RetroClient.getApiService();

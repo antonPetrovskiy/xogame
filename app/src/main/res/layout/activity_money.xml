@@ -38,7 +38,7 @@
             android:layout_marginTop="13dp"
             android:layout_marginEnd="42dp"
             android:fontFamily="@font/roboto_regular"
-            android:text="@string/txt_sentMoneyOn"
+            android:text="@string/activityMoney_sentMoneyOn"
             android:textAlignment="center"
             android:textColor="#2F3542"
             android:textSize="16sp" />
@@ -146,6 +146,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:cropToPadding="true"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/profile_line_grey"
             tools:ignore="ContentDescription" />
 
@@ -158,7 +159,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/registration_button_view"
             android:fontFamily="@font/roboto_regular"
-            android:text="@string/btn_confirm"
+            android:text="@string/activityMoney_confirm"
             android:textColor="#ffffff"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"

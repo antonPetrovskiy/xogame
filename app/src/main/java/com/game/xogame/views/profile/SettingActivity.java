@@ -112,14 +112,14 @@ public class SettingActivity extends AppCompatActivity {
 
                 btnAdd1.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        gender.setText(getString(R.string.txt_man));
+                        gender.setText(getString(R.string.popupGenderChooser_man));
                         alertD.cancel();
                     }
                 });
 
                 btnAdd2.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        gender.setText(getString(R.string.txt_woman));
+                        gender.setText(getString(R.string.popupGenderChooser_woman));
                         alertD.cancel();
                     }
                 });
@@ -172,9 +172,9 @@ public class SettingActivity extends AppCompatActivity {
                 TextView title = promptView.findViewById(R.id.textView1);
                 TextView btnAdd1 = promptView.findViewById(R.id.textView3);
                 TextView btnAdd2 = promptView.findViewById(R.id.textView2);
-                title.setText(getString(R.string.txt_logout));
-                btnAdd1.setText(getString(R.string.txt_yes));
-                btnAdd2.setText(getString(R.string.txt_no));
+                title.setText(getString(R.string.popupSignout_signout));
+                btnAdd1.setText(getString(R.string.popupSignout_yes));
+                btnAdd2.setText(getString(R.string.popupSignout_no));
 
                 btnAdd1.setOnClickListener(new View.OnClickListener() {
                     @SuppressLint("ApplySharedPref")

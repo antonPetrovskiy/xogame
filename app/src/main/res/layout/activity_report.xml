@@ -38,7 +38,7 @@
             android:layout_marginTop="13dp"
             android:layout_marginEnd="42dp"
             android:fontFamily="@font/roboto_regular"
-            android:text="@string/txt_report"
+            android:text="@string/activityReport_report"
             android:textAlignment="center"
             android:textColor="#2F3542"
             android:textSize="16sp" />
@@ -73,7 +73,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/roboto_regular"
             android:gravity="center_vertical"
-            android:text="@string/txt_reportDescription"
+            android:text="@string/activityReport_reportDescription"
             android:textAlignment="center"
             android:textColor="#586575"
             android:textSize="16sp" />
@@ -120,7 +120,7 @@
             android:layout_marginRight="35dp"
             android:background="@drawable/registration_button_view"
             android:fontFamily="@font/roboto_regular"
-            android:text="@string/txt_push"
+            android:text="@string/activityReport_push"
             android:textColor="#ffffff"
             android:textSize="16sp" />
     </LinearLayout>

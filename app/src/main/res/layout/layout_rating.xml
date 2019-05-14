@@ -199,7 +199,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"
-                android:text="@string/txt_participates"
+                android:text="@string/activityRating_participates"
                 android:textAlignment="center"
                 android:textColor="#ABB2BA"
                 android:textSize="12sp" />
@@ -211,7 +211,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"
-                android:text="@string/txt_tasks"
+                android:text="@string/activityGameInfo_tasks"
                 android:textAlignment="center"
                 android:textColor="#ABB2BA"
                 android:textSize="12sp" />
@@ -223,7 +223,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"
-                android:text="@string/txt_reward"
+                android:text="@string/activityRating_reward"
                 android:textAlignment="center"
                 android:textColor="#ABB2BA"
                 android:textSize="12sp" />
@@ -783,7 +783,7 @@
                 android:fontFamily="@font/roboto_bold"
                 android:gravity="center_vertical"
                 android:textAlignment="center"
-                android:text="@string/txt_emptyRating"
+                android:text="@string/adapterRating_emptyRating"
                 android:textColor="#9EA4AC"
                 android:textSize="14sp" />
 

@@ -99,7 +99,7 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
             });
             vh.name1.setText(item.getTop().get(0).getName());
             vh.nickname1.setText(item.getTop().get(0).getNickname());
-            vh.place1.setText(item.getTop().get(0).getPosition() + " " + context.getString(R.string.txt_place));
+            vh.place1.setText(item.getTop().get(0).getPosition() + " " + context.getString(R.string.adapterRating_place));
             vh.task1.setText(item.getTop().get(0).getComplited() + "/" + item.getTasks());
             int n = 1000 / Integer.parseInt(item.getTasks());
             n = n * Integer.parseInt(item.getTop().get(0).getComplited());
@@ -153,7 +153,7 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
             });
             vh.name2.setText(item.getTop().get(1).getName());
             vh.nickname2.setText(item.getTop().get(1).getNickname());
-            vh.place2.setText(item.getTop().get(1).getPosition() + " " + context.getString(R.string.txt_place));
+            vh.place2.setText(item.getTop().get(1).getPosition() + " " + context.getString(R.string.adapterRating_place));
             vh.task2.setText(item.getTop().get(1).getComplited() + "/" + item.getTasks());
             int n = 1000 / Integer.parseInt(item.getTasks());
             n = n * Integer.parseInt(item.getTop().get(1).getComplited());
@@ -207,7 +207,7 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
             });
             vh.name3.setText(item.getTop().get(2).getName());
             vh.nickname3.setText(item.getTop().get(2).getNickname());
-            vh.place3.setText(item.getTop().get(2).getPosition() + " " + context.getString(R.string.txt_place));
+            vh.place3.setText(item.getTop().get(2).getPosition() + " " + context.getString(R.string.adapterRating_place));
             vh.task3.setText(item.getTop().get(2).getComplited() + "/" + item.getTasks());
             int n = 1000 / Integer.parseInt(item.getTasks());
             n = n * Integer.parseInt(item.getTop().get(2).getComplited());
@@ -261,7 +261,7 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
             });
             vh.name4.setText(item.getTop().get(3).getName());
             vh.nickname4.setText(item.getTop().get(3).getNickname());
-            vh.place4.setText(item.getTop().get(3).getPosition() + " " + context.getString(R.string.txt_place));
+            vh.place4.setText(item.getTop().get(3).getPosition() + " " + context.getString(R.string.adapterRating_place));
             vh.task4.setText(item.getTop().get(3).getComplited() + "/" + item.getTasks());
             int n = 1000 / Integer.parseInt(item.getTasks());
             n = n * Integer.parseInt(item.getTop().get(3).getComplited());

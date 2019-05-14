@@ -163,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="19dp"
                 android:gravity="center_horizontal"
-                android:text="@string/txt_myWins"
+                android:text="@string/activityMyWins_myWins"
                 android:textColor="#F08C3C"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -226,7 +226,7 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="@string/txt_current"
+                    android:text="@string/fragmentProfile_current"
                     android:visibility="gone"
                     android:textAlignment="center"
                     android:textColor="#586575"
@@ -252,7 +252,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="@string/txt_future"
+                    android:text="@string/fragmentProfile_future"
                     android:visibility="gone"
                     android:textAlignment="center"
                     android:textColor="#586575"
@@ -331,7 +331,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/txt_dontparticipate"
+            android:text="@string/activityMyGames_dontparticipate"
             android:textAlignment="center"
             android:textColor="#80586575"
             android:textSize="16sp" />
@@ -346,7 +346,7 @@
             android:layout_marginRight="35dp"
             android:background="@drawable/registration_button_view"
             android:fontFamily="@font/roboto_regular"
-            android:text="@string/btn_findgames"
+            android:text="@string/activityMyGames_findgames"
             android:textColor="#ffffff"
             android:textSize="16sp" />
     </RelativeLayout>

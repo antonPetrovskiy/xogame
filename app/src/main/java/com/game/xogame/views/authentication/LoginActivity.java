@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                                 presenter.login();
                                 //loading...
                             } else {
-                                showToast("Нет подключения к интернету");
+                                showToast(getString(R.string.toast_noInternet));
                             }
                         } else {
                             showToast(getString(R.string.toast_wrongNumber));
@@ -128,15 +128,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void showToast(String s) {
-//        LayoutInflater layoutInflater = LayoutInflater.from(this);
-//        View promptView = layoutInflater.inflate(R.layout.error, null);
-//        final AlertDialog alertD = new AlertDialog.Builder(this).create();
-//
-//        TextView btnAdd1 = promptView.findViewById(R.id.textView1);
-//        btnAdd1.setText(s);
-//
-//        alertD.setView(promptView);
-//        alertD.show();
         Toast.makeText(getApplicationContext(), s,
                 Toast.LENGTH_SHORT).show();
     }

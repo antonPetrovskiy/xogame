@@ -185,7 +185,7 @@ public class RatingGameActivity extends AppCompatActivity {
             });
             this.name1.setText(game.getTop().get(0).getName());
             this.nickname1.setText(game.getTop().get(0).getNickname());
-            this.place1.setText(game.getTop().get(0).getPosition() + " " + getString(R.string.txt_place));
+            this.place1.setText(game.getTop().get(0).getPosition() + " " + getString(R.string.adapterRating_place));
             this.task1.setText(game.getTop().get(0).getComplited() + "/" + game.getTasks());
             int n = 1000 / Integer.parseInt(game.getTasks());
             n = n * Integer.parseInt(game.getTop().get(0).getComplited());
@@ -237,7 +237,7 @@ public class RatingGameActivity extends AppCompatActivity {
             });
             this.name2.setText(game.getTop().get(1).getName());
             this.nickname2.setText(game.getTop().get(1).getNickname());
-            this.place2.setText(game.getTop().get(1).getPosition() + " " + getString(R.string.txt_place));
+            this.place2.setText(game.getTop().get(1).getPosition() + " " + getString(R.string.adapterRating_place));
             this.task2.setText(game.getTop().get(1).getComplited() + "/" + game.getTasks());
             int n = 1000 / Integer.parseInt(game.getTasks());
             n = n * Integer.parseInt(game.getTop().get(1).getComplited());
@@ -289,7 +289,7 @@ public class RatingGameActivity extends AppCompatActivity {
             });
             this.name3.setText(game.getTop().get(2).getName());
             this.nickname3.setText(game.getTop().get(2).getNickname());
-            this.place3.setText(game.getTop().get(2).getPosition() + " " + getString(R.string.txt_place));
+            this.place3.setText(game.getTop().get(2).getPosition() + " " + getString(R.string.adapterRating_place));
             this.task3.setText(game.getTop().get(2).getComplited() + "/" + game.getTasks());
             int n = 1000 / Integer.parseInt(game.getTasks());
             n = n * Integer.parseInt(game.getTop().get(2).getComplited());
@@ -341,7 +341,7 @@ public class RatingGameActivity extends AppCompatActivity {
             });
             this.name4.setText(game.getTop().get(3).getName());
             this.nickname4.setText(game.getTop().get(3).getNickname());
-            this.place4.setText(game.getTop().get(3).getPosition() + " " + getString(R.string.txt_place));
+            this.place4.setText(game.getTop().get(3).getPosition() + " " + getString(R.string.adapterRating_place));
             this.task4.setText(game.getTop().get(3).getComplited() + "/" + game.getTasks());
             int n = 1000 / Integer.parseInt(game.getTasks());
             n = n * Integer.parseInt(game.getTop().get(3).getComplited());

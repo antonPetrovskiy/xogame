@@ -42,7 +42,7 @@
                 android:layout_marginTop="13dp"
                 android:layout_marginEnd="42dp"
                 android:fontFamily="@font/roboto_regular"
-                android:text="@string/txt_rating"
+                android:text="@string/activityRating_rating"
                 android:textAlignment="center"
                 android:textColor="#2F3542"
                 android:textSize="16sp" />
@@ -234,7 +234,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"
-                android:text="@string/txt_participates"
+                android:text="@string/activityRating_participates"
                 android:textAlignment="center"
                 android:textColor="#ABB2BA"
                 android:textSize="12sp" />
@@ -246,7 +246,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"
-                android:text="@string/txt_tasks"
+                android:text="@string/activityGameInfo_tasks"
                 android:textAlignment="center"
                 android:textColor="#ABB2BA"
                 android:textSize="12sp" />
@@ -258,7 +258,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"
-                android:text="@string/txt_reward"
+                android:text="@string/activityRating_reward"
                 android:textAlignment="center"
                 android:textColor="#ABB2BA"
                 android:textSize="12sp" />
@@ -846,7 +846,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/txt_dontparticipate"
+            android:text="@string/activityRating_noRating"
             android:textAlignment="center"
             android:textColor="#80586575"
             android:textSize="16sp" />
@@ -861,7 +861,7 @@
             android:layout_marginRight="35dp"
             android:background="@drawable/registration_button_view"
             android:fontFamily="@font/roboto_regular"
-            android:text="@string/btn_findgames"
+            android:text="@string/activityRating_findgames"
             android:textColor="#ffffff"
             android:textSize="16sp" />
     </RelativeLayout>

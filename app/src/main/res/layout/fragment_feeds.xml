@@ -150,7 +150,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/txt_dontparticipate"
+            android:text="@string/fragmentFeeds_noTasks"
             android:textAlignment="center"
             android:textColor="#80586575"
             android:textSize="16sp" />
@@ -165,7 +165,7 @@
             android:fontFamily="@font/roboto_regular"
             android:layout_marginLeft="35dp"
             android:layout_marginRight="35dp"
-            android:text="@string/btn_findgames"
+            android:text="@string/fragmentFeeds_findGames"
             android:textColor="#ffffff"
             android:textSize="16sp" />
     </RelativeLayout>

@@ -266,7 +266,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        Toast.makeText(v.getRootView().getContext(), "Фото сохранено",
+                        Toast.makeText(v.getRootView().getContext(), context.getString(R.string.adapterFeeds_saved),
                                 Toast.LENGTH_SHORT).show();
                         alertD.cancel();
                     }
@@ -288,7 +288,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
 
                 btn3.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        Toast.makeText(v.getRootView().getContext(), "Жалоба отправлена",
+                        Toast.makeText(v.getRootView().getContext(), context.getString(R.string.adapterFeeds_reported),
                                 Toast.LENGTH_SHORT).show();
                         alertD.cancel();
                     }
@@ -296,7 +296,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
 
                 btn4.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        Toast.makeText(v.getRootView().getContext(), "Жалоба отправлена",
+                        Toast.makeText(v.getRootView().getContext(), context.getString(R.string.adapterFeeds_reported),
                                 Toast.LENGTH_SHORT).show();
                         alertD.cancel();
                     }

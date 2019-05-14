@@ -47,7 +47,7 @@
                 android:layout_marginTop="13dp"
                 android:layout_marginEnd="42dp"
                 android:fontFamily="@font/roboto_regular"
-                android:text="@string/txt_history"
+                android:text="@string/activityMyGames_history"
                 android:textAlignment="center"
                 android:textColor="#2F3542"
                 android:textSize="16sp" />
@@ -86,7 +86,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/txt_games"
+                    android:text="@string/activityMyGames_games"
                     android:textAlignment="center"
                     android:textColor="#586575"
                     android:textSize="12sp"
@@ -97,7 +97,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/txt_doneTasks"
+                    android:text="@string/activityMyGames_doneTasks"
                     android:textAlignment="center"
                     android:textColor="#586575"
                     android:textSize="12sp" />
@@ -226,7 +226,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/txt_dontParticipated"
+            android:text="@string/activityMyGames_dontparticipate"
             android:textAlignment="center"
             android:textColor="#80586575"
             android:textSize="16sp" />
@@ -241,7 +241,7 @@
             android:fontFamily="@font/roboto_regular"
             android:layout_marginLeft="35dp"
             android:layout_marginRight="35dp"
-            android:text="@string/btn_findgames"
+            android:text="@string/activityMyGames_findgames"
             android:textColor="#ffffff"
             android:textSize="16sp" />
     </RelativeLayout>

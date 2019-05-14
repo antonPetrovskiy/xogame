@@ -41,7 +41,7 @@ public class GamePush extends FirebaseMessagingService {
         intent.putExtra("TASKID",data.get("taskid"));
 
         long currentTime = Calendar.getInstance().getTimeInMillis();
-        intent.putExtra("TIME",currentTime+"");
+        intent.putExtra("TIME",currentTime);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent contentIntent = PendingIntent.getActivity(this, (int) (Math.random() * 100), intent, 0);
 

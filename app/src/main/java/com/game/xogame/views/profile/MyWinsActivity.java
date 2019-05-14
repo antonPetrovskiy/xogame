@@ -81,9 +81,9 @@ public class MyWinsActivity extends AppCompatActivity {
                 TextView title = promptView.findViewById(R.id.textView1);
                 TextView btnAdd1 = promptView.findViewById(R.id.textView3);
                 TextView btnAdd2 = promptView.findViewById(R.id.textView2);
-                title.setText(getString(R.string.txt_sent)+" "+ presenter.getWinsList().get(position).getReward()+" ₴");
-                btnAdd1.setText(getString(R.string.txt_mobile));
-                btnAdd2.setText(getString(R.string.txt_card));
+                title.setText(getString(R.string.activityMyWins_sent)+" "+ presenter.getWinsList().get(position).getReward()+" ₴");
+                btnAdd1.setText(getString(R.string.activityMyWins_mobile));
+                btnAdd2.setText(getString(R.string.activityMyWins_card));
 
                 btnAdd1.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {

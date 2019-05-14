@@ -26,7 +26,7 @@ public class GameInfoPresenter {
             @Override
             public void onSubscribe() {
                 //viewMain.showToast("Вы подписались на игру");
-                viewMain.setButtonName(viewMain.getString(R.string.btn_leave));
+                viewMain.setButtonName(viewMain.getString(R.string.activityGameInfo_leave));
             }
         });
     }
@@ -38,7 +38,7 @@ public class GameInfoPresenter {
             @Override
             public void onUnsubscribe() {
                 //viewMain.showToast("Вы отписались от игры");
-                viewMain.setButtonName(viewMain.getString(R.string.btn_join));
+                viewMain.setButtonName(viewMain.getString(R.string.activityGameInfo_join));
                 if (viewMain.isStatistic.equals("true"))
                     viewMain.onBackPressed();
             }
