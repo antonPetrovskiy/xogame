@@ -23,7 +23,7 @@
     <string name="activityMoney_sentMoneyPhone">Перевести гроші на телефон</string>
     <string name="fragmentProfile_current">Поточні</string>
     <string name="fragmentProfile_future">Майбутні</string>
-    <string name="activitySetting_settings">Редагувати особисту інформацію</string>
+    <string name="activitySetting_settings">Особиста інформація</string>
     <string name="activitySetting_birthday">Дата народження</string>
     <string name="activitySetting_yourName">Ваше ім\'я та прізвище</string>
     <string name="activitySetting_gender">Стать</string>
@@ -34,7 +34,7 @@
     <string name="activitySetting_card">Кредитна картка для отримання виграша</string>
     <string name="activitySetting_cardNumber">Номер картки</string>
     <string name="activitySetting_rate">Оцінити додаток</string>
-    <string name="activitySetting_support">Справка та підтримка</string>
+    <string name="activitySetting_support">Зворотнiй зв\'язок</string>
     <string name="activitySetting_exit">Вийти з акаунта</string>
     <string name="popupGenderChooser_gender">Стать</string>
     <string name="popupGenderChooser_man">чоловіча</string>
@@ -49,7 +49,7 @@
     <string name="activityLogin_continue">Продовжити</string>
     <string name="toast_noInternet">Немає підключення до інтернету</string>
     <string name="toast_wrongNumber">Номер не вірний</string>
-    <string name="toast_enterNickname">Введіть нікнейм</string>
+    <string name="toast_enterNickname">Введіть ім\'я користувача</string>
     <string name="activitySetting_aboutMyself">Про себе</string>
     <string name="fragmentGames_refresh">Оновити</string>
     <string name="fragmentGames_location">Служби визначення місцезнаходження відключенні</string>
@@ -84,6 +84,8 @@
     <string name="popupSettings_other">Роскажіть, будь ласка, що сталось</string>
     <string name="popupSettings_badTask">Не відповідає завданню</string>
     <string name="popupSettings_badContent">Неприйнятний контент</string>
+    <string name="activityInfo_term">Ваша подальша реєстраця означає, що ви прийняли на себе вiдповiдальнiсть за безумовне дотримання даної згоди</string>
+    <string name="activityConfirmPhone_wrongCode">Невiрний код</string>
 
 
 </resources>

@@ -123,7 +123,6 @@ public class EditInfoActivity extends AppCompatActivity {
         finish();
     }
 
-
     public String getName(){
         return name_view.getText().toString()+"";
     }

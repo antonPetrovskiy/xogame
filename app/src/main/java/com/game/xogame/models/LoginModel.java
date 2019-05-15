@@ -149,6 +149,7 @@ public class LoginModel {
                             Log.i("LOG_checkCode" , "New user: " + response.body().getNewUser());
                             Log.i("LOG_checkCode" , "Id: " + response.body().getId());
                             Log.i("LOG_checkCode" , "Error: " + response.body().getError());
+                            status = response.body().getStatus();
                             if(response.body().getStatus().equals("success")){
                                 newUser =  response.body().getNewUser();
                                 id = response.body().getId();

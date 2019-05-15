@@ -56,9 +56,11 @@
 
     <Button
         android:id="@+id/imageButton1"
-        android:layout_width="290dp"
+        android:layout_width="match_parent"
         android:layout_height="42dp"
         android:layout_marginTop="9dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
         android:background="@drawable/registration_oval_button"
         android:fontFamily="@font/roboto_regular"
         android:visibility="gone"
@@ -103,7 +105,7 @@
         android:layout_marginRight="35dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="000 00 00"
+        android:hint="00 00 00"
         android:inputType="number"
         android:textColor="#000000"
         android:textColorHint="#55000000"

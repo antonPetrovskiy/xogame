@@ -37,7 +37,7 @@
     <string name="activityNotMyGames_history">History</string>
     <string name="activityMyGames_doneTasks">Mission`s history</string>
     <string name="activityMyGames_games">Games</string>
-    <string name="activitySetting_settings">Editing personal information</string>
+    <string name="activitySetting_settings">Personal information</string>
     <string name="activitySetting_yourName">Your first name and surname</string>
     <string name="activitySetting_card">Your card number to receive winnings</string>
     <string name="activitySetting_aboutMyself">About</string>
@@ -85,6 +85,7 @@
     <string name="toast_noInternet">No internet connection</string>
     <string name="activityConfirmPhone_wasSent">" "</string>
     <string name="activityReport_push">Sent</string>
+    <string name="activityConfirmPhone_wrongCode">Wrong code</string>
 
 
 </resources>

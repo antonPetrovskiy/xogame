@@ -70,16 +70,17 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
+        android:visibility="visible"
         app:cardBackgroundColor="@android:color/white"
         app:cardCornerRadius="100dp"
         app:cardElevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
+        app:layout_constraintTop_toBottomOf="@+id/textView6">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imageView1"
@@ -92,20 +93,56 @@
     </android.support.v7.widget.CardView>
 
     <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center_vertical"
+        android:textAlignment="center"
+        android:textColor="#F05A23"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card"
+        tools:text="00:00:00" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center_vertical"
+        android:textAlignment="center"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="#80586575"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:text="1/10" />
+
+    <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="13dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="13dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/roboto_regular"
-        tools:text="Сфотографируйте вывеску ресторана Birger KING"
         android:textAlignment="center"
         android:textColor="#586575"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        tools:text="Сфотографируйте вывеску ресторана Birger KING" />
 
     <LinearLayout
         android:id="@+id/buttons"
@@ -119,38 +156,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/oval_grey"
-            android:gravity="center_vertical"
-            tools:text="1/10"
-            android:textAlignment="center"
-            android:textColor="#80586575"
-            android:textSize="16sp" />
+
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="84dp"
             android:layout_height="84dp"
-            android:layout_marginLeft="46dp"
-            android:layout_marginRight="46dp"
             android:src="@drawable/camera"
             android:visibility="visible"
             tools:ignore="ContentDescription" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/oval_grey"
-            android:gravity="center_vertical"
-            tools:text="0:00"
-            android:textAlignment="center"
-            android:textColor="#80586575" />
+
     </LinearLayout>
 
     <RelativeLayout
@@ -159,7 +175,6 @@
         android:layout_height="match_parent"
         android:background="@drawable/bggradient"
         android:orientation="vertical"
-
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -173,6 +188,7 @@
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
             android:cropToPadding="true"
+            android:scaleType="fitXY"
             android:src="@drawable/profile_line"
             tools:ignore="ContentDescription" />
 
@@ -193,35 +209,28 @@
             android:scaleType="centerCrop"
             tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:id="@+id/imageView25"
-            android:layout_width="match_parent"
-            android:layout_height="82dp"
-            android:layout_alignStart="@+id/imageView3"
-            android:layout_alignEnd="@+id/imageView3"
-            android:layout_alignBottom="@+id/imageView3"
-            android:src="#80586575"
-            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignBottom="@+id/imageView25"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="18dp"
-            android:background="@drawable/oval_grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto_bold"
             android:gravity="center_vertical"
-            tools:text="0:60"
             android:textAlignment="center"
-            android:textColor="#ffffff" />
+            android:textColor="#F05A23"
+            android:textSize="16sp"
+            tools:text="00:00:60" />
 
         <EditText
             android:id="@+id/editText1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView3"
+            android:layout_below="@+id/textView5"
             android:layout_marginLeft="11dp"
+            android:layout_marginTop="8dp"
             android:layout_marginRight="11dp"
             android:backgroundTint="#586575"
             android:ems="10"
@@ -248,20 +257,24 @@
 
     <LinearLayout
         android:id="@+id/targetView"
-        android:layout_width="159dp"
-        android:layout_height="159dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="100dp"
         android:orientation="vertical"
         android:visibility="gone"
+        android:background="@drawable/layout_bg4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <com.airbnb.lottie.LottieAnimationView
 
-            android:layout_width="159dp"
-            android:layout_height="159dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

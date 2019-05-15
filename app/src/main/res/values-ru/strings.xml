@@ -32,7 +32,7 @@
     <string name="activityMyGames_history">Моя история</string>
     <string name="activityMyGames_doneTasks">Выполненные задания</string>
     <string name="activityMyGames_games">Игры</string>
-    <string name="activitySetting_settings">Редактировать личную информацию</string>
+    <string name="activitySetting_settings">Личная информация</string>
     <string name="activitySetting_yourName">Ваше имя и фамилия</string>
     <string name="activitySetting_aboutMyself">О себе</string>
     <string name="activitySetting_gender">Пол</string>
@@ -42,7 +42,7 @@
     <string name="activitySetting_city">Город</string>
     <string name="activitySetting_cardNumber">Номер карты</string>
     <string name="activitySetting_rate">Оценить приложение</string>
-    <string name="activitySetting_support">Справка и поддержка</string>
+    <string name="activitySetting_support">Обратная связь</string>
     <string name="activitySetting_exit">Выйти из аккаунта</string>
     <string name="popupGenderChooser_man">мужской</string>
     <string name="popupGenderChooser_woman">женский</string>
@@ -62,7 +62,7 @@
     <string name="activityGameInfo_join">участвовать</string>
     <string name="activityMoney_sentMoneyOn">Перевести деньги на</string>
     <string name="activityMoney_confirm">Подтвердить</string>
-    <string name="toast_enterNickname">Введите никнейм</string>
+    <string name="toast_enterNickname">Введите имя пользователя</string>
     <string name="toast_wrongNumber">Номер не верный</string>
     <string name="activityConfirmPhone_onYourNumber">На ваш номер</string>
     <string name="activityConfirmPhone_wasSent">выслано сообщение с кодом подтверждения</string>
@@ -85,6 +85,7 @@
     <string name="activityRating_findgames">Найти игры</string>
     <string name="activityMyWins_card">редитная карта</string>
     <string name="popupSettings_report">Пожаловаться на этот пост</string>
+    <string name="activityConfirmPhone_wrongCode">Неверный код</string>
 
 
 </resources>

@@ -91,8 +91,7 @@ public class PlayActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         long currentTime1 = Calendar.getInstance().getTimeInMillis();
-        assert extras != null;
-        long currentTime2 = Long.parseLong(Objects.requireNonNull(extras.getString("TIME")));
+        long currentTime2 = extras.getLong("TIME");
         sec = currentTime1 - currentTime2;
         Log.i("LOG_play", "time1: " + currentTime1);
         Log.i("LOG_play", "time2: " + currentTime2);
@@ -159,24 +158,34 @@ public class PlayActivity extends AppCompatActivity {
         });
 
 
-        timer = new CountDownTimer(120000 - sec, 1000) {
+        timer = new CountDownTimer(120000 - sec, 10) {
 
             public void onTick(long millisUntilFinished) {
-                if (millisUntilFinished < 60000) {
-                    time.setText("0:" + (millisUntilFinished / 1000));
-                    time2.setText("0:" + (millisUntilFinished / 1000) + "");
-                } else {
-                    time.setText("1:" + ((millisUntilFinished / 1000) - 60));
-                    time2.setText("1:" + ((millisUntilFinished / 1000) - 60) + "");
+                long msec = (millisUntilFinished / 10);
+                String s = msec+"";
+                if(s.length()>1)
+                    s = s.substring(s.length()-2);
+                if (millisUntilFinished < 10000) {
+                    time.setText("00:0" + (millisUntilFinished / 1000)+":"+s);
+                    time2.setText("00:0" + (millisUntilFinished / 1000)+":"+s);
+                } else if(millisUntilFinished < 60000){
+                    time.setText("00:" + (millisUntilFinished / 1000)+":"+s);
+                    time2.setText("00:" + (millisUntilFinished / 1000)+":"+s);
+                } else if(millisUntilFinished < 70000){
+                    time.setText("01:0" + ((millisUntilFinished / 1000) - 60)+":"+s);
+                    time2.setText("01:0" + ((millisUntilFinished / 1000) - 60)+":"+s);
+                } else{
+                    time.setText("01:" + ((millisUntilFinished / 1000) - 60)+":"+s);
+                    time2.setText("01:" + ((millisUntilFinished / 1000) - 60)+":"+s);
                 }
-                long temp = (120000 - millisUntilFinished) / 1000;
+                long temp = (120000 - millisUntilFinished);
                 current = temp + "";
             }
 
             public void onFinish() {
                 //if(current == null)
-                time.setText("0:00");
-                time2.setText("0:00");
+                time.setText("00:00:00");
+                time2.setText("00:00:00");
                 toMainActivityLose();
             }
         }.start();

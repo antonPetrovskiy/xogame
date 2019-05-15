@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,8 +42,8 @@ public class SettingActivity extends AppCompatActivity {
     public ScrollView main;
 
     public TextView exit;
-    //private TextView rules;
-    //private TextView rateus;
+    private TextView rules;
+    private TextView rateus;
     private LinearLayout load;
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -81,8 +82,8 @@ public class SettingActivity extends AppCompatActivity {
         back = findViewById(R.id.imageView1);
         load = findViewById(R.id.targetView);
         exit = findViewById(R.id.textView14);
-        //rules = findViewById(R.id.textView13);
-        //rateus = findViewById(R.id.textView15);
+        rules = findViewById(R.id.textView13);
+        rateus = findViewById(R.id.textView15);
         main = findViewById(R.id.all);
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -198,11 +199,22 @@ public class SettingActivity extends AppCompatActivity {
 
                 alertD.setView(promptView);
                 alertD.show();
-
-
             }
         });
 
+        rateus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.game.paparazzi")));
+            }
+        });
+
+        rules.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/contact-us.php")));
+            }
+        });
 
     }
 

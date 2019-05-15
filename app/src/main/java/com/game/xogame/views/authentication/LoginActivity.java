@@ -1,9 +1,7 @@
 package com.game.xogame.views.authentication;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -67,24 +65,17 @@ public class LoginActivity extends AppCompatActivity {
         editTextCarrierNumber = findViewById(R.id.phone_input);
         ccp.registerCarrierNumberEditText(editTextCarrierNumber);
 
-        ccp.setDialogEventsListener(new CountryCodePicker.DialogEventsListener() {
-            @Override
-            public void onCcpDialogOpen(Dialog dialog) {
+//        ccp.setPhoneNumberValidityChangeListener(new CountryCodePicker.PhoneNumberValidityChangeListener() {
+//            @Override
+//            public void onValidityChanged(boolean isValidNumber) {
+//                if(isValidNumber || editTextCarrierNumber.getText()==null){
+//                    editTextCarrierNumber.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#586575")));
+//                }else{
+//                    editTextCarrierNumber.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+//                }
+//            }
+//        });
 
-            }
-
-            @Override
-            public void onCcpDialogDismiss(DialogInterface dialogInterface) {
-                //your code
-            }
-
-            @Override
-            public void onCcpDialogCancel(DialogInterface dialogInterface) {
-                //your code
-            }
-        });
-
-        //phoneNumber = findViewById(R.id.phone_input);
         next = findViewById(R.id.imageButton);
         next.setOnTouchListener(new View.OnTouchListener() {
             @Override

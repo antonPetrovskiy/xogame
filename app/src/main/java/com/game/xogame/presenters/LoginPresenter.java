@@ -2,6 +2,7 @@ package com.game.xogame.presenters;
 
 import android.content.ContentValues;
 
+import com.game.xogame.R;
 import com.game.xogame.models.LoginModel;
 import com.game.xogame.views.authentication.ConfirmPhoneActivity;
 import com.game.xogame.views.authentication.LoginActivity;
@@ -43,13 +44,15 @@ public class LoginPresenter {
         model.checkCode(cv, new LoginModel.CheckCodeCallback() {
             @Override
             public void onCheck() {
-                //if(model.getPhoneCallback().getError() == null || !model.getPhoneCallback().getError().equals("Bad code")) {
-                if (model.getNewUser().equals("true")) {
-                    viewConfirmPhone.toInfoActivity();
-                } else if (model.getNewUser().equals("false")) {
-                    viewConfirmPhone.toMainActivity();
+                if(model.getStatus().equals("success")) {
+                    if (model.getNewUser().equals("true")) {
+                        viewConfirmPhone.toInfoActivity();
+                    } else if (model.getNewUser().equals("false")) {
+                        viewConfirmPhone.toMainActivity();
+                    }
+                }else{
+                    viewConfirmPhone.showToast(viewConfirmPhone.getString(R.string.activityConfirmPhone_wrongCode));
                 }
-                //}
             }
         });
     }

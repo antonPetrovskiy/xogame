@@ -16,7 +16,7 @@
     <string name="activityMyGames_dontparticipate">No games history yet</string>
     <string name="popupSettings_savePhoto">Save photo</string>
     <string name="activityReport_report">Report</string>
-    <string name="popupSettings_badContent">Неприемлемый контент</string>
+    <string name="popupSettings_badContent">Inappropriate content</string>
     <string name="popupSettings_badTask">Far from the mission</string>
     <string name="popupSettings_other">Help us understand what\'s happening</string>
     <string name="activityMyWins_myWins">My winnings</string>
@@ -32,7 +32,7 @@
     <string name="activityMyGames_history">My history</string>
     <string name="activityMyGames_doneTasks">Mission`s history</string>
     <string name="activityMyGames_games">Games</string>
-    <string name="activitySetting_settings">Editing personal information</string>
+    <string name="activitySetting_settings">Personal information</string>
     <string name="activitySetting_yourName">Your first name and surname</string>
     <string name="activitySetting_aboutMyself">About</string>
     <string name="activitySetting_gender">Gender</string>
@@ -85,6 +85,7 @@
     <string name="activityMyWins_card">Credit card</string>
     <string name="activityReport_push">Sent</string>
     <string name="popupSettings_report">Complain about this post</string>
+    <string name="activityConfirmPhone_wrongCode">Wrong code</string>
 
 
 </resources>

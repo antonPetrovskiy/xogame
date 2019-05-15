@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.game.xogame.R;
 import com.game.xogame.api.ApiService;
@@ -35,6 +37,7 @@ public class ConfirmPhoneActivity extends AppCompatActivity {
     private  TextView time;
     LottieAnimationView load;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,8 +134,8 @@ public class ConfirmPhoneActivity extends AppCompatActivity {
         return codeText;
     }
 
-//    public void showToast(String s){
-//        Toast.makeText(getApplicationContext(), s,
-//                Toast.LENGTH_SHORT).show();
-//    }
+    public void showToast(String s){
+        Toast.makeText(getApplicationContext(), s,
+                Toast.LENGTH_SHORT).show();
+    }
 }

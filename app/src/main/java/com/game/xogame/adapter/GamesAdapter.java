@@ -2,6 +2,7 @@ package com.game.xogame.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.game.xogame.R;
 import com.game.xogame.entity.Game;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
@@ -68,8 +72,22 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
 
         if(item.getSubscribe()==null || item.getSubscribe().equals("0")){
             vh.imageView2.setVisibility(View.GONE);
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/agame" + item.getGameid())
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                        }
+                    });
         }else{
             vh.imageView2.setVisibility(View.VISIBLE);
+            FirebaseMessaging.getInstance().subscribeToTopic("/topics/agame" + item.getGameid())
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                        }
+                    });
         }
         Picasso.with(context).load(item.getLogo()+"").placeholder(getPlaceholder(item.getCompany())).error(getPlaceholder(item.getCompany())).into(vh.imageView, new com.squareup.picasso.Callback() {
             @Override

@@ -92,17 +92,18 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/oval_grey"
             android:gravity="center_vertical"
-            android:text="0:59"
+            android:fontFamily="@font/roboto_bold"
+            tools:text="00:00:00"
             android:textAlignment="center"
-            android:textColor="#80586575"
+            android:textColor="#F05A23"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView24" />

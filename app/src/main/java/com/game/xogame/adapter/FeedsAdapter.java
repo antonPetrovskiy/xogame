@@ -35,6 +35,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -91,12 +92,18 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
         vh.textViewTask.setText(item.getTaskNumber() + "/" + item.getTasks());
         vh.textViewLike.setText(item.getFeedLikes());
         vh.textViewTag.setText("#" + item.getTaskComment());
-        if (Integer.parseInt(item.getTaskTime()) > 59) {
-            int sec = Integer.parseInt(item.getTaskTime()) - 60;
-            vh.textViewTime.setText("1:" + sec);
-        } else {
-            vh.textViewTime.setText("0:" + item.getTaskTime());
-        }
+        //todo
+        String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(Long.parseLong(item.getTaskTime())),
+                TimeUnit.MILLISECONDS.toSeconds(Long.parseLong(item.getTaskTime())) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(Long.parseLong(item.getTaskTime()))),
+                TimeUnit.MILLISECONDS.toMillis(Long.parseLong(item.getTaskTime())) - TimeUnit.MILLISECONDS.toSeconds(TimeUnit.MILLISECONDS.toSeconds(Long.parseLong(item.getTaskTime()))));
+
+        vh.textViewTime.setText(hms);
+//        if (Long.parseLong(item.getTaskTime()) > 59000) {
+//            int sec = Integer.parseInt(item.getTaskTime()) - 60;
+//            vh.textViewTime.setText("1:" + sec);
+//        } else {
+//            vh.textViewTime.setText("0:" + item.getTaskTime());
+//        }
 
         vh.placeholder1.setText(item.getCompany().substring(0, 1).toUpperCase());
         vh.imageViewCompany.setImageResource(getPlaceholder(item.getCompany()));
