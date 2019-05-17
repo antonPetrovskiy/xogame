@@ -27,6 +27,8 @@ public class GamesModel {
     private ApiService api;
     private Context context;
     private String id;
+    private String lat;
+    private String lon;
     private String flag;
     private String limit;
     public List<Game> gameList;
@@ -37,6 +39,8 @@ public class GamesModel {
         context = c;
         SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
         id = sharedPref.getString("token", "null");
+        lat = sharedPref.getString("lat", "null");
+        lon = sharedPref.getString("lng", "null");
     }
 
 
@@ -59,7 +63,7 @@ public class GamesModel {
         protected Void doInBackground(ContentValues... params) {
 
             if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
-                Call<GamesCallback> call = api.getFullGames(id);
+                Call<GamesCallback> call = api.getFullGames(id,lat,lon);
                 call.enqueue(new Callback<GamesCallback>() {
                     @Override
                     public void onResponse(Call<GamesCallback> call, Response<GamesCallback> response) {

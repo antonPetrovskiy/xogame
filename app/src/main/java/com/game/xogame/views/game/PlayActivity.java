@@ -166,17 +166,17 @@ public class PlayActivity extends AppCompatActivity {
                 if(s.length()>1)
                     s = s.substring(s.length()-2);
                 if (millisUntilFinished < 10000) {
-                    time.setText("00:0" + (millisUntilFinished / 1000)+":"+s);
-                    time2.setText("00:0" + (millisUntilFinished / 1000)+":"+s);
+                    time.setText("00:0" + (millisUntilFinished / 1000)+"."+s);
+                    time2.setText("00:0" + (millisUntilFinished / 1000)+"."+s);
                 } else if(millisUntilFinished < 60000){
-                    time.setText("00:" + (millisUntilFinished / 1000)+":"+s);
-                    time2.setText("00:" + (millisUntilFinished / 1000)+":"+s);
+                    time.setText("00:" + (millisUntilFinished / 1000)+"."+s);
+                    time2.setText("00:" + (millisUntilFinished / 1000)+"."+s);
                 } else if(millisUntilFinished < 70000){
-                    time.setText("01:0" + ((millisUntilFinished / 1000) - 60)+":"+s);
-                    time2.setText("01:0" + ((millisUntilFinished / 1000) - 60)+":"+s);
+                    time.setText("01:0" + ((millisUntilFinished / 1000) - 60)+"."+s);
+                    time2.setText("01:0" + ((millisUntilFinished / 1000) - 60)+"."+s);
                 } else{
-                    time.setText("01:" + ((millisUntilFinished / 1000) - 60)+":"+s);
-                    time2.setText("01:" + ((millisUntilFinished / 1000) - 60)+":"+s);
+                    time.setText("01:" + ((millisUntilFinished / 1000) - 60)+"."+s);
+                    time2.setText("01:" + ((millisUntilFinished / 1000) - 60)+"."+s);
                 }
                 long temp = (120000 - millisUntilFinished);
                 current = temp + "";
@@ -184,8 +184,8 @@ public class PlayActivity extends AppCompatActivity {
 
             public void onFinish() {
                 //if(current == null)
-                time.setText("00:00:00");
-                time2.setText("00:00:00");
+                time.setText("00:00.00");
+                time2.setText("00:00.00");
                 toMainActivityLose();
             }
         }.start();

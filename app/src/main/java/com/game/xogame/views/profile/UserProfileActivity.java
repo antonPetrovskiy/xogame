@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,8 +28,6 @@ import com.game.xogame.views.game.GameInfoActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import static com.game.xogame.views.profile.FragmentProfile.setListViewHeightBasedOnChildren;
 
 public class UserProfileActivity extends AppCompatActivity {
 
@@ -127,6 +127,35 @@ public class UserProfileActivity extends AppCompatActivity {
         presenter.showMyGames(userid);
     }
 
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + ((listView.getDividerHeight()) * (listAdapter.getCount()));
+
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+
+    }
+
     public void setNowList(List<Game> list) {
         gameNowList = list;
         final List<Game> l = list;
@@ -158,6 +187,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 intent.putExtra("MONEY", l.get(position).getReward());
                 intent.putExtra("PEOPLE", l.get(position).getFollowers());
                 intent.putExtra("STATISTIC", "true");
+                intent.putExtra("USER", "another");
                 startActivity(intent);
             }
         });

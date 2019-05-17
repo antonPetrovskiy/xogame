@@ -54,7 +54,7 @@
     <string name="txt_active">активно</string>
     <string name="activityRating_reward">награда</string>
     <string name="activityReport_reportDescription">Пожалуйста, укажите причину жалобы</string>
-    <string name="activityUserProfile_userDontParticipate">Пользователь не учавствуете ни в одной игре</string>
+    <string name="activityUserProfile_userDontParticipate">Пользователь не учавствует ни в одной игре</string>
     <string name="activityMoney_sentMoneyPhone">Перевести деньги на телефон</string>
     <string name="activityMoney_sentMoneyCard">Перевести деньги на мою карту</string>
     <string name="activityGameInfo_people">папарацци</string>
@@ -83,9 +83,12 @@
     <string name="adapterGames_tasks">заданий</string>
     <string name="activityRating_noRating">Еще никто не сделал фотографии. Будьте первым</string>
     <string name="activityRating_findgames">Найти игры</string>
-    <string name="activityMyWins_card">редитная карта</string>
+    <string name="activityMyWins_card">Кредитная карта</string>
     <string name="popupSettings_report">Пожаловаться на этот пост</string>
     <string name="activityConfirmPhone_wrongCode">Неверный код</string>
+    <string name="activityRatingHistory_ended">Завершено</string>
+    <string name="adapterRating_ended">завершено</string>
+    <string name="adapterRating_moderation">модерация</string>
 
 
 </resources>

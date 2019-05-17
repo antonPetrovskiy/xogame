@@ -62,7 +62,9 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("game/")
-    Call<GamesCallback> getFullGames(@Field("token") String token);
+    Call<GamesCallback> getFullGames(@Field("token") String token,
+                                     @Field("lat") String lat,
+                                     @Field("lon") String lon);
 
     @FormUrlEncoded
     @POST("game/money/")
@@ -121,12 +123,12 @@ public interface ApiService {
     Call<GamesCallback> getMyWins(@Field("token") String token);
 
     @FormUrlEncoded
-    @POST("game/join/")
+    @POST("game/follow/")
     Call<DefaultCallback> getSubscribe(@Field("token") String token,
                                        @Field("gameid") String gameid);
 
     @FormUrlEncoded
-    @POST("game/remove/")
+    @POST("game/follow/")
     Call<DefaultCallback> getUnsubscribe(@Field("token") String token,
                                      @Field("gameid") String gameid);
 

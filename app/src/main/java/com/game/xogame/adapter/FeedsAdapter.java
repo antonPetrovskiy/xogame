@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +36,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -68,143 +68,33 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final FeedsAdapter.ViewHolder vh;
+        final Feed item = getItem(position);
         if (convertView == null) {
-            View view = mInflater.inflate(R.layout.layout_feed, parent, false);
+            View view;
+            view = mInflater.inflate(R.layout.layout_feed, parent, false);
             vh = FeedsAdapter.ViewHolder.create((LinearLayout) view);
             view.setTag(vh);
-
-
         } else {
             vh = (FeedsAdapter.ViewHolder) convertView.getTag();
         }
+
         vh.rootView.setScrollContainer(false);
         vh.rootView.setNestedScrollingEnabled(false);
         vh.rootView.setClickable(false);
-
-        final Feed item = getItem(position);
         vh.rootView.setClipToOutline(true);
+
         assert item != null;
-        vh.textViewCompany.setText(item.getCompany());
-        vh.textViewTitle.setText(item.getTitle());
-        vh.textViewName.setText(item.getUserName());
-        vh.textViewNickname.setText(item.getUserNickname());
-        vh.textViewDescription.setText(item.getTaskDescription());
-        vh.textViewTask.setText(item.getTaskNumber() + "/" + item.getTasks());
-        vh.textViewLike.setText(item.getFeedLikes());
-        vh.textViewTag.setText("#" + item.getTaskComment());
-        //todo
-        String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(Long.parseLong(item.getTaskTime())),
-                TimeUnit.MILLISECONDS.toSeconds(Long.parseLong(item.getTaskTime())) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(Long.parseLong(item.getTaskTime()))),
-                TimeUnit.MILLISECONDS.toMillis(Long.parseLong(item.getTaskTime())) - TimeUnit.MILLISECONDS.toSeconds(TimeUnit.MILLISECONDS.toSeconds(Long.parseLong(item.getTaskTime()))));
-
-        vh.textViewTime.setText(hms);
-//        if (Long.parseLong(item.getTaskTime()) > 59000) {
-//            int sec = Integer.parseInt(item.getTaskTime()) - 60;
-//            vh.textViewTime.setText("1:" + sec);
-//        } else {
-//            vh.textViewTime.setText("0:" + item.getTaskTime());
-//        }
-
-        vh.placeholder1.setText(item.getCompany().substring(0, 1).toUpperCase());
-        vh.imageViewCompany.setImageResource(getPlaceholder(item.getCompany()));
-        if (item.getUserName().length() != 0) {
-            vh.placeholder2.setText(item.getUserName().substring(0, 1).toUpperCase());
+        if (item.getType().equals("post")) {
+            vh.layPost.setVisibility(View.VISIBLE);
+            vh.layRate.setVisibility(View.GONE);
+            vh.gameLayout.setVisibility(View.GONE);
+            initPost(vh, item);
         } else {
-            vh.placeholder2.setText("A");
+            vh.layPost.setVisibility(View.GONE);
+            vh.layRate.setVisibility(View.VISIBLE);
+            vh.gameLayout.setVisibility(View.VISIBLE);
+            initRate(vh, item);
         }
-        vh.imageViewPhoto.setImageResource(getPlaceholder(item.getCompany()));
-
-
-        Picasso.with(context).load(item.getLogoSponsorUrl() + "").placeholder(getPlaceholder(item.getCompany())).error(getPlaceholder(item.getCompany())).into(vh.imageViewCompany, new com.squareup.picasso.Callback() {
-            @Override
-            public void onSuccess() {
-                vh.placeholder1.setText("");
-            }
-
-            @Override
-            public void onError() {
-
-            }
-        });
-        Picasso.with(context).load(item.getUserPhotoUrl() + "").placeholder(getPlaceholder(item.getUserNickname())).error(getPlaceholder(item.getUserNickname())).into(vh.imageViewUser, new com.squareup.picasso.Callback() {
-            @Override
-            public void onSuccess() {
-                vh.placeholder2.setText("");
-            }
-
-            @Override
-            public void onError() {
-
-            }
-        });
-        RequestOptions requestOptions = new RequestOptions();
-        requestOptions.placeholder(R.drawable.unknow);
-        requestOptions.error(R.drawable.unknow);
-        requestOptions.override(1024, 1024);
-        requestOptions.centerCrop();
-
-        Glide.with(context).setDefaultRequestOptions(requestOptions).load(item.getTaskPhotoUrl()).thumbnail(0.3f).into(vh.imageViewPhoto);
-        //Picasso.with(context).load(item.getTaskPhotoUrl()+"").centerCrop().resize(1024,1024).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(vh.imageViewPhoto);
-        if (item.getUserLike().equals("0")) {
-            vh.imageViewLike.setImageResource(R.drawable.like_unused);
-            vh.imageViewLike.setTag("unused");
-        } else {
-            vh.imageViewLike.setImageResource(R.drawable.like);
-            vh.imageViewLike.setTag("used");
-        }
-
-        vh.imageViewLike.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View view) {
-                if (String.valueOf(vh.imageViewLike.getTag()).equals("used")) {
-                    vh.imageViewLike.setImageResource(R.drawable.like_unused);
-                    vh.textViewLike.setText(Integer.parseInt(item.getFeedLikes()) + "");
-                    vh.imageViewLike.setTag("unused");
-                } else {
-                    vh.imageViewLike.setImageResource(R.drawable.like);
-                    vh.textViewLike.setText((Integer.parseInt(item.getFeedLikes()) + 1) + "");
-                    vh.imageViewLike.setTag("used");
-                }
-
-
-                SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
-                String id = sharedPref.getString("token", "null");
-                ApiService api = RetroClient.getApiService();
-                if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
-                    Call<DefaultCallback> call = api.setLike(id, item.getFeedId());
-                    call.enqueue(new Callback<DefaultCallback>() {
-                        @Override
-                        public void onResponse(Call<DefaultCallback> call, Response<DefaultCallback> response) {
-                            if (response.isSuccessful()) {
-                                assert response.body() != null;
-                                Log.i("LOG_like", "Success(error): " + response.body().getStatus() + item.getFeedId());
-                            } else {
-                                String jObjError = null;
-                                try {
-                                    assert response.errorBody() != null;
-                                    jObjError = response.errorBody().string() + "";
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                Log.i("LOG_like", jObjError + " error");
-
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<DefaultCallback> call, Throwable t) {
-                            Log.i("LOG_like", t.getMessage() + " fail");
-                        }
-                    });
-
-                } else {
-                    Log.i("LOG_gethistory", "error internet");
-                }
-            }
-        });
-
-        actions(vh, item);
 
         return vh.rootView;
     }
@@ -326,6 +216,374 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
         });
     }
 
+    private void initRate(final FeedsAdapter.ViewHolder vh, final Feed item) {
+        vh.rootView.setScrollContainer(false);
+        vh.rootView.setNestedScrollingEnabled(false);
+        vh.rootView.setClickable(false);
+
+        vh.rootView.setClipToOutline(true);
+        assert item != null;
+        vh.textViewCompany1.setText(item.getCompany());
+        vh.textViewTitle1.setText(item.getTitle());
+        switch (item.getStatus()) {
+            case "Active":
+                vh.textViewTimeLeft1.setText(context.getString(R.string.txt_active));
+                break;
+            case "Completed":
+                vh.textViewTimeLeft1.setText(context.getString(R.string.adapterRating_ended));
+                break;
+            case "Moderation":
+                vh.textViewTimeLeft1.setText(context.getString(R.string.adapterRating_moderation));
+                break;
+        }
+
+        vh.textViewPeople1.setText(item.getFollowers());
+        Picasso.with(context).load(item.getLogo() + "").placeholder(getPlaceholder(item.getCompany())).error(getPlaceholder(item.getCompany())).into(vh.imageViewCompany1);
+//        Picasso.with(context).load(item.getUserPhotoUrl()+"").placeholder(android.R.color.holo_red_dark).error(android.R.color.holo_red_dark).into(vh.imageViewUser);
+//        Picasso.with(context).load(item.getTaskPhotoUrl()+"").placeholder(R.drawable.unknow).error(R.drawable.unknow).into(vh.imageViewPhoto);
+
+
+        if (item.getTop().size() > 0) {
+            vh.top1Layout.setVisibility(View.VISIBLE);
+            if (item.getTop().get(0).getName().length() != 0) {
+                vh.placeholder1.setText(item.getTop().get(0).getName().substring(0, 1).toUpperCase());
+            } else {
+                vh.placeholder1.setText("А");
+            }
+            vh.photo1.setImageResource(getPlaceholder(item.getTop().get(0).getNickname()));
+            Picasso.with(context).load(item.getTop().get(0).getPhoto() + "").placeholder(getPlaceholder(item.getTop().get(0).getNickname())).error(getPlaceholder(item.getTop().get(0).getNickname())).into(vh.photo1, new com.squareup.picasso.Callback() {
+                @Override
+                public void onSuccess() {
+                    vh.placeholder1.setText("");
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
+            vh.name1.setText(item.getTop().get(0).getNickname());
+            vh.task1.setText(item.getTop().get(0).getComplited() + "/" + item.getTasks());
+            int n = 1000 / Integer.parseInt(item.getTasks());
+            n = n * Integer.parseInt(item.getTop().get(0).getComplited());
+            vh.bar1.setProgress(n);
+            vh.photo1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", item.getTop().get(0).getName());
+                    intent.putExtra("NICKNAME", item.getTop().get(0).getNickname());
+                    intent.putExtra("PHOTO", item.getTop().get(0).getPhoto());
+                    intent.putExtra("USERID", item.getTop().get(0).getUserid());
+                    context.startActivity(intent);
+                }
+            });
+            vh.name1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", item.getTop().get(0).getName());
+                    intent.putExtra("NICKNAME", item.getTop().get(0).getNickname());
+                    intent.putExtra("PHOTO", item.getTop().get(0).getPhoto());
+                    intent.putExtra("USERID", item.getTop().get(0).getUserid());
+                    context.startActivity(intent);
+                }
+            });
+        } else {
+            vh.top1Layout.setVisibility(View.GONE);
+        }
+
+        if (item.getTop().size() > 1) {
+            vh.top2Layout.setVisibility(View.VISIBLE);
+            if (item.getTop().get(1).getName().length() != 0) {
+                vh.placeholder2.setText(item.getTop().get(1).getName().substring(0, 1));
+            } else {
+                vh.placeholder2.setText("А");
+            }
+            vh.photo2.setImageResource(getPlaceholder(item.getTop().get(1).getNickname()));
+            Picasso.with(context).load(item.getTop().get(1).getPhoto() + "").placeholder(getPlaceholder(item.getTop().get(1).getNickname())).error(getPlaceholder(item.getTop().get(1).getNickname())).into(vh.photo2, new com.squareup.picasso.Callback() {
+                @Override
+                public void onSuccess() {
+                    vh.placeholder2.setText("");
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
+            vh.name2.setText(item.getTop().get(1).getName());
+            vh.nickname2.setText(item.getTop().get(1).getNickname());
+            vh.place2.setText(item.getTop().get(1).getPosition() + " " + context.getString(R.string.adapterRating_place));
+            vh.task2.setText(item.getTop().get(1).getComplited() + "/" + item.getTasks());
+            int n = 1000 / Integer.parseInt(item.getTasks());
+            n = n * Integer.parseInt(item.getTop().get(1).getComplited());
+            vh.bar2.setProgress(n);
+            vh.photo2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", item.getTop().get(1).getName());
+                    intent.putExtra("NICKNAME", item.getTop().get(1).getNickname());
+                    intent.putExtra("PHOTO", item.getTop().get(1).getPhoto());
+                    intent.putExtra("USERID", item.getTop().get(1).getUserid());
+                    context.startActivity(intent);
+                }
+            });
+            vh.name2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", item.getTop().get(1).getName());
+                    intent.putExtra("NICKNAME", item.getTop().get(1).getNickname());
+                    intent.putExtra("PHOTO", item.getTop().get(1).getPhoto());
+                    intent.putExtra("USERID", item.getTop().get(1).getUserid());
+                    context.startActivity(intent);
+                }
+            });
+        } else {
+            vh.top2Layout.setVisibility(View.GONE);
+        }
+
+        if (item.getTop().size() > 2) {
+            vh.top3Layout.setVisibility(View.VISIBLE);
+            if (item.getTop().get(2).getName().length() != 0) {
+                vh.placeholder3.setText(item.getTop().get(2).getName().substring(0, 1).toUpperCase());
+            } else {
+                vh.placeholder3.setText("А");
+            }
+            vh.photo3.setImageResource(getPlaceholder(item.getTop().get(2).getNickname()));
+            Picasso.with(context).load(item.getTop().get(2).getPhoto() + "").placeholder(getPlaceholder(item.getTop().get(2).getNickname())).error(getPlaceholder(item.getTop().get(2).getNickname())).into(vh.photo3, new com.squareup.picasso.Callback() {
+                @Override
+                public void onSuccess() {
+                    vh.placeholder3.setText("");
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
+            vh.name3.setText(item.getTop().get(2).getName());
+            vh.nickname3.setText(item.getTop().get(2).getNickname());
+            vh.place3.setText(item.getTop().get(2).getPosition() + " " + context.getString(R.string.adapterRating_place));
+            vh.task3.setText(item.getTop().get(2).getComplited() + "/" + item.getTasks());
+            int n = 1000 / Integer.parseInt(item.getTasks());
+            n = n * Integer.parseInt(item.getTop().get(2).getComplited());
+            vh.bar3.setProgress(n);
+            vh.photo3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", item.getTop().get(2).getName());
+                    intent.putExtra("NICKNAME", item.getTop().get(2).getNickname());
+                    intent.putExtra("PHOTO", item.getTop().get(2).getPhoto());
+                    intent.putExtra("USERID", item.getTop().get(2).getUserid());
+                    context.startActivity(intent);
+                }
+            });
+            vh.name3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", item.getTop().get(2).getName());
+                    intent.putExtra("NICKNAME", item.getTop().get(2).getNickname());
+                    intent.putExtra("PHOTO", item.getTop().get(2).getPhoto());
+                    intent.putExtra("USERID", item.getTop().get(2).getUserid());
+                    context.startActivity(intent);
+                }
+            });
+        } else {
+            vh.top3Layout.setVisibility(View.GONE);
+        }
+
+        if (item.getTop().size() > 3) {
+            vh.top4Layout.setVisibility(View.VISIBLE);
+            if (item.getTop().get(3).getName().length() != 0) {
+                vh.placeholder4.setText(item.getTop().get(3).getName().substring(0, 1));
+            } else {
+                vh.placeholder4.setText("А");
+            }
+            vh.photo4.setImageResource(getPlaceholder(item.getTop().get(3).getNickname()));
+            Picasso.with(context).load(item.getTop().get(3).getPhoto() + "").placeholder(getPlaceholder(item.getTop().get(3).getNickname())).error(getPlaceholder(item.getTop().get(3).getNickname())).into(vh.photo4, new com.squareup.picasso.Callback() {
+                @Override
+                public void onSuccess() {
+                    vh.placeholder4.setText("");
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
+            vh.name4.setText(item.getTop().get(3).getName());
+            vh.nickname4.setText(item.getTop().get(3).getNickname());
+            vh.place4.setText(item.getTop().get(3).getPosition() + " " + context.getString(R.string.adapterRating_place));
+            vh.task4.setText(item.getTop().get(3).getComplited() + "/" + item.getTasks());
+            int n = 1000 / Integer.parseInt(item.getTasks());
+            n = n * Integer.parseInt(item.getTop().get(3).getComplited());
+            vh.bar4.setProgress(n);
+            vh.photo4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", item.getTop().get(3).getName());
+                    intent.putExtra("NICKNAME", item.getTop().get(3).getNickname());
+                    intent.putExtra("PHOTO", item.getTop().get(3).getPhoto());
+                    intent.putExtra("USERID", item.getTop().get(3).getUserid());
+                    context.startActivity(intent);
+                }
+            });
+            vh.name4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, UserProfileActivity.class);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("NAME", item.getTop().get(3).getName());
+                    intent.putExtra("NICKNAME", item.getTop().get(3).getNickname());
+                    intent.putExtra("PHOTO", item.getTop().get(3).getPhoto());
+                    intent.putExtra("USERID", item.getTop().get(0).getUserid());
+                    context.startActivity(intent);
+                }
+            });
+        } else {
+            vh.top4Layout.setVisibility(View.GONE);
+        }
+
+
+    }
+
+    private void initPost(final FeedsAdapter.ViewHolder vh, final Feed item) {
+        vh.textViewCompany.setText(item.getCompany());
+        vh.textViewTitle.setText(item.getTitle());
+        vh.textViewName.setText(item.getUserName());
+        vh.textViewNickname.setText(item.getUserNickname());
+        vh.textViewDescription.setText(item.getTaskDescription());
+        vh.textViewTask.setText(item.getTaskNumber() + "/" + item.getTasks());
+        vh.textViewLike.setText(item.getFeedLikes());
+        vh.textViewTag.setText("#" + item.getTaskComment());
+        //todo
+        long minutes = Long.parseLong(item.getTaskTime()) / (1000 * 60);
+        long seconds = Long.parseLong(item.getTaskTime()) / 1000 % 60;
+        long millis = Long.parseLong(item.getTaskTime()) % 1000;
+        String hms = String.format("%02d:%02d.%02d", minutes, seconds, millis);
+        hms = hms.substring(0, 8);
+        vh.textViewTime.setText(hms);
+//        if (Long.parseLong(item.getTaskTime()) > 59000) {
+//            int sec = Integer.parseInt(item.getTaskTime()) - 60;
+//            vh.textViewTime.setText("1:" + sec);
+//        } else {
+//            vh.textViewTime.setText("0:" + item.getTaskTime());
+//        }
+
+        vh.placeholder01.setText(item.getCompany().substring(0, 1).toUpperCase());
+        vh.imageViewCompany.setImageResource(getPlaceholder(item.getCompany()));
+        if (item.getUserName().length() != 0) {
+            vh.placeholder02.setText(item.getUserName().substring(0, 1).toUpperCase());
+        } else {
+            vh.placeholder02.setText("A");
+        }
+        vh.imageViewPhoto.setImageResource(getPlaceholder(item.getCompany()));
+
+
+        Picasso.with(context).load(item.getLogoSponsorUrl() + "").placeholder(getPlaceholder(item.getCompany())).error(getPlaceholder(item.getCompany())).into(vh.imageViewCompany, new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+                vh.placeholder01.setText("");
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+        Picasso.with(context).load(item.getUserPhotoUrl() + "").placeholder(getPlaceholder(item.getUserNickname())).error(getPlaceholder(item.getUserNickname())).into(vh.imageViewUser, new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+                vh.placeholder02.setText("");
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.unknow);
+        requestOptions.error(R.drawable.unknow);
+        requestOptions.override(1024, 1024);
+        requestOptions.centerCrop();
+
+        Glide.with(context).setDefaultRequestOptions(requestOptions).load(item.getTaskPhotoUrl()).thumbnail(0.3f).into(vh.imageViewPhoto);
+        //Picasso.with(context).load(item.getTaskPhotoUrl()+"").centerCrop().resize(1024,1024).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(vh.imageViewPhoto);
+        if (item.getUserLike().equals("0")) {
+            vh.imageViewLike.setImageResource(R.drawable.like_unused);
+            vh.imageViewLike.setTag("unused");
+        } else {
+            vh.imageViewLike.setImageResource(R.drawable.like);
+            vh.imageViewLike.setTag("used");
+        }
+
+        vh.imageViewLike.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View view) {
+                if (String.valueOf(vh.imageViewLike.getTag()).equals("used")) {
+                    vh.imageViewLike.setImageResource(R.drawable.like_unused);
+                    vh.textViewLike.setText(Integer.parseInt(vh.textViewLike.getText().toString()) - 1 + "");
+                    vh.imageViewLike.setTag("unused");
+                } else {
+                    vh.imageViewLike.setImageResource(R.drawable.like);
+                    vh.textViewLike.setText(Integer.parseInt(vh.textViewLike.getText().toString()) + 1 + "");
+                    vh.imageViewLike.setTag("used");
+                }
+
+
+                SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
+                String id = sharedPref.getString("token", "null");
+                ApiService api = RetroClient.getApiService();
+                if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
+                    Call<DefaultCallback> call = api.setLike(id, item.getFeedId());
+                    call.enqueue(new Callback<DefaultCallback>() {
+                        @Override
+                        public void onResponse(Call<DefaultCallback> call, Response<DefaultCallback> response) {
+                            if (response.isSuccessful()) {
+                                assert response.body() != null;
+                                Log.i("LOG_like", "Success(error): " + response.body().getStatus() + item.getFeedId());
+                            } else {
+                                String jObjError = null;
+                                try {
+                                    assert response.errorBody() != null;
+                                    jObjError = response.errorBody().string() + "";
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                Log.i("LOG_like", jObjError + " error");
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DefaultCallback> call, Throwable t) {
+                            Log.i("LOG_like", t.getMessage() + " fail");
+                        }
+                    });
+
+                } else {
+                    Log.i("LOG_gethistory", "error internet");
+                }
+            }
+        });
+
+        actions(vh, item);
+    }
 
     private int getPlaceholder(String s) {
         String abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZЯЧСМИТЬБЮФЫВАПРОЛДЖЭЁЙЦУКЕНГШЩЗХЪІЄ0123456789";
@@ -395,6 +653,8 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
 
     private static class ViewHolder {
         private final LinearLayout rootView;
+
+        private final LinearLayout layPost;
         private final ImageView imageViewCompany;
         private final ImageView imageViewUser;
         private final ImageView imageViewPhoto;
@@ -408,13 +668,58 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
         private final TextView textViewTask;
         private final TextView textViewLike;
         private final TextView textViewTag;
-        private final TextView placeholder1;
-        private final TextView placeholder2;
+        private final TextView placeholder01;
+        private final TextView placeholder02;
         private final ImageView setting;
 
+        private final LinearLayout layRate;
+        private final ImageView imageViewCompany1;
+        private final TextView textViewCompany1;
+        private final TextView textViewTitle1;
+        private final TextView textViewTimeLeft1;
+        private final TextView textViewPeople1;
 
-        private ViewHolder(LinearLayout rootView, ImageView imageView, ImageView imageView1, ImageView imageView2, ImageView imageView3, TextView textView1, TextView textView2, TextView textView3, TextView textView4, TextView textView5, TextView textView6, TextView textView7, TextView textView8, TextView textView9, TextView placeholder1, TextView placeholder2, ImageView setting) {
+        private final LinearLayout gameLayout;
+        private final LinearLayout top1Layout;
+        private final LinearLayout top2Layout;
+        private final LinearLayout top3Layout;
+        private final LinearLayout top4Layout;
+
+        private final TextView placeholder1;
+        private final TextView placeholder2;
+        private final TextView placeholder3;
+        private final TextView placeholder4;
+        private final ImageView photo1;
+        private final ImageView photo2;
+        private final ImageView photo3;
+        private final ImageView photo4;
+        private final TextView name1;
+        private final TextView name2;
+        private final TextView name3;
+        private final TextView name4;
+        private final TextView nickname2;
+        private final TextView nickname3;
+        private final TextView nickname4;
+        private final TextView place2;
+        private final TextView place3;
+        private final TextView place4;
+        private final TextView task1;
+        private final TextView task2;
+        private final TextView task3;
+        private final TextView task4;
+        private final ProgressBar bar1;
+        private final ProgressBar bar2;
+        private final ProgressBar bar3;
+        private final ProgressBar bar4;
+
+
+        private ViewHolder(LinearLayout rootView, LinearLayout layPost, ImageView imageView, ImageView imageView1, ImageView imageView2, ImageView imageView3, TextView textView1, TextView textView2, TextView textView3, TextView textView4, TextView textView5, TextView textView6, TextView textView7, TextView textView8, TextView textView9, TextView placeholder01, TextView placeholder02, ImageView setting,
+                           LinearLayout layRate, LinearLayout gameLayout, LinearLayout top1Layout, LinearLayout top2Layout, LinearLayout top3Layout, LinearLayout top4Layout, ImageView imageView111, TextView textView11, TextView textView21, TextView textView41, TextView textView51,
+                           TextView placeholder1, TextView placeholder2, TextView placeholder3, TextView placeholder4, ImageView photo1, ImageView photo2, ImageView photo3, ImageView photo4, TextView name1, TextView name2, TextView name3, TextView name4,
+                           TextView nickname2, TextView nickname3, TextView nickname4, TextView place2, TextView place3, TextView place4,
+                           TextView task1, TextView task2, TextView task3, TextView task4, ProgressBar bar1, ProgressBar bar2, ProgressBar bar3, ProgressBar bar4) {
             this.rootView = rootView;
+            this.layPost = layPost;
             this.imageViewCompany = imageView;
             this.imageViewUser = imageView1;
             this.imageViewPhoto = imageView2;
@@ -428,12 +733,54 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
             this.textViewLike = textView7;
             this.textViewTag = textView8;
             this.textViewTitle = textView1;
+            this.placeholder01 = placeholder01;
+            this.placeholder02 = placeholder02;
+            this.setting = setting;
+
+            this.layRate = layRate;
+            this.imageViewCompany1 = imageView111;
+            this.textViewCompany1 = textView11;
+            this.textViewTitle1 = textView21;
+            this.textViewTimeLeft1 = textView41;
+            this.textViewPeople1 = textView51;
+
+
+            this.gameLayout = gameLayout;
+            this.top1Layout = top1Layout;
+            this.top2Layout = top2Layout;
+            this.top3Layout = top3Layout;
+            this.top4Layout = top4Layout;
+
             this.placeholder1 = placeholder1;
             this.placeholder2 = placeholder2;
-            this.setting = setting;
+            this.placeholder3 = placeholder3;
+            this.placeholder4 = placeholder4;
+            this.photo1 = photo1;
+            this.photo2 = photo2;
+            this.photo3 = photo3;
+            this.photo4 = photo4;
+            this.name1 = name1;
+            this.name2 = name2;
+            this.name3 = name3;
+            this.name4 = name4;
+            this.nickname2 = nickname2;
+            this.nickname3 = nickname3;
+            this.nickname4 = nickname4;
+            this.place2 = place2;
+            this.place3 = place3;
+            this.place4 = place4;
+            this.task1 = task1;
+            this.task2 = task2;
+            this.task3 = task3;
+            this.task4 = task4;
+            this.bar1 = bar1;
+            this.bar2 = bar2;
+            this.bar3 = bar3;
+            this.bar4 = bar4;
         }
 
         public static FeedsAdapter.ViewHolder create(LinearLayout rootView) {
+            LinearLayout layPost = rootView.findViewById(R.id.layPost);
             ImageView imageViewCompany = rootView.findViewById(R.id.imageView1);
             ImageView imageViewUser = rootView.findViewById(R.id.imageView2);
             ImageView imageViewPhoto = rootView.findViewById(R.id.imageView3);
@@ -447,12 +794,60 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
             TextView textViewLike = rootView.findViewById(R.id.textView8);
             TextView textViewTag = rootView.findViewById(R.id.textView9);
             TextView textViewTitle = rootView.findViewById(R.id.textView0);
-            TextView placeholder1 = rootView.findViewById(R.id.textHolder1);
-            TextView placeholder2 = rootView.findViewById(R.id.textHolder2);
+            TextView placeholder01 = rootView.findViewById(R.id.textHolder01);
+            TextView placeholder02 = rootView.findViewById(R.id.textHolder02);
             ImageView setting = rootView.findViewById(R.id.imageView0);
-            return new FeedsAdapter.ViewHolder(rootView, imageViewCompany, imageViewUser, imageViewPhoto, imageViewLike, textViewCompany, textViewName, textViewNickname, textViewTime, textViewDescription, textViewTask, textViewLike, textViewTag, textViewTitle, placeholder1, placeholder2, setting);
+
+            LinearLayout layRate = rootView.findViewById(R.id.layRate);
+            ImageView imageViewCompany1 = rootView.findViewById(R.id.imageView);
+            TextView textViewCompany1 = rootView.findViewById(R.id.textView01);
+            TextView textViewTitle1 = rootView.findViewById(R.id.textView02);
+            TextView textViewTimeLeft1 = rootView.findViewById(R.id.textView04);
+            TextView textViewPeople1 = rootView.findViewById(R.id.textView5);
+
+            LinearLayout gameLayout = rootView.findViewById(R.id.game);
+            LinearLayout top1Layout = rootView.findViewById(R.id.layUser1);
+            LinearLayout top2Layout = rootView.findViewById(R.id.layUser2);
+            LinearLayout top3Layout = rootView.findViewById(R.id.layUser3);
+            LinearLayout top4Layout = rootView.findViewById(R.id.layUser4);
+
+            TextView placeholder1 = rootView.findViewById(R.id.textHolder2);
+            TextView placeholder2 = rootView.findViewById(R.id.textHolder3);
+            TextView placeholder3 = rootView.findViewById(R.id.textHolder4);
+            TextView placeholder4 = rootView.findViewById(R.id.textHolder5);
+            ImageView photo1 = rootView.findViewById(R.id.imageView11);
+            ImageView photo2 = rootView.findViewById(R.id.imageView12);
+            ImageView photo3 = rootView.findViewById(R.id.imageView13);
+            ImageView photo4 = rootView.findViewById(R.id.imageView14);
+            TextView name1 = rootView.findViewById(R.id.textView11);
+            TextView name2 = rootView.findViewById(R.id.textView15);
+            TextView name3 = rootView.findViewById(R.id.textView19);
+            TextView name4 = rootView.findViewById(R.id.textView23);
+            TextView nickname2 = rootView.findViewById(R.id.textView17);
+            TextView nickname3 = rootView.findViewById(R.id.textView21);
+            TextView nickname4 = rootView.findViewById(R.id.textView25);
+            TextView place2 = rootView.findViewById(R.id.textView16);
+            TextView place3 = rootView.findViewById(R.id.textView20);
+            TextView place4 = rootView.findViewById(R.id.textView24);
+            TextView task1 = rootView.findViewById(R.id.textView14);
+            TextView task2 = rootView.findViewById(R.id.textView18);
+            TextView task3 = rootView.findViewById(R.id.textView22);
+            TextView task4 = rootView.findViewById(R.id.textView26);
+            ProgressBar bar1 = rootView.findViewById(R.id.bar1);
+            ProgressBar bar2 = rootView.findViewById(R.id.bar2);
+            ProgressBar bar3 = rootView.findViewById(R.id.bar3);
+            ProgressBar bar4 = rootView.findViewById(R.id.bar4);
+
+
+            return new FeedsAdapter.ViewHolder(rootView, layPost, imageViewCompany, imageViewUser, imageViewPhoto, imageViewLike, textViewCompany, textViewName, textViewNickname, textViewTime, textViewDescription, textViewTask, textViewLike, textViewTag, textViewTitle, placeholder01, placeholder02, setting,
+                    layRate, gameLayout, top1Layout, top2Layout, top3Layout, top4Layout, imageViewCompany1, textViewCompany1, textViewTitle1, textViewTimeLeft1, textViewPeople1,
+                    placeholder1, placeholder2, placeholder3, placeholder4, photo1, photo2, photo3, photo4, name1, name2, name3, name4,
+                    nickname2, nickname3, nickname4, place2, place3, place4,
+                    task1, task2, task3, task4, bar1, bar2, bar3, bar4);
         }
 
     }
+
+
 }
 

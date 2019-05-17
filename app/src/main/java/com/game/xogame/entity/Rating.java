@@ -36,9 +36,9 @@ public class Rating {
     @SerializedName("tasks")
     @Expose
     private String tasks;
-    @SerializedName("active")
+    @SerializedName("status")
     @Expose
-    private String active;
+    private String status;
     @SerializedName("timeleft")
     @Expose
     private String timeleft;
@@ -69,7 +69,12 @@ public class Rating {
             private String tasktime;
 
             public String getPhoto() {
-                return photo;
+                if(photo == null || photo.equals("")){
+                    return "null";
+                }else{
+                    return photo;
+                }
+
             }
 
             public String getName() {
@@ -137,8 +142,8 @@ public class Rating {
         return tasks;
     }
 
-    public String getActive() {
-        return active;
+    public String getStatus() {
+        return status;
     }
 
     public String getTimeleft() {

@@ -2,6 +2,7 @@ package com.game.xogame.views.game;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -96,6 +97,8 @@ public class GameInfoActivity extends AppCompatActivity {
         requestOptions.override(1920, 1080);
         requestOptions.centerCrop();
 
+        if(extras.getString("USER")!=null && extras.getString("USER").equals("another"))
+            subscribe.setVisibility(View.GONE);
         Glide.with(this).setDefaultRequestOptions(requestOptions).load(extras.getString("BACKGROUND")).thumbnail(0.3f).into(background);
         Picasso.with(this).load(extras.getString("LOGO")).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(logo);
         isStatistic = extras.getString("STATISTIC");
@@ -126,7 +129,7 @@ public class GameInfoActivity extends AppCompatActivity {
                     startActivity(Intent.createChooser(sharingIntent, ""));
                 }
             });
-            if (extras.getString("SUBSCRIBE").equals("0")) {
+            if ((extras.getString("SUBSCRIBE")+"").equals("0")) {
                 subscribe.setText(getString(R.string.activityGameInfo_join));
                 subscribe.setBackgroundResource(R.drawable.regbtn);
                 subscribe.setTextColor(Color.parseColor("#ffffff"));
@@ -160,7 +163,19 @@ public class GameInfoActivity extends AppCompatActivity {
                             presenter.subscribeGame();
                             people.setText((Integer.parseInt(count) + 1) + " " + getString(R.string.activityGameInfo_people));
                             count = (Integer.parseInt(count) + 1) + "";
-                            FirebaseMessaging.getInstance().subscribeToTopic("/topics/agame" + gameid)
+                            subscribe.setBackgroundResource(R.drawable.registration_oval_button);
+                            subscribe.setTextColor(Color.parseColor("#F05A23"));
+                            subscribe.setText(getString(R.string.activityGameInfo_leave));
+                            FirebaseMessaging.getInstance().subscribeToTopic("/topics/auser" + gameid)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                        }
+                                    });
+                            SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
+                            String token = sharedPref.getString("token", "null");
+                            FirebaseMessaging.getInstance().subscribeToTopic("/topics/auser" + token)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
@@ -171,7 +186,19 @@ public class GameInfoActivity extends AppCompatActivity {
                             presenter.unsubscribeGame();
                             people.setText((Integer.parseInt(count) - 1) + " " + getString(R.string.activityGameInfo_people));
                             count = (Integer.parseInt(count) - 1) + "";
+                            subscribe.setBackgroundResource(R.drawable.regbtn);
+                            subscribe.setTextColor(Color.parseColor("#ffffff"));
+                            subscribe.setText(getString(R.string.activityGameInfo_join));
                             FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/agame" + gameid)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                        }
+                                    });
+                            SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
+                            String token = sharedPref.getString("token", "null");
+                            FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/auser" + token)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
@@ -189,13 +216,11 @@ public class GameInfoActivity extends AppCompatActivity {
 
     public void setButtonName(String s) {
         if (s.equals(getString(R.string.activityGameInfo_join))) {
-            subscribe.setBackgroundResource(R.drawable.regbtn);
-            subscribe.setTextColor(Color.parseColor("#ffffff"));
+
         } else {
-            subscribe.setBackgroundResource(R.drawable.registration_oval_button);
-            subscribe.setTextColor(Color.parseColor("#F05A23"));
+
         }
-        subscribe.setText(s);
+
     }
 
 //    public void showToast(String text) {

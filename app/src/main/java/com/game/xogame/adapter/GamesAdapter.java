@@ -2,6 +2,7 @@ package com.game.xogame.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class GamesAdapter  extends ArrayAdapter<Game> {
     private List<Game> gameList;
@@ -79,9 +82,27 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
 
                         }
                     });
+            SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
+            String token = sharedPref.getString("token", "null");
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/auser" + token)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                        }
+                    });
         }else{
             vh.imageView2.setVisibility(View.VISIBLE);
             FirebaseMessaging.getInstance().subscribeToTopic("/topics/agame" + item.getGameid())
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                        }
+                    });
+            SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
+            String token = sharedPref.getString("token", "null");
+            FirebaseMessaging.getInstance().subscribeToTopic("/topics/auser" + token)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

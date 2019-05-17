@@ -69,10 +69,17 @@ public class RatingGameActivity extends AppCompatActivity {
     private ProgressBar bar3;
     private ProgressBar bar4;
 
+    private String type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rating_game);
+        if(getIntent().getStringExtra("type")!=null && getIntent().getStringExtra("type").equals("history")){
+            setContentView(R.layout.activity_rating_history);
+        }else{
+            setContentView(R.layout.activity_rating_game);
+        }
+        type = getIntent().getStringExtra("type");
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         api = RetroClient.getApiService();
         RatingModel gamesModel = new RatingModel(api, getApplicationContext());
@@ -155,13 +162,15 @@ public class RatingGameActivity extends AppCompatActivity {
 
             }
         });
+        if(type==null || !type.equals("history")){
+            this.time.setText(game.getEnddate() + " " + game.getEndtime());
+            this.people.setText(game.getFollowers() + "");
+            this.tasks.setText(game.getTasks() + "");
+            this.prise.setText(game.getReward() + " ₴");
+        }
         this.sponsor.setText(game.getCompany() + "");
         this.title.setText(game.getTitle() + "");
-        this.time.setText(game.getEnddate() + " " + game.getEndtime());
         //this.active.setText(game.getActive()+"");
-        this.people.setText(game.getFollowers() + "");
-        this.tasks.setText(game.getTasks() + "");
-        this.prise.setText(game.getReward() + " ₴");
         final Rating game1 = game;
 
         if (game.getTop().size() > 0) {
@@ -183,9 +192,15 @@ public class RatingGameActivity extends AppCompatActivity {
 
                 }
             });
-            this.name1.setText(game.getTop().get(0).getName());
-            this.nickname1.setText(game.getTop().get(0).getNickname());
-            this.place1.setText(game.getTop().get(0).getPosition() + " " + getString(R.string.adapterRating_place));
+            if(type==null || !type.equals("history")){
+                this.nickname1.setText(game.getTop().get(0).getNickname());
+                this.name1.setText(game.getTop().get(0).getName());
+                this.place1.setText(game.getTop().get(0).getPosition() + " " + getString(R.string.adapterRating_place));
+            }else{
+                this.name1.setText(game.getTop().get(0).getNickname());
+            }
+
+
             this.task1.setText(game.getTop().get(0).getComplited() + "/" + game.getTasks());
             int n = 1000 / Integer.parseInt(game.getTasks());
             n = n * Integer.parseInt(game.getTop().get(0).getComplited());

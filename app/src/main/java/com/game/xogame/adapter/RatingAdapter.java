@@ -63,10 +63,12 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
         vh.textViewCompany.setText(item.getCompany());
         vh.textViewTitle.setText(item.getTitle());
         vh.textViewTime.setText(item.getStartdate() + " " + item.getStarttime());
-        if (item.getActive().equals("0")) {
-            vh.textViewTimeLeft.setText("");
-        } else {
+        if (item.getStatus().equals("Active")) {
             vh.textViewTimeLeft.setText(context.getString(R.string.txt_active));
+        } else if (item.getStatus().equals("Completed")){
+            vh.textViewTimeLeft.setText(context.getString(R.string.adapterRating_ended));
+        } else if (item.getStatus().equals("Moderation")){
+            vh.textViewTimeLeft.setText(context.getString(R.string.adapterRating_moderation));
         }
 
         vh.textViewPeople.setText(item.getFollowers());
@@ -296,6 +298,8 @@ public class RatingAdapter extends ArrayAdapter<Rating> {
 
         if (item.getTop().size()<1){
             vh.emptyLayout.setVisibility(View.VISIBLE);
+        }else{
+            vh.emptyLayout.setVisibility(View.GONE);
         }
 
         vh.gameLayout.setOnClickListener(new View.OnClickListener() {

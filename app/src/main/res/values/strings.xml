@@ -86,6 +86,9 @@
     <string name="activityConfirmPhone_wasSent">" "</string>
     <string name="activityReport_push">Sent</string>
     <string name="activityConfirmPhone_wrongCode">Wrong code</string>
+    <string name="activityRatingHistory_ended">Ended</string>
+    <string name="adapterRating_ended">ended</string>
+    <string name="adapterRating_moderation">moderation</string>
 
 
 </resources>

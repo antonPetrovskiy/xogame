@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +21,7 @@ import com.game.xogame.api.RetroClient;
 import com.game.xogame.entity.Game;
 import com.game.xogame.models.UserInfoModel;
 import com.game.xogame.presenters.MyGamesPresenter;
+import com.game.xogame.views.game.RatingGameActivity;
 import com.game.xogame.views.main.MainActivity;
 
 import java.util.List;
@@ -35,6 +37,7 @@ public class MyGamesActivity extends AppCompatActivity {
     private TextView title;
     private LinearLayout load;
     private ListView listView;
+    private List<Game> list;
 
     private RelativeLayout empty;
     public Button find;
@@ -90,11 +93,22 @@ public class MyGamesActivity extends AppCompatActivity {
                 finish();
             }
         });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MyGamesActivity.this, RatingGameActivity.class);
+                intent.putExtra("gameid", list.get(position).getGameid());
+                intent.putExtra("type", "history");
+                startActivity(intent);
+            }
+        });
+
 
     }
 
     @SuppressLint("SetTextI18n")
     public void setList(List<Game> list){
+        this.list = list;
         GamesAdapter adapter = new GamesAdapter(this, list);
         listView.setAdapter(adapter);
         load.setVisibility(View.GONE);

@@ -86,6 +86,9 @@
     <string name="popupSettings_badContent">Неприйнятний контент</string>
     <string name="activityInfo_term">Ваша подальша реєстраця означає, що ви прийняли на себе вiдповiдальнiсть за безумовне дотримання даної згоди</string>
     <string name="activityConfirmPhone_wrongCode">Невiрний код</string>
+    <string name="activityRatingHistory_ended">Завершено</string>
+    <string name="adapterRating_ended">завершено</string>
+    <string name="adapterRating_moderation">модерацiя</string>
 
 
 </resources>
