@@ -72,43 +72,12 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
 
         vh.textViewHolder.setText(item.getCompany().substring(0,1).toUpperCase());
         vh.imageView.setImageResource(getPlaceholder(item.getCompany()));
-
+        Log.i("LOG_allgames" , item.getGameid()+" лол");
+        Log.i("LOG_allgames" , item.getSubscribe()+" кек");
         if(item.getSubscribe()==null || item.getSubscribe().equals("0")){
             vh.imageView2.setVisibility(View.GONE);
-            FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/agame" + item.getGameid())
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-
-                        }
-                    });
-            SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
-            String token = sharedPref.getString("token", "null");
-            FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/auser" + token)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-
-                        }
-                    });
         }else{
             vh.imageView2.setVisibility(View.VISIBLE);
-            FirebaseMessaging.getInstance().subscribeToTopic("/topics/agame" + item.getGameid())
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-
-                        }
-                    });
-            SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
-            String token = sharedPref.getString("token", "null");
-            FirebaseMessaging.getInstance().subscribeToTopic("/topics/auser" + token)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-
-                        }
-                    });
         }
         Picasso.with(context).load(item.getLogo()+"").placeholder(getPlaceholder(item.getCompany())).error(getPlaceholder(item.getCompany())).into(vh.imageView, new com.squareup.picasso.Callback() {
             @Override

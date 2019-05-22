@@ -89,6 +89,16 @@
     <string name="activityRatingHistory_ended">Ended</string>
     <string name="adapterRating_ended">ended</string>
     <string name="adapterRating_moderation">moderation</string>
+    <string name="activityWin_win">You are winner</string>
+    <string name="activityWin_later">Later</string>
+    <string name="activitySetting_rules">Rules</string>
+    <string name="activityMoney_success">Your request for money has been sent</string>
+    <string name="layoutMywins_moderation">moderation</string>
+    <string name="activityModeration_moderation">Moderation</string>
+    <string name="activityModeration_moved">You moved</string>
+    <string name="activityModeration_from">from</string>
+    <string name="activityModeration_to">to</string>
+    <string name="activityModeration_next">Continue</string>
 
 
 </resources>

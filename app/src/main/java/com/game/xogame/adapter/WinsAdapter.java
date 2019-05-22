@@ -58,6 +58,13 @@ public class WinsAdapter extends ArrayAdapter<Game> {
         vh.textViewTasks.setText(item.getTitle()+"");
         vh.textViewDate.setText(item.getEnddate()+"");
         vh.rootView.setClipToOutline(true);
+        if(item.getRewardstatus().equals("0")){
+            vh.textViewModeration.setVisibility(View.VISIBLE);
+            vh.rootView.setAlpha(0.5f);
+        }else{
+            vh.textViewModeration.setVisibility(View.GONE);
+            vh.rootView.setAlpha(1f);
+        }
         Picasso.with(context).load(item.getLogo()+"").placeholder(R.drawable.unknow).error(R.drawable.unknow).into(vh.imageView);
 
         return vh.rootView;
@@ -70,14 +77,16 @@ public class WinsAdapter extends ArrayAdapter<Game> {
         private final TextView textViewName2;
         private final TextView textViewTasks;
         private final TextView textViewDate;
+        private final TextView textViewModeration;
 
-        private ViewHolder(RelativeLayout rootView, ImageView imageView, TextView textViewName1, TextView textViewName2, TextView textViewTasks, TextView textViewDate) {
+        private ViewHolder(RelativeLayout rootView, ImageView imageView, TextView textViewName1, TextView textViewName2, TextView textViewTasks, TextView textViewDate, TextView textViewModeration) {
             this.rootView = rootView;
             this.imageView = imageView;
             this.textViewName1 = textViewName1;
             this.textViewName2 = textViewName2;
             this.textViewTasks = textViewTasks;
             this.textViewDate = textViewDate;
+            this.textViewModeration = textViewModeration;
         }
 
         public static WinsAdapter.ViewHolder create(RelativeLayout rootView) {
@@ -86,7 +95,8 @@ public class WinsAdapter extends ArrayAdapter<Game> {
             TextView textViewName2 = rootView.findViewById(R.id.name2);
             TextView textViewTasks = rootView.findViewById(R.id.name3);
             TextView textViewDate = rootView.findViewById(R.id.name4);
-            return new WinsAdapter.ViewHolder(rootView, imageView, textViewName1, textViewName2, textViewTasks, textViewDate);
+            TextView textViewModeration = rootView.findViewById(R.id.name5);
+            return new WinsAdapter.ViewHolder(rootView, imageView, textViewName1, textViewName2, textViewTasks, textViewDate, textViewModeration);
         }
 
     }

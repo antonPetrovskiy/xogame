@@ -157,6 +157,7 @@ public class LoginModel {
                                     SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
                                     sharedPref.edit().putString("token", id).commit();
                                     sharedPref.edit().putString("phone", number).commit();
+                                    sharedPref.edit().putString("userid", response.body().getUserid()).commit();
                                 }
                             }
 
@@ -250,6 +251,7 @@ public class LoginModel {
                             if (callback != null && response.body().getStatus().equals("success")) {
                                 SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
                                 sharedPref.edit().putString("token", id).commit();
+                                sharedPref.edit().putString("userid", response.body().getUserid()).commit();
                                 callback.onEdit();
                             }else{
                                 callback.onEdit();

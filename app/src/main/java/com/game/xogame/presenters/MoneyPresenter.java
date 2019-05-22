@@ -20,7 +20,7 @@ public class MoneyPresenter {
         model.sendMoney(type,gameid,new UserInfoModel.SendMoneyCallback() {
             @Override
             public void onSend() {
-                view.onBackPressed();
+                view.success();
             }
         });
     }

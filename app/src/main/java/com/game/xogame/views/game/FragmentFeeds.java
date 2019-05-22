@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.game.xogame.R;
 import com.game.xogame.adapter.FeedsAdapter;
@@ -42,6 +43,7 @@ public class FragmentFeeds extends Fragment {
     private static FragmentFeeds fragment;
     public ApiService api;
     private LinearLayout load;
+    private TextView error;
     private ListView listView;
     private ImageView sort;
     private ImageView rating;
@@ -83,6 +85,7 @@ public class FragmentFeeds extends Fragment {
         load = rootView.findViewById(R.id.targetView);
         listView = rootView.findViewById(R.id.gamelist);
         empty = rootView.findViewById(R.id.empty);
+        error = rootView.findViewById(R.id.error);
         find = rootView.findViewById(R.id.imageButton);
         sort = rootView.findViewById(R.id.imageView1);
         rating = rootView.findViewById(R.id.imageView2);
@@ -211,6 +214,13 @@ public class FragmentFeeds extends Fragment {
                 }
             }
         });
+    }
+
+    public void setError(String msg){
+        load.setVisibility(View.GONE);
+        empty.setVisibility(View.VISIBLE);
+        error.setText(msg);
+        find.setVisibility(View.GONE);
     }
 
 }

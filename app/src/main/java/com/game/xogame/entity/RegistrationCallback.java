@@ -16,6 +16,9 @@ public class RegistrationCallback {
     @SerializedName("error")
     @Expose
     private String error;
+    @SerializedName("userid")
+    @Expose
+    private String userid;
 
     public String getNewUser() {
         return newUser;
@@ -33,5 +36,7 @@ public class RegistrationCallback {
         return error;
     }
 
-
+    public String getUserid() {
+        return userid;
+    }
 }

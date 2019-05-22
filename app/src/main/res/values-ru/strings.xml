@@ -89,6 +89,16 @@
     <string name="activityRatingHistory_ended">Завершено</string>
     <string name="adapterRating_ended">завершено</string>
     <string name="adapterRating_moderation">модерация</string>
+    <string name="activityWin_win">Вы победитель</string>
+    <string name="activityWin_later">Позже</string>
+    <string name="activitySetting_rules">Правила</string>
+    <string name="activityMoney_success">Ваш запрос на получение денег отправлен</string>
+    <string name="layoutMywins_moderation">модерация</string>
+    <string name="activityModeration_from">с</string>
+    <string name="activityModeration_to">на</string>
+    <string name="activityModeration_moderation">Модерация</string>
+    <string name="activityModeration_moved">Вы переместились</string>
+    <string name="activityModeration_next">Продолжить</string>
 
 
 </resources>

@@ -3,11 +3,14 @@ package com.game.xogame.views.game;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,6 +21,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.game.xogame.R;
 import com.game.xogame.adapter.GamesAdapter;
@@ -26,6 +30,9 @@ import com.game.xogame.api.RetroClient;
 import com.game.xogame.entity.Game;
 import com.game.xogame.presenters.MainPresenter;
 import com.game.xogame.views.main.MainActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -43,6 +50,7 @@ public class FragmentGames extends Fragment {
     private static FragmentGames fragment;
     public ApiService api;
     private LinearLayout load;
+    private TextView error;
     private RelativeLayout empty;
     private ListView listView;
     private View rootView;
@@ -51,6 +59,7 @@ public class FragmentGames extends Fragment {
     private List<Game> gameList;
     private List<Game> tmpgameList;
     public EditText search;
+    private boolean subscribeCheck = false;
 
     public FragmentGames() {
     }
@@ -85,6 +94,7 @@ public class FragmentGames extends Fragment {
         empty = rootView.findViewById(R.id.empty);
         refresh = rootView.findViewById(R.id.refresh);
         search = rootView.findViewById(R.id.search);
+        error = rootView.findViewById(R.id.error);
         api = RetroClient.getApiService();
 
         gameList = new LinkedList<>();
@@ -185,6 +195,45 @@ public class FragmentGames extends Fragment {
 
     }
 
+    public void updateSubscribe(){
+        for(final Game item : gameList){
+            if(item.getSubscribe()==null || item.getSubscribe().equals("1")){
+                FirebaseMessaging.getInstance().subscribeToTopic("/topics/agame" + item.getGameid())
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Log.i("LOG_subscribe" , item.getGameid()+" +");
+                            }
+                        });
+                SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
+                String token = sharedPref.getString("userid", "null");
+                FirebaseMessaging.getInstance().subscribeToTopic("/topics/auser" + token)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Log.i("LOG_subscribe" , item.getGameid()+" +");
+                            }
+                        });
+            }else{
+                FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/agame" + item.getGameid())
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Log.i("LOG_subscribe" , item.getGameid()+" -");
+                            }
+                        });
+                SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
+                String token = sharedPref.getString("userid", "null");
+                FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/auser" + token)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Log.i("LOG_subscribe" , item.getGameid()+" -");
+                            }
+                        });
+            }
+        }
+    }
 
     public void setList(List<Game> list) {
         final List<Game> l = list;
@@ -220,7 +269,19 @@ public class FragmentGames extends Fragment {
                 startActivity(intent);
             }
         });
+
+        if(!subscribeCheck) {
+            updateSubscribe();
+            subscribeCheck = true;
+        }
+
     }
 
+    public void setError(String msg){
+        load.setVisibility(View.GONE);
+        empty.setVisibility(View.VISIBLE);
+        error.setText(msg);
+        refresh.setVisibility(View.GONE);
+    }
 
 }

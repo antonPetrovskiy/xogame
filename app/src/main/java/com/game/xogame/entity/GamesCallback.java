@@ -9,6 +9,9 @@ public class GamesCallback {
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("error")
+    @Expose
+    private String error;
     @SerializedName("games")
     @Expose
     private ArrayList<Game> games = new ArrayList<>();
@@ -18,5 +21,9 @@ public class GamesCallback {
 
     public ArrayList<Game> getGames() {
         return games;
+    }
+
+    public String getError() {
+        return error;
     }
 }

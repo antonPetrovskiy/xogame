@@ -9,6 +9,9 @@ public class FeedCallback {
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("error")
+    @Expose
+    private String error;
     @SerializedName("games")
     @Expose
     private ArrayList<Feed> feeds = new ArrayList<>();
@@ -18,5 +21,9 @@ public class FeedCallback {
 
     public ArrayList<Feed> getFeeds() {
         return feeds;
+    }
+
+    public String getError() {
+        return error;
     }
 }

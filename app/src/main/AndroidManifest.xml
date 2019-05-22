@@ -21,7 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".views.game.RatingHistoryActivity"></activity>
+        <activity android:name=".views.game.ModerationActivity"></activity>
+        <activity android:name=".views.game.WinActivity" />
+        <activity android:name=".views.game.RatingHistoryActivity" />
         <activity android:name=".views.game.ReportActivity" />
         <activity android:name=".views.profile.UserProfileActivity" />
         <activity android:name=".views.game.RatingGameActivity" />

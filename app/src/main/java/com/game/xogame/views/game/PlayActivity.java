@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -218,7 +219,7 @@ public class PlayActivity extends AppCompatActivity {
         TextView btnAdd1 = promptView.findViewById(R.id.textView1);
         btnAdd1.setText(getString(R.string.error_timeIsOut));
         alertD.setView(promptView);
-        alertD.show();
+
         alertD.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
@@ -228,6 +229,17 @@ public class PlayActivity extends AppCompatActivity {
                 finish();
             }
         });
+        promptView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
+        alertD.show();
+
 
     }
 
@@ -247,18 +259,28 @@ public class PlayActivity extends AppCompatActivity {
         company.setText(company.getText() + "");
         position.setText(position_str+" " + getString(R.string.adapterRating_place));
         task.setText(number.getText().toString());
-        if (Integer.parseInt(done) < 60) {
-            time.setText("0:" + done);
-        } else {
-            int n = Integer.parseInt(done) - 60;
-            time.setText("1:" + n);
-        }
+        long minutes = Long.parseLong(done) / (1000 * 60);
+        long seconds = Long.parseLong(done) / 1000 % 60;
+        long millis = Long.parseLong(done) % 1000;
+        String hms = String.format("%02d:%02d.%02d", minutes, seconds, millis);
+        hms = hms.substring(0, 8);
+        time.setText(hms);
+
         Picasso.with(this).load(path).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(image);
 
         alertD.setView(promptView);
         alertD.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
+                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
+        promptView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent(PlayActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

@@ -23,6 +23,7 @@ import com.game.xogame.api.RetroClient;
 import com.game.xogame.entity.Game;
 import com.game.xogame.models.UserInfoModel;
 import com.game.xogame.presenters.MyWinsPresenter;
+import com.game.xogame.views.main.MainActivity;
 
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class MyWinsActivity extends AppCompatActivity {
     private TextView money;
     private LinearLayout load;
     private ListView listView;
+    private List<Game> gameList;
 
     private RelativeLayout empty;
     private ImageView money_icon;
@@ -65,7 +67,10 @@ public class MyWinsActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent = new Intent(MyWinsActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -73,52 +78,54 @@ public class MyWinsActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LayoutInflater layoutInflater = LayoutInflater.from(MyWinsActivity.this);
-                @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_genderchooser, null);
-                final AlertDialog alertD = new AlertDialog.Builder(MyWinsActivity.this).create();
+                if(gameList.get(position).getRewardstatus().equals("1")) {
+                    LayoutInflater layoutInflater = LayoutInflater.from(MyWinsActivity.this);
+                    @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_genderchooser, null);
+                    final AlertDialog alertD = new AlertDialog.Builder(MyWinsActivity.this).create();
 
-                final int i = position;
-                TextView title = promptView.findViewById(R.id.textView1);
-                TextView btnAdd1 = promptView.findViewById(R.id.textView3);
-                TextView btnAdd2 = promptView.findViewById(R.id.textView2);
-                title.setText(getString(R.string.activityMyWins_sent)+" "+ presenter.getWinsList().get(position).getReward()+" ₴");
-                btnAdd1.setText(getString(R.string.activityMyWins_mobile));
-                btnAdd2.setText(getString(R.string.activityMyWins_card));
+                    final int i = position;
+                    TextView title = promptView.findViewById(R.id.textView1);
+                    TextView btnAdd1 = promptView.findViewById(R.id.textView3);
+                    TextView btnAdd2 = promptView.findViewById(R.id.textView2);
+                    title.setText(getString(R.string.activityMyWins_sent) + " " + presenter.getWinsList().get(position).getReward() + " ₴");
+                    btnAdd1.setText(getString(R.string.activityMyWins_mobile));
+                    btnAdd2.setText(getString(R.string.activityMyWins_card));
 
-                btnAdd1.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MyWinsActivity.this, MoneyActivity.class);
-                        intent.putExtra("type", "phone");
-                        intent.putExtra("gameid", presenter.getWinsList().get(i).getGameid());
-                        intent.putExtra("money", presenter.getWinsList().get(i).getReward());
-                        startActivity(intent);
-                        alertD.cancel();
-                    }
-                });
+                    btnAdd1.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            Intent intent = new Intent(MyWinsActivity.this, MoneyActivity.class);
+                            intent.putExtra("type", "phone");
+                            intent.putExtra("gameid", presenter.getWinsList().get(i).getGameid());
+                            intent.putExtra("money", presenter.getWinsList().get(i).getReward());
+                            startActivity(intent);
+                            alertD.cancel();
+                        }
+                    });
 
-                btnAdd2.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MyWinsActivity.this, MoneyActivity.class);
-                        intent.putExtra("type", "card");
-                        intent.putExtra("gameid", presenter.getWinsList().get(i).getGameid());
-                        intent.putExtra("money", presenter.getWinsList().get(i).getReward());
-                        startActivity(intent);
-                        alertD.cancel();
-                    }
-                });
+                    btnAdd2.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            Intent intent = new Intent(MyWinsActivity.this, MoneyActivity.class);
+                            intent.putExtra("type", "card");
+                            intent.putExtra("gameid", presenter.getWinsList().get(i).getGameid());
+                            intent.putExtra("money", presenter.getWinsList().get(i).getReward());
+                            startActivity(intent);
+                            alertD.cancel();
+                        }
+                    });
 
-                alertD.setView(promptView);
-                alertD.show();
+                    alertD.setView(promptView);
+                    alertD.show();
+                }
             }
         });
     }
 
     @SuppressLint("SetTextI18n")
     public void setList(List<Game> list){
-
             WinsAdapter adapter = new WinsAdapter(this, list);
             listView.setAdapter(adapter);
             load.setVisibility(View.GONE);
+            gameList = list;
 
         if(list.size()==0) {
             empty.setVisibility(View.VISIBLE);

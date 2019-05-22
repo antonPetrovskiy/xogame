@@ -63,8 +63,12 @@ public class MainPresenter {
     public void showGames(final FragmentGames fragment){
         modelGames.getGames(new GamesModel.GetGamesCallback() {
             @Override
-            public void onGet() {
-                fragment.setList(modelGames.gameList);
+            public void onGet(String status, String error) {
+                if(status.equals("success")) {
+                    fragment.setList(modelGames.gameList);
+                }else{
+                    fragment.setError(error);
+                }
             }
         });
     }
@@ -72,8 +76,13 @@ public class MainPresenter {
     public void showFeeds(final FragmentFeeds fragment, String flag, String limit){
     modelGames.getFeeds(flag,limit,new GamesModel.GetFeedsCallback() {
             @Override
-            public void onGet() {
-                fragment.setList(modelGames.feedList);
+            public void onGet(String status, String error) {
+                if(status.equals("success")) {
+                    fragment.setList(modelGames.feedList);
+                }else{
+                    fragment.setError(error);
+                }
+
             }
         });
 

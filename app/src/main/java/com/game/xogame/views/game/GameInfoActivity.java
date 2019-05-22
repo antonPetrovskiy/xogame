@@ -166,7 +166,7 @@ public class GameInfoActivity extends AppCompatActivity {
                             subscribe.setBackgroundResource(R.drawable.registration_oval_button);
                             subscribe.setTextColor(Color.parseColor("#F05A23"));
                             subscribe.setText(getString(R.string.activityGameInfo_leave));
-                            FirebaseMessaging.getInstance().subscribeToTopic("/topics/auser" + gameid)
+                            FirebaseMessaging.getInstance().subscribeToTopic("/topics/agame" + gameid)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
@@ -174,7 +174,7 @@ public class GameInfoActivity extends AppCompatActivity {
                                         }
                                     });
                             SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
-                            String token = sharedPref.getString("token", "null");
+                            String token = sharedPref.getString("userid", "null");
                             FirebaseMessaging.getInstance().subscribeToTopic("/topics/auser" + token)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
@@ -197,7 +197,7 @@ public class GameInfoActivity extends AppCompatActivity {
                                         }
                                     });
                             SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
-                            String token = sharedPref.getString("token", "null");
+                            String token = sharedPref.getString("userid", "null");
                             FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/auser" + token)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override

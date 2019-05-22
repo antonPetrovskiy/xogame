@@ -368,6 +368,16 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingTop="17dp"
+                    android:text="@string/activitySetting_rules"
+                    android:textColor="#F08C3C"
+                    android:textSize="14sp" />
+
+                <TextView
                     android:id="@+id/textView13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

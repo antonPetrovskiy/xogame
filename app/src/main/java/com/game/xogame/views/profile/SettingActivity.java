@@ -43,6 +43,7 @@ public class SettingActivity extends AppCompatActivity {
 
     public TextView exit;
     private TextView rules;
+    private TextView support;
     private TextView rateus;
     private LinearLayout load;
 
@@ -82,7 +83,8 @@ public class SettingActivity extends AppCompatActivity {
         back = findViewById(R.id.imageView1);
         load = findViewById(R.id.targetView);
         exit = findViewById(R.id.textView14);
-        rules = findViewById(R.id.textView13);
+        rules = findViewById(R.id.textView16);
+        support = findViewById(R.id.textView13);
         rateus = findViewById(R.id.textView15);
         main = findViewById(R.id.all);
 
@@ -210,10 +212,17 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        rules.setOnClickListener(new View.OnClickListener() {
+        support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/contact-us.php")));
+            }
+        });
+
+        rules.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/Rules.html")));
             }
         });
 

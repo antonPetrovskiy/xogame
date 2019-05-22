@@ -31,6 +31,7 @@ public class GamesModel {
     private String lon;
     private String flag;
     private String limit;
+    private String errorMsg;
     public List<Game> gameList;
     public List<Feed> feedList;
 
@@ -49,7 +50,7 @@ public class GamesModel {
         getGamesTask.execute();
     }
     public interface GetGamesCallback {
-        void onGet();
+        void onGet(String status, String error);
     }
     class GetGamesTask extends AsyncTask<ContentValues, Void, Void> {
 
@@ -68,11 +69,9 @@ public class GamesModel {
                     @Override
                     public void onResponse(Call<GamesCallback> call, Response<GamesCallback> response) {
                         if (response.isSuccessful()) {
-                            Log.i("LOG_gethistory" , "Success(error): " + response.body().getStatus());
-                            if(response.body().getStatus().equals("success")){
-                                gameList = response.body().getGames();
-                                callback.onGet();
-                            }
+                            Log.i("LOG_gethistory" , "Callback: " + response.body().getStatus() + " : " + response.body().getError());
+                            gameList = response.body().getGames();
+                            callback.onGet(response.body().getStatus()+"",response.body().getError()+"");
                         } else {
                             String jObjError = null;
                             try {
@@ -94,6 +93,7 @@ public class GamesModel {
 
             } else {
                 Log.i("LOG_gethistory" , "error internet");
+
             }
             return null;
         }
@@ -230,7 +230,7 @@ public class GamesModel {
         this.limit = limit;
     }
     public interface GetFeedsCallback {
-        void onGet();
+        void onGet(String status, String error);
     }
     class GetFeedsTask extends AsyncTask<ContentValues, Void, Void> {
 
@@ -250,10 +250,9 @@ public class GamesModel {
                     public void onResponse(Call<FeedCallback> call, Response<FeedCallback> response) {
                         if (response.isSuccessful()) {
                             Log.i("LOG_getfeeds" , "Success(error): " + response.body().getStatus());
-                            if(response.body().getStatus().equals("success")){
-                                feedList = response.body().getFeeds();
-                                callback.onGet();
-                            }
+                            feedList = response.body().getFeeds();
+                            callback.onGet(response.body().getStatus()+"",response.body().getError()+"");
+
                         } else {
                             String jObjError = null;
                             try {

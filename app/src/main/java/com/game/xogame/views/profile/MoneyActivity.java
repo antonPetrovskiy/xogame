@@ -1,10 +1,15 @@
 package com.game.xogame.views.profile;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +21,8 @@ import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
 import com.game.xogame.models.UserInfoModel;
 import com.game.xogame.presenters.MoneyPresenter;
+import com.game.xogame.views.game.WinActivity;
+import com.game.xogame.views.main.MainActivity;
 
 public class MoneyActivity extends AppCompatActivity {
     public ApiService api;
@@ -72,7 +79,7 @@ public class MoneyActivity extends AppCompatActivity {
         if (type.equals("phone")) {
             header.setText(getString(R.string.activityMoney_sentMoneyPhone));
             money.setText(count + " ₴");
-            way.setText(getString(R.string.popupImageChooser_phone));
+            way.setText(getString(R.string.activityMyWins_mobile));
             info.setText(phone);
             assert phone != null;
             if(phone.equals(""))
@@ -80,7 +87,7 @@ public class MoneyActivity extends AppCompatActivity {
         } else {
             header.setText(getString(R.string.activityMoney_sentMoneyCard));
             money.setText(count + " ₴");
-            way.setText(getString(R.string.activityMoney_card));
+            way.setText(getString(R.string.activityMyWins_card));
             info.setText(ccard);
             assert ccard != null;
             if(ccard.equals(""))
@@ -97,12 +104,14 @@ public class MoneyActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_UP: // отпускание
                         ok.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
                         presenter.sendMoney(type,gameid);
-                        onBackPressed();
+
                         break;
                 }
                 return true;
             }
         });
+
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +119,26 @@ public class MoneyActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+    }
+
+    public void success(){
+        final MediaPlayer mp = MediaPlayer.create(MoneyActivity.this, R.raw.cash);
+        mp.start();
+        LayoutInflater layoutInflater = LayoutInflater.from(MoneyActivity.this);
+        @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
+        final AlertDialog alertD = new AlertDialog.Builder(MoneyActivity.this).create();
+        TextView tw = promptView.findViewById(R.id.textView1);
+        tw.setText(getString(R.string.activityMoney_success));
+        alertD.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Intent intent = new Intent(MoneyActivity.this, MyWinsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
+        alertD.show();
     }
 
 

@@ -52,6 +52,9 @@ public class Game {
     @SerializedName("siteurl")
     @Expose
     private String siteurl;
+    @SerializedName("rewardstatus")
+    @Expose
+    private String rewardstatus;
 
 
     public String getGameid() {
@@ -116,5 +119,9 @@ public class Game {
 
     public String getSiteurl() {
         return siteurl;
+    }
+
+    public String getRewardstatus() {
+        return rewardstatus;
     }
 }
