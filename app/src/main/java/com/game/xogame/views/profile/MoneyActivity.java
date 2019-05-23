@@ -121,12 +121,14 @@ public class MoneyActivity extends AppCompatActivity {
         });
     }
 
+
+
     public void success(){
         final MediaPlayer mp = MediaPlayer.create(MoneyActivity.this, R.raw.cash);
         mp.start();
         LayoutInflater layoutInflater = LayoutInflater.from(MoneyActivity.this);
         @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
-        final AlertDialog alertD = new AlertDialog.Builder(MoneyActivity.this).create();
+        final AlertDialog alertD = new AlertDialog.Builder(this).create();
         TextView tw = promptView.findViewById(R.id.textView1);
         tw.setText(getString(R.string.activityMoney_success));
         alertD.setOnCancelListener(new DialogInterface.OnCancelListener() {

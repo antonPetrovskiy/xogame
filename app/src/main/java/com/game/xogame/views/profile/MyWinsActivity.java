@@ -120,6 +120,11 @@ public class MyWinsActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        back.performClick();
+    }
+
     @SuppressLint("SetTextI18n")
     public void setList(List<Game> list){
             WinsAdapter adapter = new WinsAdapter(this, list);

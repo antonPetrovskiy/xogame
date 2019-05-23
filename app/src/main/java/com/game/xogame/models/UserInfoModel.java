@@ -598,10 +598,12 @@ public class UserInfoModel {
             String ccard = sharedPref.getString("ccard", "null");
             if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
                 Call<DefaultCallback> call;
-                if(type.equals("phone")){
+                if(type.equals("phone") && phone!=null){
                     call = api.getMoneyPhone(id,gameid,phone);
-                }else{
+                }else if(type.equals("ccard") && ccard!=null){
                     call = api.getMoneyCard(id,gameid,ccard);
+                }else{
+                    return null;
                 }
                 Log.i("LOG_money" , "token: " + id);
                 Log.i("LOG_money" , "gameid: " + gameid);

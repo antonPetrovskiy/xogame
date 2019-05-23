@@ -13,6 +13,8 @@ import com.game.xogame.entity.Feed;
 import com.game.xogame.entity.FeedCallback;
 import com.game.xogame.entity.Game;
 import com.game.xogame.entity.GamesCallback;
+import com.game.xogame.entity.Moderation;
+import com.game.xogame.entity.ModerationCallback;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,9 +33,11 @@ public class GamesModel {
     private String lon;
     private String flag;
     private String limit;
+    private String gameid;
     private String errorMsg;
     public List<Game> gameList;
     public List<Feed> feedList;
+    public List<Moderation> moderateList;
 
     public GamesModel(ApiService a, Context c){
         api = a;
@@ -285,6 +289,67 @@ public class GamesModel {
         }
     }
 
+
+    public void getModeration(String gameid,GamesModel.GetModerationCallback callback) {
+        GamesModel.GetModerationTask getModerationTask = new GamesModel.GetModerationTask(callback);
+        getModerationTask.execute();
+        this.gameid = gameid;
+    }
+    public interface GetModerationCallback {
+        void onGet(String status, String error);
+    }
+    class GetModerationTask extends AsyncTask<ContentValues, Void, Void> {
+
+        private final GamesModel.GetModerationCallback callback;
+
+        GetModerationTask(GamesModel.GetModerationCallback callback) {
+            this.callback = callback;
+        }
+
+        @Override
+        protected Void doInBackground(ContentValues... params) {
+
+            if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
+                Call<ModerationCallback> call = api.getModerated(id,gameid);
+                call.enqueue(new Callback<ModerationCallback>() {
+                    @Override
+                    public void onResponse(Call<ModerationCallback> call, Response<ModerationCallback> response) {
+                        if (response.isSuccessful()) {
+                            Log.i("LOG_getmoderated" , "Success(error): " + response.body().getStatus());
+                            moderateList = response.body().getTasks();
+                            callback.onGet(response.body().getStatus()+"",response.body().getError()+"");
+
+                        } else {
+                            String jObjError = null;
+                            try {
+                                jObjError = response.errorBody().string()+"";
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            Log.i("LOG_getmoderated" , jObjError+" error");
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ModerationCallback> call, Throwable t) {
+                        Log.i("LOG_getmoderated" , t.getMessage()+" fail");
+                    }
+                });
+
+            } else {
+                Log.i("LOG_getmoderated" , "error internet");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+        }
+    }
 
 }
 

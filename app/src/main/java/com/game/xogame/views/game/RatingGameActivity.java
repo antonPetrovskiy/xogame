@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -147,8 +148,11 @@ public class RatingGameActivity extends AppCompatActivity {
     public void setGameViews(Rating game) {
         this.game.setVisibility(View.VISIBLE);
         load.setVisibility(View.GONE);
-        if(game == null)
+
+        if(game == null) {
+            Log.i("LOG_rating" , "Success(error): " + "wtf");
             return;
+        }
         placeholder.setText(game.getCompany().substring(0, 1));
         this.photo.setImageResource(getPlaceholder(game.getCompany()));
         Picasso.with(this).load(game.getLogo() + "").placeholder(getPlaceholder(game.getCompany())).error(getPlaceholder(game.getCompany())).into(this.photo, new com.squareup.picasso.Callback() {

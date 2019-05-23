@@ -11,7 +11,6 @@
     <string name="fragmentGames_refresh">Reload</string>
     <string name="activityGameInfo_tasks">mission`s</string>
     <string name="activityRating_participates">paparazzi`s</string>
-    <string name="dapterFeed_task">Mission</string>
     <string name="activityMyGames_findgames">Find games</string>
     <string name="activityMyGames_dontparticipate">No games history yet</string>
     <string name="popupSettings_savePhoto">Save photo</string>
@@ -87,7 +86,7 @@
     <string name="popupSettings_report">Complain about this post</string>
     <string name="activityConfirmPhone_wrongCode">Wrong code</string>
     <string name="activityRatingHistory_ended">Ended</string>
-    <string name="adapterRating_ended">ended</string>
+    <string name="adapterRating_ended">complited</string>
     <string name="adapterRating_moderation">moderation</string>
     <string name="activityWin_win">You are winner</string>
     <string name="activityWin_later">Later</string>
@@ -99,6 +98,11 @@
     <string name="activityModeration_next">Continue</string>
     <string name="activityModeration_moved">You moved</string>
     <string name="activityModeration_moderation">Moderation</string>
+    <string name="activityWin_first">1st place</string>
+    <string name="activityWin_second">2nd place</string>
+    <string name="activityWin_third">3rd place</string>
+    <string name="activityModeration_place">place</string>
+    <string name="adapterFeed_task">Mission</string>
 
 
 </resources>

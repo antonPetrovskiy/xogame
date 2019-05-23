@@ -122,6 +122,9 @@ public class RatingModel {
                     public void onResponse(Call<RatingCallback> call, Response<RatingCallback> response) {
                         if (response.isSuccessful()) {
                             Log.i("LOG_rating" , "Success(error): " + response.body().getStatus());
+                            Log.i("LOG_rating" , "Success(error): " + response.body().getRating().size());
+                            Log.i("LOG_rating" , "Success(error): " + id);
+                            Log.i("LOG_rating" , "Success(error): " + gameid);
                             if(response.body().getStatus().equals("success")){
                                 if(response.body().getRating().size()!=0) {
                                     ratingGame = response.body().getRating().get(0);

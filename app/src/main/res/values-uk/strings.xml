@@ -77,7 +77,6 @@
     <string name="activityMyWins_card">Кредитна картка</string>
     <string name="activityRating_participates">папарацi</string>
     <string name="activityRating_reward">нагорода</string>
-    <string name="dapterFeed_task">Завдання</string>
     <string name="adapterRating_place">місце</string>
     <string name="popupSettings_report">Поскаржитись на цей пост</string>
     <string name="popupSettings_savePhoto">Зберегти фотографію</string>
@@ -99,6 +98,11 @@
     <string name="activityModeration_moderation">Модерацiя</string>
     <string name="activityModeration_moved">Ви перемiстились</string>
     <string name="activityModeration_next">Продовжити</string>
+    <string name="activityWin_second">Вы зайняли 2-е мiсце</string>
+    <string name="activityWin_third">Вы зайняли 3-е мiсце</string>
+    <string name="activityWin_first">Ви зайняли 1-е мiсце</string>
+    <string name="activityModeration_place">мiсце</string>
+    <string name="adapterFeed_task">Завдання</string>
 
 
 </resources>

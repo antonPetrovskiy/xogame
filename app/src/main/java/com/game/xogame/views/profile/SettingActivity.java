@@ -8,6 +8,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +27,9 @@ import com.game.xogame.api.RetroClient;
 import com.game.xogame.models.UserInfoModel;
 import com.game.xogame.presenters.SettingPresenter;
 import com.game.xogame.views.authentication.LoginActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -186,6 +190,12 @@ public class SettingActivity extends AppCompatActivity {
                         sharedPref.edit().putString("token", "null").commit();
                         sharedPref.edit().putString("lat", "null").commit();
                         sharedPref.edit().putString("lng", "null").commit();
+                        FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/auser" + sharedPref.getString("userid","null"))
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                    }
+                                });
                         Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);

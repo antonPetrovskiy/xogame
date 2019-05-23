@@ -237,7 +237,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
                 break;
         }
 
-        vh.textViewPeople1.setText(item.getFollowers());
+        //vh.textViewPeople1.setText(item.getFollowers()+"");
         Picasso.with(context).load(item.getLogo() + "").placeholder(getPlaceholder(item.getCompany())).error(getPlaceholder(item.getCompany())).into(vh.imageViewCompany1);
 //        Picasso.with(context).load(item.getUserPhotoUrl()+"").placeholder(android.R.color.holo_red_dark).error(android.R.color.holo_red_dark).into(vh.imageViewUser);
 //        Picasso.with(context).load(item.getTaskPhotoUrl()+"").placeholder(R.drawable.unknow).error(R.drawable.unknow).into(vh.imageViewPhoto);

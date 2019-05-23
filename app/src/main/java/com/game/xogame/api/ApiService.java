@@ -3,6 +3,7 @@ package com.game.xogame.api;
 import com.game.xogame.entity.DefaultCallback;
 import com.game.xogame.entity.FeedCallback;
 import com.game.xogame.entity.GamesCallback;
+import com.game.xogame.entity.ModerationCallback;
 import com.game.xogame.entity.ProfileGamesCallback;
 import com.game.xogame.entity.RatingCallback;
 import com.game.xogame.entity.RegistrationCallback;
@@ -140,4 +141,8 @@ public interface ApiService {
                               @Part("comment") String comment,
                               @Part("taskTime") String tasktime);
 
+    @Multipart
+    @POST("game/moderate/")
+    Call<ModerationCallback> getModerated(@Part("token") String token,
+                                          @Part("gameid") String gameid);
 }

@@ -206,25 +206,9 @@ public class FragmentGames extends Fragment {
                             }
                         });
                 SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
-                String token = sharedPref.getString("userid", "null");
-                FirebaseMessaging.getInstance().subscribeToTopic("/topics/auser" + token)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Log.i("LOG_subscribe" , item.getGameid()+" +");
-                            }
-                        });
+
             }else{
                 FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/agame" + item.getGameid())
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Log.i("LOG_subscribe" , item.getGameid()+" -");
-                            }
-                        });
-                SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
-                String token = sharedPref.getString("userid", "null");
-                FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/auser" + token)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {

@@ -11,7 +11,6 @@
     <string name="fragmentGames_refresh">Обновить</string>
     <string name="activityGameInfo_tasks">заданий</string>
     <string name="activityRating_participates">папарацци</string>
-    <string name="dapterFeed_task">Задание</string>
     <string name="activityMyGames_findgames">Найти игры</string>
     <string name="activityMyGames_dontparticipate">Пока нет истории игр</string>
     <string name="popupSettings_savePhoto">Сохранить фотографию</string>
@@ -99,6 +98,11 @@
     <string name="activityModeration_moderation">Модерация</string>
     <string name="activityModeration_moved">Вы переместились</string>
     <string name="activityModeration_next">Продолжить</string>
+    <string name="activityWin_first">Вы заняли 1-е место</string>
+    <string name="activityWin_second">Вы заняли 2-е место</string>
+    <string name="activityWin_third">Вы заняли 3-е место</string>
+    <string name="activityModeration_place">место</string>
+    <string name="adapterFeed_task">Задание</string>
 
 
 </resources>

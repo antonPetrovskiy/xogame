@@ -9,11 +9,15 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.game.xogame.api.ApiService;
 import com.game.xogame.entity.RegistrationCallback;
 import com.game.xogame.presenters.LoginPresenter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -158,6 +162,12 @@ public class LoginModel {
                                     sharedPref.edit().putString("token", id).commit();
                                     sharedPref.edit().putString("phone", number).commit();
                                     sharedPref.edit().putString("userid", response.body().getUserid()).commit();
+                                    FirebaseMessaging.getInstance().subscribeToTopic("/topics/auser" + response.body().getUserid())
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                }
+                                            });
                                 }
                             }
 
@@ -252,6 +262,12 @@ public class LoginModel {
                                 SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
                                 sharedPref.edit().putString("token", id).commit();
                                 sharedPref.edit().putString("userid", response.body().getUserid()).commit();
+                                FirebaseMessaging.getInstance().subscribeToTopic("/topics/auser" + response.body().getUserid())
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                            }
+                                        });
                                 callback.onEdit();
                             }else{
                                 callback.onEdit();

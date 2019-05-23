@@ -1,5 +1,6 @@
 package com.game.xogame.views.game;
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -14,13 +15,17 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.game.xogame.R;
 import com.game.xogame.views.main.MainActivity;
 import com.game.xogame.views.profile.MoneyActivity;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+
 public class WinActivity extends AppCompatActivity {
 
+    private TextView header;
     private TextView company;
     private TextView title;
     private TextView nickname;
@@ -30,6 +35,7 @@ public class WinActivity extends AppCompatActivity {
     private ProgressBar progress;
     private TextView toMobile;
     private TextView toCard;
+    private LottieAnimationView anim;
 
     private Button ok;
     private TextView money;
@@ -46,6 +52,19 @@ public class WinActivity extends AppCompatActivity {
 
         init();
 
+        switch (extras.getString("POSITION")) {
+            case "1":
+                header.setText(getString(R.string.activityWin_first));
+                break;
+            case "2":
+                header.setText(getString(R.string.activityWin_second));
+                break;
+            case "3":
+                header.setText(getString(R.string.activityWin_third));
+                break;
+        }
+
+
         company.setText(extras.getString("COMPANY"));
         title.setText(extras.getString("TITLE"));
         nickname.setText(extras.getString("NICKNAME"));
@@ -57,13 +76,50 @@ public class WinActivity extends AppCompatActivity {
         int n = 1000/Integer.parseInt(extras.getString("TASKS"));
         n*= Integer.parseInt(extras.getString("NUMBERTASK"));
         progress.setProgress(n);
+        anim = findViewById(R.id.animation);
+        switch (extras.getString("POSITION")) {
+            case "1":
+                anim.setAnimation("win1.json");
+                break;
+            case "2":
+                anim.setAnimation("win2.json");
+                break;
+            case "3":
+                anim.setAnimation("win3.json");
+                break;
+        }
+
+        anim.playAnimation();
+
+        anim.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                anim.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
     }
 
     @SuppressLint("ClickableViewAccessibility")
     public void init(){
-        final MediaPlayer mp = MediaPlayer.create(this, R.raw.win);
-        mp.start();
+
+
         company = findViewById(R.id.textView01);
+        header = findViewById(R.id.textView1);
         title = findViewById(R.id.textView02);
         nickname = findViewById(R.id.textView11);
         task = findViewById(R.id.textView14);
@@ -117,6 +173,8 @@ public class WinActivity extends AppCompatActivity {
                 return true;
             }
         });
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.win);
+        mp.start();
     }
 
     @Override
