@@ -84,7 +84,7 @@ public class MoneyActivity extends AppCompatActivity {
             assert phone != null;
             if(phone.equals(""))
                 ok.setEnabled(false);
-        } else {
+        } else if (type.equals("ccard")){
             header.setText(getString(R.string.activityMoney_sentMoneyCard));
             money.setText(count + " ₴");
             way.setText(getString(R.string.activityMyWins_card));
@@ -131,6 +131,7 @@ public class MoneyActivity extends AppCompatActivity {
         final AlertDialog alertD = new AlertDialog.Builder(this).create();
         TextView tw = promptView.findViewById(R.id.textView1);
         tw.setText(getString(R.string.activityMoney_success));
+        alertD.setView(promptView);
         alertD.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {

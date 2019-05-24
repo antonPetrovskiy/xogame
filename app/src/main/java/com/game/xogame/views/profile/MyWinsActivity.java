@@ -69,6 +69,7 @@ public class MyWinsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MyWinsActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("page","2");
                 startActivity(intent);
                 finish();
             }
@@ -105,7 +106,7 @@ public class MyWinsActivity extends AppCompatActivity {
                     btnAdd2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             Intent intent = new Intent(MyWinsActivity.this, MoneyActivity.class);
-                            intent.putExtra("type", "card");
+                            intent.putExtra("type", "ccard");
                             intent.putExtra("gameid", presenter.getWinsList().get(i).getGameid());
                             intent.putExtra("money", presenter.getWinsList().get(i).getReward());
                             startActivity(intent);

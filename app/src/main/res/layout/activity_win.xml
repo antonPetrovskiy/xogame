@@ -27,7 +27,7 @@
                 android:text="@string/activityWin_win"
                 android:textAlignment="center"
                 android:textColor="#2F3542"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
 
         <ImageView
             android:id="@+id/imageView12"
@@ -87,7 +87,7 @@
                     android:gravity="center_vertical"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
             </android.support.v7.widget.CardView>
 
             <LinearLayout
@@ -110,7 +110,7 @@
                         android:fontFamily="@font/roboto_medium"
                         android:gravity="center_vertical"
                         android:textColor="#2F3542"
-                        android:textSize="12sp"
+                        android:textSize="12dp"
                         tools:text="TextView" />
 
                     <TextView
@@ -124,7 +124,7 @@
                         android:text="@string/activityRatingHistory_ended"
                         android:textAlignment="viewEnd"
                         android:textColor="#2F3542"
-                        android:textSize="12sp" />
+                        android:textSize="12dp" />
 
                 </LinearLayout>
 
@@ -137,7 +137,7 @@
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:textColor="#57606F"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     tools:text="TextView" />
 
 
@@ -185,7 +185,7 @@
                 android:gravity="center_vertical"
                 android:textAlignment="center"
                 android:textColor="#ffffff"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
         </android.support.v7.widget.CardView>
 
         <TextView
@@ -196,7 +196,7 @@
             android:fontFamily="@font/roboto_regular"
             android:gravity="center_horizontal"
             android:textColor="#2F3542"
-            android:textSize="14sp"
+            android:textSize="14dp"
             tools:ignore="NestedWeights"
             tools:text="TextView" />
 
@@ -234,8 +234,8 @@
                 android:gravity="end"
                 android:textAlignment="viewEnd"
                 android:textColor="#80586575"
-                android:textSize="10sp"
-                tools:ignore="SmallSp"
+                android:textSize="10dp"
+                tools:ignore="Smalldp"
                 tools:text="19/20" />
 
         </LinearLayout>
@@ -272,7 +272,7 @@
             android:layout_marginTop="8dp"
             android:textAlignment="center"
             android:textColor="#F05A23"
-            android:textSize="16sp"
+            android:textSize="16dp"
             tools:text="3000 грн" />
 
         <TextView
@@ -285,7 +285,7 @@
             android:background="@drawable/bggradient"
             android:gravity="center_vertical"
             android:textColor="#586575"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:text="@string/activityMyWins_sent" />
         <TextView
             android:id="@+id/textView16"
@@ -296,7 +296,7 @@
             android:background="@drawable/bggradient"
             android:gravity="center_vertical"
             android:textColor="#586575"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:text="@string/activityMyWins_mobile" />
         <TextView
             android:id="@+id/textView15"
@@ -307,7 +307,7 @@
             android:background="@drawable/bggradient"
             android:gravity="center_vertical"
             android:textColor="#586575"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:text="@string/activityMyWins_card" />
 
 
@@ -327,7 +327,7 @@
         android:textColor="#ffffff"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

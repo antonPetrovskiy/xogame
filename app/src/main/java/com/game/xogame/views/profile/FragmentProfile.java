@@ -246,7 +246,7 @@ public class FragmentProfile extends Fragment {
                         break;
                     case MotionEvent.ACTION_UP: // отпускание
                         find.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
-                        MainActivity.mViewPager.setCurrentItem(0);
+                        MainActivity.button4.performClick();
                         break;
                 }
                 return true;

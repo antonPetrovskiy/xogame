@@ -56,7 +56,7 @@
     <string name="activityInfo_nickname">Будь ласка, введіть ім\'я користувача</string>
     <string name="activityConfirmPhone_resent">Повторна відправка</string>
     <string name="txt_active">активно</string>
-    <string name="activityPlay_addHashtag">ваш коментар до фото</string>
+    <string name="activityPlay_addHashtag">#ваш коментар до фото</string>
     <string name="activityMoney_sentMoneyOn">Перевести гроші на</string>
     <string name="fragmentGames_search">пошук</string>
     <string name="activityMyWins_dontWin">У вас пока намає виграшів. Продовжуйте грати</string>
@@ -86,7 +86,7 @@
     <string name="activityInfo_term">Ваша подальша реєстраця означає, що ви прийняли на себе вiдповiдальнiсть за безумовне дотримання даної згоди</string>
     <string name="activityConfirmPhone_wrongCode">Невiрний код</string>
     <string name="activityRatingHistory_ended">Завершено</string>
-    <string name="adapterRating_ended">завершено</string>
+    <string name="adapterRating_ended">Завершено</string>
     <string name="adapterRating_moderation">модерацiя</string>
     <string name="activityWin_win">Ви переможець</string>
     <string name="activityWin_later">Пiзнiше</string>
@@ -103,6 +103,9 @@
     <string name="activityWin_first">Ви зайняли 1-е мiсце</string>
     <string name="activityModeration_place">мiсце</string>
     <string name="adapterFeed_task">Завдання</string>
+    <string name="activitySetting_wrongcard">Невiрний формат карти</string>
+    <string name="phoneNumber">Номер телефону</string>
+    <string name="fragmentGames_nogames">Для Вашого регiона немає доступних iгор</string>
 
 
 </resources>

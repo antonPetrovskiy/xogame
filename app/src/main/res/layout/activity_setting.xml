@@ -60,7 +60,7 @@
                     android:text="@string/activitySetting_settings"
                     android:textAlignment="center"
                     android:textColor="#2F3542"
-                    android:textSize="16sp" />
+                    android:textSize="16dp" />
 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -105,7 +105,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:text="@string/activitySetting_yourName"
                     android:textColor="#586575"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <EditText
                     android:id="@+id/editText1"
@@ -118,7 +118,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:inputType="textPersonName"
                     android:textColor="#2F3542"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     tools:ignore="Autofill,LabelFor" />
 
                 <TextView
@@ -130,7 +130,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:text="@string/activitySetting_aboutMyself"
                     android:textColor="#586575"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     android:visibility="gone" />
 
                 <EditText
@@ -146,7 +146,7 @@
                     android:inputType="textPersonName"
                     android:textColor="#2F3542"
                     android:textColorHint="#586575"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:visibility="gone"
                     tools:ignore="Autofill,LabelFor" />
 
@@ -159,7 +159,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:text="@string/activitySetting_gender"
                     android:textColor="#586575"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <EditText
                     android:id="@+id/editText3"
@@ -174,7 +174,7 @@
                     android:inputType="textPersonName"
                     android:textColor="#2F3542"
                     android:textColorHint="#586575"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     tools:ignore="Autofill,LabelFor" />
 
                 <TextView
@@ -186,7 +186,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:text="@string/activitySetting_birthday"
                     android:textColor="#586575"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <EditText
                     android:id="@+id/editText4"
@@ -201,7 +201,7 @@
                     android:inputType="textPersonName"
                     android:textColor="#2F3542"
                     android:textColorHint="#586575"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     tools:ignore="Autofill,LabelFor" />
 
                 <ImageView
@@ -221,7 +221,7 @@
                     android:fontFamily="@font/roboto_medium"
                     android:text="@string/activitySetting_contactInformation"
                     android:textColor="#2F3542"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/textView25"
@@ -232,7 +232,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:text="@string/activitySetting_mail"
                     android:textColor="#586575"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <EditText
                     android:id="@+id/editText5"
@@ -246,7 +246,7 @@
                     android:inputType="textPersonName"
                     android:textColor="#2F3542"
                     android:textColorHint="#586575"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     tools:ignore="Autofill,LabelFor" />
 
                 <TextView
@@ -258,7 +258,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:text="@string/activitySetting_country"
                     android:textColor="#586575"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <EditText
                     android:id="@+id/editText6"
@@ -272,7 +272,7 @@
                     android:inputType="textPersonName"
                     android:textColor="#2F3542"
                     android:textColorHint="#586575"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     tools:ignore="Autofill,LabelFor" />
 
                 <TextView
@@ -284,7 +284,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:text="@string/activitySetting_city"
                     android:textColor="#586575"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <EditText
                     android:id="@+id/editText7"
@@ -298,7 +298,7 @@
                     android:inputType="textPersonName"
                     android:textColor="#2F3542"
                     android:textColorHint="#586575"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     tools:ignore="Autofill,LabelFor" />
 
                 <ImageView
@@ -318,7 +318,7 @@
                     android:fontFamily="@font/roboto_medium"
                     android:text="@string/activitySetting_card"
                     android:textColor="#2F3542"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -329,7 +329,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:text="@string/activitySetting_cardNumber"
                     android:textColor="#586575"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <EditText
                     android:id="@+id/editText8"
@@ -343,7 +343,7 @@
                     android:inputType="numberDecimal"
                     android:textColor="#2F3542"
                     android:textColorHint="#586575"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
 
                     tools:ignore="Autofill,LabelFor" />
 
@@ -365,7 +365,7 @@
                     android:paddingTop="17dp"
                     android:text="@string/activitySetting_rate"
                     android:textColor="#F08C3C"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/textView16"
@@ -375,7 +375,7 @@
                     android:paddingTop="17dp"
                     android:text="@string/activitySetting_rules"
                     android:textColor="#F08C3C"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/textView13"
@@ -385,7 +385,7 @@
                     android:paddingTop="17dp"
                     android:text="@string/activitySetting_support"
                     android:textColor="#F08C3C"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/textView14"
@@ -396,7 +396,7 @@
                     android:paddingBottom="17dp"
                     android:text="@string/activitySetting_exit"
                     android:textColor="#F08C3C"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
 
             </LinearLayout>
 

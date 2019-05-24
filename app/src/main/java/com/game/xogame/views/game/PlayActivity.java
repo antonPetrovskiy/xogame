@@ -225,6 +225,7 @@ public class PlayActivity extends AppCompatActivity {
             public void onCancel(DialogInterface dialog) {
                 Intent intent = new Intent(PlayActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("page","1");
                 startActivity(intent);
                 finish();
             }
@@ -234,6 +235,7 @@ public class PlayActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PlayActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("page","1");
                 startActivity(intent);
                 finish();
             }
@@ -250,13 +252,13 @@ public class PlayActivity extends AppCompatActivity {
         @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_taskdone, null);
         final AlertDialog alertD = new AlertDialog.Builder(this).create();
         ImageView image = promptView.findViewById(R.id.imageView);
-        TextView title = promptView.findViewById(R.id.textView1);
+        TextView title1 = promptView.findViewById(R.id.textView1);
         TextView time = promptView.findViewById(R.id.textView2);
         TextView position = promptView.findViewById(R.id.textView3);
         TextView task = promptView.findViewById(R.id.textView4);
-        TextView company = promptView.findViewById(R.id.textView5);
-        title.setText(title.getText() + "");
-        company.setText(company.getText() + "");
+        TextView company1 = promptView.findViewById(R.id.textView5);
+        title1.setText(title.getText() + "");
+        company1.setText(company.getText() + "");
         position.setText(position_str+" " + getString(R.string.adapterRating_place));
         task.setText(number.getText().toString());
         long minutes = Long.parseLong(done) / (1000 * 60);
@@ -274,6 +276,7 @@ public class PlayActivity extends AppCompatActivity {
             public void onCancel(DialogInterface dialog) {
                 Intent intent = new Intent(PlayActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("page","1");
                 startActivity(intent);
                 finish();
             }
@@ -283,6 +286,7 @@ public class PlayActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PlayActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("page","1");
                 startActivity(intent);
                 finish();
             }

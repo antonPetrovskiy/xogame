@@ -60,6 +60,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
+
                 android:textColor="#9FA5AD"
                 android:textColorHint="#9FA5AD"
                 android:background="@null"
@@ -185,7 +186,7 @@
             android:text="@string/fragmentGames_location"
             android:textAlignment="center"
             android:textColor="#80586575"
-            android:textSize="16sp" />
+            android:textSize="16dp" />
 
         <Button
             android:id="@+id/refresh"
@@ -199,7 +200,7 @@
             android:layout_marginRight="35dp"
             android:text="@string/fragmentGames_refresh"
             android:textColor="#ffffff"
-            android:textSize="16sp" />
+            android:textSize="16dp" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

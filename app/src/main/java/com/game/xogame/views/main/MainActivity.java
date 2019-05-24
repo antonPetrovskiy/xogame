@@ -19,6 +19,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
     // than your app can handle
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 1000;
     private static final int REQUEST_CHECK_SETTINGS = 100;
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 10;
     public static SectionsPagerAdapter mSectionsPagerAdapter;
     public static CustomViewPager mViewPager;
     public static String token;
@@ -78,9 +80,9 @@ public class MainActivity extends AppCompatActivity {
     private LottieAnimationView button3;
     private LottieAnimationView button2;
     private LottieAnimationView button1;
-    private ImageView button4;
-    private ImageView button5;
-    private ImageView button6;
+    public static ImageView button4;
+    public static ImageView button5;
+    public static ImageView button6;
     // location last updated time
 
     // bunch of location related apis
@@ -92,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
     private Location mCurrentLocation;
     private boolean mRequestingLocationUpdates;
 
+    private boolean mLocationPermissionGranted;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,8 +111,14 @@ public class MainActivity extends AppCompatActivity {
         presenter = new MainPresenter(model, modelGames);
         presenter.attachMainView(this);
 
+        String page;
+        if(getIntent().getExtras()!= null && getIntent().getExtras().getString("page")!=null && !getIntent().getExtras().getString("page").equals("")) {
+            page = getIntent().getExtras().getString("page");
+        }else{
+            page = "0";
+        }
 
-        init();
+        init(page);
         initCoord();
 
 
@@ -141,25 +150,30 @@ public class MainActivity extends AppCompatActivity {
         Dexter.withActivity(this)
                 .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                 .withListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                                  @Override
+                                  public void onPermissionGranted(PermissionGrantedResponse response) {
 
-                    }
+                                  }
 
-                    @Override
-                    public void onPermissionDenied(PermissionDeniedResponse response) {
-                        if (response.isPermanentlyDenied()) {
-                            // open device settings when the permission is
-                            // denied permanently
-                            openSettings();
-                        }
-                    }
+                                  @Override
+                                  public void onPermissionDenied(PermissionDeniedResponse response) {
+                                      if (response.isPermanentlyDenied()) {
+                                          // open device settings when the permission is
+                                          // denied permanently
+                                          Dexter.withActivity(MainActivity.this)
+                                                  .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
 
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-                        token.continuePermissionRequest();
-                    }
-                }).check();
+                                      }
+                                  }
+
+                                  @Override
+                                  public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+
+                                  }
+                              });
+
+
+
 
         Dexter.withActivity(this)
                 .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -184,21 +198,31 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).check();
 
+        while(!mLocationPermissionGranted) {
+            if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                mLocationPermissionGranted = true;
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+            }
+        }
+
     }
 
 
     @SuppressLint("ClickableViewAccessibility")
-    public void init() {
+    public void init(String page) {
         button1 = findViewById(R.id.imageView1);
         button2 = findViewById(R.id.imageView2);
         button3 = findViewById(R.id.imageView3);
         button4 = findViewById(R.id.imageView7);
         button5 = findViewById(R.id.imageView8);
         button6 = findViewById(R.id.imageView6);
-        button4.setColorFilter(Color.parseColor("#ffffff"));
-        button1.setAnimation("hide_right.json");
-        button1.setSpeed(-6f);
-        button1.playAnimation();
+
+
 
 
         button4.setOnClickListener(new View.OnClickListener() {
@@ -209,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
                     fragment.update();
                 }
                 if (currentItem == 2) {
+                    button1.setAnimation("hide_right.json");
                     button2.setAnimation("hide_left.json");
                     button2.setSpeed(6f);
                     button2.playAnimation();
@@ -217,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (currentItem == 3) {
                     button3.setAnimation("hide_left.json");
+                    button1.setAnimation("hide_right.json");
                     button3.setSpeed(6f);
                     button3.playAnimation();
                     button1.setSpeed(-6f);
@@ -234,6 +260,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (currentItem == 1) {
                     button1.setSpeed(6f);
+                    button1.setAnimation("hide_right.json");
                     button1.playAnimation();
                     button2.setAnimation("hide_left.json");
                     button2.setSpeed(-6f);
@@ -245,6 +272,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (currentItem == 3) {
                     button3.setSpeed(6f);
+                    button3.setAnimation("hide_left.json");
                     button3.playAnimation();
                     button2.setAnimation("hide_right.json");
                     button2.setSpeed(-6f);
@@ -276,6 +304,10 @@ public class MainActivity extends AppCompatActivity {
                     button3.setSpeed(-6f);
                     button3.playAnimation();
                 }
+                if (currentItem == 3) {
+                    FragmentProfile fragment = (FragmentProfile) mSectionsPagerAdapter.getItem(2);
+                    fragment.update();
+                }
 
                 button6.setColorFilter(Color.parseColor("#ffffff"));
                 button4.setColorFilter(Color.parseColor("#9EA4AC"));
@@ -302,8 +334,31 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(4);
-        mViewPager.setCurrentItem(0);
+        mViewPager.setCurrentItem(Integer.parseInt(page));
 
+        switch (page) {
+            case "0":
+                button4.setColorFilter(Color.parseColor("#ffffff"));
+                button1.setAnimation("hide_right.json");
+                button1.setSpeed(-6f);
+                button1.playAnimation();
+                currentItem = 1;
+                break;
+            case "1":
+                button5.setColorFilter(Color.parseColor("#ffffff"));
+                button2.setAnimation("hide_right.json");
+                button2.setSpeed(-6f);
+                button2.playAnimation();
+                currentItem = 2;
+                break;
+            case "2":
+                button6.setColorFilter(Color.parseColor("#ffffff"));
+                button3.setAnimation("hide_right.json");
+                button3.setSpeed(-6f);
+                button3.playAnimation();
+                currentItem = 3;
+                break;
+        }
         //presenter.showUserInfo();
     }
 
@@ -497,6 +552,26 @@ public class MainActivity extends AppCompatActivity {
         int permissionState = ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION);
         return permissionState == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        mLocationPermissionGranted = false;
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mLocationPermissionGranted = true;
+                }else{
+                    mLocationPermissionGranted = true;
+
+                }
+            }
+            break;
+        }
     }
 
     @Override

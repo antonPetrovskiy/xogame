@@ -231,6 +231,12 @@ public class FragmentGames extends Fragment {
             adapter.notifyDataSetChanged();
         }
 
+        if(list == null || list.size()==0){
+            empty.setVisibility(View.VISIBLE);
+            refresh.setVisibility(View.GONE);
+            error.setText(getString(R.string.fragmentGames_nogames));
+        }
+
         load.setVisibility(View.GONE);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

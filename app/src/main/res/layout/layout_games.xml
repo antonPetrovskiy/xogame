@@ -48,7 +48,7 @@
                 android:layout_height="50dp"
                 android:fontFamily="@font/roboto_bold"
                 android:gravity="center_vertical"
-                android:textSize="18sp"
+                android:textSize="18dp"
                 android:textAlignment="center"
                 android:textColor="#ffffff"/>
 
@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 android:textColor="#2F3542"
                 android:fontFamily="@font/roboto_medium" />
 
@@ -76,7 +76,7 @@
                 android:gravity="top"
                 android:fontFamily="@font/roboto_regular"
                 android:textColor="#57606F"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/name3"
@@ -86,8 +86,8 @@
                 android:fontFamily="@font/roboto_regular"
                 android:maxLines="1"
                 android:textColor="#9EA4AC"
-                android:textSize="10sp"
-                tools:ignore="SmallSp" />
+                android:textSize="10dp"
+                tools:ignore="Smalldp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -134,7 +134,7 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:textColor="#57606F"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 tools:ignore="NestedWeights" />
 
             <TextView
@@ -147,7 +147,7 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:textColor="#57606F"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/name6"
@@ -159,7 +159,7 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:textColor="#57606F"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
 
         </LinearLayout>
 

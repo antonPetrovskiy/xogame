@@ -33,7 +33,7 @@
                 tools:text="Burger KING"
                 android:textAlignment="center"
                 android:textColor="#2F3542"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
 
 
         </LinearLayout>
@@ -59,7 +59,7 @@
         android:fontFamily="@font/roboto_regular"
         android:textAlignment="center"
         android:textColor="#2F3542"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
@@ -104,7 +104,7 @@
         android:gravity="center_vertical"
         android:textAlignment="center"
         android:textColor="#F05A23"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card"
@@ -122,7 +122,7 @@
         android:textAlignment="center"
         android:fontFamily="@font/roboto_bold"
         android:textColor="#80586575"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
@@ -138,7 +138,7 @@
         android:fontFamily="@font/roboto_regular"
         android:textAlignment="center"
         android:textColor="#586575"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
@@ -221,7 +221,7 @@
             android:gravity="center_vertical"
             android:textAlignment="center"
             android:textColor="#F05A23"
-            android:textSize="16sp"
+            android:textSize="16dp"
             tools:text="00:00:60" />
 
         <EditText
@@ -234,8 +234,10 @@
             android:layout_marginRight="11dp"
             android:backgroundTint="#586575"
             android:ems="10"
+            android:inputType="textMultiLine"
+            android:maxLines="20"
+            android:background="@null"
             android:hint="@string/activityPlay_addHashtag"
-            android:inputType="textPersonName"
             android:textColor="#586575"
             android:textColorHint="#586575"
             tools:ignore="Autofill" />
@@ -251,7 +253,7 @@
             android:fontFamily="@font/roboto_regular"
             android:text="@string/activityReport_push"
             android:textColor="#ffffff"
-            android:textSize="16sp" />
+            android:textSize="16dp" />
 
     </RelativeLayout>
 

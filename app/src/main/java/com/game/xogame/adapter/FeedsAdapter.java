@@ -245,11 +245,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
 
         if (item.getTop().size() > 0) {
             vh.top1Layout.setVisibility(View.VISIBLE);
-            if (item.getTop().get(0).getName().length() != 0) {
-                vh.placeholder1.setText(item.getTop().get(0).getName().substring(0, 1).toUpperCase());
-            } else {
-                vh.placeholder1.setText("А");
-            }
+            vh.placeholder1.setText(item.getTop().get(0).getNickname().substring(0, 1).toUpperCase());
             vh.photo1.setImageResource(getPlaceholder(item.getTop().get(0).getNickname()));
             Picasso.with(context).load(item.getTop().get(0).getPhoto() + "").placeholder(getPlaceholder(item.getTop().get(0).getNickname())).error(getPlaceholder(item.getTop().get(0).getNickname())).into(vh.photo1, new com.squareup.picasso.Callback() {
                 @Override
@@ -297,11 +293,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
 
         if (item.getTop().size() > 1) {
             vh.top2Layout.setVisibility(View.VISIBLE);
-            if (item.getTop().get(1).getName().length() != 0) {
-                vh.placeholder2.setText(item.getTop().get(1).getName().substring(0, 1));
-            } else {
-                vh.placeholder2.setText("А");
-            }
+            vh.placeholder2.setText(item.getTop().get(1).getNickname().substring(0, 1));
             vh.photo2.setImageResource(getPlaceholder(item.getTop().get(1).getNickname()));
             Picasso.with(context).load(item.getTop().get(1).getPhoto() + "").placeholder(getPlaceholder(item.getTop().get(1).getNickname())).error(getPlaceholder(item.getTop().get(1).getNickname())).into(vh.photo2, new com.squareup.picasso.Callback() {
                 @Override
@@ -351,11 +343,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
 
         if (item.getTop().size() > 2) {
             vh.top3Layout.setVisibility(View.VISIBLE);
-            if (item.getTop().get(2).getName().length() != 0) {
-                vh.placeholder3.setText(item.getTop().get(2).getName().substring(0, 1).toUpperCase());
-            } else {
-                vh.placeholder3.setText("А");
-            }
+            vh.placeholder3.setText(item.getTop().get(2).getNickname().substring(0, 1).toUpperCase());
             vh.photo3.setImageResource(getPlaceholder(item.getTop().get(2).getNickname()));
             Picasso.with(context).load(item.getTop().get(2).getPhoto() + "").placeholder(getPlaceholder(item.getTop().get(2).getNickname())).error(getPlaceholder(item.getTop().get(2).getNickname())).into(vh.photo3, new com.squareup.picasso.Callback() {
                 @Override
@@ -405,11 +393,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
 
         if (item.getTop().size() > 3) {
             vh.top4Layout.setVisibility(View.VISIBLE);
-            if (item.getTop().get(3).getName().length() != 0) {
-                vh.placeholder4.setText(item.getTop().get(3).getName().substring(0, 1));
-            } else {
-                vh.placeholder4.setText("А");
-            }
+            vh.placeholder4.setText(item.getTop().get(3).getNickname().substring(0, 1));
             vh.photo4.setImageResource(getPlaceholder(item.getTop().get(3).getNickname()));
             Picasso.with(context).load(item.getTop().get(3).getPhoto() + "").placeholder(getPlaceholder(item.getTop().get(3).getNickname())).error(getPlaceholder(item.getTop().get(3).getNickname())).into(vh.photo4, new com.squareup.picasso.Callback() {
                 @Override

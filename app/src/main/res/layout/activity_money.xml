@@ -41,7 +41,7 @@
             android:text="@string/activityMoney_sentMoneyOn"
             android:textAlignment="center"
             android:textColor="#2F3542"
-            android:textSize="16sp" />
+            android:textSize="16dp" />
 
     </LinearLayout>
 
@@ -86,7 +86,7 @@
             tools:text="3000 грн"
             android:textAlignment="center"
             android:textColor="#F05A23"
-            android:textSize="16sp" />
+            android:textSize="16dp" />
 
         <ImageView
             android:id="@+id/imageView4"
@@ -118,7 +118,7 @@
             android:fontFamily="@font/roboto_light"
             tools:text="TextView"
             android:textColor="#586575"
-            android:textSize="14sp" />
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/textView4"
@@ -130,7 +130,7 @@
             android:fontFamily="@font/roboto_medium"
             tools:text="TextView"
             android:textColor="#2F3542"
-            android:textSize="14sp" />
+            android:textSize="14dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -161,7 +161,7 @@
             android:fontFamily="@font/roboto_regular"
             android:text="@string/activityMoney_confirm"
             android:textColor="#ffffff"
-            android:textSize="16sp"
+            android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"

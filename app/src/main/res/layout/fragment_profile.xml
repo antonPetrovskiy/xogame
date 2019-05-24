@@ -28,7 +28,7 @@
             android:gravity="center_vertical"
             android:textColor="#2F3542"
             android:maxLines="1"
-            android:textSize="16sp" />
+            android:textSize="16dp" />
 
         <ImageView
             android:id="@+id/imageView1"
@@ -50,7 +50,7 @@
             android:fontFamily="@font/roboto_regular"
             android:textAlignment="center"
             android:textColor="#586575"
-            android:textSize="14sp" />
+            android:textSize="14dp" />
 
 
         <RelativeLayout
@@ -165,7 +165,7 @@
                 android:gravity="center_horizontal"
                 android:text="@string/activityMyWins_myWins"
                 android:textColor="#F08C3C"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
         </LinearLayout>
 
         <ImageView
@@ -230,7 +230,7 @@
                     android:visibility="gone"
                     android:textAlignment="center"
                     android:textColor="#586575"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <ListView
                     android:id="@+id/list1"
@@ -256,7 +256,7 @@
                     android:visibility="gone"
                     android:textAlignment="center"
                     android:textColor="#586575"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <ListView
                     android:id="@+id/list2"
@@ -334,7 +334,7 @@
             android:text="@string/activityMyGames_dontparticipate"
             android:textAlignment="center"
             android:textColor="#80586575"
-            android:textSize="16sp" />
+            android:textSize="16dp" />
 
         <Button
             android:id="@+id/imageButton"
@@ -348,7 +348,7 @@
             android:fontFamily="@font/roboto_regular"
             android:text="@string/activityMyGames_findgames"
             android:textColor="#ffffff"
-            android:textSize="16sp" />
+            android:textSize="16dp" />
     </RelativeLayout>
 
 

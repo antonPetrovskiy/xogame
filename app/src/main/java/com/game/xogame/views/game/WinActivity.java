@@ -74,7 +74,7 @@ public class WinActivity extends AppCompatActivity {
         Picasso.with(this).load(extras.getString("LOGO")).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(logo);
         Picasso.with(this).load(extras.getString("PHOTO")).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(photo);
         int n = 1000/Integer.parseInt(extras.getString("TASKS"));
-        n*= Integer.parseInt(extras.getString("NUMBERTASK"));
+        n*= Integer.parseInt(extras.getString("NUMBERTASK")+"");
         progress.setProgress(n);
         anim = findViewById(R.id.animation);
         switch (extras.getString("POSITION")) {
@@ -148,7 +148,7 @@ public class WinActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(WinActivity.this, MoneyActivity.class);
-                intent.putExtra("type", "card");
+                intent.putExtra("type", "ccard");
                 intent.putExtra("gameid", gameid);
                 intent.putExtra("money", money.getText()+"");
                 startActivity(intent);
@@ -166,6 +166,7 @@ public class WinActivity extends AppCompatActivity {
                         ok.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
                         Intent intent = new Intent(WinActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("page","1");
                         startActivity(intent);
                         finish();
                         break;

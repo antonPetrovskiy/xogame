@@ -2,6 +2,7 @@ package com.game.xogame.views.profile;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -95,8 +96,13 @@ public class SettingActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.editInfo();
-                getLoadView().setVisibility(View.VISIBLE);
+                if(card.getText().toString().length()!=16){
+                    error(getString(R.string.activitySetting_wrongcard));
+                }else{
+                    presenter.editInfo();
+                    getLoadView().setVisibility(View.VISIBLE);
+                }
+
             }
         });
 
@@ -279,10 +285,6 @@ public class SettingActivity extends AppCompatActivity {
         this.name.setText(name);
     }
 
-//    public void setInfo(String info) {
-//        this.info.setText(info);
-//    }
-
     public void setGender(String gender) {
         this.gender.setText(gender);
     }
@@ -305,5 +307,15 @@ public class SettingActivity extends AppCompatActivity {
 
     public void setCard(String card) {
         this.card.setText(card);
+    }
+
+    public void error(String s){
+        LayoutInflater layoutInflater = LayoutInflater.from(SettingActivity.this);
+        @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
+        final AlertDialog alertD = new AlertDialog.Builder(this).create();
+        TextView tw = promptView.findViewById(R.id.textView1);
+        tw.setText(s);
+        alertD.setView(promptView);
+        alertD.show();
     }
 }

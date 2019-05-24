@@ -45,7 +45,7 @@
     <string name="activitySetting_exit">Sign out</string>
     <string name="popupGenderChooser_man">man</string>
     <string name="popupGenderChooser_woman">woman</string>
-    <string name="activityPlay_addHashtag">your comment to the photo</string>
+    <string name="activityPlay_addHashtag">#your comment to the photo</string>
     <string name="activityRating_rating">Rating</string>
     <string name="activityRating_noActiveGames">No active games</string>
     <string name="adapterRating_place">place</string>
@@ -82,11 +82,11 @@
     <string name="activityRating_noRating">No photo have been taken yet. Be the first one</string>
     <string name="activityRating_findgames">Find games</string>
     <string name="activityMyWins_card">Credit card</string>
-    <string name="activityReport_push">Sent</string>
+    <string name="activityReport_push">Send</string>
     <string name="popupSettings_report">Complain about this post</string>
     <string name="activityConfirmPhone_wrongCode">Wrong code</string>
-    <string name="activityRatingHistory_ended">Ended</string>
-    <string name="adapterRating_ended">complited</string>
+    <string name="activityRatingHistory_ended">Completed</string>
+    <string name="adapterRating_ended">Complited</string>
     <string name="adapterRating_moderation">moderation</string>
     <string name="activityWin_win">You are winner</string>
     <string name="activityWin_later">Later</string>
@@ -103,6 +103,9 @@
     <string name="activityWin_third">3rd place</string>
     <string name="activityModeration_place">place</string>
     <string name="adapterFeed_task">Mission</string>
+    <string name="activitySetting_wrongcard">Wrong card format</string>
+    <string name="phoneNumber">Phone number</string>
+    <string name="fragmentGames_nogames">There are no games available for your region</string>
 
 
 </resources>

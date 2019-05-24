@@ -50,7 +50,7 @@
                 android:text="@string/activityMyGames_history"
                 android:textAlignment="center"
                 android:textColor="#2F3542"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 
@@ -89,7 +89,7 @@
                     android:text="@string/activityMyGames_games"
                     android:textAlignment="center"
                     android:textColor="#586575"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     tools:ignore="NestedWeights" />
 
                 <TextView
@@ -100,7 +100,7 @@
                     android:text="@string/activityMyGames_doneTasks"
                     android:textAlignment="center"
                     android:textColor="#586575"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -117,7 +117,7 @@
                     android:text=""
                     android:textAlignment="center"
                     android:textColor="#ABB2BA"
-                    android:textSize="16sp" />
+                    android:textSize="16dp" />
 
                 <TextView
                     android:id="@+id/textView17"
@@ -127,7 +127,7 @@
                     android:text=""
                     android:textAlignment="center"
                     android:textColor="#ABB2BA"
-                    android:textSize="16sp" />
+                    android:textSize="16dp" />
 
             </LinearLayout>
 
@@ -229,7 +229,7 @@
             android:text="@string/activityMyGames_dontparticipate"
             android:textAlignment="center"
             android:textColor="#80586575"
-            android:textSize="16sp" />
+            android:textSize="16dp" />
 
         <Button
             android:id="@+id/imageButton"
@@ -243,7 +243,7 @@
             android:layout_marginRight="35dp"
             android:text="@string/activityMyGames_findgames"
             android:textColor="#ffffff"
-            android:textSize="16sp" />
+            android:textSize="16dp" />
     </RelativeLayout>
 
 

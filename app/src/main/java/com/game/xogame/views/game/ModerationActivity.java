@@ -77,6 +77,7 @@ public class ModerationActivity extends AppCompatActivity {
                         button.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
                         Intent intent = new Intent(ModerationActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("page","1");
                         startActivity(intent);
                         finish();
                         break;

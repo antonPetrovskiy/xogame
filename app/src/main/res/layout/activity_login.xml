@@ -36,12 +36,48 @@
         android:layout_marginBottom="32dp"
         android:background="@drawable/registration_button_view"
         android:text="@string/activityLogin_continue"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/phoneNumber"
+        android:textSize="12dp"
+        android:textColor="#586575"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout" />
+
+    <EditText
+        android:id="@+id/phone_input1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:clickable="false"
+        android:editable="false"
+        android:enabled="false"
+        android:visibility="visible"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="6dp"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:backgroundTint="#586575"
+        android:inputType="phone"
+        android:singleLine="true"
+        android:textColor="#000000"
+        android:textColorHint="#50000000"
+        tools:ignore="Autofill,LabelFor" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -63,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-
+            app:ccp_showArrow="false"
             app:ccpDialog_keyboardAutoPopup="false"
             app:ccpDialog_showCloseIcon="true"
             app:ccp_autoDetectCountry="true"
@@ -83,6 +119,7 @@
             app:backgroundTint="#586575"
             android:inputType="phone"
             android:singleLine="true"
+            android:background="@null"
             android:textColor="#000000"
             android:textColorHint="#50000000"
             tools:ignore="Autofill,LabelFor" />

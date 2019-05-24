@@ -55,7 +55,7 @@
                     android:gravity="center_vertical"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
             </android.support.v7.widget.CardView>
 
             <LinearLayout
@@ -79,7 +79,7 @@
                         android:fontFamily="@font/roboto_medium"
                         android:gravity="center_vertical"
                         android:textColor="#2F3542"
-                        android:textSize="12sp"
+                        android:textSize="12dp"
                         android:maxLines="1"
                         tools:ignore="NestedWeights"
                         tools:text="TextView" />
@@ -102,7 +102,7 @@
                     android:gravity="center_vertical"
                     android:textColor="#57606F"
                     android:maxLines="1"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     tools:text="TextView" />
 
                 <LinearLayout
@@ -119,8 +119,8 @@
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center_vertical"
                         android:textColor="#9EA4AC"
-                        android:textSize="10sp"
-                        tools:ignore="NestedWeights,SmallSp"
+                        android:textSize="10dp"
+                        tools:ignore="NestedWeights,Smalldp"
                         tools:text="TextView" />
 
                     <TextView
@@ -134,8 +134,8 @@
                         android:text="@string/txt_active"
                         android:textAlignment="viewEnd"
                         android:textColor="#31BB58"
-                        android:textSize="10sp"
-                        tools:ignore="SmallSp" />
+                        android:textSize="10dp"
+                        tools:ignore="Smalldp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -158,7 +158,7 @@
                 android:gravity="center_vertical"
                 android:textAlignment="center"
                 android:textColor="#586575"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 tools:text="TextView" />
 
             <TextView
@@ -170,7 +170,7 @@
                 android:gravity="center_vertical"
                 android:textAlignment="center"
                 android:textColor="#586575"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 tools:text="TextView" />
 
             <TextView
@@ -182,7 +182,7 @@
                 android:gravity="center_vertical"
                 android:textAlignment="center"
                 android:textColor="#586575"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 tools:text="TextView" />
 
         </LinearLayout>
@@ -204,7 +204,7 @@
                 android:text="@string/activityRating_participates"
                 android:textAlignment="center"
                 android:textColor="#ABB2BA"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/textView9"
@@ -216,7 +216,7 @@
                 android:text="@string/activityGameInfo_tasks"
                 android:textAlignment="center"
                 android:textColor="#ABB2BA"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -228,7 +228,7 @@
                 android:text="@string/activityRating_reward"
                 android:textAlignment="center"
                 android:textColor="#ABB2BA"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
 
         </LinearLayout>
 
@@ -277,7 +277,7 @@
                     android:gravity="center_vertical"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
             </android.support.v7.widget.CardView>
 
             <LinearLayout
@@ -302,7 +302,7 @@
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center_vertical"
                         android:textColor="#2F3542"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         tools:ignore="NestedWeights"
                         tools:text="TextView" />
 
@@ -315,7 +315,7 @@
                         android:fontFamily="@font/roboto_medium"
                         android:textAlignment="viewEnd"
                         android:textColor="#2F3542"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         tools:text="TextView" />
 
                 </LinearLayout>
@@ -328,7 +328,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="center_vertical"
                     android:textColor="#ABB2BA"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     tools:text="TextView" />
 
                 <LinearLayout
@@ -360,8 +360,8 @@
                         android:gravity="end"
                         android:textAlignment="viewEnd"
                         android:textColor="#80586575"
-                        android:textSize="10sp"
-                        tools:ignore="SmallSp"
+                        android:textSize="10dp"
+                        tools:ignore="Smalldp"
                         tools:text="19/20" />
 
                 </LinearLayout>
@@ -407,7 +407,7 @@
                     android:gravity="center_vertical"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
             </android.support.v7.widget.CardView>
 
             <LinearLayout
@@ -432,7 +432,7 @@
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center_vertical"
                         android:textColor="#2F3542"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         tools:ignore="NestedWeights"
                         tools:text="TextView" />
 
@@ -446,7 +446,7 @@
                         android:gravity="end"
                         android:textAlignment="viewEnd"
                         android:textColor="#2F3542"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         tools:text="TextView" />
 
                 </LinearLayout>
@@ -459,7 +459,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="center_vertical"
                     android:textColor="#ABB2BA"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     tools:text="TextView" />
 
                 <LinearLayout
@@ -491,8 +491,8 @@
                         android:gravity="end"
                         android:textAlignment="viewEnd"
                         android:textColor="#80586575"
-                        android:textSize="10sp"
-                        tools:ignore="SmallSp"
+                        android:textSize="10dp"
+                        tools:ignore="Smalldp"
                         tools:text="19/20" />
 
                 </LinearLayout>
@@ -537,7 +537,7 @@
                     android:gravity="center_vertical"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
             </android.support.v7.widget.CardView>
 
             <LinearLayout
@@ -562,7 +562,7 @@
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center_vertical"
                         android:textColor="#2F3542"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         tools:ignore="NestedWeights"
                         tools:text="TextView" />
 
@@ -576,7 +576,7 @@
                         android:gravity="end"
                         android:textAlignment="viewEnd"
                         android:textColor="#2F3542"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         tools:text="TextView" />
 
                 </LinearLayout>
@@ -589,7 +589,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="center_vertical"
                     android:textColor="#ABB2BA"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     tools:text="TextView" />
 
                 <LinearLayout
@@ -621,8 +621,8 @@
                         android:gravity="end"
                         android:textAlignment="viewEnd"
                         android:textColor="#80586575"
-                        android:textSize="10sp"
-                        tools:ignore="SmallSp"
+                        android:textSize="10dp"
+                        tools:ignore="Smalldp"
                         tools:text="19/20" />
 
                 </LinearLayout>
@@ -667,14 +667,14 @@
                     android:gravity="center_vertical"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14dp" />
             </android.support.v7.widget.CardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="13dp"
-                android:layout_marginTop="12sp"
+                android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:orientation="vertical">
 
@@ -692,7 +692,7 @@
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center_vertical"
                         android:textColor="#2F3542"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         tools:ignore="NestedWeights"
                         tools:text="TextView" />
 
@@ -706,7 +706,7 @@
                         android:gravity="end"
                         android:textAlignment="viewEnd"
                         android:textColor="#2F3542"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         tools:text="TextView" />
 
                 </LinearLayout>
@@ -719,7 +719,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="center_vertical"
                     android:textColor="#ABB2BA"
-                    android:textSize="12sp"
+                    android:textSize="12dp"
                     tools:text="TextView" />
 
                 <LinearLayout
@@ -751,8 +751,8 @@
                         android:gravity="end"
                         android:textAlignment="viewEnd"
                         android:textColor="#80586575"
-                        android:textSize="10sp"
-                        tools:ignore="SmallSp"
+                        android:textSize="10dp"
+                        tools:ignore="Smalldp"
                         tools:text="19/20" />
 
                 </LinearLayout>
@@ -787,7 +787,7 @@
                 android:textAlignment="center"
                 android:text="@string/adapterRating_emptyRating"
                 android:textColor="#9EA4AC"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
         </RelativeLayout>
 
