@@ -212,13 +212,15 @@ public class PlayActivity extends AppCompatActivity {
         load.setVisibility(View.GONE);
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.fail);
         mp.start();
-        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        LayoutInflater layoutInflater = LayoutInflater.from(PlayActivity.this);
         @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
         final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(this).create();
 
         TextView btnAdd1 = promptView.findViewById(R.id.textView1);
         btnAdd1.setText(getString(R.string.error_timeIsOut));
         alertD.setView(promptView);
+
+        alertD.setCancelable(false);
 
         alertD.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override

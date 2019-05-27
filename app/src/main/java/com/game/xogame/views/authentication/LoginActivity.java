@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     static CountryCodePicker ccp;
     EditText editTextCarrierNumber;
+    EditText editTextCarrierNumber1;
     public ApiService api;
     private LoginPresenter presenter;
     private Button next;
@@ -63,18 +66,35 @@ public class LoginActivity extends AppCompatActivity {
 
         ccp = findViewById(R.id.ccp);
         editTextCarrierNumber = findViewById(R.id.phone_input);
+        editTextCarrierNumber1 = findViewById(R.id.phone_input1);
         ccp.registerCarrierNumberEditText(editTextCarrierNumber);
 
-//        ccp.setPhoneNumberValidityChangeListener(new CountryCodePicker.PhoneNumberValidityChangeListener() {
-//            @Override
-//            public void onValidityChanged(boolean isValidNumber) {
-//                if(isValidNumber || editTextCarrierNumber.getText()==null){
-//                    editTextCarrierNumber.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#586575")));
-//                }else{
-//                    editTextCarrierNumber.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
-//                }
-//            }
-//        });
+        editTextCarrierNumber.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                editTextCarrierNumber1.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+                return false;
+            }
+        });
+        editTextCarrierNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editTextCarrierNumber1.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+            }
+        });
+
+        ccp.setPhoneNumberValidityChangeListener(new CountryCodePicker.PhoneNumberValidityChangeListener() {
+            @Override
+            public void onValidityChanged(boolean isValidNumber) {
+                if(isValidNumber){
+                    editTextCarrierNumber1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#586575")));
+                }else{
+                    if(ccp.getFullNumber().length() > 3) {
+                        editTextCarrierNumber1.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+                    }
+                }
+            }
+        });
 
         next = findViewById(R.id.imageButton);
         next.setOnTouchListener(new View.OnTouchListener() {

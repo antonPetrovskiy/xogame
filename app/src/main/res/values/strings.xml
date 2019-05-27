@@ -106,6 +106,14 @@
     <string name="activitySetting_wrongcard">Wrong card format</string>
     <string name="phoneNumber">Phone number</string>
     <string name="fragmentGames_nogames">There are no games available for your region</string>
+    <string name="tutorial_welcome">Добро пожаловать в PAPARAZZI Games</string>
+    <string name="tutorial_next">продолжить</string>
+    <string name="tutorial_gamelist">Это поиск всех доступных игр на Вашей территории. Нажмите на игру что бы посмотреть ее описание</string>
+    <string name="tutorial_subscribe">Каждая игра содержит описание, дату и время проведения, количество заданий, сумма выигрыша и количество участников. Прокрутите вниз и нажмите на участвовать чтобы подписаться на игру</string>
+    <string name="tutorial_share">Не забудте поделиться игрой с друзьями</string>
+    <string name="tutorial_feeds">В ленте отображаются игры на которые вы подписаны</string>
+    <string name="tutorial_feedsRating">Рейтинг показывает таблицу лидеров топ-3 и ваше текущее место</string>
+    <string name="tutorial_feedsType">Смотрите только свои посты или всю ленту целиком</string>
 
 
 </resources>

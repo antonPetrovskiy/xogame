@@ -38,12 +38,15 @@ public class MainPresenter {
         model.getInfo(new UserInfoModel.GetInfoCallback() {
             @Override
             public void onGet() {
-                Log.i("LOG_log" , model.user.getPhoto()+"");
-                fragment.setName(model.user.getName()+"");
-                fragment.setNickName(model.user.getNickname()+"");
+                Log.i("LOG_log", model.user.getPhoto() + "");
+                fragment.setName(model.user.getName() + "");
+                fragment.setNickName(model.user.getNickname() + "");
 
-                if(!model.user.getPhoto().equals(""))
+                if (!model.user.getPhoto().equals("")) {
                     fragment.setPhoto(model.user.getPhoto());
+                } else {
+                    fragment.setPhoto("");
+                }
             }
         });
 

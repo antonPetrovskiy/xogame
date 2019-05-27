@@ -171,4 +171,78 @@
             android:textSize="16dp" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/tutorial"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="#E62F3542"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.55">
+
+
+        <ImageView
+            android:id="@+id/tutorial_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="97dp"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/tutorial_logo"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/tutorial_left_arrow"
+            android:layout_width="32dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginStart="4dp"
+            app:srcCompat="@drawable/tutorial_arrow"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/tutorial_right_arrow"
+            android:layout_width="32dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="44dp"
+            android:layout_alignParentRight="true"
+            android:foregroundGravity="clip_vertical"
+            android:layout_marginEnd="4dp"
+            app:srcCompat="@drawable/tutorial_arrow"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tutorial_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tutorial_button"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center_vertical"
+            android:text="@string/tutorial_feeds"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/tutorial_button"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/oval_line_white"
+            android:fontFamily="@font/roboto_regular"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:text="@string/tutorial_next"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="210dp"
+            android:textSize="16dp" />
+    </RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>

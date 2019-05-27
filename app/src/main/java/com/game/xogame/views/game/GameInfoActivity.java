@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -47,6 +48,10 @@ public class GameInfoActivity extends AppCompatActivity {
     private String count;
     private String gameid;
     private String share;
+    private RelativeLayout tutorialView;
+    private TextView tutorialText;
+    private Button tutorialButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +83,10 @@ public class GameInfoActivity extends AppCompatActivity {
         statistic = findViewById(R.id.imageView0);
         logo = findViewById(R.id.imageView3);
         background = findViewById(R.id.imageView4);
+
+        tutorialView = findViewById(R.id.tutorial);
+        tutorialText = findViewById(R.id.tutorial_text);
+        tutorialButton = findViewById(R.id.tutorial_button);
 
         final Bundle extras = getIntent().getExtras();
         gameid = extras.getString("GAMEID");
@@ -212,6 +221,8 @@ public class GameInfoActivity extends AppCompatActivity {
             }
         });
 
+        checkTutorial();
+
     }
 
     public void setButtonName(String s) {
@@ -230,6 +241,24 @@ public class GameInfoActivity extends AppCompatActivity {
 
     public String getGameid() {
         return gameid;
+    }
+
+    public void checkTutorial(){
+        final SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
+        if(sharedPref.getString("tutorial_game", "false").equals("true")){
+        tutorialView.setVisibility(View.VISIBLE);
+        tutorialButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(tutorialText.getText().toString().equals(getString(R.string.tutorial_share))){
+                    tutorialView.setVisibility(View.GONE);
+                    sharedPref.edit().putString("tutorial_game","false").commit();
+                }else {
+                    tutorialText.setText(getString(R.string.tutorial_share));
+                }
+            }
+        });
+        }
     }
 
 }

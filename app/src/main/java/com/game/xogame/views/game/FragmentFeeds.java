@@ -4,6 +4,7 @@ package com.game.xogame.views.game;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -31,10 +32,12 @@ import com.game.xogame.views.main.MainActivity;
 import java.util.LinkedList;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class FragmentFeeds extends Fragment {
 
-    @SuppressLint("StaticFieldLeak")
+
     static FeedsAdapter adapter;
     private static MainPresenter presenter;
     @SuppressLint("StaticFieldLeak")
@@ -54,6 +57,10 @@ public class FragmentFeeds extends Fragment {
     private RelativeLayout empty;
     private Button find;
     private List<Feed> listFeeds = new LinkedList<>();
+
+    private RelativeLayout tutorialView;
+    private TextView tutorialText;
+    private Button tutorialButton;
 
     public FragmentFeeds() {
 
@@ -90,6 +97,11 @@ public class FragmentFeeds extends Fragment {
         sort = rootView.findViewById(R.id.imageView1);
         rating = rootView.findViewById(R.id.imageView2);
         pullToRefresh = rootView.findViewById(R.id.swiperefresh);
+
+        tutorialView = rootView.findViewById(R.id.tutorial);
+        tutorialText = rootView.findViewById(R.id.tutorial_text);
+        tutorialButton = rootView.findViewById(R.id.tutorial_button);
+
         api = RetroClient.getApiService();
 
 
@@ -166,6 +178,8 @@ public class FragmentFeeds extends Fragment {
             }
         });
 
+        checkTutorial();
+
     }
 
     public void update() {
@@ -221,6 +235,26 @@ public class FragmentFeeds extends Fragment {
         empty.setVisibility(View.VISIBLE);
         error.setText(msg);
         find.setVisibility(View.GONE);
+    }
+
+    public void checkTutorial(){
+        final SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
+        //if(sharedPref.getString("tutorial_feeds", "false").equals("true")){
+        tutorialView.setVisibility(View.VISIBLE);
+        tutorialButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(tutorialText.getText().toString().equals(getString(R.string.tutorial_feedsRating))){
+                    tutorialView.setVisibility(View.GONE);
+                    sharedPref.edit().putString("tutorial_feeds","false").commit();
+                }else if(tutorialText.getText().toString().equals(getString(R.string.tutorial_feedsType))){
+                    tutorialText.setText(getString(R.string.tutorial_feedsRating));
+                }else{
+                    tutorialText.setText(getString(R.string.tutorial_feedsType));
+                }
+            }
+        });
+        //}
     }
 
 }

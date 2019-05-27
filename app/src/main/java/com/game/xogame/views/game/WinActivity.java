@@ -147,11 +147,8 @@ public class WinActivity extends AppCompatActivity {
         toCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WinActivity.this, MoneyActivity.class);
-                intent.putExtra("type", "ccard");
-                intent.putExtra("gameid", gameid);
-                intent.putExtra("money", money.getText()+"");
-                startActivity(intent);
+                anim.setVisibility(View.VISIBLE);
+                anim.playAnimation();
             }
         });
 

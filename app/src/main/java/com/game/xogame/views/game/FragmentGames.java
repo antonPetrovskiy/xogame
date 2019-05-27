@@ -61,6 +61,10 @@ public class FragmentGames extends Fragment {
     public EditText search;
     private boolean subscribeCheck = false;
 
+    private RelativeLayout tutorialView;
+    private TextView tutorialText;
+    private Button tutorialButton;
+
     public FragmentGames() {
     }
 
@@ -95,6 +99,10 @@ public class FragmentGames extends Fragment {
         refresh = rootView.findViewById(R.id.refresh);
         search = rootView.findViewById(R.id.search);
         error = rootView.findViewById(R.id.error);
+
+        tutorialView = rootView.findViewById(R.id.tutorial);
+        tutorialText = rootView.findViewById(R.id.tutorial_text);
+        tutorialButton = rootView.findViewById(R.id.tutorial_button);
         api = RetroClient.getApiService();
 
         gameList = new LinkedList<>();
@@ -248,7 +256,7 @@ public class FragmentGames extends Fragment {
                 intent.putExtra("NAME", tmpgameList.get(position).getCompany());
                 intent.putExtra("LOGO", tmpgameList.get(position).getLogo());
                 intent.putExtra("BACKGROUND", tmpgameList.get(position).getBackground());
-                intent.putExtra("DATE", tmpgameList.get(position).getStartdate() + "-" + l.get(position).getEnddate());
+                intent.putExtra("DATE", tmpgameList.get(position).getStartdate() + " - " + l.get(position).getEnddate());
                 intent.putExtra("DESCRIPTION", tmpgameList.get(position).getDescription());
                 intent.putExtra("TASKS", tmpgameList.get(position).getTasks());
                 intent.putExtra("TIME", tmpgameList.get(position).getStarttime() + " - " + l.get(position).getEndtime());
@@ -265,6 +273,26 @@ public class FragmentGames extends Fragment {
             subscribeCheck = true;
         }
 
+        checkTutorial();
+
+    }
+
+    public void checkTutorial(){
+        final SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
+        if(sharedPref.getString("tutorial_games", "false").equals("true")){
+        tutorialView.setVisibility(View.VISIBLE);
+        tutorialButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(tutorialText.getText().toString().equals(getString(R.string.tutorial_gamelist))){
+                    tutorialView.setVisibility(View.GONE);
+                    sharedPref.edit().putString("tutorial_games","false").commit();
+                }else {
+                    tutorialText.setText(getString(R.string.tutorial_gamelist));
+                }
+            }
+        });
+        }
     }
 
     public void setError(String msg){
