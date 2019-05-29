@@ -2,17 +2,16 @@ package com.game.xogame.views.profile;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
@@ -37,6 +36,12 @@ import java.util.Objects;
 
 public class SettingActivity extends AppCompatActivity {
 
+    public ScrollView main;
+    public TextView exit;
+    public ImageView save;
+    public ImageView back;
+    ApiService api;
+    SettingPresenter presenter;
     private EditText name;
     private EditText gender;
     private EditText age;
@@ -44,22 +49,11 @@ public class SettingActivity extends AppCompatActivity {
     private EditText country;
     private EditText city;
     private EditText card;
-    public ScrollView main;
-
-    public TextView exit;
     private TextView rules;
     private TextView support;
     private TextView rateus;
     private LinearLayout load;
-
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-
-    public ImageView save;
-    public ImageView back;
-
-    ApiService api;
-    SettingPresenter presenter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,9 +90,9 @@ public class SettingActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(card.getText().toString().length()!=16){
+                if (card.getText().toString().length() != 16) {
                     error(getString(R.string.activitySetting_wrongcard));
-                }else{
+                } else {
                     presenter.editInfo();
                     getLoadView().setVisibility(View.VISIBLE);
                 }
@@ -196,7 +190,8 @@ public class SettingActivity extends AppCompatActivity {
                         sharedPref.edit().putString("token", "null").commit();
                         sharedPref.edit().putString("lat", "null").commit();
                         sharedPref.edit().putString("lng", "null").commit();
-                        FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/auser" + sharedPref.getString("userid","null"))
+                        sharedPref.edit().putString("tutorial_guide", "false").commit();
+                        FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/auser" + sharedPref.getString("userid", "null"))
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -231,14 +226,41 @@ public class SettingActivity extends AppCompatActivity {
         support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/contact-us.php")));
+                switch (getResources().getConfiguration().locale.getLanguage()) {
+                    case "ru":
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ru/contact-us.php")));
+                        break;
+                    case "uk":
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ua/contact-us.php")));
+                        break;
+                    case "en":
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/contact-us.php")));
+                        break;
+                    default:
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/contact-us.php")));
+                        break;
+                }
             }
         });
 
         rules.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/Rules.html")));
+                switch (getResources().getConfiguration().locale.getLanguage()) {
+                    case "ru":
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ru/Rules.html")));
+                        break;
+                    case "uk":
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ua/Rules.html")));
+                        break;
+                    case "en":
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/Rules.html")));
+                        break;
+                    default:
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/Rules.html")));
+                        break;
+                }
+
             }
         });
 
@@ -257,59 +279,59 @@ public class SettingActivity extends AppCompatActivity {
         return name.getText().toString();
     }
 
-    public String getGender() {
-        return gender.getText().toString();
-    }
-
-    public String getAge() {
-        return age.getText().toString();
-    }
-
-    public String getEmail() {
-        return email.getText().toString();
-    }
-
-    public String getCountry() {
-        return country.getText().toString();
-    }
-
-    public String getCity() {
-        return city.getText().toString();
-    }
-
-    public String getCard() {
-        return card.getText().toString();
-    }
-
     public void setName(String name) {
         this.name.setText(name);
+    }
+
+    public String getGender() {
+        return gender.getText().toString();
     }
 
     public void setGender(String gender) {
         this.gender.setText(gender);
     }
 
+    public String getAge() {
+        return age.getText().toString();
+    }
+
     public void setAge(String age) {
         this.age.setText(age);
+    }
+
+    public String getEmail() {
+        return email.getText().toString();
     }
 
     public void setEmail(String email) {
         this.email.setText(email);
     }
 
+    public String getCountry() {
+        return country.getText().toString();
+    }
+
     public void setCountry(String country) {
         this.country.setText(country);
+    }
+
+    public String getCity() {
+        return city.getText().toString();
     }
 
     public void setCity(String city) {
         this.city.setText(city);
     }
 
+    public String getCard() {
+        return card.getText().toString();
+    }
+
     public void setCard(String card) {
         this.card.setText(card);
     }
 
-    public void error(String s){
+    public void error(String s) {
         LayoutInflater layoutInflater = LayoutInflater.from(SettingActivity.this);
         @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
         final AlertDialog alertD = new AlertDialog.Builder(this).create();

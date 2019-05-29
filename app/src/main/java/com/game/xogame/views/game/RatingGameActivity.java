@@ -460,8 +460,5 @@ public class RatingGameActivity extends AppCompatActivity {
         return R.color.color1;
     }
 
-    @Override
-    public void onBackPressed() {
 
-    }
 }

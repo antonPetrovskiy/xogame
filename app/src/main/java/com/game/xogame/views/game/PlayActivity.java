@@ -20,6 +20,7 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -62,6 +63,7 @@ public class PlayActivity extends AppCompatActivity {
     public ImageView camera;
     private CardView card;
     private LinearLayout buttons;
+    private boolean canceled = false;
     long sec;
     String path;
     String current;
@@ -220,15 +222,16 @@ public class PlayActivity extends AppCompatActivity {
         btnAdd1.setText(getString(R.string.error_timeIsOut));
         alertD.setView(promptView);
 
-        alertD.setCancelable(false);
+        //alertD.setCancelable(false);
 
         alertD.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
                 Intent intent = new Intent(PlayActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("page","1");
-                startActivity(intent);
+                alertD.cancel();
+                PlayActivity.this.startActivity(intent);
                 finish();
             }
         });
@@ -236,9 +239,10 @@ public class PlayActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PlayActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("page","1");
-                startActivity(intent);
+                alertD.cancel();
+                PlayActivity.this.startActivity(intent);
                 finish();
             }
         });
@@ -273,23 +277,28 @@ public class PlayActivity extends AppCompatActivity {
         Picasso.with(this).load(path).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(image);
 
         alertD.setView(promptView);
+        //alertD.setCancelable(false);
+
         alertD.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
                 Intent intent = new Intent(PlayActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("page","1");
-                startActivity(intent);
+                alertD.cancel();
+                PlayActivity.this.startActivity(intent);
                 finish();
             }
         });
+
         promptView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PlayActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("page","1");
-                startActivity(intent);
+                alertD.cancel();
+                PlayActivity.this.startActivity(intent);
                 finish();
             }
         });
@@ -298,6 +307,54 @@ public class PlayActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+//        Intent intent = new Intent(PlayActivity.this, MainActivity.class);
+//        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        intent.putExtra("page","1");
+//        startActivity(intent);
+//        finish();
+    }
+
+    public void toMainActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("page","1");
+        startActivity(intent);
+        finish();
+    }
+
+    public void showToast(String s){
+        LayoutInflater layoutInflater = LayoutInflater.from(PlayActivity.this);
+        @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
+        final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(this).create();
+
+
+            TextView btnAdd1 = promptView.findViewById(R.id.textView1);
+            btnAdd1.setText(s);
+            alertD.setView(promptView);
+            alertD.show();
+            load.setVisibility(View.GONE);
+        alertD.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("page","1");
+                alertD.cancel();
+                startActivity(intent);
+                finish();
+            }
+        });
+        promptView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("page","1");
+                alertD.cancel();
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
 

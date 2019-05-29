@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Paparazzi</string>
-    <string name="activityLogin_continue">Продолжить</string>
-    <string name="activityConfirmPhone_resent">Повторная отправка</string>
-    <string name="activityConfirmPhone_confirmcode">Код подтверждения</string>
-    <string name="activityInfo_nickname">Пожалуйста, введите имя пользователя</string>
+    <string name="activityLogin_continue">Далее</string>
+    <string name="activityConfirmPhone_resent">Не получили код</string>
+    <string name="activityConfirmPhone_confirmcode">Введите код здесь</string>
+    <string name="activityInfo_nickname">Имя пользователя</string>
     <string name="activitySetting_mail">Электронная почта</string>
-    <string name="activityInfo_term">Ваша последующая регистрация означает, что Вы приняли на себя ответственность за безусловное соблюдение данного Соглашения.</string>
+    <string name="activityInfo_term">Нажимая кнопку регистрации, вы соглашаетесь с нашими условиями обслуживания и тем, что прочитали нашу</string>
     <string name="fragmentGames_search">поиск</string>
     <string name="fragmentGames_location">Службы определения местоположения отключены</string>
     <string name="fragmentGames_refresh">Обновить</string>
@@ -63,8 +63,8 @@
     <string name="activityMoney_confirm">Подтвердить</string>
     <string name="toast_enterNickname">Введите имя пользователя</string>
     <string name="toast_wrongNumber">Номер не верный</string>
-    <string name="activityConfirmPhone_onYourNumber">На ваш номер</string>
-    <string name="activityConfirmPhone_wasSent">выслано сообщение с кодом подтверждения</string>
+    <string name="activityConfirmPhone_onYourNumber">Код подтверждения отправлен на этот номер</string>
+    <string name="activityConfirmPhone_wasSent">" "</string>
     <string name="adapterRating_emptyRating">Нету рейтинга</string>
     <string name="popupSignout_signout">Выйти из аккаунта?</string>
     <string name="popupSignout_yes">Да</string>
@@ -106,6 +106,15 @@
     <string name="activitySetting_wrongcard">Неверный формат карты</string>
     <string name="phoneNumber">Номер телефона</string>
     <string name="fragmentGames_nogames">Для Вашего региона нет доступных игр</string>
+    <string name="activityEditinfo_badnickname">Имя пользователя должно содержать, как минимум, 3 английских буквы или цифры</string>
+    <string name="activityInfo_termLink">политику конфиденциальности.</string>
+    <string name="activityTutorial_welcome">Добро пожаловать в Paparazzi</string>
+    <string name="activityTutorial_subscribe">Подписывайся на игры</string>
+    <string name="activityTutorial_dotasks">Выполняй задания</string>
+    <string name="activityTutorial_befast">Буть быстрее других Paparazzi</string>
+    <string name="activityTutorial_win">Выигрывай деньги...</string>
+    <string name="activityTutorial_type">...на мобильный или кредитную карту</string>
+    <string name="activityTurorial_signin">Войти в приложение</string>
 
 
 </resources>

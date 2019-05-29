@@ -205,9 +205,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingBottom="12dp"
+                            android:maxLines="1"
                             android:textColor="#ABB2BA"
                             android:textSize="12dp"
-                            tools:text="21.12.12-21.12.12" />
+                            tools:text="21.12.12-21.12.121212121212122121212121" />
 
                         <TextView
                             android:id="@+id/textView29"
@@ -233,6 +234,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
+                    android:layout_gravity="bottom"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
@@ -254,7 +256,6 @@
                             android:id="@+id/imageView14"
                             android:layout_width="16dp"
                             android:layout_height="16dp"
-                            android:layout_marginBottom="12dp"
                             android:adjustViewBounds="true"
                             app:srcCompat="@drawable/game_icon_money"
                             tools:ignore="ContentDescription"/>
@@ -281,7 +282,6 @@
                             android:id="@+id/textView33"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="12dp"
                             android:textColor="#ABB2BA"
                             android:textSize="12dp"
                             tools:text="1000 uah" />
@@ -340,6 +340,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.55">
 
+        <ImageView
+            android:id="@+id/tutorial_right_arrow"
+            android:layout_width="32dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="44dp"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:foregroundGravity="clip_vertical"
+            android:layout_marginEnd="4dp"
+            app:srcCompat="@drawable/tutorial_arrow"
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/tutorial_image"

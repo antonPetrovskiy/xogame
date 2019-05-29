@@ -35,7 +35,7 @@ public class SettingPresenter {
                 viewSetting.setCard(model.user.getCard() + "");
                 viewSetting.setCountry(model.user.getCountry() + "");
                 viewSetting.setCity(model.user.getCity() + "");
-                viewSetting.getLoadView().setVisibility(View.GONE);
+                //viewSetting.getLoadView().setVisibility(View.GONE);
                 viewSetting.main.setVisibility(View.VISIBLE);
             }
         });

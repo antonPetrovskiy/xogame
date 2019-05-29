@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -134,8 +135,14 @@ public class ConfirmPhoneActivity extends AppCompatActivity {
         return codeText;
     }
 
-    public void showToast(String s){
-        Toast.makeText(getApplicationContext(), s,
-                Toast.LENGTH_SHORT).show();
+    public void showToast(String s) {
+        LayoutInflater layoutInflater = LayoutInflater.from(ConfirmPhoneActivity.this);
+        @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
+        final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(this).create();
+        TextView btnAdd1 = promptView.findViewById(R.id.textView1);
+        btnAdd1.setText(s);
+        alertD.setView(promptView);
+        alertD.show();
+
     }
 }

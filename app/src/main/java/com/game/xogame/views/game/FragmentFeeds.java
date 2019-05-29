@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -61,6 +62,8 @@ public class FragmentFeeds extends Fragment {
     private RelativeLayout tutorialView;
     private TextView tutorialText;
     private Button tutorialButton;
+    private ImageView tutorialArrowLeft;
+    private ImageView tutorialArrowRight;
 
     public FragmentFeeds() {
 
@@ -101,6 +104,8 @@ public class FragmentFeeds extends Fragment {
         tutorialView = rootView.findViewById(R.id.tutorial);
         tutorialText = rootView.findViewById(R.id.tutorial_text);
         tutorialButton = rootView.findViewById(R.id.tutorial_button);
+        tutorialArrowLeft = rootView.findViewById(R.id.tutorial_left_arrow);
+        tutorialArrowRight = rootView.findViewById(R.id.tutorial_right_arrow);
 
         api = RetroClient.getApiService();
 
@@ -239,22 +244,39 @@ public class FragmentFeeds extends Fragment {
 
     public void checkTutorial(){
         final SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
-        //if(sharedPref.getString("tutorial_feeds", "false").equals("true")){
+        if(sharedPref.getString("tutorial_feeds", "false").equals("true")){
         tutorialView.setVisibility(View.VISIBLE);
         tutorialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(tutorialText.getText().toString().equals(getString(R.string.tutorial_feedsRating))){
+                    tutorialArrowRight.clearAnimation();
                     tutorialView.setVisibility(View.GONE);
                     sharedPref.edit().putString("tutorial_feeds","false").commit();
                 }else if(tutorialText.getText().toString().equals(getString(R.string.tutorial_feedsType))){
                     tutorialText.setText(getString(R.string.tutorial_feedsRating));
+                    tutorialArrowLeft.clearAnimation();
+                    tutorialArrowLeft.setVisibility(View.GONE);
+                    tutorialArrowRight.setVisibility(View.VISIBLE);
+                    TranslateAnimation animation = new TranslateAnimation(0.0f, 0.0f,
+                            0.0f, 8.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
+                    animation.setDuration(300);  // animation duration
+                    animation.setRepeatCount(50);  // animation repeat count
+                    animation.setRepeatMode(2);   // repeat animation (left to right, right to left )
+                    tutorialArrowRight.startAnimation(animation);
                 }else{
                     tutorialText.setText(getString(R.string.tutorial_feedsType));
+                    tutorialArrowLeft.setVisibility(View.VISIBLE);
+                    TranslateAnimation animation = new TranslateAnimation(0.0f, 0.0f,
+                            0.0f, 8.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
+                    animation.setDuration(300);  // animation duration
+                    animation.setRepeatCount(50);  // animation repeat count
+                    animation.setRepeatMode(2);   // repeat animation (left to right, right to left )
+                    tutorialArrowLeft.startAnimation(animation);
                 }
             }
         });
-        //}
+        }
     }
 
 }

@@ -46,15 +46,15 @@
     <string name="fragmentFeeds_findGames">Знайти ігри</string>
     <string name="adapterFeeds_saved">Фото збережено у вашу галерею</string>
     <string name="adapterFeeds_reported">Скарга відправлена</string>
-    <string name="activityLogin_continue">Продовжити</string>
+    <string name="activityLogin_continue">Далi</string>
     <string name="toast_noInternet">Немає підключення до інтернету</string>
     <string name="toast_wrongNumber">Номер не вірний</string>
     <string name="toast_enterNickname">Введіть ім\'я користувача</string>
     <string name="activitySetting_aboutMyself">Про себе</string>
     <string name="fragmentGames_refresh">Оновити</string>
     <string name="fragmentGames_location">Служби визначення місцезнаходження відключенні</string>
-    <string name="activityInfo_nickname">Будь ласка, введіть ім\'я користувача</string>
-    <string name="activityConfirmPhone_resent">Повторна відправка</string>
+    <string name="activityInfo_nickname">Ім\'я користувача</string>
+    <string name="activityConfirmPhone_resent">Не отримали код</string>
     <string name="txt_active">активно</string>
     <string name="activityPlay_addHashtag">#ваш коментар до фото</string>
     <string name="activityMoney_sentMoneyOn">Перевести гроші на</string>
@@ -67,10 +67,10 @@
     <string name="activityRating_noRating">Ще ніхто не зробив фото. Будьте першим</string>
     <string name="activityRating_findgames">Знайти ігри</string>
     <string name="activityRating_noActiveGames">Немає активних ігор</string>
-    <string name="activityConfirmPhone_onYourNumber">На ваш номер</string>
-    <string name="activityConfirmPhone_wasSent">відправлено повідомлення з кодом підтвердження</string>
+    <string name="activityConfirmPhone_onYourNumber">Код підтвердження відправлений на цей номер</string>
+    <string name="activityConfirmPhone_wasSent">" "</string>
     <string name="activityUserProfile_userDontParticipate">Користувач не приймає участь в жодній грі</string>
-    <string name="activityConfirmPhone_confirmcode">Код підтвердження</string>
+    <string name="activityConfirmPhone_confirmcode">Введіть код тут</string>
     <string name="adapterRating_emptyRating">Немає рейтингу</string>
     <string name="activityMyWins_mobile">Мобільний</string>
     <string name="activityMyWins_sent">Перевести гроші</string>
@@ -83,7 +83,7 @@
     <string name="popupSettings_other">Роскажіть, будь ласка, що сталось</string>
     <string name="popupSettings_badTask">Не відповідає завданню</string>
     <string name="popupSettings_badContent">Неприйнятний контент</string>
-    <string name="activityInfo_term">Ваша подальша реєстраця означає, що ви прийняли на себе вiдповiдальнiсть за безумовне дотримання даної згоди</string>
+    <string name="activityInfo_term">Натиснувши кнопку реєстрації, ви погоджуєтесь із нашими умовами надання послуг і що ви прочитали нашу</string>
     <string name="activityConfirmPhone_wrongCode">Невiрний код</string>
     <string name="activityRatingHistory_ended">Завершено</string>
     <string name="adapterRating_ended">Завершено</string>
@@ -106,6 +106,15 @@
     <string name="activitySetting_wrongcard">Невiрний формат карти</string>
     <string name="phoneNumber">Номер телефону</string>
     <string name="fragmentGames_nogames">Для Вашого регiона немає доступних iгор</string>
+    <string name="activityEditinfo_badnickname">Ім\'я користувача має містити, як мінімум, 3 англійські літери чи цифри</string>
+    <string name="activityInfo_termLink">політику конфіденційності.</string>
+    <string name="activityTutorial_welcome">Ласкаво просимо в Paparazzi</string>
+    <string name="activityTutorial_subscribe">Підписуйся на ігри</string>
+    <string name="activityTutorial_dotasks">Виконуй завдання</string>
+    <string name="activityTutorial_befast">Буть швидше за інших Paparazzi</string>
+    <string name="activityTutorial_win">Вигравай гроші...</string>
+    <string name="activityTutorial_type">...на мобільний або кредитну карту</string>
+    <string name="activityTurorial_signin">Увійти</string>
 
 
 </resources>

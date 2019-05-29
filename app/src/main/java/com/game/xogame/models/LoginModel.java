@@ -162,6 +162,7 @@ public class LoginModel {
                                     sharedPref.edit().putString("token", id).commit();
                                     sharedPref.edit().putString("phone", number).commit();
                                     sharedPref.edit().putString("userid", response.body().getUserid()).commit();
+                                    sharedPref.edit().putString("tutorial_guide", "true").commit();
                                     FirebaseMessaging.getInstance().subscribeToTopic("/topics/auser" + response.body().getUserid())
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
@@ -266,7 +267,7 @@ public class LoginModel {
                                 sharedPref.edit().putString("tutorial_game", "true").commit();
                                 sharedPref.edit().putString("tutorial_feeds", "true").commit();
                                 sharedPref.edit().putString("tutorial_money", "true").commit();
-                                sharedPref.edit().putString("tutorial_profile", "true").commit();
+                                sharedPref.edit().putString("tutorial_guide", "true").commit();
                                 FirebaseMessaging.getInstance().subscribeToTopic("/topics/auser" + response.body().getUserid())
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override

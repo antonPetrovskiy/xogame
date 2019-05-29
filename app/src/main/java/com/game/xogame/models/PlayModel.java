@@ -31,6 +31,8 @@ public class PlayModel {
     private ApiService api;
     private Context context;
     public String position;
+    public String error;
+    public String status;
 
 
     public PlayModel(ApiService a, Context c){
@@ -81,11 +83,15 @@ public class PlayModel {
                             if(response.body().getStatus().equals("success")){
                                 if (callback != null) {
                                     Log.i("LOG_dotask" , "Success(code): " + response.body().getError());
+                                    status = response.body().getStatus();
                                     position = response.body().getPosition();
                                     callback.onDo();
                                 }
                             }else{
                                 Log.i("LOG_dotask" , "Error(code): " + response.body().getError());
+                                status = response.body().getStatus();
+                                error = response.body().getError();
+                                callback.onDo();
                             }
 
                         } else {
@@ -96,17 +102,26 @@ public class PlayModel {
                                 e.printStackTrace();
                             }
                             Log.i("LOG_dotask" , jObjError+" error");
+                            status = "error";
+                            error = jObjError;
+                            callback.onDo();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<TaskCallback> call, Throwable t) {
                         Log.i("LOG_dotask" , t.getMessage()+" fail");
+                        status = "error";
+                        error = t.getMessage();
+                        callback.onDo();
                     }
                 });
 
             } else {
                 Log.i("LOG_dotask" , "error internet");
+                status = "error";
+                error = "error internet";
+                callback.onDo();
             }
             return null;
         }
@@ -116,5 +131,13 @@ public class PlayModel {
             super.onPostExecute(aVoid);
 
         }
+    }
+
+    public String getStatus(){
+        return status;
+    }
+
+    public String getError(){
+        return error;
     }
 }

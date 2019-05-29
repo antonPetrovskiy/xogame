@@ -7,15 +7,22 @@ import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.game.xogame.R;
 import com.game.xogame.api.ApiService;
@@ -35,6 +42,7 @@ public class EditInfoActivity extends AppCompatActivity {
     private ImageView photo_view;
     private EditText name_view;
     private EditText email_view;
+    private TextView terms;
     public static final int REQ_CODE_PICK_PHOTO = 0;
     public ApiService api;
     private EditInfoPresenter presenter;
@@ -93,7 +101,33 @@ public class EditInfoActivity extends AppCompatActivity {
 
         name_view = findViewById(R.id.editText);
         email_view = findViewById(R.id.editText2);
-
+        terms = findViewById(R.id.textView8);
+        //String text = "<font color='black'>123456</font><font color='red'>789</font>";
+        //terms.setText(Html.fromHtml(text), TextView.BufferType.SPANNABLE);
+        String text = getString(R.string.activityInfo_term) + " " + getString(R.string.activityInfo_termLink);
+        String text1 = getString(R.string.activityInfo_termLink);
+        Spannable spannable = new SpannableString(text);
+        spannable.setSpan(new ForegroundColorSpan(Color.parseColor("#F08C3C")), text.length()-text1.length(), text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        terms.setText(spannable, TextView.BufferType.SPANNABLE);
+        terms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (getResources().getConfiguration().locale.getLanguage()) {
+                    case "ru":
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ru/politica.html")));
+                        break;
+                    case "uk":
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ua/politica.html")));
+                        break;
+                    case "en":
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/politica.html")));
+                        break;
+                    default:
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/politica.html")));
+                        break;
+                }
+            }
+        });
 
     }
 
@@ -141,8 +175,21 @@ public class EditInfoActivity extends AppCompatActivity {
     }
 
     public void showToast(String s){
-        Toast.makeText(getApplicationContext(), s,
-                Toast.LENGTH_LONG).show();
+        LayoutInflater layoutInflater = LayoutInflater.from(EditInfoActivity.this);
+        @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
+        final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(this).create();
+
+        if(s.equals("Bad nickname")){
+            TextView btnAdd1 = promptView.findViewById(R.id.textView1);
+            btnAdd1.setText(getString(R.string.activityEditinfo_badnickname));
+            alertD.setView(promptView);
+            alertD.show();
+        }else{
+            TextView btnAdd1 = promptView.findViewById(R.id.textView1);
+            btnAdd1.setText(s);
+            alertD.setView(promptView);
+            alertD.show();
+        }
     }
 
     private String getFilePath(Intent data) {

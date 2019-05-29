@@ -27,9 +27,13 @@ public class PlayPresenter {
         model.doTask(cv, new PlayModel.DoTaskCallback() {
             @Override
             public void onDo() {
-                view.timer.cancel();
-                view.position_str = model.position;
-                view.toMainActivityWin();
+                if(model.getStatus().equals("error")){
+                    view.showToast(model.getError()+"");
+                }else{
+                    view.timer.cancel();
+                    view.position_str = model.position;
+                    view.toMainActivityWin();
+                }
             }
         });
     }

@@ -3,14 +3,14 @@
     <string name="activityLogin_continue">Next</string>
     <string name="activityConfirmPhone_resent">Did not get the code</string>
     <string name="activityConfirmPhone_confirmcode">Enter code here</string>
-    <string name="activityInfo_nickname">Nickname</string>
+    <string name="activityInfo_nickname">User name</string>
     <string name="activitySetting_mail">E-mail</string>
-    <string name="activityInfo_term">By pressing next you agree that you checked terms and conditions</string>
+    <string name="activityInfo_term">By clicking sign up, you agree to our terms of service and that you have read our</string>
     <string name="fragmentGames_search">search</string>
     <string name="fragmentGames_location">Location services disable</string>
     <string name="fragmentGames_refresh">Reload</string>
     <string name="activityGameInfo_tasks">mission`s</string>
-    <string name="activityRating_participates">paparazzi`s</string>
+    <string name="activityRating_participates">paparazzi</string>
     <string name="activityMyGames_findgames">Find games</string>
     <string name="activityMyGames_dontparticipate">No games history yet</string>
     <string name="popupSettings_savePhoto">Save photo</string>
@@ -55,14 +55,14 @@
     <string name="activityUserProfile_userDontParticipate">User has no games yet</string>
     <string name="activityMoney_sentMoneyPhone">Transfer money to my phone number</string>
     <string name="activityMoney_sentMoneyCard">Transfer money to my card</string>
-    <string name="activityGameInfo_people">paparazzi`s</string>
+    <string name="activityGameInfo_people">paparazzi</string>
     <string name="activityGameInfo_leave">exit the game</string>
     <string name="activityGameInfo_join">play this game</string>
     <string name="activityMoney_sentMoneyOn">Transfer money to</string>
     <string name="activityMoney_confirm">Confirm</string>
     <string name="toast_enterNickname">Enter nickname</string>
     <string name="toast_wrongNumber">Invalid number</string>
-    <string name="activityConfirmPhone_onYourNumber">Confirmation code was sent to this number</string>
+    <string name="activityConfirmPhone_onYourNumber">Confirmation code was send to this number</string>
     <string name="activityConfirmPhone_wasSent">" "</string>
     <string name="adapterRating_emptyRating">No rating yet</string>
     <string name="popupSignout_signout">Sign out?</string>
@@ -77,7 +77,7 @@
     <string name="adapterFeeds_saved">Photo has been saved to your library</string>
     <string name="adapterFeeds_reported">Complaint submited</string>
     <string name="toast_noInternet">No internet connection</string>
-    <string name="adapterGames_participates">paparazzi`s</string>
+    <string name="adapterGames_participates">paparazzi</string>
     <string name="adapterGames_tasks">mission`s</string>
     <string name="activityRating_noRating">No photo have been taken yet. Be the first one</string>
     <string name="activityRating_findgames">Find games</string>
@@ -106,6 +106,15 @@
     <string name="activitySetting_wrongcard">Wrong card format</string>
     <string name="phoneNumber">Phone number</string>
     <string name="fragmentGames_nogames">There are no games available for your region</string>
+    <string name="activityEditinfo_badnickname">Username must contain at least 3 letters in English or digits</string>
+    <string name="activityInfo_termLink">privacy policy.</string>
+    <string name="activityTutorial_welcome">Welcome to Paparazzi</string>
+    <string name="activityTutorial_subscribe">Sign up for games</string>
+    <string name="activityTutorial_dotasks">Carry out task</string>
+    <string name="activityTutorial_befast">Be faster than other Paparazzi</string>
+    <string name="activityTutorial_win">Win the money...</string>
+    <string name="activityTutorial_type">... on smartphone or credit card</string>
+    <string name="activityTurorial_signin">Sign in</string>
 
 
 </resources>

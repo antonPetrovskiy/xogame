@@ -10,10 +10,12 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.game.xogame.R;
@@ -139,7 +141,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void showToast(String s) {
-        Toast.makeText(getApplicationContext(), s,
-                Toast.LENGTH_SHORT).show();
+        LayoutInflater layoutInflater = LayoutInflater.from(LoginActivity.this);
+        @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
+        final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(this).create();
+            TextView btnAdd1 = promptView.findViewById(R.id.textView1);
+            btnAdd1.setText(s);
+            alertD.setView(promptView);
+            alertD.show();
+
     }
 }

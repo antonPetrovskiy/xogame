@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -51,7 +52,7 @@ public class GameInfoActivity extends AppCompatActivity {
     private RelativeLayout tutorialView;
     private TextView tutorialText;
     private Button tutorialButton;
-
+    private ImageView tutorialArrowRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,7 @@ public class GameInfoActivity extends AppCompatActivity {
         tutorialView = findViewById(R.id.tutorial);
         tutorialText = findViewById(R.id.tutorial_text);
         tutorialButton = findViewById(R.id.tutorial_button);
+        tutorialArrowRight = findViewById(R.id.tutorial_right_arrow);
 
         final Bundle extras = getIntent().getExtras();
         gameid = extras.getString("GAMEID");
@@ -251,10 +253,18 @@ public class GameInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(tutorialText.getText().toString().equals(getString(R.string.tutorial_share))){
+                    tutorialArrowRight.clearAnimation();
                     tutorialView.setVisibility(View.GONE);
                     sharedPref.edit().putString("tutorial_game","false").commit();
                 }else {
                     tutorialText.setText(getString(R.string.tutorial_share));
+                    tutorialArrowRight.setVisibility(View.VISIBLE);
+                    TranslateAnimation animation = new TranslateAnimation(0.0f, 0.0f,
+                            0.0f, 8.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
+                    animation.setDuration(300);  // animation duration
+                    animation.setRepeatCount(50);  // animation repeat count
+                    animation.setRepeatMode(2);   // repeat animation (left to right, right to left )
+                    tutorialArrowRight.startAnimation(animation);
                 }
             }
         });

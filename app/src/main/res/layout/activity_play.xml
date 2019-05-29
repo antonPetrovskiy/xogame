@@ -287,4 +287,6 @@
             app:lottie_loop="true" />
     </LinearLayout>
 
+    
+
 </android.support.constraint.ConstraintLayout>

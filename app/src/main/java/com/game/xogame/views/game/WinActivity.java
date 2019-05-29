@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -36,6 +37,7 @@ public class WinActivity extends AppCompatActivity {
     private TextView toMobile;
     private TextView toCard;
     private LottieAnimationView anim;
+    private LinearLayout layAnimation;
 
     private Button ok;
     private TextView money;
@@ -100,6 +102,8 @@ public class WinActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
                 anim.setVisibility(View.GONE);
+                layAnimation.setVisibility(View.VISIBLE);
+                ok.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -126,6 +130,7 @@ public class WinActivity extends AppCompatActivity {
         money = findViewById(R.id.textView12);
         toMobile = findViewById(R.id.textView16);
         toCard = findViewById(R.id.textView15);
+        layAnimation = findViewById(R.id.linearLayout6);
 
         logo = findViewById(R.id.imageView);
         photo = findViewById(R.id.imageView11);

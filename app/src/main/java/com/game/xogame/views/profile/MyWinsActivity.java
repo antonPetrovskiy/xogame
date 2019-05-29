@@ -2,6 +2,7 @@ package com.game.xogame.views.profile;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
@@ -9,7 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -42,6 +45,10 @@ public class MyWinsActivity extends AppCompatActivity {
     private RelativeLayout empty;
     private ImageView money_icon;
 
+    private RelativeLayout tutorialView;
+    private TextView tutorialText;
+    private Button tutorialButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +67,11 @@ public class MyWinsActivity extends AppCompatActivity {
         load = findViewById(R.id.targetView);
         empty = findViewById(R.id.empty);
         listView = findViewById(R.id.gamelist);
+
+        tutorialView = findViewById(R.id.tutorial);
+        tutorialText = findViewById(R.id.tutorial_text);
+        tutorialButton = findViewById(R.id.tutorial_button);
+
         api = RetroClient.getApiService();
         UserInfoModel usersModel = new UserInfoModel(api, getApplicationContext());
         presenter = new MyWinsPresenter(usersModel);
@@ -74,6 +86,7 @@ public class MyWinsActivity extends AppCompatActivity {
                 finish();
             }
         });
+        checkTutorial();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @SuppressLint("SetTextI18n")
@@ -153,4 +166,19 @@ public class MyWinsActivity extends AppCompatActivity {
             money_icon.setImageResource(R.drawable.mywin_active);
         }
     }
+
+    public void checkTutorial(){
+        final SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
+        if(sharedPref.getString("tutorial_money", "false").equals("true")){
+        tutorialView.setVisibility(View.VISIBLE);
+        tutorialButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tutorialView.setVisibility(View.GONE);
+                sharedPref.edit().putString("tutorial_money","false").commit();
+            }
+        });
+        }
+    }
+
 }
