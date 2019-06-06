@@ -46,7 +46,7 @@ public class FragmentFeeds extends Fragment {
     @SuppressLint("StaticFieldLeak")
     private static FragmentFeeds fragment;
     public ApiService api;
-    private LinearLayout load;
+    public LinearLayout load;
     private TextView error;
     private ListView listView;
     private ImageView sort;
@@ -64,6 +64,8 @@ public class FragmentFeeds extends Fragment {
     private Button tutorialButton;
     private ImageView tutorialArrowLeft;
     private ImageView tutorialArrowRight;
+    private ImageView tutorialIconLeft;
+    private ImageView tutorialIconRight;
 
     public FragmentFeeds() {
 
@@ -106,6 +108,8 @@ public class FragmentFeeds extends Fragment {
         tutorialButton = rootView.findViewById(R.id.tutorial_button);
         tutorialArrowLeft = rootView.findViewById(R.id.tutorial_left_arrow);
         tutorialArrowRight = rootView.findViewById(R.id.tutorial_right_arrow);
+        tutorialIconLeft = rootView.findViewById(R.id.tutorial_left_icon);
+        tutorialIconRight = rootView.findViewById(R.id.tutorial_right_icon);
 
         api = RetroClient.getApiService();
 
@@ -135,6 +139,7 @@ public class FragmentFeeds extends Fragment {
                         sort.animate().setDuration(200).scaleX(0.9f).scaleY(0.9f).start();
                         break;
                     case MotionEvent.ACTION_UP: // отпускание
+                        load.setVisibility(View.VISIBLE);
                         sort.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
                         if (flag.equals("false")) {
                             flag = "true";
@@ -183,7 +188,7 @@ public class FragmentFeeds extends Fragment {
             }
         });
 
-        checkTutorial();
+
 
     }
 
@@ -246,18 +251,22 @@ public class FragmentFeeds extends Fragment {
         final SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
         if(sharedPref.getString("tutorial_feeds", "false").equals("true")){
         tutorialView.setVisibility(View.VISIBLE);
+        MainActivity.bar.setVisibility(View.GONE);
         tutorialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(tutorialText.getText().toString().equals(getString(R.string.tutorial_feedsRating))){
                     tutorialArrowRight.clearAnimation();
                     tutorialView.setVisibility(View.GONE);
+                    MainActivity.bar.setVisibility(View.VISIBLE);
                     sharedPref.edit().putString("tutorial_feeds","false").commit();
                 }else if(tutorialText.getText().toString().equals(getString(R.string.tutorial_feedsType))){
                     tutorialText.setText(getString(R.string.tutorial_feedsRating));
                     tutorialArrowLeft.clearAnimation();
                     tutorialArrowLeft.setVisibility(View.GONE);
+                    tutorialIconLeft.setVisibility(View.GONE);
                     tutorialArrowRight.setVisibility(View.VISIBLE);
+                    tutorialIconRight.setVisibility(View.VISIBLE);
                     TranslateAnimation animation = new TranslateAnimation(0.0f, 0.0f,
                             0.0f, 8.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
                     animation.setDuration(300);  // animation duration
@@ -267,6 +276,7 @@ public class FragmentFeeds extends Fragment {
                 }else{
                     tutorialText.setText(getString(R.string.tutorial_feedsType));
                     tutorialArrowLeft.setVisibility(View.VISIBLE);
+                    tutorialIconLeft.setVisibility(View.VISIBLE);
                     TranslateAnimation animation = new TranslateAnimation(0.0f, 0.0f,
                             0.0f, 8.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
                     animation.setDuration(300);  // animation duration
@@ -276,6 +286,12 @@ public class FragmentFeeds extends Fragment {
                 }
             }
         });
+            tutorialView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tutorialButton.performClick();
+                }
+            });
         }
     }
 

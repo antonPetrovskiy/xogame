@@ -37,7 +37,6 @@
         <activity android:name=".views.game.PlayActivity">
             <intent-filter>
                 <action android:name="ACTIVITY_PLAY" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -59,7 +58,15 @@
         <activity android:name=".views.profile.SettingActivity" />
         <activity
             android:name=".views.main.MainActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan" >
+        <!-- Branch URI Scheme -->
+        <intent-filter>
+            <data android:scheme="paparazzi" />
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+        </intent-filter>
+        </activity>
         <activity android:name=".views.authentication.EditInfoActivity" />
         <activity
             android:name=".views.authentication.ConfirmPhoneActivity"

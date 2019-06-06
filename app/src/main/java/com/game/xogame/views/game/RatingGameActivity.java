@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -18,6 +19,7 @@ import com.game.xogame.api.RetroClient;
 import com.game.xogame.entity.Rating;
 import com.game.xogame.models.RatingModel;
 import com.game.xogame.presenters.RatingPresenter;
+import com.game.xogame.views.main.MainActivity;
 import com.game.xogame.views.profile.UserProfileActivity;
 import com.squareup.picasso.Picasso;
 
@@ -25,6 +27,7 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class RatingGameActivity extends AppCompatActivity {
     ImageView back;
+    public static MainActivity activity;
     public ApiService api;
     public RatingPresenter presenter;
     private LinearLayout load;
@@ -70,6 +73,7 @@ public class RatingGameActivity extends AppCompatActivity {
     private ProgressBar bar3;
     private ProgressBar bar4;
 
+    private Button exit;
     private String type;
 
     @Override
@@ -79,6 +83,10 @@ public class RatingGameActivity extends AppCompatActivity {
             setContentView(R.layout.activity_rating_history);
         }else{
             setContentView(R.layout.activity_rating_game);
+        }
+        if(getIntent().getStringExtra("push")!=null && getIntent().getStringExtra("push").equals("true")){
+            if(activity!=null)
+                activity.finish();
         }
         type = getIntent().getStringExtra("type");
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -134,12 +142,28 @@ public class RatingGameActivity extends AppCompatActivity {
         bar3 = findViewById(R.id.bar3);
         bar4 = findViewById(R.id.bar4);
 
+        exit = findViewById(R.id.imageButtonExit);
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openMainActivity= new Intent(RatingGameActivity.this, MainActivity.class);
+                openMainActivity.putExtra("page","1");
+                openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(openMainActivity);
+                finish();
+            }
+        });
+
 
         back = findViewById(R.id.imageView0);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent openMainActivity= new Intent(RatingGameActivity.this, MainActivity.class);
+                openMainActivity.putExtra("page","1");
+                openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(openMainActivity);
+                finish();
             }
         });
     }

@@ -59,6 +59,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:gravity="center_vertical"
                     android:textAlignment="center"
+                    android:maxLines="1"
                     android:textColor="#ffffff"
                     android:textSize="14dp" />
             </android.support.v7.widget.CardView>
@@ -75,6 +76,7 @@
                     android:layout_gravity="center_vertical"
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="#2F3542"
+                    android:maxLines="1"
                     android:textSize="12dp"
                     tools:text="TextView" />
 
@@ -85,6 +87,7 @@
                     android:layout_gravity="center_vertical"
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="#57606F"
+                    android:maxLines="1"
                     android:textSize="12dp"
                     tools:text="TextView" />
             </LinearLayout>
@@ -132,6 +135,7 @@
                     android:gravity="center_vertical"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
+                    android:maxLines="1"
                     android:textSize="18dp"
                     tools:text="F" />
 
@@ -150,6 +154,7 @@
                     android:layout_gravity="center_vertical"
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="#2F3542"
+                    android:maxLines="1"
                     android:textSize="16dp"
                     tools:text="TextView" />
 
@@ -160,6 +165,7 @@
                     android:layout_gravity="center_vertical"
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="#57606F"
+                    android:maxLines="1"
                     android:textSize="16dp"
                     tools:text="TextView" />
 
@@ -172,6 +178,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/roboto_medium"
                 android:textColor="#57606F"
+                android:maxLines="1"
                 android:textSize="14dp"
                 tools:text="TextView" />
 
@@ -203,6 +210,7 @@
                     android:background="@drawable/task_bg"
                     android:fontFamily="@font/roboto_regular"
                     android:paddingStart="12dp"
+                    android:maxLines="1"
                     android:text="@string/adapterFeed_task"
                     android:textColor="#ffffff"
                     android:textSize="12dp"
@@ -264,6 +272,7 @@
                     android:layout_gravity="center_vertical"
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="#2F3542"
+                    android:maxLines="1"
                     android:textSize="14dp"
                     tools:text="TextView" />
 
@@ -276,6 +285,7 @@
                     android:layout_toStartOf="@id/imageView4"
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="#80586575"
+                    android:maxLines="1"
                     android:textSize="14dp"
                     tools:ignore="RelativeOverlap"
                     tools:text="TextView" />
@@ -392,18 +402,6 @@
                     android:layout_marginStart="13dp"
                     android:orientation="vertical">
 
-
-                    <TextView
-                        android:id="@+id/textView01"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/roboto_medium"
-                        android:gravity="center_vertical"
-                        android:textColor="#2F3542"
-                        android:textSize="12dp"
-                        tools:text="TextView" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -411,14 +409,14 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textView02"
+                            android:id="@+id/textView01"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:fontFamily="@font/roboto_regular"
-                            android:gravity="center_vertical"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="bottom"
                             android:maxLines="1"
-                            android:textColor="#57606F"
+                            android:textColor="#2F3542"
                             android:textSize="12dp"
                             tools:text="TextView" />
 
@@ -429,13 +427,26 @@
                             android:layout_marginEnd="24dp"
                             android:layout_weight="1"
                             android:fontFamily="@font/roboto_regular"
-                            android:gravity="end"
+                            android:gravity="end|bottom"
                             android:text="@string/activityRatingHistory_ended"
                             android:textAlignment="viewEnd"
                             android:textColor="#2F3542"
                             android:textSize="12dp" />
 
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView02"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="top"
+                        android:maxLines="1"
+                        android:textColor="#57606F"
+                        android:textSize="12dp"
+                        tools:text="TextView" />
+
                 </LinearLayout>
 
             </LinearLayout>

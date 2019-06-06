@@ -2,6 +2,7 @@ package com.game.xogame.presenters;
 
 import android.content.ContentValues;
 
+import com.game.xogame.R;
 import com.game.xogame.models.PlayModel;
 import com.game.xogame.views.game.PlayActivity;
 
@@ -28,7 +29,15 @@ public class PlayPresenter {
             @Override
             public void onDo() {
                 if(model.getStatus().equals("error")){
-                    view.showToast(model.getError()+"");
+                    switch (model.getError()){
+                        case "timeout":
+                            view.showToast(view.getString(R.string.error_cannotReachServer));
+                            break;
+                        default:
+                            view.showToast(model.getError()+"");
+                            break;
+                    }
+
                 }else{
                     view.timer.cancel();
                     view.position_str = model.position;

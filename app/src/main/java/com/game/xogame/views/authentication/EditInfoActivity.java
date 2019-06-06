@@ -114,16 +114,16 @@ public class EditInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch (getResources().getConfiguration().locale.getLanguage()) {
                     case "ru":
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ru/politica.html")));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ru/accord.html")));
                         break;
                     case "uk":
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ua/politica.html")));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ua/accord.html")));
                         break;
                     case "en":
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/politica.html")));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/accord.html")));
                         break;
                     default:
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/politica.html")));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/accord.html")));
                         break;
                 }
             }

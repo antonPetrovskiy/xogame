@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,6 +22,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -47,6 +50,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 
 
@@ -83,6 +87,13 @@ public class FragmentProfile extends Fragment {
     private View rootView;
     private List<Game> gameNowList;
     private List<Game> gameFutureList;
+
+
+    private RelativeLayout tutorialView;
+    private TextView tutorialText;
+    private Button tutorialButton;
+    private ImageView tutorialArrowRight;
+    private ImageView tutorialIconRight;
 
     public FragmentProfile() {
     }
@@ -175,6 +186,14 @@ public class FragmentProfile extends Fragment {
         list1 = rootView.findViewById(R.id.list1);
         list2 = rootView.findViewById(R.id.list2);
         find = rootView.findViewById(R.id.imageButton);
+
+
+        tutorialView = rootView.findViewById(R.id.tutorial);
+        tutorialText = rootView.findViewById(R.id.tutorial_text);
+        tutorialButton = rootView.findViewById(R.id.tutorial_button);
+        tutorialArrowRight = rootView.findViewById(R.id.tutorial_right_arrow);
+        tutorialIconRight = rootView.findViewById(R.id.tutorial_right_icon);
+
         pullToRefresh = rootView.findViewById(R.id.swiperefresh);
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -317,6 +336,8 @@ public class FragmentProfile extends Fragment {
                 return true;
             }
         });
+
+
 
     }
 
@@ -598,6 +619,41 @@ public class FragmentProfile extends Fragment {
             return R.color.color20;
         }
         return R.color.color1;
+    }
+
+    public void checkTutorial(){
+        final SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
+        if(sharedPref.getString("tutorial_profile", "false").equals("true")){
+            tutorialView.setVisibility(View.VISIBLE);
+            MainActivity.bar.setVisibility(View.GONE);
+            tutorialButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(tutorialText.getText().toString().equals(getString(R.string.tutorial_history))){
+                        tutorialArrowRight.clearAnimation();
+                        tutorialView.setVisibility(View.GONE);
+                        MainActivity.bar.setVisibility(View.VISIBLE);
+                        sharedPref.edit().putString("tutorial_profile","false").commit();
+                    }else {
+                        tutorialText.setText(getString(R.string.tutorial_history));
+                        tutorialArrowRight.setVisibility(View.VISIBLE);
+                        tutorialIconRight.setVisibility(View.VISIBLE);
+                        TranslateAnimation animation = new TranslateAnimation(0.0f, 0.0f,
+                                0.0f, 8.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
+                        animation.setDuration(300);  // animation duration
+                        animation.setRepeatCount(50);  // animation repeat count
+                        animation.setRepeatMode(2);   // repeat animation (left to right, right to left )
+                        tutorialArrowRight.startAnimation(animation);
+                    }
+                }
+            });
+            tutorialView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tutorialButton.performClick();
+                }
+            });
+        }
     }
 
 }

@@ -65,6 +65,7 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/roboto_medium"
                 tools:text="TextView"
+                android:maxLines="1"
                 android:textColor="#2F3542"
                 android:textSize="12dp" />
 

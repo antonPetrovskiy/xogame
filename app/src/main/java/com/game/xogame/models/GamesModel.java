@@ -66,7 +66,11 @@ public class GamesModel {
 
         @Override
         protected Void doInBackground(ContentValues... params) {
-
+            SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
+            id = sharedPref.getString("token", "null");
+            lat = sharedPref.getString("lat", "null");
+            lon = sharedPref.getString("lng", "null");
+            Log.i("LOG_gethistory" , "Parametrs: " + id + " " + lat + " " + lon);
             if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
                 Call<GamesCallback> call = api.getFullGames(id,lat,lon);
                 call.enqueue(new Callback<GamesCallback>() {

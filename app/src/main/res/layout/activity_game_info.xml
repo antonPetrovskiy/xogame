@@ -341,6 +341,18 @@
         app:layout_constraintVertical_bias="0.55">
 
         <ImageView
+            android:id="@+id/tutorial_right_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:foregroundGravity="clip_vertical"
+            android:layout_marginEnd="10dp"
+            app:srcCompat="@drawable/tutorial_icon_share"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
             android:id="@+id/tutorial_right_arrow"
             android:layout_width="32dp"
             android:layout_height="35dp"

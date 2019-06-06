@@ -89,6 +89,7 @@ public class MyGamesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MyGamesActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("page","0");
                 startActivity(intent);
                 finish();
             }
@@ -105,6 +106,8 @@ public class MyGamesActivity extends AppCompatActivity {
 
 
     }
+
+
 
     @SuppressLint("SetTextI18n")
     public void setList(List<Game> list){

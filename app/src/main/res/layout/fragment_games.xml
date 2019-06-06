@@ -60,7 +60,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
-
+                android:focusable="false"
                 android:textColor="#9FA5AD"
                 android:textColorHint="#9FA5AD"
                 android:background="@null"

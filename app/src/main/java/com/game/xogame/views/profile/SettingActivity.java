@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -53,6 +54,7 @@ public class SettingActivity extends AppCompatActivity {
     private TextView support;
     private TextView rateus;
     private LinearLayout load;
+    private WebView web;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     @Override
@@ -86,6 +88,7 @@ public class SettingActivity extends AppCompatActivity {
         support = findViewById(R.id.textView13);
         rateus = findViewById(R.id.textView15);
         main = findViewById(R.id.all);
+        web = findViewById(R.id.web);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,6 +168,7 @@ public class SettingActivity extends AppCompatActivity {
                         mDateSetListener,
                         year, month, day);
                 Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 568036800000L);
                 dialog.show();
             }
         });
@@ -191,7 +195,20 @@ public class SettingActivity extends AppCompatActivity {
                         sharedPref.edit().putString("lat", "null").commit();
                         sharedPref.edit().putString("lng", "null").commit();
                         sharedPref.edit().putString("tutorial_guide", "false").commit();
+
+//                        sharedPref.edit().putString("tutorial_games", "true").commit();
+//                        sharedPref.edit().putString("tutorial_game", "true").commit();
+//                        sharedPref.edit().putString("tutorial_feeds", "true").commit();
+//                        sharedPref.edit().putString("tutorial_money", "true").commit();
+//                        sharedPref.edit().putString("tutorial_profile", "true").commit();
+
                         FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/auser" + sharedPref.getString("userid", "null"))
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                    }
+                                });
+                        FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/anews")
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -226,18 +243,23 @@ public class SettingActivity extends AppCompatActivity {
         support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                web.setVisibility(View.VISIBLE);
                 switch (getResources().getConfiguration().locale.getLanguage()) {
                     case "ru":
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ru/contact-us.php")));
+                        web.loadUrl("https://paparazzi.games/lang/ru/contact-us.php");
+                        //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ru/contact-us.php")));
                         break;
                     case "uk":
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ua/contact-us.php")));
+                        web.loadUrl("https://paparazzi.games/lang/ua/contact-us.php");
+                        //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ua/contact-us.php")));
                         break;
                     case "en":
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/contact-us.php")));
+                        web.loadUrl("https://paparazzi.games/lang/en/contact-us.php");
+                        //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/contact-us.php")));
                         break;
                     default:
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/contact-us.php")));
+                        web.loadUrl("https://paparazzi.games/lang/en/contact-us.php");
+                        //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/contact-us.php")));
                         break;
                 }
             }
@@ -246,18 +268,23 @@ public class SettingActivity extends AppCompatActivity {
         rules.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                web.setVisibility(View.VISIBLE);
                 switch (getResources().getConfiguration().locale.getLanguage()) {
                     case "ru":
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ru/Rules.html")));
+                        web.loadUrl("https://paparazzi.games/lang/ru/Rules.html");
+                        //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ru/Rules.html")));
                         break;
                     case "uk":
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ua/Rules.html")));
+                        web.loadUrl("https://paparazzi.games/lang/ua/Rules.html");
+                        //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ua/Rules.html")));
                         break;
                     case "en":
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/Rules.html")));
+                        web.loadUrl("https://paparazzi.games/lang/en/Rules.html");
+                        //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/Rules.html")));
                         break;
                     default:
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/Rules.html")));
+                        web.loadUrl("https://paparazzi.games/lang/en/Rules.html");
+                        //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/Rules.html")));
                         break;
                 }
 
@@ -266,8 +293,17 @@ public class SettingActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        onBack();
+    }
+
     public void onBack() {
-        super.onBackPressed();
+        if(web.getVisibility()==View.GONE){
+            super.onBackPressed();
+        }else {
+            web.setVisibility(View.GONE);
+        }
     }
 
     public LinearLayout getLoadView() {

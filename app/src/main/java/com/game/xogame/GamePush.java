@@ -16,6 +16,7 @@ import com.game.xogame.views.game.PlayActivity;
 import com.game.xogame.views.game.RatingGameActivity;
 import com.game.xogame.views.game.RatingHistoryActivity;
 import com.game.xogame.views.game.WinActivity;
+import com.game.xogame.views.main.MainActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -25,6 +26,7 @@ import java.util.Map;
 
 public class GamePush extends FirebaseMessagingService {
     private Map<String, String> data;
+
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -43,6 +45,9 @@ public class GamePush extends FirebaseMessagingService {
                 case "moderated":
                     sendModerated();
                     break;
+                case "newgame":
+                    sendNewGame();
+                    break;
             }
         }
     }
@@ -53,16 +58,17 @@ public class GamePush extends FirebaseMessagingService {
 
         Intent intent = new Intent(getApplicationContext(), RatingGameActivity.class); // Here pass your activity where you want to redirect.
         intent.putExtra("gameid",data.get("gameid"));
+        intent.putExtra("push","true");
         intent.putExtra("type","history");
 
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent contentIntent = PendingIntent.getActivity(this, (int) (Math.random() * 100), intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(this.getResources().getString(R.string.app_name))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText("end"))
-                .setContentText("Endgame")
+                .setContentText(data.get("body"))
                 .setAutoCancel(true)
                 .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.push))
                 .setPriority(Notification.PRIORITY_HIGH)
@@ -83,14 +89,14 @@ public class GamePush extends FirebaseMessagingService {
         intent.putExtra("latePlace",data.get("latePlace"));
         intent.putExtra("newPlace",data.get("newPlace"));
 
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent contentIntent = PendingIntent.getActivity(this, (int) (Math.random() * 100), intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(this.getResources().getString(R.string.app_name))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText("end"))
-                .setContentText("Endgame")
+                .setContentText(data.get("body"))
                 .setAutoCancel(true)
                 .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.push))
                 .setPriority(Notification.PRIORITY_HIGH)
@@ -117,14 +123,14 @@ public class GamePush extends FirebaseMessagingService {
         intent.putExtra("POSITION",data.get("position"));
 
 
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent contentIntent = PendingIntent.getActivity(this, (int) (Math.random() * 100), intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(this.getResources().getString(R.string.app_name))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(data.get("title")))
-                .setContentText(data.get("company"))
+                .setContentText(data.get("body"))
                 .setAutoCancel(true)
                 .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.push))
                 .setPriority(Notification.PRIORITY_HIGH)
@@ -145,11 +151,12 @@ public class GamePush extends FirebaseMessagingService {
         intent.putExtra("NUMBERTASK",data.get("numberTask"));
         intent.putExtra("TASKS",data.get("tasks"));
         intent.putExtra("TASKID",data.get("taskid"));
+        intent.putExtra("TOTALTIME",data.get("totaltime"));
 
         long currentTime = Calendar.getInstance().getTimeInMillis();
         Log.i("LOG_play", "time0: " + currentTime);
         intent.putExtra("TIME",currentTime);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent contentIntent = PendingIntent.getActivity(this, (int) (Math.random() * 100), intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
@@ -163,6 +170,31 @@ public class GamePush extends FirebaseMessagingService {
                 .setDefaults(Notification.FLAG_AUTO_CANCEL | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent);
         mNotificationManager.notify((int) notificatioId, notificationBuilder.build());
+    }
+
+    public void sendNewGame(){
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        long notificatioId = System.currentTimeMillis();
+
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class); // Here pass your activity where you want to redirect.
+        intent.putExtra("gameid",data.get("gameid"));
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+        PendingIntent contentIntent = PendingIntent.getActivity(this, (int) (Math.random() * 100), intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(this.getResources().getString(R.string.app_name))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(data.get("title")))
+                .setContentText(data.get("body"))
+                .setAutoCancel(true)
+                .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.push))
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setDefaults(Notification.FLAG_AUTO_CANCEL | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE)
+                .setContentIntent(contentIntent);
+        mNotificationManager.notify((int) notificatioId, notificationBuilder.build());
+
     }
 
 }

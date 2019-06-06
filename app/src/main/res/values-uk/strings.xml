@@ -112,9 +112,24 @@
     <string name="activityTutorial_subscribe">Підписуйся на ігри</string>
     <string name="activityTutorial_dotasks">Виконуй завдання</string>
     <string name="activityTutorial_befast">Буть швидше за інших Paparazzi</string>
-    <string name="activityTutorial_win">Вигравай гроші...</string>
-    <string name="activityTutorial_type">...на мобільний або кредитну карту</string>
+    <string name="activityTutorial_win">Вигравай гроші</string>
+    <string name="activityTutorial_type">Переводь гроші на мобільний або кредитну карту</string>
     <string name="activityTurorial_signin">Увійти</string>
+    <string name="activityMyWins_onmoderate">На данний момент відбуваєтся модерація. Будь ласка зачекайте.</string>
+    <string name="tutorial_welcome">Ласкаво просимо до PAPARAZZI Games</string>
+    <string name="tutorial_gamelist">"Це список усіх доступних ігор на нашій території. Натисніть на гру, для того щоб подивитись її описання. "</string>
+    <string name="tutorial_subscribe">Кожна гра включає в себе опис, дату та час коли гра буде відбуватись, кількість завдань, суму виграшу та кількість учасників.</string>
+    <string name="tutorial_feedsType">Ви можете переглядати тільки свої пости, або всю стрічку</string>
+    <string name="tutorial_feedsRating">Рейтинг показує табличку лідерів ТОП-3 та Ваше поточне місце</string>
+    <string name="tutorial_feeds">В стрічці відображаются ігри, на які Ви підписані</string>
+    <string name="tutorial_share">Не забудте поделиться игрой с друзьями</string>
+    <string name="tutorial_next">продовжити</string>
+    <string name="tutorial_money">Ви можете перевести гроші на рахунок мобільного телефону чи на кредитну картку</string>
+    <string name="activityGameInfo_errorpush">Для можливості брати участь в іграх вам необхідно дозволити повідомлення додатку</string>
+    <string name="tutorial_mygames">У вашому профiлi будуть вiдображатися усi iгри в якi ви граєте i на якi ви пiдписанi</string>
+    <string name="tutorial_history">Iсторiя зберiгає усi вашi минулi iгри</string>
+    <string name="error_cannotReachServer">З\'єднання втрачено</string>
+    <string name="activityUserProfile_notsupported">Гра не підтримується у вашому регіоні</string>
 
 
 </resources>

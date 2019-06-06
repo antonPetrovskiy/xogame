@@ -135,9 +135,9 @@ public class MoneyActivity extends AppCompatActivity {
         alertD.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                Intent intent = new Intent(MoneyActivity.this, MyWinsActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                Intent openMainActivity= new Intent(MoneyActivity.this, MainActivity.class);
+                openMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityIfNeeded(openMainActivity, 0);
                 finish();
             }
         });

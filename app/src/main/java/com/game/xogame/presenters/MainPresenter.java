@@ -2,6 +2,7 @@ package com.game.xogame.presenters;
 
 import android.content.ContentValues;
 import android.util.Log;
+import android.view.View;
 
 import com.game.xogame.entity.Feed;
 import com.game.xogame.models.GamesModel;
@@ -80,6 +81,7 @@ public class MainPresenter {
     modelGames.getFeeds(flag,limit,new GamesModel.GetFeedsCallback() {
             @Override
             public void onGet(String status, String error) {
+                fragment.load.setVisibility(View.GONE);
                 if(status.equals("success")) {
                     fragment.setList(modelGames.feedList);
                 }else{

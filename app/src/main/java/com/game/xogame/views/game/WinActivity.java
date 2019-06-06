@@ -25,7 +25,7 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 
 public class WinActivity extends AppCompatActivity {
-
+    public static MainActivity activity;
     private TextView header;
     private TextView company;
     private TextView title;
@@ -49,7 +49,8 @@ public class WinActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_win);
-
+        if(activity!=null)
+            activity.finish();
         Bundle extras = getIntent().getExtras();
 
         init();
@@ -140,7 +141,6 @@ public class WinActivity extends AppCompatActivity {
         toMobile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(WinActivity.this, MoneyActivity.class);
                 intent.putExtra("type", "phone");
                 intent.putExtra("gameid", gameid);
@@ -152,8 +152,11 @@ public class WinActivity extends AppCompatActivity {
         toCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                anim.setVisibility(View.VISIBLE);
-                anim.playAnimation();
+                Intent intent = new Intent(WinActivity.this, MoneyActivity.class);
+                intent.putExtra("type", "ccard");
+                intent.putExtra("gameid", gameid);
+                intent.putExtra("money", money.getText()+"");
+                startActivity(intent);
             }
         });
 
@@ -166,10 +169,10 @@ public class WinActivity extends AppCompatActivity {
                         break;
                     case MotionEvent.ACTION_UP: // отпускание
                         ok.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
-                        Intent intent = new Intent(WinActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra("page","1");
-                        startActivity(intent);
+                        Intent openMainActivity= new Intent(WinActivity.this, MainActivity.class);
+                        openMainActivity.putExtra("page","1");
+                        openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(openMainActivity);
                         finish();
                         break;
                 }

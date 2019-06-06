@@ -112,9 +112,24 @@
     <string name="activityTutorial_subscribe">Sign up for games</string>
     <string name="activityTutorial_dotasks">Carry out task</string>
     <string name="activityTutorial_befast">Be faster than other Paparazzi</string>
-    <string name="activityTutorial_win">Win the money...</string>
-    <string name="activityTutorial_type">... on smartphone or credit card</string>
+    <string name="activityTutorial_win">Win the money</string>
+    <string name="activityTutorial_type">Transfer money to a mobile or credit card</string>
     <string name="activityTurorial_signin">Sign in</string>
+    <string name="activityMyWins_onmoderate">At the moment, there is a moderation. Please wait.</string>
+    <string name="tutorial_welcome">Welcome to PAPARAZZI Games</string>
+    <string name="tutorial_gamelist">This is a list of all available games in your area. Click on a game to view it\'s description</string>
+    <string name="tutorial_subscribe">Each game includes a description, time, date, place of the game, the number of tasks, the number of wins and the number of participants. Scroll down and click the Participate button to subscribe to the game</string>
+    <string name="tutorial_feedsType">Here you can see your mission\'s or completed mission\'s of all paparazzi</string>
+    <string name="tutorial_feedsRating">The rating shows the TOP-3 rating and your current place</string>
+    <string name="tutorial_feeds">Here you can see all completed mission\'s</string>
+    <string name="tutorial_share">Do not forget to share the game with your friends</string>
+    <string name="tutorial_next">continue</string>
+    <string name="tutorial_money">You can transfer money to your mobile phone or credit card</string>
+    <string name="activityGameInfo_errorpush">To be able to participate in the games you need to enable the display of notifications</string>
+    <string name="tutorial_mygames">Your profile will display all the games you subscribed to</string>
+    <string name="tutorial_history">History keeps all your past games</string>
+    <string name="error_cannotReachServer">Connection is lost</string>
+    <string name="activityUserProfile_notsupported">The game is not supported in your area</string>
 
 
 </resources>

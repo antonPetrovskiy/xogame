@@ -129,6 +129,15 @@ public class MyWinsActivity extends AppCompatActivity {
 
                     alertD.setView(promptView);
                     alertD.show();
+                }else{
+                    LayoutInflater layoutInflater = LayoutInflater.from(MyWinsActivity.this);
+                    @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
+                    final AlertDialog alertD = new AlertDialog.Builder(MyWinsActivity.this).create();
+                    TextView title = promptView.findViewById(R.id.textView1);
+                    title.setText(getString(R.string.activityMyWins_onmoderate));
+
+                    alertD.setView(promptView);
+                    alertD.show();
                 }
             }
         });

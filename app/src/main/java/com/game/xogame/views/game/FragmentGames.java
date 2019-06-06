@@ -86,7 +86,6 @@ public class FragmentGames extends Fragment {
 
         init();
 
-
         return rootView;
     }
 
@@ -109,8 +108,10 @@ public class FragmentGames extends Fragment {
         adapter = null;
 
         if (!context.getSharedPreferences("myPref", MODE_PRIVATE).getString("lat", "null").equals("null")) {
+            Log.i("LOG_gethistory" , "1.1 " );
             presenter.showGames(FragmentGames.this);
         } else {
+            Log.i("LOG_gethistory" , "1.2 " );
             empty.setVisibility(View.VISIBLE);
             load.setVisibility(View.GONE);
         }
@@ -119,11 +120,13 @@ public class FragmentGames extends Fragment {
             @Override
             public void onRefresh() {
                 if (!context.getSharedPreferences("myPref", MODE_PRIVATE).getString("lat", "null").equals("null")) {
+                    Log.i("LOG_gethistory" , "2.1 " );
                     gameList = new LinkedList<>();
                     adapter = null;
                     presenter.showGames(FragmentGames.this);
                     empty.setVisibility(View.GONE);
                 } else {
+                    Log.i("LOG_gethistory" , "2.2 " );
                     load.setVisibility(View.GONE);
                     empty.setVisibility(View.VISIBLE);
                 }
@@ -182,6 +185,17 @@ public class FragmentGames extends Fragment {
 
         });
 
+        search.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                search.setFocusableInTouchMode(true);
+
+                return false;
+            }
+        });
+
+        checkTutorial();
     }
 
     @Override
@@ -191,11 +205,12 @@ public class FragmentGames extends Fragment {
     }
 
     public void update() {
-        if (!context.getSharedPreferences("myPref", MODE_PRIVATE).getString("lat", "null").equals("null")) {
+         if (!context.getSharedPreferences("myPref", MODE_PRIVATE).getString("lat", "null").equals("null")) {
             gameList = new LinkedList<>();
             adapter = null;
             presenter.showGames(FragmentGames.this);
             empty.setVisibility(View.GONE);
+
         } else {
             empty.setVisibility(View.VISIBLE);
             load.setVisibility(View.GONE);
@@ -273,7 +288,30 @@ public class FragmentGames extends Fragment {
             subscribeCheck = true;
         }
 
-        checkTutorial();
+        if(MainActivity.gameId!=null){
+            for(int i = 0; i < tmpgameList.size(); i++){
+                if(tmpgameList.get(i).getGameid().equals(MainActivity.gameId)){
+                    Intent intent = new Intent(context, GameInfoActivity.class);
+                    intent.putExtra("GAMEID", tmpgameList.get(i).getGameid());
+                    intent.putExtra("SUBSCRIBE", tmpgameList.get(i).getSubscribe());
+                    intent.putExtra("TITLE", tmpgameList.get(i).getTitle());
+                    intent.putExtra("NAME", tmpgameList.get(i).getCompany());
+                    intent.putExtra("LOGO", tmpgameList.get(i).getLogo());
+                    intent.putExtra("BACKGROUND", tmpgameList.get(i).getBackground());
+                    intent.putExtra("DATE", tmpgameList.get(i).getStartdate() + " - " + l.get(i).getEnddate());
+                    intent.putExtra("DESCRIPTION", tmpgameList.get(i).getDescription());
+                    intent.putExtra("TASKS", tmpgameList.get(i).getTasks());
+                    intent.putExtra("TIME", tmpgameList.get(i).getStarttime() + " - " + l.get(i).getEndtime());
+                    intent.putExtra("MONEY", tmpgameList.get(i).getReward());
+                    intent.putExtra("PEOPLE", tmpgameList.get(i).getFollowers());
+                    intent.putExtra("SHARE", tmpgameList.get(i).getSiteurl());
+                    intent.putExtra("STATISTIC", "false");
+                    MainActivity.gameId=null;
+                    startActivity(intent);
+                }
+            }
+        }
+
 
     }
 
@@ -281,15 +319,23 @@ public class FragmentGames extends Fragment {
         final SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
         if(sharedPref.getString("tutorial_games", "false").equals("true")){
         tutorialView.setVisibility(View.VISIBLE);
+        MainActivity.bar.setVisibility(View.GONE);
         tutorialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(tutorialText.getText().toString().equals(getString(R.string.tutorial_gamelist))){
                     tutorialView.setVisibility(View.GONE);
+                    MainActivity.bar.setVisibility(View.VISIBLE);
                     sharedPref.edit().putString("tutorial_games","false").commit();
                 }else {
                     tutorialText.setText(getString(R.string.tutorial_gamelist));
                 }
+            }
+        });
+        tutorialView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tutorialButton.performClick();
             }
         });
         }

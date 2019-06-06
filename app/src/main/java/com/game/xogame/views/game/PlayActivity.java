@@ -1,8 +1,13 @@
 package com.game.xogame.views.game;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -14,10 +19,12 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -33,18 +40,28 @@ import android.widget.TextView;
 
 import androidx.exifinterface.media.ExifInterface;
 
+import com.game.xogame.BuildConfig;
 import com.game.xogame.R;
 import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
 import com.game.xogame.models.PlayModel;
 import com.game.xogame.presenters.PlayPresenter;
+import com.game.xogame.views.authentication.LoginActivity;
+import com.game.xogame.views.authentication.TutorialActivity;
 import com.game.xogame.views.main.MainActivity;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 
 import static com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage;
@@ -52,13 +69,14 @@ import static com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotate
 public class PlayActivity extends AppCompatActivity {
     public ApiService api;
     private PlayPresenter presenter;
-
+    public static MainActivity activity;
     //1st screen
     private TextView title;
     private TextView company;
     private TextView task;
     private TextView number;
     private TextView time;
+    private String totaltime;
     private ImageView logo;
     public ImageView camera;
     private CardView card;
@@ -92,6 +110,34 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        Dexter.withActivity(this)
+                .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        if (response.isPermanentlyDenied()) {
+                            Intent intent = new Intent();
+                            intent.setAction(
+                                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            Uri uri = Uri.fromParts("package",
+                                    BuildConfig.APPLICATION_ID, null);
+                            intent.setData(uri);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
+
         Bundle extras = getIntent().getExtras();
         long currentTime1 = Calendar.getInstance().getTimeInMillis();
         long currentTime2 = extras.getLong("TIME");
@@ -100,9 +146,11 @@ public class PlayActivity extends AppCompatActivity {
         Log.i("LOG_play", "time2: " + currentTime2);
         Log.i("LOG_play", "time: " + sec);
         createDirectory();
+        totaltime = extras.getString("TOTALTIME");
         init();
 
         taskId = extras.getString("TASKID");
+
         title.setText(extras.getString("TITLE"));
         Picasso.with(this).load(extras.getString("LOGO")).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(logo);
         task.setText(extras.getString("TASK"));
@@ -159,34 +207,24 @@ public class PlayActivity extends AppCompatActivity {
                 timer.cancel();
             }
         });
-
-
-        timer = new CountDownTimer(120000 - sec, 10) {
+        if(activity!=null)
+            activity.finish();
+        final long l = Long.parseLong(totaltime);
+        timer = new CountDownTimer(l - sec, 10) {
 
             public void onTick(long millisUntilFinished) {
-                long msec = (millisUntilFinished / 10);
-                String s = msec+"";
-                if(s.length()>1)
-                    s = s.substring(s.length()-2);
-                if (millisUntilFinished < 10000) {
-                    time.setText("00:0" + (millisUntilFinished / 1000)+"."+s);
-                    time2.setText("00:0" + (millisUntilFinished / 1000)+"."+s);
-                } else if(millisUntilFinished < 60000){
-                    time.setText("00:" + (millisUntilFinished / 1000)+"."+s);
-                    time2.setText("00:" + (millisUntilFinished / 1000)+"."+s);
-                } else if(millisUntilFinished < 70000){
-                    time.setText("01:0" + ((millisUntilFinished / 1000) - 60)+"."+s);
-                    time2.setText("01:0" + ((millisUntilFinished / 1000) - 60)+"."+s);
-                } else{
-                    time.setText("01:" + ((millisUntilFinished / 1000) - 60)+"."+s);
-                    time2.setText("01:" + ((millisUntilFinished / 1000) - 60)+"."+s);
-                }
-                long temp = (120000 - millisUntilFinished);
+                long minutes = millisUntilFinished / (1000 * 60);
+                long seconds = millisUntilFinished / 1000 % 60;
+                long millis = millisUntilFinished % 1000;
+                String hms = String.format("%02d:%02d.%02d", minutes, seconds, millis);
+                hms = hms.substring(0, 8);
+                time.setText(hms);
+                time2.setText(hms);
+                long temp = (l - millisUntilFinished);
                 current = temp + "";
             }
 
             public void onFinish() {
-                //if(current == null)
                 time.setText("00:00.00");
                 time2.setText("00:00.00");
                 toMainActivityLose();
@@ -222,27 +260,24 @@ public class PlayActivity extends AppCompatActivity {
         btnAdd1.setText(getString(R.string.error_timeIsOut));
         alertD.setView(promptView);
 
-        //alertD.setCancelable(false);
 
         alertD.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("page","1");
-                alertD.cancel();
-                PlayActivity.this.startActivity(intent);
+                Intent openMainActivity= new Intent(PlayActivity.this, MainActivity.class);
+                openMainActivity.putExtra("page","1");
+                openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(openMainActivity);
                 finish();
             }
         });
         promptView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("page","1");
-                alertD.cancel();
-                PlayActivity.this.startActivity(intent);
+                Intent openMainActivity= new Intent(PlayActivity.this, MainActivity.class);
+                openMainActivity.putExtra("page","1");
+                openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(openMainActivity);
                 finish();
             }
         });
@@ -251,8 +286,8 @@ public class PlayActivity extends AppCompatActivity {
 
     }
 
-    @SuppressLint("SetTextI18n")
     public void toMainActivityWin() {
+        myFile.delete();
         load.setVisibility(View.GONE);
         LayoutInflater layoutInflater = LayoutInflater.from(PlayActivity.this);
         @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_taskdone, null);
@@ -282,11 +317,10 @@ public class PlayActivity extends AppCompatActivity {
         alertD.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("page","1");
-                alertD.cancel();
-                PlayActivity.this.startActivity(intent);
+                Intent openMainActivity= new Intent(PlayActivity.this, MainActivity.class);
+                openMainActivity.putExtra("page","1");
+                openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(openMainActivity);
                 finish();
             }
         });
@@ -294,11 +328,42 @@ public class PlayActivity extends AppCompatActivity {
         promptView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("page","1");
-                alertD.cancel();
-                PlayActivity.this.startActivity(intent);
+                Intent openMainActivity= new Intent(PlayActivity.this, MainActivity.class);
+                openMainActivity.putExtra("page","1");
+                openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(openMainActivity);
+                finish();
+            }
+        });
+        alertD.show();
+    }
+
+    public void showToast(String s){
+        LayoutInflater layoutInflater = LayoutInflater.from(PlayActivity.this);
+        @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
+        final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(this).create();
+            TextView btnAdd1 = promptView.findViewById(R.id.textView1);
+            btnAdd1.setText(s);
+            alertD.setView(promptView);
+            load.setVisibility(View.GONE);
+
+        alertD.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Intent openMainActivity= new Intent(PlayActivity.this, MainActivity.class);
+                openMainActivity.putExtra("page","1");
+                openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(openMainActivity);
+                finish();
+            }
+        });
+        promptView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openMainActivity= new Intent(PlayActivity.this, MainActivity.class);
+                openMainActivity.putExtra("page","1");
+                openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(openMainActivity);
                 finish();
             }
         });
@@ -307,54 +372,6 @@ public class PlayActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-//        Intent intent = new Intent(PlayActivity.this, MainActivity.class);
-//        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        intent.putExtra("page","1");
-//        startActivity(intent);
-//        finish();
-    }
-
-    public void toMainActivity(){
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("page","1");
-        startActivity(intent);
-        finish();
-    }
-
-    public void showToast(String s){
-        LayoutInflater layoutInflater = LayoutInflater.from(PlayActivity.this);
-        @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
-        final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(this).create();
-
-
-            TextView btnAdd1 = promptView.findViewById(R.id.textView1);
-            btnAdd1.setText(s);
-            alertD.setView(promptView);
-            alertD.show();
-            load.setVisibility(View.GONE);
-        alertD.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("page","1");
-                alertD.cancel();
-                startActivity(intent);
-                finish();
-            }
-        });
-        promptView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("page","1");
-                alertD.cancel();
-                startActivity(intent);
-                finish();
-            }
-        });
 
     }
 

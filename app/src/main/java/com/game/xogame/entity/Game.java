@@ -55,6 +55,12 @@ public class Game {
     @SerializedName("rewardstatus")
     @Expose
     private String rewardstatus;
+    @SerializedName("gameAvaible")
+    @Expose
+    private String gameAvaible;
+    @SerializedName("gameSub")
+    @Expose
+    private String gameSub;
 
 
     public String getGameid() {
@@ -123,5 +129,13 @@ public class Game {
 
     public String getRewardstatus() {
         return rewardstatus;
+    }
+
+    public String getGameAvaible() {
+        return gameAvaible;
+    }
+
+    public String getGameSub() {
+        return gameSub;
     }
 }

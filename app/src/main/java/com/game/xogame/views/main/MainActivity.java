@@ -24,7 +24,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.game.xogame.BuildConfig;
@@ -37,6 +39,10 @@ import com.game.xogame.presenters.MainPresenter;
 import com.game.xogame.views.CustomViewPager;
 import com.game.xogame.views.game.FragmentFeeds;
 import com.game.xogame.views.game.FragmentGames;
+import com.game.xogame.views.game.ModerationActivity;
+import com.game.xogame.views.game.PlayActivity;
+import com.game.xogame.views.game.RatingGameActivity;
+import com.game.xogame.views.game.WinActivity;
 import com.game.xogame.views.profile.FragmentProfile;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -71,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 1000;
     private static final int REQUEST_CHECK_SETTINGS = 100;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 10;
-    public static SectionsPagerAdapter mSectionsPagerAdapter;
-    public static CustomViewPager mViewPager;
-    public static String token;
+    public  SectionsPagerAdapter mSectionsPagerAdapter;
+    public  CustomViewPager mViewPager;
+    public  String token;
     public int currentItem = 1;
     public ApiService api;
     private MainPresenter presenter;
@@ -83,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
     public static ImageView button4;
     public static ImageView button5;
     public static ImageView button6;
+
+    public static String gameId;
+    public static RelativeLayout bar;
     // location last updated time
 
     // bunch of location related apis
@@ -100,27 +109,35 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-
+        PlayActivity.activity = this;
+        RatingGameActivity.activity = this;
+        ModerationActivity.activity = this;
+        WinActivity.activity = this;
         SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
         token = sharedPref.getString("token", "null");
 
-        api = RetroClient.getApiService();
-        UserInfoModel model = new UserInfoModel(api, getApplicationContext());
-        GamesModel modelGames = new GamesModel(api, getApplicationContext());
-        presenter = new MainPresenter(model, modelGames);
-        presenter.attachMainView(this);
+        if(mSectionsPagerAdapter==null) {
 
-        String page;
-        if(getIntent().getExtras()!= null && getIntent().getExtras().getString("page")!=null && !getIntent().getExtras().getString("page").equals("")) {
-            page = getIntent().getExtras().getString("page");
-        }else{
-            page = "0";
+            api = RetroClient.getApiService();
+            UserInfoModel model = new UserInfoModel(api, getApplicationContext());
+            GamesModel modelGames = new GamesModel(api, getApplicationContext());
+            presenter = new MainPresenter(model, modelGames);
+            presenter.attachMainView(this);
+
+            String page;
+            if (getIntent().getExtras() != null && getIntent().getExtras().getString("page") != null && !getIntent().getExtras().getString("page").equals("")) {
+                page = getIntent().getExtras().getString("page");
+            } else {
+                page = "0";
+            }
+            if (getIntent().getExtras() != null && getIntent().getExtras().getString("gameid") != null && !getIntent().getExtras().getString("gameid").equals("")) {
+                gameId = getIntent().getExtras().getString("gameid");
+            }
+
+
+            init(page);
+            initCoord();
         }
-
-        init(page);
-        initCoord();
-
 
         // Requesting ACCESS_FINE_LOCATION using Dexter library
         Dexter.withActivity(this)
@@ -173,8 +190,6 @@ public class MainActivity extends AppCompatActivity {
                               });
 
 
-
-
         Dexter.withActivity(this)
                 .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .withListener(new PermissionListener() {
@@ -221,8 +236,16 @@ public class MainActivity extends AppCompatActivity {
         button4 = findViewById(R.id.imageView7);
         button5 = findViewById(R.id.imageView8);
         button6 = findViewById(R.id.imageView6);
+        bar = findViewById(R.id.bar);
 
+        if (mSectionsPagerAdapter == null) {
+            mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        }
 
+        mViewPager = findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setCurrentItem(Integer.parseInt(page));
 
 
         button4.setOnClickListener(new View.OnClickListener() {
@@ -258,6 +281,8 @@ public class MainActivity extends AppCompatActivity {
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FragmentFeeds fragment = (FragmentFeeds) mSectionsPagerAdapter.getItem(1);
+                fragment.checkTutorial();
                 if (currentItem == 1) {
                     button1.setSpeed(6f);
                     button1.setAnimation("hide_right.json");
@@ -267,7 +292,6 @@ public class MainActivity extends AppCompatActivity {
                     button2.playAnimation();
                 }
                 if (currentItem == 2) {
-                    FragmentFeeds fragment = (FragmentFeeds) mSectionsPagerAdapter.getItem(1);
                     fragment.update();
                 }
                 if (currentItem == 3) {
@@ -288,6 +312,8 @@ public class MainActivity extends AppCompatActivity {
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FragmentProfile fragment = (FragmentProfile) mSectionsPagerAdapter.getItem(2);
+                fragment.checkTutorial();
                 if (currentItem == 1) {
                     button1.setAnimation("hide_right.json");
                     button3.setAnimation("hide_left.json");
@@ -305,7 +331,6 @@ public class MainActivity extends AppCompatActivity {
                     button3.playAnimation();
                 }
                 if (currentItem == 3) {
-                    FragmentProfile fragment = (FragmentProfile) mSectionsPagerAdapter.getItem(2);
                     fragment.update();
                 }
 
@@ -318,23 +343,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = findViewById(R.id.container);
-        mViewPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-
-
-        });
-
-
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setOffscreenPageLimit(4);
-        mViewPager.setCurrentItem(Integer.parseInt(page));
 
         switch (page) {
             case "0":
@@ -361,12 +370,6 @@ public class MainActivity extends AppCompatActivity {
         }
         //presenter.showUserInfo();
     }
-
-    @Override
-    public void onBackPressed() {
-
-    }
-
 
     public void coord() {
         // Requesting ACCESS_FINE_LOCATION using Dexter library
@@ -422,7 +425,6 @@ public class MainActivity extends AppCompatActivity {
         builder.addLocationRequest(mLocationRequest);
         mLocationSettingsRequest = builder.build();
     }
-
 
     /**
      * Update the UI displaying the location data
@@ -535,17 +537,28 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        if (getIntent().getExtras() != null && getIntent().getExtras().getString("page") != null && !getIntent().getExtras().getString("page").equals("")) {
+//            switch (getIntent().getExtras().getString("page")){
+//                case "0":
+//                    button4.performClick();
+//                    break;
+//                case "1":
+//                    button5.performClick();
+//                    break;
+//                case "2":
+//                    button6.performClick();
+//                    break;
+//            }
+//            Log.i("LOG_page" , getIntent().getExtras().getString("page")+"    ");
+//        }
+//    }
+
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onBackPressed() {
 
-        // Resuming location updates depending on button state and
-        // allowed permissions
-        if (mRequestingLocationUpdates && checkPermissions()) {
-            startLocationUpdates();
-        }
-
-        updateLocationUI();
     }
 
     private boolean checkPermissions() {
@@ -578,7 +591,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         if (mRequestingLocationUpdates) {
-            // pausing location updates
             stopLocationUpdates();
         }
     }
@@ -603,7 +615,8 @@ public class MainActivity extends AppCompatActivity {
                     // button6.performClick();
                     return FragmentProfile.newInstance(getApplicationContext(), presenter);
                 default:
-                    return null;//Это для того, что бы что-то вернулось, если порядковый номер вдруг будет больше 2. И в данном случае приложение закроется с ошибкой.
+                    return FragmentGames.newInstance(getApplicationContext(), presenter);
+
 
             }
         }

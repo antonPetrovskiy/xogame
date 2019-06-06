@@ -173,22 +173,32 @@ public class UserProfileActivity extends AppCompatActivity {
         list1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(UserProfileActivity.this, GameInfoActivity.class);
-                intent.putExtra("GAMEID", l.get(position).getGameid());
-                intent.putExtra("SUBSCRIBE", l.get(position).getSubscribe());
-                intent.putExtra("TITLE", l.get(position).getTitle());
-                intent.putExtra("NAME", l.get(position).getCompany());
-                intent.putExtra("LOGO", l.get(position).getLogo());
-                intent.putExtra("BACKGROUND", l.get(position).getBackground());
-                intent.putExtra("DATE", l.get(position).getStartdate() + "-" + l.get(position).getEnddate());
-                intent.putExtra("DESCRIPTION", l.get(position).getDescription());
-                intent.putExtra("TASKS", l.get(position).getTasks());
-                intent.putExtra("TIME", l.get(position).getStarttime() + "-" + l.get(position).getEndtime());
-                intent.putExtra("MONEY", l.get(position).getReward());
-                intent.putExtra("PEOPLE", l.get(position).getFollowers());
-                intent.putExtra("STATISTIC", "true");
-                intent.putExtra("USER", "another");
-                startActivity(intent);
+                if(l.get(position).getGameAvaible().equals("1")) {
+                    Intent intent = new Intent(UserProfileActivity.this, GameInfoActivity.class);
+                    intent.putExtra("GAMEID", l.get(position).getGameid());
+                    intent.putExtra("SUBSCRIBE", l.get(position).getSubscribe());
+                    intent.putExtra("TITLE", l.get(position).getTitle());
+                    intent.putExtra("NAME", l.get(position).getCompany());
+                    intent.putExtra("LOGO", l.get(position).getLogo());
+                    intent.putExtra("BACKGROUND", l.get(position).getBackground());
+                    intent.putExtra("DATE", l.get(position).getStartdate() + "-" + l.get(position).getEnddate());
+                    intent.putExtra("DESCRIPTION", l.get(position).getDescription());
+                    intent.putExtra("TASKS", l.get(position).getTasks());
+                    intent.putExtra("TIME", l.get(position).getStarttime() + "-" + l.get(position).getEndtime());
+                    intent.putExtra("MONEY", l.get(position).getReward());
+                    intent.putExtra("PEOPLE", l.get(position).getFollowers());
+                    intent.putExtra("STATISTIC", "true");
+                    intent.putExtra("USER", "another");
+                    startActivity(intent);
+                }else{
+                    LayoutInflater layoutInflater = LayoutInflater.from(UserProfileActivity.this);
+                    @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
+                    final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(UserProfileActivity.this).create();
+                    TextView btnAdd1 = promptView.findViewById(R.id.textView1);
+                    btnAdd1.setText(getString(R.string.activityUserProfile_notsupported));
+                    alertD.setView(promptView);
+                    alertD.show();
+                }
             }
         });
 
@@ -217,21 +227,31 @@ public class UserProfileActivity extends AppCompatActivity {
         list2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(UserProfileActivity.this, GameInfoActivity.class);
-                intent.putExtra("GAMEID", l.get(position).getGameid());
-                intent.putExtra("SUBSCRIBE", l.get(position).getSubscribe());
-                intent.putExtra("TITLE", l.get(position).getTitle());
-                intent.putExtra("NAME", l.get(position).getCompany());
-                intent.putExtra("LOGO", l.get(position).getLogo());
-                intent.putExtra("BACKGROUND", l.get(position).getBackground());
-                intent.putExtra("DATE", l.get(position).getStartdate() + "-" + l.get(position).getEnddate());
-                intent.putExtra("DESCRIPTION", l.get(position).getDescription());
-                intent.putExtra("TASKS", l.get(position).getTasks());
-                intent.putExtra("TIME", l.get(position).getStarttime() + "-" + l.get(position).getEndtime());
-                intent.putExtra("MONEY", l.get(position).getReward());
-                intent.putExtra("PEOPLE", l.get(position).getFollowers());
-                intent.putExtra("STATISTIC", "true");
-                startActivity(intent);
+                if(l.get(position).getGameAvaible().equals("1")) {
+                    Intent intent = new Intent(UserProfileActivity.this, GameInfoActivity.class);
+                    intent.putExtra("GAMEID", l.get(position).getGameid());
+                    intent.putExtra("SUBSCRIBE", l.get(position).getSubscribe());
+                    intent.putExtra("TITLE", l.get(position).getTitle());
+                    intent.putExtra("NAME", l.get(position).getCompany());
+                    intent.putExtra("LOGO", l.get(position).getLogo());
+                    intent.putExtra("BACKGROUND", l.get(position).getBackground());
+                    intent.putExtra("DATE", l.get(position).getStartdate() + "-" + l.get(position).getEnddate());
+                    intent.putExtra("DESCRIPTION", l.get(position).getDescription());
+                    intent.putExtra("TASKS", l.get(position).getTasks());
+                    intent.putExtra("TIME", l.get(position).getStarttime() + "-" + l.get(position).getEndtime());
+                    intent.putExtra("MONEY", l.get(position).getReward());
+                    intent.putExtra("PEOPLE", l.get(position).getFollowers());
+                    intent.putExtra("STATISTIC", "true");
+                    startActivity(intent);
+                }else{
+                    LayoutInflater layoutInflater = LayoutInflater.from(UserProfileActivity.this);
+                    @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
+                    final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(UserProfileActivity.this).create();
+                    TextView btnAdd1 = promptView.findViewById(R.id.textView1);
+                    btnAdd1.setText(getString(R.string.activityUserProfile_notsupported));
+                    alertD.setView(promptView);
+                    alertD.show();
+                }
             }
         });
 

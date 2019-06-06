@@ -866,4 +866,23 @@
             android:textSize="16dp" />
     </RelativeLayout>
 
+    <Button
+        android:id="@+id/imageButtonExit"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/registration_button_view"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/activityModeration_next"
+        android:textColor="#ffffff"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

@@ -17,17 +17,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/roboto_medium"
-                android:gravity="center_vertical"
-                android:text="@string/activityWin_win"
-                android:textAlignment="center"
-                android:textColor="#2F3542"
-                android:textSize="16dp" />
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center_vertical"
+            android:text="@string/activityWin_win"
+            android:textAlignment="center"
+            android:textColor="#2F3542"
+            android:textSize="16dp" />
 
         <ImageView
             android:id="@+id/imageView12"
@@ -119,8 +119,8 @@
                         android:layout_height="match_parent"
                         android:layout_marginEnd="24dp"
                         android:layout_weight="1"
-                        android:gravity="center_vertical"
                         android:fontFamily="@font/roboto_regular"
+                        android:gravity="center_vertical"
                         android:text="@string/activityRatingHistory_ended"
                         android:textAlignment="viewEnd"
                         android:textColor="#2F3542"
@@ -139,7 +139,6 @@
                     android:textColor="#57606F"
                     android:textSize="12dp"
                     tools:text="TextView" />
-
 
 
             </LinearLayout>
@@ -207,8 +206,8 @@
             android:layout_marginTop="12dp"
             android:layout_marginRight="12dp"
             android:background="@drawable/oval_line"
-            android:padding="2dp"
             android:orientation="horizontal"
+            android:padding="2dp"
             android:weightSum="10">
 
             <ProgressBar
@@ -281,37 +280,37 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
-            android:textAlignment="center"
-            android:fontFamily="@font/roboto_bold"
             android:background="@drawable/bggradient"
+            android:fontFamily="@font/roboto_bold"
             android:gravity="center_vertical"
+            android:text="@string/activityMyWins_sent"
+            android:textAlignment="center"
             android:textColor="#586575"
-            android:textSize="16dp"
-            android:text="@string/activityMyWins_sent" />
+            android:textSize="16dp" />
+
         <TextView
             android:id="@+id/textView16"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:textAlignment="center"
-            android:fontFamily="@font/roboto_regular"
             android:background="@drawable/bggradient"
+            android:fontFamily="@font/roboto_regular"
             android:gravity="center_vertical"
+            android:text="@string/activityMyWins_mobile"
+            android:textAlignment="center"
             android:textColor="#586575"
-            android:textSize="16dp"
-            android:text="@string/activityMyWins_mobile" />
+            android:textSize="16dp" />
+
         <TextView
             android:id="@+id/textView15"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:textAlignment="center"
-            android:fontFamily="@font/roboto_regular"
             android:background="@drawable/bggradient"
+            android:fontFamily="@font/roboto_regular"
             android:gravity="center_vertical"
+            android:text="@string/activityMyWins_card"
+            android:textAlignment="center"
             android:textColor="#586575"
-            android:textSize="16dp"
-            android:text="@string/activityMyWins_card" />
-
-
+            android:textSize="16dp" />
 
 
     </LinearLayout>
@@ -321,15 +320,15 @@
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
         android:layout_marginBottom="42dp"
         android:background="@drawable/registration_button_view"
         android:fontFamily="@font/roboto_regular"
         android:text="@string/activityWin_later"
         android:textColor="#ffffff"
-        android:visibility="gone"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
         android:textSize="16dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -339,7 +338,6 @@
         android:id="@+id/targetView"
         android:layout_width="170dp"
         android:layout_height="170dp"
-        android:orientation="vertical"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -349,13 +347,8 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            android:layout_gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="155dp"
+            android:layout_height="155dp"
             app:lottie_autoPlay="false"
             app:lottie_imageAssetsFolder="airbnb/"
             app:lottie_loop="false" />

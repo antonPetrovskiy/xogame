@@ -51,6 +51,9 @@ dependencies {
     // dexter runtime permissions
     implementation 'com.karumi:dexter:4.2.0'
     implementation 'androidx.exifinterface:exifinterface:1.1.0-alpha01'
+
+    // required
+    implementation 'io.branch.sdk.android:library:3.2.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

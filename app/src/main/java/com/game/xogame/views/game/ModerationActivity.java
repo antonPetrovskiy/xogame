@@ -25,7 +25,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class ModerationActivity extends AppCompatActivity {
-
+    public static MainActivity activity;
     public ApiService api;
     private TextView company;
     private TextView game;
@@ -59,7 +59,8 @@ public class ModerationActivity extends AppCompatActivity {
         GamesModel usersModel = new GamesModel(api, getApplicationContext());
         presenter = new ModerationPresenter(usersModel);
         presenter.attachView(this);
-
+        if(activity!=null)
+            activity.finish();
         gameid = getIntent().getStringExtra("gameid");
         company.setText(getIntent().getStringExtra("company"));
         game.setText(getIntent().getStringExtra("title"));
@@ -75,10 +76,10 @@ public class ModerationActivity extends AppCompatActivity {
                         break;
                     case MotionEvent.ACTION_UP: // отпускание
                         button.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
-                        Intent intent = new Intent(ModerationActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra("page","1");
-                        startActivity(intent);
+                        Intent openMainActivity= new Intent(ModerationActivity.this, MainActivity.class);
+                        openMainActivity.putExtra("page","1");
+                        openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(openMainActivity);
                         finish();
                         break;
                 }
