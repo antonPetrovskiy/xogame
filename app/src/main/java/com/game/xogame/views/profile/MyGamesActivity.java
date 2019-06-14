@@ -3,8 +3,8 @@ package com.game.xogame.views.profile;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -14,8 +14,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.game.xogame.adapter.GamesAdapter;
 import com.game.xogame.R;
+import com.game.xogame.adapter.GamesAdapter;
 import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
 import com.game.xogame.entity.Game;
@@ -29,7 +29,7 @@ import java.util.List;
 public class MyGamesActivity extends AppCompatActivity {
     public ApiService api;
     private MyGamesPresenter presenter;
-
+    public static MainActivity activity;
 
     public ImageView back;
     private TextView count;
@@ -87,6 +87,8 @@ public class MyGamesActivity extends AppCompatActivity {
         find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(activity!=null)
+                    activity.finish();
                 Intent intent = new Intent(MyGamesActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("page","0");

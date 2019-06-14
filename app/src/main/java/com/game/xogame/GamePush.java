@@ -7,14 +7,13 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.game.xogame.views.game.GameInfoActivity;
 import com.game.xogame.views.game.ModerationActivity;
 import com.game.xogame.views.game.PlayActivity;
 import com.game.xogame.views.game.RatingGameActivity;
-import com.game.xogame.views.game.RatingHistoryActivity;
 import com.game.xogame.views.game.WinActivity;
 import com.game.xogame.views.main.MainActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -26,7 +25,7 @@ import java.util.Map;
 
 public class GamePush extends FirebaseMessagingService {
     private Map<String, String> data;
-
+    public static MainActivity activity;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -68,7 +67,7 @@ public class GamePush extends FirebaseMessagingService {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(this.getResources().getString(R.string.app_name))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText("end"))
-                .setContentText(data.get("body"))
+                .setContentText(getString(R.string.push_endgame))
                 .setAutoCancel(true)
                 .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.push))
                 .setPriority(Notification.PRIORITY_HIGH)
@@ -96,7 +95,7 @@ public class GamePush extends FirebaseMessagingService {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(this.getResources().getString(R.string.app_name))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText("end"))
-                .setContentText(data.get("body"))
+                .setContentText(getString(R.string.push_moderate))
                 .setAutoCancel(true)
                 .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.push))
                 .setPriority(Notification.PRIORITY_HIGH)
@@ -130,9 +129,9 @@ public class GamePush extends FirebaseMessagingService {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(this.getResources().getString(R.string.app_name))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(data.get("title")))
-                .setContentText(data.get("body"))
+                .setContentText(getString(R.string.push_win))
                 .setAutoCancel(true)
-                .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.push))
+                .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.winpush))
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setDefaults(Notification.FLAG_AUTO_CANCEL | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent);
@@ -176,10 +175,25 @@ public class GamePush extends FirebaseMessagingService {
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         long notificatioId = System.currentTimeMillis();
 
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class); // Here pass your activity where you want to redirect.
-        intent.putExtra("gameid",data.get("gameid"));
+        Intent intent = new Intent(getApplicationContext(), GameInfoActivity.class); // Here pass your activity where you want to redirect.
+        intent.putExtra("GAMEID", data.get("gameid"));
+        intent.putExtra("SUBSCRIBE", data.get("gameSub"));
+        intent.putExtra("TITLE", data.get("title"));
+        intent.putExtra("NAME", data.get("company"));
+        intent.putExtra("LOGO", data.get("logo"));
+        intent.putExtra("BACKGROUND", data.get("background"));
+        intent.putExtra("DATE", data.get("startdate") + " - " +data.get("enddate"));
+        intent.putExtra("DESCRIPTION", data.get("description"));
+        intent.putExtra("TASKS", data.get("tasks"));
+        intent.putExtra("TIME", data.get("starttime") + " - " + data.get("endtime"));
+        intent.putExtra("MONEY", data.get("reward"));
+        intent.putExtra("PEOPLE", data.get("followers"));
+        intent.putExtra("SHARE", data.get("gameid"));
+        intent.putExtra("ADDRESS", data.get("address"));
+        intent.putExtra("STATISTIC", "siteurl");
+        //activity.finish();
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, (int) (Math.random() * 100), intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
@@ -187,7 +201,7 @@ public class GamePush extends FirebaseMessagingService {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(this.getResources().getString(R.string.app_name))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(data.get("title")))
-                .setContentText(data.get("body"))
+                .setContentText(getString(R.string.push_newgame))
                 .setAutoCancel(true)
                 .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.push))
                 .setPriority(Notification.PRIORITY_HIGH)

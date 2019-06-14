@@ -187,6 +187,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     intent.putExtra("TIME", l.get(position).getStarttime() + "-" + l.get(position).getEndtime());
                     intent.putExtra("MONEY", l.get(position).getReward());
                     intent.putExtra("PEOPLE", l.get(position).getFollowers());
+                    intent.putExtra("ADDRESS", l.get(position).getAddress());
                     intent.putExtra("STATISTIC", "true");
                     intent.putExtra("USER", "another");
                     startActivity(intent);
@@ -241,6 +242,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     intent.putExtra("TIME", l.get(position).getStarttime() + "-" + l.get(position).getEndtime());
                     intent.putExtra("MONEY", l.get(position).getReward());
                     intent.putExtra("PEOPLE", l.get(position).getFollowers());
+                    intent.putExtra("ADDRESS", l.get(position).getAddress());
                     intent.putExtra("STATISTIC", "true");
                     startActivity(intent);
                 }else{

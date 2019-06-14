@@ -2,11 +2,11 @@ package com.game.xogame.views.game;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationManagerCompat;
@@ -17,9 +17,9 @@ import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -28,6 +28,7 @@ import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
 import com.game.xogame.models.GamesModel;
 import com.game.xogame.presenters.GameInfoPresenter;
+import com.game.xogame.views.main.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -46,6 +47,9 @@ public class GameInfoActivity extends AppCompatActivity {
     private TextView tasks;
     private TextView money;
     private TextView people;
+    public static MainActivity activity;
+    private TextView address;
+    private String avalible;
     private ImageView statistic;
     private ImageView logo;
     private ImageView background;
@@ -59,6 +63,7 @@ public class GameInfoActivity extends AppCompatActivity {
     private Button tutorialButton;
     private ImageView tutorialArrowRight;
     private ImageView tutorialIconRight;
+    private LinearLayout layMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +92,11 @@ public class GameInfoActivity extends AppCompatActivity {
         tasks = findViewById(R.id.textView29);
         money = findViewById(R.id.textView33);
         people = findViewById(R.id.textView31);
+        address = findViewById(R.id.textView303);
         statistic = findViewById(R.id.imageView0);
         logo = findViewById(R.id.imageView3);
         background = findViewById(R.id.imageView4);
+        layMap = findViewById(R.id.layMap);
 
         tutorialView = findViewById(R.id.tutorial);
         tutorialText = findViewById(R.id.tutorial_text);
@@ -98,6 +105,7 @@ public class GameInfoActivity extends AppCompatActivity {
         tutorialIconRight = findViewById(R.id.tutorial_right_icon);
 
         final Bundle extras = getIntent().getExtras();
+        assert extras != null;
         gameid = extras.getString("GAMEID");
         title.setText(extras.getString("TITLE") + "");
         description.setText(extras.getString("DESCRIPTION") + "");
@@ -109,6 +117,7 @@ public class GameInfoActivity extends AppCompatActivity {
         people.setText(extras.getString("PEOPLE") + " " + getString(R.string.activityGameInfo_people));
         count = extras.getString("PEOPLE");
         share = extras.getString("SHARE");
+        avalible = extras.getString("AVALIBLE");
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.placeholder(R.drawable.unknow_wide);
         requestOptions.error(R.drawable.unknow_wide);
@@ -120,6 +129,23 @@ public class GameInfoActivity extends AppCompatActivity {
         Glide.with(this).setDefaultRequestOptions(requestOptions).load(extras.getString("BACKGROUND")).thumbnail(0.3f).into(background);
         Picasso.with(this).load(extras.getString("LOGO")).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(logo);
         isStatistic = extras.getString("STATISTIC");
+
+        if(avalible!=null) {
+            if(avalible.equals("0")){
+                subscribe.setVisibility(View.GONE);
+            }else{
+                subscribe.setVisibility(View.VISIBLE);
+            }
+        }
+
+
+        if(extras.getString("ADDRESS")==null || extras.getString("ADDRESS").equals("")){
+            layMap.setVisibility(View.GONE);
+        }else{
+            layMap.setVisibility(View.VISIBLE);
+            address.setText(extras.getString("ADDRESS"));
+        }
+
         if (extras.getString("STATISTIC").equals("true")) {
             statistic.setVisibility(View.VISIBLE);
             statistic.setImageDrawable(getDrawable(R.drawable.feed_statistics));
@@ -166,7 +192,14 @@ public class GameInfoActivity extends AppCompatActivity {
             }
         });
 
-
+        layMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("geo:0,0?q="+address.getText().toString()));
+                startActivity(intent);
+            }
+        });
 
         subscribe.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -212,28 +245,52 @@ public class GameInfoActivity extends AppCompatActivity {
                                         alertD.show();
                                     }
                                 } else {
-                                    presenter.unsubscribeGame();
-                                    people.setText((Integer.parseInt(count) - 1) + " " + getString(R.string.activityGameInfo_people));
-                                    count = (Integer.parseInt(count) - 1) + "";
-                                    subscribe.setBackgroundResource(R.drawable.regbtn);
-                                    subscribe.setTextColor(Color.parseColor("#ffffff"));
-                                    subscribe.setText(getString(R.string.activityGameInfo_join));
-                                    FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/agame" + gameid)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
+                                    LayoutInflater layoutInflater = LayoutInflater.from(GameInfoActivity.this);
+                                    @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_genderchooser, null);
+                                    final AlertDialog alertD = new AlertDialog.Builder(GameInfoActivity.this).create();
+                                    TextView title = promptView.findViewById(R.id.textView1);
+                                    TextView btnAdd1 = promptView.findViewById(R.id.textView3);
+                                    TextView btnAdd2 = promptView.findViewById(R.id.textView2);
+                                    title.setText(getString(R.string.popupUnsubscribe_unsubscribe));
+                                    btnAdd1.setText(getString(R.string.popupSignout_yes));
+                                    btnAdd2.setText(getString(R.string.popupSignout_no));
 
-                                                }
-                                            });
-                                    SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
-                                    String token = sharedPref.getString("userid", "null");
-                                    FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/auser" + token)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
+                                    btnAdd1.setOnClickListener(new View.OnClickListener() {
+                                        @SuppressLint("ApplySharedPref")
+                                        public void onClick(View v) {
+                                            presenter.unsubscribeGame();
+                                            people.setText((Integer.parseInt(count) - 1) + " " + getString(R.string.activityGameInfo_people));
+                                            count = (Integer.parseInt(count) - 1) + "";
+                                            subscribe.setBackgroundResource(R.drawable.regbtn);
+                                            subscribe.setTextColor(Color.parseColor("#ffffff"));
+                                            subscribe.setText(getString(R.string.activityGameInfo_join));
+                                            FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/agame" + gameid)
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
 
-                                                }
-                                            });
+                                                        }
+                                                    });
+                                            SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
+                                            String token = sharedPref.getString("userid", "null");
+                                            FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/auser" + token)
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                                        }
+                                                    });
+                                        }
+                                    });
+
+                                    btnAdd2.setOnClickListener(new View.OnClickListener() {
+                                        public void onClick(View v) {
+                                            alertD.cancel();
+                                        }
+                                    });
+
+                                    alertD.setView(promptView);
+                                    alertD.show();
                                 }
                             break;
                     }
@@ -247,18 +304,22 @@ public class GameInfoActivity extends AppCompatActivity {
     }
 
     public void setButtonName(String s) {
-        if (s.equals(getString(R.string.activityGameInfo_join))) {
 
-        } else {
-
-        }
 
     }
 
-//    public void showToast(String text) {
-//        Toast.makeText(getApplicationContext(), text,
-//                Toast.LENGTH_SHORT).show();
-//    }
+    @Override
+    public void onBackPressed() {
+        if(activity==null) {
+            Intent openMainActivity = new Intent(GameInfoActivity.this, MainActivity.class);
+            openMainActivity.putExtra("page", "0");
+            openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(openMainActivity);
+            finish();
+        }else{
+            super.onBackPressed();
+        }
+    }
 
     public String getGameid() {
         return gameid;

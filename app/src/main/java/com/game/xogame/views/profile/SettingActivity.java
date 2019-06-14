@@ -28,6 +28,7 @@ import com.game.xogame.api.RetroClient;
 import com.game.xogame.models.UserInfoModel;
 import com.game.xogame.presenters.SettingPresenter;
 import com.game.xogame.views.authentication.LoginActivity;
+import com.game.xogame.views.main.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -36,7 +37,7 @@ import java.util.Calendar;
 import java.util.Objects;
 
 public class SettingActivity extends AppCompatActivity {
-
+    public static MainActivity activity;
     public ScrollView main;
     public TextView exit;
     public ImageView save;
@@ -93,7 +94,7 @@ public class SettingActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (card.getText().toString().length() != 16) {
+                if (card.getText().toString().length() != 16 && card.getText().toString().length() != 0) {
                     error(getString(R.string.activitySetting_wrongcard));
                 } else {
                     presenter.editInfo();
@@ -215,9 +216,11 @@ public class SettingActivity extends AppCompatActivity {
                                     }
                                 });
                         Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         alertD.cancel();
+                        if(activity!=null)
+                            activity.finish();
                         finish();
                     }
                 });
@@ -365,6 +368,8 @@ public class SettingActivity extends AppCompatActivity {
 
     public void setCard(String card) {
         this.card.setText(card);
+        SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
+        sharedPref.edit().putString("ccard", card).commit();
     }
 
     public void error(String s) {

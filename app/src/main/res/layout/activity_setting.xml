@@ -93,6 +93,7 @@
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:cropToPadding="true"
+                    android:scaleType="fitXY"
                     android:src="@drawable/profile_line"
                     tools:ignore="ContentDescription" />
 

@@ -469,11 +469,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
 
         vh.placeholder01.setText(item.getCompany().substring(0, 1).toUpperCase());
         vh.imageViewCompany.setImageResource(getPlaceholder(item.getCompany()));
-        if (item.getUserName().length() != 0) {
-            vh.placeholder02.setText(item.getUserName().substring(0, 1).toUpperCase());
-        } else {
-            vh.placeholder02.setText("A");
-        }
+        vh.placeholder02.setText(item.getUserNickname().substring(0, 1).toUpperCase());
         vh.imageViewPhoto.setImageResource(getPlaceholder(item.getCompany()));
 
 

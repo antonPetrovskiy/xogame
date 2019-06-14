@@ -86,6 +86,8 @@ public class FragmentGames extends Fragment {
 
         init();
 
+
+
         return rootView;
     }
 
@@ -278,6 +280,7 @@ public class FragmentGames extends Fragment {
                 intent.putExtra("MONEY", tmpgameList.get(position).getReward());
                 intent.putExtra("PEOPLE", tmpgameList.get(position).getFollowers());
                 intent.putExtra("SHARE", tmpgameList.get(position).getSiteurl());
+                intent.putExtra("ADDRESS", tmpgameList.get(position).getAddress());
                 intent.putExtra("STATISTIC", "false");
                 startActivity(intent);
             }
@@ -287,7 +290,7 @@ public class FragmentGames extends Fragment {
             updateSubscribe();
             subscribeCheck = true;
         }
-
+        Log.i("LOG_branch", "4 "+MainActivity.gameId);
         if(MainActivity.gameId!=null){
             for(int i = 0; i < tmpgameList.size(); i++){
                 if(tmpgameList.get(i).getGameid().equals(MainActivity.gameId)){
@@ -305,6 +308,7 @@ public class FragmentGames extends Fragment {
                     intent.putExtra("MONEY", tmpgameList.get(i).getReward());
                     intent.putExtra("PEOPLE", tmpgameList.get(i).getFollowers());
                     intent.putExtra("SHARE", tmpgameList.get(i).getSiteurl());
+                    intent.putExtra("ADDRESS", tmpgameList.get(i).getAddress());
                     intent.putExtra("STATISTIC", "false");
                     MainActivity.gameId=null;
                     startActivity(intent);

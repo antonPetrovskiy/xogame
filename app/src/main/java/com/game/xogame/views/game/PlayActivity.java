@@ -3,11 +3,7 @@ package com.game.xogame.views.game;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -15,19 +11,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
-import android.view.Display;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -46,8 +39,6 @@ import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
 import com.game.xogame.models.PlayModel;
 import com.game.xogame.presenters.PlayPresenter;
-import com.game.xogame.views.authentication.LoginActivity;
-import com.game.xogame.views.authentication.TutorialActivity;
 import com.game.xogame.views.main.MainActivity;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -61,8 +52,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.List;
-import java.util.Objects;
 
 import static com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage;
 
@@ -192,6 +181,7 @@ public class PlayActivity extends AppCompatActivity {
                 StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
                 StrictMode.setVmPolicy(builder.build());
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra( android.provider.MediaStore.EXTRA_SIZE_LIMIT, "7200000");
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, generateFileUri());
                 startActivityForResult(intent, REQ_CODE_CAPTURE);
             }
@@ -414,7 +404,7 @@ public class PlayActivity extends AppCompatActivity {
                     rotatedBitmap = bitmap;
             }
             try (FileOutputStream out = new FileOutputStream(myFile)) {
-                rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, out); // bmp is your Bitmap instance
+                rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 30, out); // bmp is your Bitmap instance
                 // PNG is a lossless format, the compression factor (100) is ignored
             } catch (IOException e) {
                 e.printStackTrace();

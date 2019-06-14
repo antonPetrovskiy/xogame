@@ -23,7 +23,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -439,6 +438,7 @@ public class FragmentProfile extends Fragment {
                 intent.putExtra("TIME", l.get(position).getStarttime() + "-" + l.get(position).getEndtime());
                 intent.putExtra("MONEY", l.get(position).getReward());
                 intent.putExtra("PEOPLE", l.get(position).getFollowers());
+                intent.putExtra("ADDRESS", l.get(position).getAddress());
                 intent.putExtra("STATISTIC", "true");
                 startActivity(intent);
             }
@@ -483,6 +483,8 @@ public class FragmentProfile extends Fragment {
                 intent.putExtra("MONEY", l.get(position).getReward());
                 intent.putExtra("PEOPLE", l.get(position).getFollowers());
                 intent.putExtra("SHARE", l.get(position).getSiteurl());
+                intent.putExtra("AVALIBLE", l.get(position).getGameAvaible());
+                intent.putExtra("ADDRESS", l.get(position).getAddress());
                 intent.putExtra("STATISTIC", "false");
                 startActivity(intent);
             }

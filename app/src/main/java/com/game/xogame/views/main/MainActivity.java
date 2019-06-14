@@ -22,14 +22,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.game.xogame.BuildConfig;
+import com.game.xogame.GamePush;
 import com.game.xogame.R;
 import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
@@ -39,11 +38,14 @@ import com.game.xogame.presenters.MainPresenter;
 import com.game.xogame.views.CustomViewPager;
 import com.game.xogame.views.game.FragmentFeeds;
 import com.game.xogame.views.game.FragmentGames;
+import com.game.xogame.views.game.GameInfoActivity;
 import com.game.xogame.views.game.ModerationActivity;
 import com.game.xogame.views.game.PlayActivity;
 import com.game.xogame.views.game.RatingGameActivity;
 import com.game.xogame.views.game.WinActivity;
 import com.game.xogame.views.profile.FragmentProfile;
+import com.game.xogame.views.profile.MyGamesActivity;
+import com.game.xogame.views.profile.SettingActivity;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -65,6 +67,11 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+
+import org.json.JSONObject;
+
+import io.branch.referral.Branch;
+import io.branch.referral.BranchError;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -113,9 +120,14 @@ public class MainActivity extends AppCompatActivity {
         RatingGameActivity.activity = this;
         ModerationActivity.activity = this;
         WinActivity.activity = this;
+        MyGamesActivity.activity = this;
+        SettingActivity.activity = this;
+        GamePush.activity = this;
+        GameInfoActivity.activity = this;
         SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
         token = sharedPref.getString("token", "null");
-
+        // Initialize the Branch object
+        Branch.getAutoInstance(this);
         if(mSectionsPagerAdapter==null) {
 
             api = RetroClient.getApiService();
@@ -246,6 +258,7 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setCurrentItem(Integer.parseInt(page));
+
 
 
         button4.setOnClickListener(new View.OnClickListener() {
@@ -537,25 +550,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        if (getIntent().getExtras() != null && getIntent().getExtras().getString("page") != null && !getIntent().getExtras().getString("page").equals("")) {
-//            switch (getIntent().getExtras().getString("page")){
-//                case "0":
-//                    button4.performClick();
-//                    break;
-//                case "1":
-//                    button5.performClick();
-//                    break;
-//                case "2":
-//                    button6.performClick();
-//                    break;
-//            }
-//            Log.i("LOG_page" , getIntent().getExtras().getString("page")+"    ");
-//        }
-//    }
-
     @Override
     public void onBackPressed() {
 
@@ -569,7 +563,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String permissions[],
+                                           @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         mLocationPermissionGranted = false;
         switch (requestCode) {
@@ -585,6 +579,30 @@ public class MainActivity extends AppCompatActivity {
             }
             break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        Branch branch = Branch.getInstance();
+        Log.i("LOG_branch", "0");
+        branch.initSession(new Branch.BranchReferralInitListener(){
+            @Override
+            public void onInitFinished(JSONObject referringParams, BranchError error) {
+                String s=null;
+                Log.i("LOG_branch", "1");
+                if (error == null) {
+                    Log.i("LOG_branch", "2 ");
+                    s = referringParams.optString("game_id", "");
+                }
+                Log.i("LOG_branch", "3 "+s);
+                if(s!=null&&!s.equals("")){
+                    gameId=s;
+                    FragmentGames fragment = (FragmentGames) mSectionsPagerAdapter.getItem(0);
+                    fragment.update();
+                }
+            }
+        }, this.getIntent().getData(), this);
+        super.onResume();
     }
 
     @Override

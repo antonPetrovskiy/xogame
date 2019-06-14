@@ -94,5 +94,12 @@ public class ModerationActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        Intent openMainActivity= new Intent(ModerationActivity.this, MainActivity.class);
+        openMainActivity.putExtra("page","1");
+        openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(openMainActivity);
+        finish();
+    }
 }

@@ -5,7 +5,7 @@
     <string name="activityConfirmPhone_confirmcode">Enter code here</string>
     <string name="activityInfo_nickname">User name</string>
     <string name="activitySetting_mail">E-mail</string>
-    <string name="activityInfo_term">"By clicking sign up, you agree to our terms of service and that you have read our "</string>
+    <string name="activityInfo_term">"By clicking the registration button, you confirm that you are 18 years old or older and agree that you have read the "</string>
     <string name="fragmentGames_search">search</string>
     <string name="fragmentGames_location">Location services disable</string>
     <string name="fragmentGames_refresh">Reload</string>
@@ -110,7 +110,7 @@
     <string name="tutorial_feedsType">Here you can see your mission\'s or completed mission\'s of all paparazzi</string>
     <string name="tutorial_money">You can transfer money to your mobile phone or credit card</string>
     <string name="activityEditinfo_badnickname">Username must contain at least 3 letters in English or digits</string>
-    <string name="activityInfo_termLink">privacy policy.</string>
+    <string name="activityInfo_termLink">terms of service and privacy policy.</string>
     <string name="activityTutorial_welcome">Welcome to Paparazzi</string>
     <string name="activityTutorial_subscribe">Sign up for games</string>
     <string name="activityTutorial_dotasks">Carry out task</string>
@@ -130,6 +130,11 @@
     <string name="tutorial_mygames">Your profile will display all the games you subscribed to</string>
     <string name="error_cannotReachServer">Connection is lost</string>
     <string name="activityUserProfile_notsupported">The game is not supported in your area</string>
+    <string name="popupUnsubscribe_unsubscribe">Are you sure?</string>
+    <string name="push_win">Congratulations, you are one of the winners!</string>
+    <string name="push_endgame">Game over, wait for results</string>
+    <string name="push_moderate">Review is over. Check the results</string>
+    <string name="push_newgame">New game</string>
 
 
 </resources>

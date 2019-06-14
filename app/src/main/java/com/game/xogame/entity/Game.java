@@ -61,6 +61,9 @@ public class Game {
     @SerializedName("gameSub")
     @Expose
     private String gameSub;
+    @SerializedName("address")
+    @Expose
+    private String address;
 
 
     public String getGameid() {
@@ -137,5 +140,9 @@ public class Game {
 
     public String getGameSub() {
         return gameSub;
+    }
+
+    public String getAddress() {
+        return address;
     }
 }

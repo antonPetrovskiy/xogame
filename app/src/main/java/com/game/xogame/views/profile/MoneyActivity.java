@@ -21,7 +21,6 @@ import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
 import com.game.xogame.models.UserInfoModel;
 import com.game.xogame.presenters.MoneyPresenter;
-import com.game.xogame.views.game.WinActivity;
 import com.game.xogame.views.main.MainActivity;
 
 public class MoneyActivity extends AppCompatActivity {
@@ -104,7 +103,7 @@ public class MoneyActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_UP: // отпускание
                         ok.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
                         presenter.sendMoney(type,gameid);
-
+                        ok.setEnabled(false);
                         break;
                 }
                 return true;

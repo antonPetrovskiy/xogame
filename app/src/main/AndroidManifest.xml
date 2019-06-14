@@ -20,6 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:name="io.branch.referral.BranchApp"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity android:name=".views.authentication.TutorialActivity">
             <intent-filter>
@@ -58,6 +59,7 @@
         <activity android:name=".views.profile.SettingActivity" />
         <activity
             android:name=".views.main.MainActivity"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" >
         <!-- Branch URI Scheme -->
         <intent-filter>
@@ -78,6 +80,20 @@
 
         </activity>
         <activity android:name=".views.game.RatingActivity" />
+
+        <!-- Branch init -->
+        <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_agIFuprFwL9EmniEPMsa8pepFzbYSDZ5" />
+        <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_live_agIFuprFwL9EmniEPMsa8pepFzbYSDZ5" />
+
+        <!-- Branch testing (TestMode "true" to simulate fresh installs on dev environment) -->
+        <meta-data android:name="io.branch.sdk.TestMode" android:value="false" />
+
+        <!-- Branch install referrer tracking -->
+        <receiver android:name="io.branch.referral.InstallListener" android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

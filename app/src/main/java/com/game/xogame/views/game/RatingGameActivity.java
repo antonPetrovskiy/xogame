@@ -40,6 +40,7 @@ public class RatingGameActivity extends AppCompatActivity {
     private TextView sponsor;
     private TextView title;
     private TextView time;
+    private TextView status;
     private TextView people;
     private TextView tasks;
     private TextView prise;
@@ -108,6 +109,7 @@ public class RatingGameActivity extends AppCompatActivity {
         sponsor = findViewById(R.id.textView1);
         title = findViewById(R.id.textView2);
         time = findViewById(R.id.textView3);
+        status = findViewById(R.id.textView4);
         people = findViewById(R.id.textView5);
         tasks = findViewById(R.id.textView6);
         prise = findViewById(R.id.textView7);
@@ -159,11 +161,7 @@ public class RatingGameActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openMainActivity= new Intent(RatingGameActivity.this, MainActivity.class);
-                openMainActivity.putExtra("page","1");
-                openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(openMainActivity);
-                finish();
+                onBackPressed();
             }
         });
     }
@@ -176,6 +174,10 @@ public class RatingGameActivity extends AppCompatActivity {
         if(game == null) {
             Log.i("LOG_rating" , "Success(error): " + "wtf");
             return;
+        }
+
+        if(getIntent().getStringExtra("push")!=null && getIntent().getStringExtra("push").equals("true")){
+            status.setText(getString(R.string.adapterRating_moderation));
         }
         placeholder.setText(game.getCompany().substring(0, 1));
         this.photo.setImageResource(getPlaceholder(game.getCompany()));
@@ -417,6 +419,18 @@ public class RatingGameActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        if(getIntent().getStringExtra("push")!=null && getIntent().getStringExtra("push").equals("true")){
+            Intent openMainActivity= new Intent(RatingGameActivity.this, MainActivity.class);
+            openMainActivity.putExtra("page","1");
+            openMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(openMainActivity);
+            finish();
+        }else{
+            super.onBackPressed();
+        }
+    }
 
     public int getPlaceholder(String s) {
         String abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZЯЧСМИТЬБЮФЫВАПРОЛДЖЭЁЙЦУКЕНГШЩЗХЪІЄ0123456789";

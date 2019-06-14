@@ -5,7 +5,7 @@
     <string name="activityConfirmPhone_confirmcode">Введите код здесь</string>
     <string name="activityInfo_nickname">Имя пользователя</string>
     <string name="activitySetting_mail">Электронная почта</string>
-    <string name="activityInfo_term">Нажимая кнопку регистрации, вы соглашаетесь с нашими условиями обслуживания и тем, что прочитали нашу</string>
+    <string name="activityInfo_term">"Нажимая кнопку регистрации, Вы подтверждаете что Вам исполнилось 18 лет или больше и соглашаетесь с тем, что прочитали "</string>
     <string name="fragmentGames_search">поиск</string>
     <string name="fragmentGames_location">Службы определения местоположения отключены</string>
     <string name="fragmentGames_refresh">Обновить</string>
@@ -107,7 +107,7 @@
     <string name="phoneNumber">Номер телефона</string>
     <string name="fragmentGames_nogames">Для Вашего региона нет доступных игр</string>
     <string name="activityEditinfo_badnickname">Имя пользователя должно содержать, как минимум, 3 английских буквы или цифры</string>
-    <string name="activityInfo_termLink">политику конфиденциальности.</string>
+    <string name="activityInfo_termLink">условия обслуживания и политику конфиденциальности.</string>
     <string name="activityTutorial_welcome">Добро пожаловать в Paparazzi</string>
     <string name="activityTutorial_subscribe">Подписывайся на игры</string>
     <string name="activityTutorial_dotasks">Выполняй задания</string>
@@ -130,6 +130,11 @@
     <string name="tutorial_history">История хранит все ваши прошдые игры</string>
     <string name="error_cannotReachServer">Соединение потеряно</string>
     <string name="activityUserProfile_notsupported">Игра не поддерживается в вашем регионе</string>
+    <string name="popupUnsubscribe_unsubscribe">Вы уверены?</string>
+    <string name="push_win">Поздравляем, вы один из победителей!</string>
+    <string name="push_endgame">Игра окончена, ожидайте результаты</string>
+    <string name="push_moderate">Проверка окончена. Проверьте результаты</string>
+    <string name="push_newgame">Новая игра</string>
 
 
 </resources>

@@ -145,4 +145,9 @@ public interface ApiService {
     @POST("game/moderate/")
     Call<ModerationCallback> getModerated(@Part("token") String token,
                                           @Part("gameid") String gameid);
+
+    @Multipart
+    @POST("game/complaint/")
+    Call<DefaultCallback> setReport(@Part("token") String token,
+                                          @Part("actionid") String actionid);
 }
