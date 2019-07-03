@@ -277,15 +277,17 @@ public class FragmentProfile extends Fragment {
         photo_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-                @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_image, null);
-                final AlertDialog alertD = new AlertDialog.Builder(getActivity()).create();
-                Objects.requireNonNull(alertD.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
-                alertD.getWindow().setDimAmount(0.9f);
-                ImageView btnAdd1 = promptView.findViewById(R.id.imageView5);
-                Picasso.with(context).load(imageurl + "").placeholder(R.drawable.unknow).error(R.drawable.unknow).into(btnAdd1);
-                alertD.setView(promptView);
-                alertD.show();
+                if(imageurl!=null && !imageurl.equals("") && !imageurl.equals("null")) {
+                    LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+                    @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_image, null);
+                    final AlertDialog alertD = new AlertDialog.Builder(getActivity()).create();
+                    Objects.requireNonNull(alertD.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+                    alertD.getWindow().setDimAmount(0.9f);
+                    ImageView btnAdd1 = promptView.findViewById(R.id.imageView5);
+                    Picasso.with(context).load(imageurl + "").placeholder(R.drawable.unknow).error(R.drawable.unknow).into(btnAdd1);
+                    alertD.setView(promptView);
+                    alertD.show();
+                }
             }
         });
 
@@ -350,6 +352,15 @@ public class FragmentProfile extends Fragment {
                 File file = new File(imagePath);
 
                 Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+
+                try (FileOutputStream out = new FileOutputStream(file)) {
+                    myBitmap.compress(Bitmap.CompressFormat.JPEG, 50, out); // bmp is your Bitmap instance
+                    // PNG is a lossless format, the compression factor (100) is ignored
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
                 photo_view.setImageBitmap(myBitmap);
                 presenter.editPhoto(this);
             }
@@ -418,8 +429,11 @@ public class FragmentProfile extends Fragment {
         }
         list1.setAdapter(adapter1);
         setListViewHeightBasedOnChildren(list1);
-        if (gameNowList.size() != 0)
+        if (gameNowList.size() != 0) {
             current.setVisibility(View.VISIBLE);
+        }else{
+            current.setVisibility(View.GONE);
+        }
 
 
         list1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -456,9 +470,11 @@ public class FragmentProfile extends Fragment {
         }
         list2.setAdapter(adapter2);
         setListViewHeightBasedOnChildren(list2);
-        if (gameFutureList.size() != 0)
+        if (gameFutureList.size() != 0) {
             future.setVisibility(View.VISIBLE);
-
+        }else{
+            future.setVisibility(View.GONE);
+        }
         load.setVisibility(View.GONE);
         if (gameNowList.size() == 0 && gameFutureList.size() == 0) {
             empty.setVisibility(View.VISIBLE);
@@ -533,7 +549,7 @@ public class FragmentProfile extends Fragment {
         if(s.equals(""))
             s = "q";
         imageurl = s;
-        textHolder.setText(nickName.getText().toString().substring(0, 1));
+        textHolder.setText(nickName.getText().toString().substring(0, 1).toUpperCase());
         this.photo_view.setImageResource(getPlaceholder(nickName.getText().toString()));
         Picasso.with(context).load(s + "").placeholder(getPlaceholder(nickName.getText().toString())).error(getPlaceholder(nickName.getText().toString())).into(this.photo_view, new com.squareup.picasso.Callback() {
             @Override

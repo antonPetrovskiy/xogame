@@ -17,10 +17,10 @@
     <string name="activityReport_reportDescription">Будь-ласка, вкажіть причину скарги</string>
     <string name="activityReport_push">Надіслати</string>
     <string name="activityMyWins_myWins">Мої виграші</string>
-    <string name="activityMoney_sentMoneyCard">Перевести гроші на мою картку</string>
+    <string name="activityMoney_sentMoneyCard">Перевести гроші на кредитну картку</string>
     <string name="activityMoney_card">Номер кредитної картки</string>
     <string name="activityMoney_confirm">Підтвердити</string>
-    <string name="activityMoney_sentMoneyPhone">Перевести гроші на телефон</string>
+    <string name="activityMoney_sentMoneyPhone">Перевести гроші на мобільний телефон</string>
     <string name="fragmentProfile_current">Поточні</string>
     <string name="fragmentProfile_future">Майбутні</string>
     <string name="activitySetting_settings">Особиста інформація</string>
@@ -42,7 +42,7 @@
     <string name="popupSignout_no">Ні</string>
     <string name="popupSignout_yes">Так</string>
     <string name="popupSignout_signout">Вийти з акаунта?</string>
-    <string name="fragmentFeeds_noTasks">Поки що ніхто не виконав жодного завдання</string>
+    <string name="fragmentFeeds_noTasks">Ніхто ще не виконав жодної місії</string>
     <string name="fragmentFeeds_findGames">Знайти ігри</string>
     <string name="adapterFeeds_saved">Фото збережено у вашу галерею</string>
     <string name="adapterFeeds_reported">Скарга відправлена</string>
@@ -66,15 +66,15 @@
     <string name="activityRating_rating">Рейтинг</string>
     <string name="activityRating_noRating">Ще ніхто не зробив фото. Будьте першим</string>
     <string name="activityRating_findgames">Знайти ігри</string>
-    <string name="activityRating_noActiveGames">Немає активних ігор</string>
+    <string name="activityRating_noActiveGames">Зараз Ви не приймаєте участь в жоднiй грi</string>
     <string name="activityConfirmPhone_onYourNumber">Код підтвердження відправлений на цей номер</string>
     <string name="activityConfirmPhone_wasSent">" "</string>
     <string name="activityUserProfile_userDontParticipate">Користувач не приймає участь в жодній грі</string>
     <string name="activityConfirmPhone_confirmcode">Введіть код тут</string>
     <string name="adapterRating_emptyRating">Немає рейтингу</string>
-    <string name="activityMyWins_mobile">Мобільний</string>
+    <string name="activityMyWins_mobile">На мобільний телефон</string>
     <string name="activityMyWins_sent">Перевести гроші</string>
-    <string name="activityMyWins_card">Кредитна картка</string>
+    <string name="activityMyWins_card">На кредитну картку</string>
     <string name="activityRating_participates">папарацi</string>
     <string name="activityRating_reward">нагорода</string>
     <string name="adapterRating_place">місце</string>
@@ -105,13 +105,13 @@
     <string name="adapterFeed_task">Завдання</string>
     <string name="activitySetting_wrongcard">Невiрний формат карти</string>
     <string name="phoneNumber">Номер телефону</string>
-    <string name="fragmentGames_nogames">Для Вашого регiона немає доступних iгор</string>
+    <string name="fragmentGames_nogames">На даний момент немає ігор для вашого регіону</string>
     <string name="activityEditinfo_badnickname">Ім\'я користувача має містити, як мінімум, 3 англійські літери чи цифри</string>
     <string name="activityInfo_termLink">умови обслуговування та політику конфіденційності.</string>
     <string name="activityTutorial_welcome">Ласкаво просимо в Paparazzi</string>
     <string name="activityTutorial_subscribe">Підписуйся на ігри</string>
     <string name="activityTutorial_dotasks">Виконуй завдання</string>
-    <string name="activityTutorial_befast">Буть швидше за інших Paparazzi</string>
+    <string name="activityTutorial_befast">Будь швидше за інших Paparazzi</string>
     <string name="activityTutorial_win">Вигравай гроші</string>
     <string name="activityTutorial_type">Переводь гроші на мобільний або кредитну карту</string>
     <string name="activityTurorial_signin">Увійти</string>
@@ -134,7 +134,10 @@
     <string name="push_win">Вiтаємо, ви один з переможцiв</string>
     <string name="push_moderate">Перевiрка закiнчена. Перевiрте результати</string>
     <string name="push_endgame">Гра закiнчена. Очiкуйте результати</string>
-    <string name="push_newgame">Нова гра</string>
+    <string name="push_newgame">Нова гра створена у вашому регіоні. Зареєструйтеся зараз - удачі</string>
+    <string name="error_secondPost">Повторне надсилання</string>
+    <string name="error_dontUpload">Файл не завантажено</string>
+    <string name="error_gameEnded">Гра завершена</string>
 
 
 </resources>

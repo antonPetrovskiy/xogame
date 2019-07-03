@@ -3,6 +3,7 @@ package com.game.xogame.presenters;
 import android.content.ContentValues;
 import android.view.View;
 
+import com.game.xogame.R;
 import com.game.xogame.models.UserInfoModel;
 import com.game.xogame.views.profile.SettingActivity;
 
@@ -28,7 +29,12 @@ public class SettingPresenter {
             public void onGet() {
                 //Log.i("LOG_log" , model.user.getPhoto());
                 viewSetting.setName(model.user.getName() + "");
-                viewSetting.setGender(model.user.getGender() + "");
+                if((model.user.getGender()+"").equals("Male")){
+                    viewSetting.setGender(viewSetting.getString(R.string.popupGenderChooser_man));
+                }else if((model.user.getGender()+"").equals("Female")){
+                    viewSetting.setGender(viewSetting.getString(R.string.popupGenderChooser_woman));
+                }
+
                 viewSetting.setAge(model.user.getBirthday() + "");
                 viewSetting.setEmail(model.user.getMail() + "");
                 //viewSetting.setInfo(model.user.getAbout() + "");
@@ -46,7 +52,14 @@ public class SettingPresenter {
         ContentValues cv = new ContentValues(1);
         cv.put("NAME", viewSetting.getName());
         //cv.put("INFO", viewSetting.getInfo());
-        cv.put("GENDER", viewSetting.getGender());
+        if(viewSetting.getGender().equals(viewSetting.getString(R.string.popupGenderChooser_man))){
+            cv.put("GENDER", "Male");
+        }else if(viewSetting.getGender().equals(viewSetting.getString(R.string.popupGenderChooser_woman))){
+            cv.put("GENDER", "Female");
+        }else{
+            cv.put("GENDER", viewSetting.getGender());
+        }
+
         cv.put("AGE", viewSetting.getAge());
         cv.put("EMAIL", viewSetting.getEmail());
         cv.put("COUNTRY", viewSetting.getCountry());

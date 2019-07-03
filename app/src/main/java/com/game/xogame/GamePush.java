@@ -1,12 +1,17 @@
 package com.game.xogame;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.media.AudioAttributes;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -26,11 +31,13 @@ import java.util.Map;
 public class GamePush extends FirebaseMessagingService {
     private Map<String, String> data;
     public static MainActivity activity;
-
+    public static final String NOTIFICATION_CHANNEL_ID = "4655";
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
         data = remoteMessage.getData();
-        if(data!=null && data.get("type")!=null){
+
+        if(data!=null && data.get("type")!=null && !sharedPref.getString("token","null").equals("null")){
             switch (data.get("type")) {
                 case "win":
                     sendWin();
@@ -69,7 +76,7 @@ public class GamePush extends FirebaseMessagingService {
                 .setStyle(new NotificationCompat.BigTextStyle().bigText("end"))
                 .setContentText(getString(R.string.push_endgame))
                 .setAutoCancel(true)
-                .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.push))
+                .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.winpush))
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setDefaults(Notification.FLAG_AUTO_CANCEL | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent);
@@ -97,7 +104,7 @@ public class GamePush extends FirebaseMessagingService {
                 .setStyle(new NotificationCompat.BigTextStyle().bigText("end"))
                 .setContentText(getString(R.string.push_moderate))
                 .setAutoCancel(true)
-                .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.push))
+                .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.winpush))
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setDefaults(Notification.FLAG_AUTO_CANCEL | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent);
@@ -141,7 +148,29 @@ public class GamePush extends FirebaseMessagingService {
     public void sendTask(){
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         long notificatioId = System.currentTimeMillis();
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            String id = "fcm";
+            // The user-visible name of the channel.
+            CharSequence name = "fcm";
+            // The user-visible description of the channel.
+            String description = "fcm";
+            int importance = NotificationManager.IMPORTANCE_MAX;
+            NotificationChannel mChannel = new NotificationChannel(id, name, NotificationManager.IMPORTANCE_HIGH);
+            // Configure the notification channel.
+            mChannel.setDescription(description);
+            mChannel.enableLights(true);
+            // Sets the notification light color for notifications posted to this
+            // channel, if the device supports this feature.
+            mChannel.setLightColor(Color.RED);
+            mChannel.enableVibration(true);
+            AudioAttributes att = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                    .build();
+            mChannel.setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.winpush),att);
+            notificationManager.createNotificationChannel(mChannel);
+        }
         Intent intent = new Intent(getApplicationContext(), PlayActivity.class); // Here pass your activity where you want to redirect.
         intent.putExtra("TITLE",data.get("title"));
         intent.putExtra("COMPANY",data.get("company"));
@@ -158,13 +187,16 @@ public class GamePush extends FirebaseMessagingService {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent contentIntent = PendingIntent.getActivity(this, (int) (Math.random() * 100), intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
+
+
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(this.getResources().getString(R.string.app_name))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(data.get("title")))
                 .setContentText(data.get("body"))
                 .setAutoCancel(true)
-                .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.push))
+                .setChannelId("fcm")
+                .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.winpush))
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setDefaults(Notification.FLAG_AUTO_CANCEL | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent);
@@ -203,7 +235,7 @@ public class GamePush extends FirebaseMessagingService {
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(data.get("title")))
                 .setContentText(getString(R.string.push_newgame))
                 .setAutoCancel(true)
-                .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.push))
+                .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.winpush))
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setDefaults(Notification.FLAG_AUTO_CANCEL | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent);

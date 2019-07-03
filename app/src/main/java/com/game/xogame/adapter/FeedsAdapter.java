@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.MediaScannerConnection;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -163,9 +165,11 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        scanFile(outFile.getAbsolutePath());
                         Toast.makeText(v.getRootView().getContext(), context.getString(R.string.adapterFeeds_saved),
                                 Toast.LENGTH_SHORT).show();
                         alertD.cancel();
+
                     }
                 });
 
@@ -447,13 +451,22 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
     private void initPost(final FeedsAdapter.ViewHolder vh, final Feed item) {
         vh.textViewCompany.setText(item.getCompany());
         vh.textViewTitle.setText(item.getTitle());
-        vh.textViewName.setText(item.getUserName());
         vh.textViewNickname.setText(item.getUserNickname());
         vh.textViewDescription.setText(item.getTaskDescription());
         vh.textViewTask.setText(item.getTaskNumber() + "/" + item.getTasks());
         vh.textViewLike.setText(item.getFeedLikes());
-        vh.textViewTag.setText("#" + item.getTaskComment());
-        //todo
+        if(item.getUserName()==null || item.getUserName().equals("")){
+            vh.textViewName.setVisibility(View.GONE);
+        }else{
+            vh.textViewName.setVisibility(View.VISIBLE);
+            vh.textViewName.setText(item.getUserName());
+        }
+        if(item.getTaskComment()==null || item.getTaskComment().equals("")){
+            vh.textViewTag.setVisibility(View.GONE);
+        }else{
+            vh.textViewTag.setVisibility(View.VISIBLE);
+            vh.textViewTag.setText("#" + item.getTaskComment());
+        }
         long minutes = Long.parseLong(item.getTaskTime()) / (1000 * 60);
         long seconds = Long.parseLong(item.getTaskTime()) / 1000 % 60;
         long millis = Long.parseLong(item.getTaskTime()) % 1000;
@@ -828,6 +841,14 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
 
     }
 
+    private void scanFile(String path) {
+        MediaScannerConnection.scanFile(context,
+                new String[] { path }, null,
+                new MediaScannerConnection.OnScanCompletedListener() {
+                    public void onScanCompleted(String path, Uri uri) {
+                    }
+                });
+    }
 
 }
 

@@ -51,7 +51,7 @@ public class FragmentGames extends Fragment {
     public ApiService api;
     private LinearLayout load;
     private TextView error;
-    private RelativeLayout empty;
+    private static RelativeLayout empty;
     private ListView listView;
     private View rootView;
     private Button refresh;
@@ -109,7 +109,7 @@ public class FragmentGames extends Fragment {
         gameList = new LinkedList<>();
         adapter = null;
 
-        if (!context.getSharedPreferences("myPref", MODE_PRIVATE).getString("lat", "null").equals("null")) {
+        if (context!=null && !context.getSharedPreferences("myPref", MODE_PRIVATE).getString("lat", "null").equals("null")) {
             Log.i("LOG_gethistory" , "1.1 " );
             presenter.showGames(FragmentGames.this);
         } else {
@@ -214,8 +214,9 @@ public class FragmentGames extends Fragment {
             empty.setVisibility(View.GONE);
 
         } else {
-            empty.setVisibility(View.VISIBLE);
-            load.setVisibility(View.GONE);
+             if(empty!=null)
+                empty.setVisibility(View.VISIBLE);
+             load.setVisibility(View.GONE);
         }
 
     }
@@ -320,28 +321,30 @@ public class FragmentGames extends Fragment {
     }
 
     public void checkTutorial(){
-        final SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
-        if(sharedPref.getString("tutorial_games", "false").equals("true")){
-        tutorialView.setVisibility(View.VISIBLE);
-        MainActivity.bar.setVisibility(View.GONE);
-        tutorialButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(tutorialText.getText().toString().equals(getString(R.string.tutorial_gamelist))){
-                    tutorialView.setVisibility(View.GONE);
-                    MainActivity.bar.setVisibility(View.VISIBLE);
-                    sharedPref.edit().putString("tutorial_games","false").commit();
-                }else {
-                    tutorialText.setText(getString(R.string.tutorial_gamelist));
-                }
+        if(context!=null) {
+            final SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
+            if (sharedPref.getString("tutorial_games", "false").equals("true")) {
+                tutorialView.setVisibility(View.VISIBLE);
+                MainActivity.bar.setVisibility(View.GONE);
+                tutorialButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (tutorialText.getText().toString().equals(getString(R.string.tutorial_gamelist))) {
+                            tutorialView.setVisibility(View.GONE);
+                            MainActivity.bar.setVisibility(View.VISIBLE);
+                            sharedPref.edit().putString("tutorial_games", "false").commit();
+                        } else {
+                            tutorialText.setText(getString(R.string.tutorial_gamelist));
+                        }
+                    }
+                });
+                tutorialView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        tutorialButton.performClick();
+                    }
+                });
             }
-        });
-        tutorialView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tutorialButton.performClick();
-            }
-        });
         }
     }
 

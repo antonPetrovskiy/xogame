@@ -295,6 +295,7 @@
         android:layout_height="159dp"
         android:id="@+id/targetView"
         android:orientation="vertical"
+        app:layout_constraintVertical_bias="0.67"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -336,17 +337,6 @@
             app:srcCompat="@drawable/empty"
             tools:ignore="ContentDescription"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:fontFamily="@font/roboto_medium"
-            android:text="@string/activityMyGames_dontparticipate"
-            android:textAlignment="center"
-            android:textColor="#80586575"
-            android:textSize="16dp" />
 
         <Button
             android:id="@+id/imageButton"

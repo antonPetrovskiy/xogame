@@ -66,6 +66,7 @@ public class FragmentFeeds extends Fragment {
     private ImageView tutorialArrowRight;
     private ImageView tutorialIconLeft;
     private ImageView tutorialIconRight;
+    private int lastItem;
 
     public FragmentFeeds() {
 
@@ -87,7 +88,8 @@ public class FragmentFeeds extends Fragment {
         init();
         listFeeds = new LinkedList<>();
         adapter = null;
-        presenter.showFeeds(this, flag, "0");
+        if(presenter!=null)
+            presenter.showFeeds(this, flag, "");
 
         return rootView;
     }
@@ -146,13 +148,13 @@ public class FragmentFeeds extends Fragment {
                             sort.setImageResource(R.drawable.feed_type_used);
                             listFeeds = new LinkedList<>();
                             adapter = null;
-                            presenter.showFeeds(FragmentFeeds.this, flag, "0");
+                            presenter.showFeeds(FragmentFeeds.this, flag, "");
                         } else {
                             flag = "false";
                             sort.setImageResource(R.drawable.feed_type);
                             listFeeds = new LinkedList<>();
                             adapter = null;
-                            presenter.showFeeds(FragmentFeeds.this, flag, "0");
+                            presenter.showFeeds(FragmentFeeds.this, flag, "");
                         }
                         break;
                 }
@@ -183,7 +185,7 @@ public class FragmentFeeds extends Fragment {
             public void onRefresh() {
                 listFeeds = new LinkedList<>();
                 adapter = null;
-                presenter.showFeeds(FragmentFeeds.this, flag, "0");
+                presenter.showFeeds(FragmentFeeds.this, flag, "");
                 pullToRefresh.setRefreshing(false);
             }
         });
@@ -195,7 +197,7 @@ public class FragmentFeeds extends Fragment {
     public void update() {
         listFeeds = new LinkedList<>();
         adapter = null;
-        presenter.showFeeds(this, flag, "0");
+        presenter.showFeeds(this, flag, "");
     }
 
     public void setList(final List<Feed> list) {
@@ -216,7 +218,7 @@ public class FragmentFeeds extends Fragment {
         } else {
             empty.setVisibility(View.GONE);
         }
-
+        preLast = lastItem;
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -225,17 +227,20 @@ public class FragmentFeeds extends Fragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                final int lastItem = firstVisibleItem + visibleItemCount;
+                lastItem = firstVisibleItem + visibleItemCount;
                 if (lastItem == totalItemCount) {
                     //Log.i("LOG_scroll" , "not last  "+list.get(list.size()-1).getFeedId());
                     if (preLast != lastItem) {
                         Log.i("LOG_scroll", "last");
                         //to avoid multiple calls for last item
-                        if (list.size() > 0)
+                        if (list.size() > 0) {
+                            Log.i("LOG_scroll", "id sent " + (Integer.parseInt(list.get(list.size() - 1).getFeedId()) - 1));
                             presenter.showFeeds(FragmentFeeds.this, flag, (Integer.parseInt(list.get(list.size() - 1).getFeedId()) - 1) + "");
-                        preLast = lastItem;
+                            preLast = lastItem;
+                        }
                     }
                 }
+
             }
         });
     }

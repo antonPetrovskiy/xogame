@@ -134,10 +134,11 @@ public class PlayActivity extends AppCompatActivity {
         Log.i("LOG_play", "time1: " + currentTime1);
         Log.i("LOG_play", "time2: " + currentTime2);
         Log.i("LOG_play", "time: " + sec);
+
         createDirectory();
         totaltime = extras.getString("TOTALTIME");
         init();
-
+        Log.i("LOG_play", "totaltime: " + totaltime);
         taskId = extras.getString("TASKID");
 
         title.setText(extras.getString("TITLE"));
@@ -200,6 +201,7 @@ public class PlayActivity extends AppCompatActivity {
         if(activity!=null)
             activity.finish();
         final long l = Long.parseLong(totaltime);
+        Log.i("LOG_play", "totaltime1: " + l);
         timer = new CountDownTimer(l - sec, 10) {
 
             public void onTick(long millisUntilFinished) {
@@ -433,7 +435,7 @@ public class PlayActivity extends AppCompatActivity {
         directory = new File(
                 Environment
                         .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                "MyFolder");
+                "paparazzi");
         if (!directory.exists())
             directory.mkdirs();
     }

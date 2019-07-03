@@ -23,7 +23,7 @@
     <string name="fragmentProfile_future">Будущие</string>
     <string name="activityMyWins_dontWin">У вас пока нет выигрышей. Продолжайте играть</string>
     <string name="activityMyWins_sent">Перевести деньги</string>
-    <string name="activityMyWins_mobile">Мобильный</string>
+    <string name="activityMyWins_mobile">На мобильный телефон</string>
     <string name="activityMoney_card">Номер кредитной карты</string>
     <string name="popupImageChooser_photo">фото</string>
     <string name="popupImageChooser_camera">камера</string>
@@ -48,14 +48,14 @@
     <string name="activityPlay_addHashtag">#ваш коментарий к фото</string>
     <string name="activityReport_push">Отправить</string>
     <string name="activityRating_rating">Рейтинг</string>
-    <string name="activityRating_noActiveGames">Нету активных игр</string>
+    <string name="activityRating_noActiveGames">Сейчас Вы не участвуете ни в одной игре</string>
     <string name="adapterRating_place">место</string>
     <string name="txt_active">активно</string>
     <string name="activityRating_reward">награда</string>
     <string name="activityReport_reportDescription">Пожалуйста, укажите причину жалобы</string>
     <string name="activityUserProfile_userDontParticipate">Пользователь не учавствует ни в одной игре</string>
-    <string name="activityMoney_sentMoneyPhone">Перевести деньги на телефон</string>
-    <string name="activityMoney_sentMoneyCard">Перевести деньги на мою карту</string>
+    <string name="activityMoney_sentMoneyPhone">Перевести деньги на мобильный телефон</string>
+    <string name="activityMoney_sentMoneyCard">Перевести деньги на кредитную карту</string>
     <string name="activityGameInfo_people">папарацци</string>
     <string name="activityGameInfo_leave">отказатся</string>
     <string name="activityGameInfo_join">участвовать</string>
@@ -73,7 +73,7 @@
     <string name="activityNotMyGames_history">История</string>
     <string name="activitySetting_card">Кредитная карта для получения выиграша</string>
     <string name="popupGenderChooser_gender">Пол</string>
-    <string name="fragmentFeeds_noTasks">Пока никто не выполнил ни одного задания</string>
+    <string name="fragmentFeeds_noTasks">Никто еще не выполнил ни одной миссии</string>
     <string name="fragmentFeeds_findGames">Найти игры</string>
     <string name="adapterFeeds_saved">Фото сохранено в вашу галерею</string>
     <string name="adapterFeeds_reported">Жалоба отправлена</string>
@@ -82,7 +82,7 @@
     <string name="adapterGames_tasks">заданий</string>
     <string name="activityRating_noRating">Еще никто не сделал фотографии. Будьте первым</string>
     <string name="activityRating_findgames">Найти игры</string>
-    <string name="activityMyWins_card">Кредитная карта</string>
+    <string name="activityMyWins_card">На кредитную карту</string>
     <string name="popupSettings_report">Пожаловаться на этот пост</string>
     <string name="activityConfirmPhone_wrongCode">Неверный код</string>
     <string name="activityRatingHistory_ended">Завершено</string>
@@ -105,13 +105,13 @@
     <string name="adapterFeed_task">Задание</string>
     <string name="activitySetting_wrongcard">Неверный формат карты</string>
     <string name="phoneNumber">Номер телефона</string>
-    <string name="fragmentGames_nogames">Для Вашего региона нет доступных игр</string>
+    <string name="fragmentGames_nogames">На данный момент нет игр для вашего региона</string>
     <string name="activityEditinfo_badnickname">Имя пользователя должно содержать, как минимум, 3 английских буквы или цифры</string>
     <string name="activityInfo_termLink">условия обслуживания и политику конфиденциальности.</string>
     <string name="activityTutorial_welcome">Добро пожаловать в Paparazzi</string>
     <string name="activityTutorial_subscribe">Подписывайся на игры</string>
     <string name="activityTutorial_dotasks">Выполняй задания</string>
-    <string name="activityTutorial_befast">Буть быстрее других Paparazzi</string>
+    <string name="activityTutorial_befast">Будь быстрее других Paparazzi</string>
     <string name="activityTutorial_win">Выигрывай деньги</string>
     <string name="activityTutorial_type">Переводи деньги на мобильный или кредитную карту</string>
     <string name="activityTurorial_signin">Войти в приложение</string>
@@ -134,7 +134,10 @@
     <string name="push_win">Поздравляем, вы один из победителей!</string>
     <string name="push_endgame">Игра окончена, ожидайте результаты</string>
     <string name="push_moderate">Проверка окончена. Проверьте результаты</string>
-    <string name="push_newgame">Новая игра</string>
+    <string name="push_newgame">Новая игра создана в вашем регионе. Зарегистрируйтесь сейчас - удачи</string>
+    <string name="error_secondPost">Повторная отправка</string>
+    <string name="error_dontUpload">Файл не загружен</string>
+    <string name="error_gameEnded">Игра окончена</string>
 
 
 </resources>

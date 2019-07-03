@@ -165,12 +165,6 @@ public class LoginModel {
                                                 }
                                             });
 
-                                    FirebaseMessaging.getInstance().subscribeToTopic("/topics/anews")
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                }
-                                            });
                                 }
                             }
 

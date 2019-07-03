@@ -4,16 +4,12 @@ import android.content.ContentValues;
 import android.util.Log;
 import android.view.View;
 
-import com.game.xogame.entity.Feed;
 import com.game.xogame.models.GamesModel;
 import com.game.xogame.models.UserInfoModel;
 import com.game.xogame.views.game.FragmentFeeds;
 import com.game.xogame.views.game.FragmentGames;
-import com.game.xogame.views.profile.FragmentProfile;
 import com.game.xogame.views.main.MainActivity;
-
-import java.util.LinkedList;
-import java.util.List;
+import com.game.xogame.views.profile.FragmentProfile;
 
 public class MainPresenter {
     private MainActivity viewMain;
@@ -83,8 +79,10 @@ public class MainPresenter {
             public void onGet(String status, String error) {
                 fragment.load.setVisibility(View.GONE);
                 if(status.equals("success")) {
+                    Log.i("LOG_scroll", "success");
                     fragment.setList(modelGames.feedList);
                 }else{
+                    Log.i("LOG_scroll", "error");
                     fragment.setError(error);
                 }
 

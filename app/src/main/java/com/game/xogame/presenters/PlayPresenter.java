@@ -33,6 +33,15 @@ public class PlayPresenter {
                         case "timeout":
                             view.showToast(view.getString(R.string.error_cannotReachServer));
                             break;
+                        case "Game ended":
+                            view.showToast(view.getString(R.string.error_gameEnded));
+                            break;
+                        case "Second post":
+                            view.showToast(view.getString(R.string.error_secondPost));
+                            break;
+                        case "File don't upload":
+                            view.showToast(view.getString(R.string.error_dontUpload));
+                            break;
                         default:
                             view.showToast(model.getError()+"");
                             break;

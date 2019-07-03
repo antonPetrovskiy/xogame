@@ -264,6 +264,7 @@ public class GameInfoActivity extends AppCompatActivity {
                                             subscribe.setBackgroundResource(R.drawable.regbtn);
                                             subscribe.setTextColor(Color.parseColor("#ffffff"));
                                             subscribe.setText(getString(R.string.activityGameInfo_join));
+                                            alertD.cancel();
                                             FirebaseMessaging.getInstance().unsubscribeFromTopic("/topics/agame" + gameid)
                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override

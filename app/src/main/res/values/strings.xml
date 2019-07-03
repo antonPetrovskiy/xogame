@@ -25,9 +25,9 @@
     <string name="fragmentProfile_current">Current</string>
     <string name="fragmentProfile_future">Future</string>
     <string name="activityMyWins_dontWin">No winnings yet. But please dont`t give up</string>
-    <string name="activityMyWins_sent">Transfer money</string>
-    <string name="activityMyWins_mobile">To my phone</string>
-    <string name="activityMyWins_card">Credit card</string>
+    <string name="activityMyWins_sent">Withdrawal money</string>
+    <string name="activityMyWins_mobile">On smartphone</string>
+    <string name="activityMyWins_card">On credit card</string>
     <string name="activityMoney_card">Card number</string>
     <string name="popupImageChooser_photo">photo</string>
     <string name="popupImageChooser_camera">camera</string>
@@ -50,23 +50,23 @@
     <string name="activitySetting_rate">Rate us</string>
     <string name="activitySetting_support">Support</string>
     <string name="activitySetting_exit">Sign out</string>
-    <string name="popupGenderChooser_man">man</string>
-    <string name="popupGenderChooser_woman">woman</string>
+    <string name="popupGenderChooser_man">Male</string>
+    <string name="popupGenderChooser_woman">Female</string>
     <string name="activityPlay_addHashtag">#your comment to the photo</string>
     <string name="activityRating_rating">Rating</string>
     <string name="activityRating_noRating">No photo have been taken yet. Be the first one</string>
     <string name="activityRating_findgames">Find games</string>
-    <string name="activityRating_noActiveGames">No active games</string>
+    <string name="activityRating_noActiveGames">You are not participating in any game now</string>
     <string name="adapterRating_place">place</string>
     <string name="txt_active">active</string>
     <string name="activityRating_reward">reward</string>
     <string name="activityReport_reportDescription">Help us understanding whats`s happening</string>
     <string name="activityUserProfile_userDontParticipate">User has no games yet</string>
-    <string name="activityMoney_sentMoneyPhone">Transfer money to my phone number</string>
-    <string name="activityMoney_sentMoneyCard">Transfer money to my card</string>
+    <string name="activityMoney_sentMoneyPhone">Transfer money to phone</string>
+    <string name="activityMoney_sentMoneyCard">Transfer money to card</string>
     <string name="activityGameInfo_people">paparazzi</string>
     <string name="activityGameInfo_leave">exit the game</string>
-    <string name="fragmentFeeds_noTasks">There are nobody has completed any missions yet</string>
+    <string name="fragmentFeeds_noTasks">No one completed any missions yet</string>
     <string name="fragmentFeeds_findGames">Find games</string>
     <string name="activityGameInfo_join">play this game</string>
     <string name="activityMoney_sentMoneyOn">Transfer money to</string>
@@ -105,7 +105,7 @@
     <string name="activityWin_third">3rd place</string>
     <string name="activitySetting_wrongcard">Wrong card format</string>
     <string name="phoneNumber">Phone number</string>
-    <string name="fragmentGames_nogames">There are no games available for your region</string>
+    <string name="fragmentGames_nogames">No games in your area yet</string>
     <string name="tutorial_welcome">Welcome to PAPARAZZI Games</string>
     <string name="tutorial_feedsType">Here you can see your mission\'s or completed mission\'s of all paparazzi</string>
     <string name="tutorial_money">You can transfer money to your mobile phone or credit card</string>
@@ -131,10 +131,14 @@
     <string name="error_cannotReachServer">Connection is lost</string>
     <string name="activityUserProfile_notsupported">The game is not supported in your area</string>
     <string name="popupUnsubscribe_unsubscribe">Are you sure?</string>
-    <string name="push_win">Congratulations, you are one of the winners!</string>
+    <string name="push_win">Congratulations, you one of the winners!</string>
     <string name="push_endgame">Game over, wait for results</string>
     <string name="push_moderate">Review is over. Check the results</string>
-    <string name="push_newgame">New game</string>
+    <string name="push_newgame">New game created in your area. Sign up now - good luck</string>
+    <string name="x">man</string>
+    <string name="error_secondPost">Second post</string>
+    <string name="error_dontUpload">File don\'t upload</string>
+    <string name="error_gameEnded">Game ended</string>
 
 
 </resources>

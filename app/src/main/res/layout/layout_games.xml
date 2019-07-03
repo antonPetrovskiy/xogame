@@ -112,7 +112,7 @@
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/flag_south_korea"
+                app:srcCompat="@drawable/unknow_wide"
                 tools:ignore="ContentDescription" />
 
 

@@ -109,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                         next.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
                         if (ccp.getFullNumber().length() == 12) {
                             if (((ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
+                                next.setClickable(false);
                                 presenter.login();
                                 //loading...
                             } else {

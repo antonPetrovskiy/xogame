@@ -3,6 +3,9 @@ package com.game.xogame.views.main;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
@@ -10,7 +13,9 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.media.AudioAttributes;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
@@ -149,6 +154,30 @@ public class MainActivity extends AppCompatActivity {
 
             init(page);
             initCoord();
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            String id = "fcm";
+            // The user-visible name of the channel.
+            CharSequence name = "fcm";
+            // The user-visible description of the channel.
+            String description = "fcm";
+            int importance = NotificationManager.IMPORTANCE_MAX;
+            NotificationChannel mChannel = new NotificationChannel(id, name, NotificationManager.IMPORTANCE_HIGH);
+            // Configure the notification channel.
+            mChannel.setDescription(description);
+            mChannel.enableLights(true);
+            // Sets the notification light color for notifications posted to this
+            // channel, if the device supports this feature.
+            mChannel.setLightColor(Color.RED);
+            mChannel.enableVibration(true);
+            AudioAttributes att = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                    .build();
+            mChannel.setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.winpush),att);
+            notificationManager.createNotificationChannel(mChannel);
         }
 
         // Requesting ACCESS_FINE_LOCATION using Dexter library
@@ -393,6 +422,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onPermissionGranted(PermissionGrantedResponse response) {
                         mRequestingLocationUpdates = true;
                         startLocationUpdates();
+                        FragmentGames fragment = (FragmentGames) mSectionsPagerAdapter.getItem(0);
+                        fragment.update();
                     }
 
                     @Override
@@ -552,7 +583,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
     }
 
     private boolean checkPermissions() {

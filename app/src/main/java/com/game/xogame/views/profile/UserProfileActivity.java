@@ -50,6 +50,7 @@ public class UserProfileActivity extends AppCompatActivity {
     public List<Game> gameFutureList;
     private RelativeLayout empty;
     public ApiService api;
+    private TextView textHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class UserProfileActivity extends AppCompatActivity {
         myGames = findViewById(R.id.myGames);
         load = findViewById(R.id.targetView);
         back = findViewById(R.id.imageViewBack);
+        textHolder = findViewById(R.id.textHolder);
         empty = findViewById(R.id.empty);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,18 +92,20 @@ public class UserProfileActivity extends AppCompatActivity {
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LayoutInflater layoutInflater = LayoutInflater.from(UserProfileActivity.this);
-                View promptView = layoutInflater.inflate(R.layout.popup_image, null);
-                final AlertDialog alertD = new AlertDialog.Builder(UserProfileActivity.this).create();
-                alertD.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                alertD.getWindow().setDimAmount(0.9f);
-                ImageView btnAdd1 = promptView.findViewById(R.id.imageView5);
+                if(photourl!=null && !photourl.equals("") && !photourl.equals("null")) {
+                    LayoutInflater layoutInflater = LayoutInflater.from(UserProfileActivity.this);
+                    View promptView = layoutInflater.inflate(R.layout.popup_image, null);
+                    final AlertDialog alertD = new AlertDialog.Builder(UserProfileActivity.this).create();
+                    alertD.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    alertD.getWindow().setDimAmount(0.9f);
+                    ImageView btnAdd1 = promptView.findViewById(R.id.imageView5);
 
 
-                Picasso.with(getApplicationContext()).load(photourl).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(btnAdd1);
-                //btnAdd1.setImageDrawable(image.getDrawable());
-                alertD.setView(promptView);
-                alertD.show();
+                    Picasso.with(getApplicationContext()).load(photourl).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(btnAdd1);
+                    //btnAdd1.setImageDrawable(image.getDrawable());
+                    alertD.setView(promptView);
+                    alertD.show();
+                }
             }
         });
 
@@ -115,14 +119,19 @@ public class UserProfileActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            photourl = extras.getString("PHOTO") + "";
+
             userid = extras.getString("USERID" + "");
             name.setText(extras.getString("NAME") + "");
             nickname.setText(extras.getString("NICKNAME") + "");
-            Picasso.with(this).load(extras.getString("PHOTO") + "").placeholder(R.drawable.unknow).error(R.drawable.unknow).into(photo);
+            //Picasso.with(this).load(extras.getString("PHOTO") + "").placeholder(R.drawable.unknow).error(R.drawable.unknow).into(photo);
             userid = extras.getString("USERID");
         }
-
+        photourl = extras.getString("PHOTO") + "";
+        if (!extras.getString("PHOTO").equals("")) {
+            setPhoto(extras.getString("PHOTO"));
+        } else {
+            setPhoto("");
+        }
         //presenter.showUserInfo(this);
         presenter.showMyGames(userid);
     }
@@ -257,5 +266,89 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void setPhoto(String s) {
+        if(s.equals(""))
+            s = "q";
+        textHolder.setText(nickname.getText().toString().substring(0, 1).toUpperCase());
+        this.photo.setImageResource(getPlaceholder(nickname.getText().toString()));
+        Picasso.with(this).load(s + "").placeholder(getPlaceholder(nickname.getText().toString())).error(getPlaceholder(nickname.getText().toString())).into(this.photo, new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+                textHolder.setText("");
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+    }
+
+    private int getPlaceholder(String s) {
+        String abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZЯЧСМИТЬБЮФЫВАПРОЛДЖЭЁЙЦУКЕНГШЩЗХЪІЄ0123456789";
+        int n = abc.indexOf(s.substring(0, 1).toUpperCase());
+        if (n == 0 || n == 20 || n == 40 || n == 60) {
+            return R.color.color1;
+        }
+        if (n == 1 || n == 21 || n == 41 || n == 61) {
+            return R.color.color2;
+        }
+        if (n == 2 || n == 22 || n == 42 || n == 62) {
+            return R.color.color3;
+        }
+        if (n == 3 || n == 23 || n == 43 || n == 63) {
+            return R.color.color4;
+        }
+        if (n == 4 || n == 24 || n == 44 || n == 64) {
+            return R.color.color5;
+        }
+        if (n == 5 || n == 25 || n == 45 || n == 65) {
+            return R.color.color6;
+        }
+        if (n == 6 || n == 26 || n == 46 || n == 66) {
+            return R.color.color7;
+        }
+        if (n == 7 || n == 27 || n == 47 || n == 67) {
+            return R.color.color8;
+        }
+        if (n == 8 || n == 28 || n == 48 || n == 68) {
+            return R.color.color9;
+        }
+        if (n == 9 || n == 29 || n == 49 || n == 69) {
+            return R.color.color10;
+        }
+        if (n == 10 || n == 30 || n == 50 || n == 70) {
+            return R.color.color11;
+        }
+        if (n == 11 || n == 31 || n == 51 || n == 71) {
+            return R.color.color12;
+        }
+        if (n == 12 || n == 32 || n == 52 || n == 72) {
+            return R.color.color13;
+        }
+        if (n == 13 || n == 33 || n == 53 || n == 73) {
+            return R.color.color14;
+        }
+        if (n == 14 || n == 34 || n == 54 || n == 74) {
+            return R.color.color15;
+        }
+        if (n == 15 || n == 35 || n == 55 || n == 75) {
+            return R.color.color16;
+        }
+        if (n == 16 || n == 36 || n == 56 || n == 76) {
+            return R.color.color17;
+        }
+        if (n == 17 || n == 37 || n == 57 || n == 77) {
+            return R.color.color18;
+        }
+        if (n == 18 || n == 38 || n == 58 || n == 78) {
+            return R.color.color19;
+        }
+        if (n == 19 || n == 39 || n == 59 || n == 79) {
+            return R.color.color20;
+        }
+        return R.color.color1;
     }
 }
