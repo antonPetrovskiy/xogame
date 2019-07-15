@@ -27,11 +27,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.game.xogame.BuildConfig;
 import com.game.xogame.GamePush;
 import com.game.xogame.R;
@@ -151,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                 gameId = getIntent().getExtras().getString("gameid");
             }
 
+            checkGamePush();
 
             init(page);
             initCoord();
@@ -636,6 +641,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }, this.getIntent().getData(), this);
+
         super.onResume();
     }
 
@@ -644,6 +650,32 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         if (mRequestingLocationUpdates) {
             stopLocationUpdates();
+        }
+    }
+
+    public void checkGamePush(){
+        //CHECK GAMEINFO PUSH
+        if (getIntent().getExtras() != null && getIntent().getExtras().getString("NAME") != null && !getIntent().getExtras().getString("NAME").equals("")) {
+            LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+            @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_push, null);
+            final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(this).create();
+
+            TextView txt1 = promptView.findViewById(R.id.textView1);
+            TextView txt2 = promptView.findViewById(R.id.textView2);
+            ImageView img1 = promptView.findViewById(R.id.imageView);
+            alertD.setView(promptView);
+            txt1.setText(getIntent().getExtras().getString("NAME"));
+            txt2.setText(getIntent().getExtras().getString("DESCRIPTION"));
+            RequestOptions requestOptions = new RequestOptions();
+            requestOptions.placeholder(R.drawable.unknow_wide);
+            requestOptions.error(R.drawable.unknow_wide);
+            requestOptions.override(1920, 1080);
+            requestOptions.centerCrop();
+
+            //if(extras.getString("USER")!=null && extras.getString("USER").equals("another"))
+            //subscribe.setVisibility(View.GONE);
+            Glide.with(this).setDefaultRequestOptions(requestOptions).load(getIntent().getExtras().getString("PHOTO")).thumbnail(0.3f).into(img1);
+            alertD.show();
         }
     }
 

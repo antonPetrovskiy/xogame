@@ -139,6 +139,26 @@
     <string name="error_secondPost">Second post</string>
     <string name="error_dontUpload">File don\'t upload</string>
     <string name="error_gameEnded">Game ended</string>
+    <string name="activityCreate_create">Создать игру</string>
+    <string name="activityCreate_name">Название игры</string>
+    <string name="activityCreate_description">Описание</string>
+    <string name="activityProfile_mygame">Мои игры</string>
+    <string name="activityCreate_auditory">Аудитория</string>
+    <string name="activityCreate_task">Задания</string>
+    <string name="activityCreate_info">Дату и время можно будет ввести после того как игра пройдет модерацию и будет оплачена.</string>
+    <string name="activityCreate_address">Точный адрес (если нужно)</string>
+    <string name="activityCreate_oblast">Область</string>
+    <string name="activityCreate_rayon">Район</string>
+    <string name="activityCreate_street">Улица</string>
+    <string name="activityCreate_house">Номер дома</string>
+    <string name="activityCreate_moderation">Отправить на модерацию</string>
+    <string name="activityCreate_sum">Сумма</string>
+    <string name="activityCreate_pay">Оплата</string>
+    <string name="activityCreate_empty">Вы еще не создали ни одной игры</string>
+    <string name="activityCreateAuditory_enter">Введите страну и город</string>
+    <string name="activityCreate_howCreate">Как создать игру</string>
+    <string name="activityCreateTask_fillAll">Заполните все задания</string>
+    <string name="activityCreate_addtask">Добавить задание</string>
 
 
 </resources>

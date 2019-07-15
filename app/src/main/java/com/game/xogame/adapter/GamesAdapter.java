@@ -2,8 +2,6 @@ package com.game.xogame.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,18 +11,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.game.xogame.R;
 import com.game.xogame.entity.Game;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
-import java.util.List;
 
-import static android.content.Context.MODE_PRIVATE;
+import java.util.List;
 
 public class GamesAdapter  extends ArrayAdapter<Game> {
     private List<Game> gameList;
@@ -63,8 +56,9 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
         Log.i("LOG_allgames" , item.getBackground()+" 0123");
 
         vh.rootView.setClipToOutline(true);
-        vh.textViewName1.setText(item.getCompany());
-        vh.textViewName2.setText(item.getTitle());
+
+        vh.textViewName1.setText(item.getCompany()+"");
+        vh.textViewName2.setText(item.getTitle()+"");
         vh.textViewDate.setText(item.getStartdate()+" - "+item.getEnddate()+"   "+item.getStarttime()+" - "+item.getEndtime());
         vh.textViewTasks.setText(item.getTasks()+" "+context.getString(R.string.adapterGames_tasks));
         vh.textViewPrize.setText(item.getReward()+" ₴");
@@ -72,8 +66,6 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
 
         vh.textViewHolder.setText(item.getCompany().substring(0,1).toUpperCase());
         vh.imageView.setImageResource(getPlaceholder(item.getCompany()));
-        Log.i("LOG_allgames" , item.getGameid()+" лол");
-        Log.i("LOG_allgames" , item.getSubscribe()+" кек");
         if(item.getSubscribe()==null || item.getSubscribe().equals("0")){
             vh.imageView2.setVisibility(View.GONE);
         }else{

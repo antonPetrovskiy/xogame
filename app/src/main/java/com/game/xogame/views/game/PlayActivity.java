@@ -333,7 +333,7 @@ public class PlayActivity extends AppCompatActivity {
     public void showToast(String s){
         LayoutInflater layoutInflater = LayoutInflater.from(PlayActivity.this);
         @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
-        final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(this).create();
+        final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(PlayActivity.this).create();
             TextView btnAdd1 = promptView.findViewById(R.id.textView1);
             btnAdd1.setText(s);
             alertD.setView(promptView);

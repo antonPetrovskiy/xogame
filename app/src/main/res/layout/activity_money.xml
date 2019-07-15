@@ -20,23 +20,23 @@
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:adjustViewBounds="true"
             android:cropToPadding="true"
-            android:paddingLeft="12dp"
-            android:paddingTop="13dp"
-            android:paddingRight="12dp"
-            android:paddingBottom="13dp"
+            android:paddingLeft="16dp"
+            android:paddingTop="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp"
             android:src="@drawable/setting_back"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="42dp"
+            android:layout_height="55dp"
+            android:layout_marginEnd="55dp"
+            android:gravity="center_vertical"
             android:fontFamily="@font/roboto_regular"
             android:text="@string/activityMoney_sentMoneyOn"
             android:textAlignment="center"

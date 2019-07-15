@@ -150,4 +150,20 @@ public interface ApiService {
     @POST("game/complaint/")
     Call<DefaultCallback> setReport(@Part("token") String token,
                                           @Part("actionid") String actionid);
+
+    @Multipart
+    @POST("game/create/")
+    Call<DefaultCallback> createGame(@Part("token") String token,
+                                    @Part("title") String title,
+                                     @Part("description") String description,
+                                     @Part MultipartBody.Part background,
+                                     @Part("name[]") String[] name,
+                                     @Part("limpeople") String limpeople,
+                                     @Part("city") String city,
+                                     @Part("address") String address,
+                                     @Part("flevel") String flevel);
+
+    @FormUrlEncoded
+    @POST("game/mygames/")
+    Call<GamesCallback> getCreatedGames(@Field("token") String token);
 }

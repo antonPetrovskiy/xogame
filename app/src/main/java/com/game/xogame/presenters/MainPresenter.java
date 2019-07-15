@@ -1,6 +1,7 @@
 package com.game.xogame.presenters;
 
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 
@@ -10,6 +11,8 @@ import com.game.xogame.views.game.FragmentFeeds;
 import com.game.xogame.views.game.FragmentGames;
 import com.game.xogame.views.main.MainActivity;
 import com.game.xogame.views.profile.FragmentProfile;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class MainPresenter {
     private MainActivity viewMain;
@@ -38,7 +41,9 @@ public class MainPresenter {
                 Log.i("LOG_log", model.user.getPhoto() + "");
                 fragment.setName(model.user.getName() + "");
                 fragment.setNickName(model.user.getNickname() + "");
-
+                SharedPreferences sharedPref = fragment.getContext().getSharedPreferences("myPref", MODE_PRIVATE);
+                sharedPref.edit().putString("ccard", model.user.getCard()).commit();
+                Log.i("LOG_card", model.user.getCard() + "");
                 if (!model.user.getPhoto().equals("")) {
                     fragment.setPhoto(model.user.getPhoto());
                 } else {

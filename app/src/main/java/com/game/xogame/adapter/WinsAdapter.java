@@ -53,7 +53,7 @@ public class WinsAdapter extends ArrayAdapter<Game> {
         final Game item = getItem(position);
         Log.i("LOG_adapterWin" , Objects.requireNonNull(item).getTitle()+" "+item.getRewardstatus());
 
-        vh.textViewName1.setText(item.getTitle());
+        vh.textViewName1.setText(item.getCompany()+"");
         vh.textViewName2.setText(item.getReward()+" ₴");
         vh.textViewTasks.setText(item.getTitle()+"");
         vh.textViewDate.setText(item.getEnddate()+"");

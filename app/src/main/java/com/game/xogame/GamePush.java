@@ -54,6 +54,9 @@ public class GamePush extends FirebaseMessagingService {
                 case "newgame":
                     sendNewGame();
                     break;
+                case "gameinfo":
+                    sendGameInfo();
+                    break;
             }
         }
     }
@@ -240,6 +243,40 @@ public class GamePush extends FirebaseMessagingService {
                 .setDefaults(Notification.FLAG_AUTO_CANCEL | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent);
         mNotificationManager.notify((int) notificatioId, notificationBuilder.build());
+
+    }
+
+    public void sendGameInfo(){
+
+            NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            long notificatioId = System.currentTimeMillis();
+
+
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class); // Here pass your activity where you want to redirect.
+            intent.putExtra("NAME", data.get("title"));
+            intent.putExtra("PHOTO", data.get("photourl"));
+            intent.putExtra("DESCRIPTION", data.get("reason"));
+            //activity.finish();
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+
+            PendingIntent contentIntent = PendingIntent.getActivity(this, (int) (Math.random() * 100), intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle(this.getResources().getString(R.string.app_name))
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(data.get("title")))
+                    .setContentText(getString(R.string.push_newgame))
+                    .setAutoCancel(true)
+                    .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.winpush))
+                    .setPriority(Notification.PRIORITY_HIGH)
+                    .setDefaults(Notification.FLAG_AUTO_CANCEL | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE)
+                    .setContentIntent(contentIntent);
+            mNotificationManager.notify((int) notificatioId, notificationBuilder.build());
+        activity.finish();
+
+
+
 
     }
 

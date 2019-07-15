@@ -15,9 +15,12 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -59,7 +62,11 @@ public class FragmentGames extends Fragment {
     private List<Game> gameList;
     private List<Game> tmpgameList;
     public EditText search;
+    private ImageView searchIcon;
+    private ImageView exitIcon;
     private boolean subscribeCheck = false;
+    private RelativeLayout logoView;
+    private RelativeLayout searchView;
 
     private RelativeLayout tutorialView;
     private TextView tutorialText;
@@ -99,7 +106,11 @@ public class FragmentGames extends Fragment {
         empty = rootView.findViewById(R.id.empty);
         refresh = rootView.findViewById(R.id.refresh);
         search = rootView.findViewById(R.id.search);
+        searchIcon = rootView.findViewById(R.id.imageView1);
+        exitIcon = rootView.findViewById(R.id.imageView111);
         error = rootView.findViewById(R.id.error);
+        logoView = rootView.findViewById(R.id.linearLayout);
+        searchView = rootView.findViewById(R.id.linearLayout7);
 
         tutorialView = rootView.findViewById(R.id.tutorial);
         tutorialText = rootView.findViewById(R.id.tutorial_text);
@@ -117,6 +128,80 @@ public class FragmentGames extends Fragment {
             empty.setVisibility(View.VISIBLE);
             load.setVisibility(View.GONE);
         }
+
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation animation = new TranslateAnimation(
+                        Animation.RELATIVE_TO_SELF, //fromXType
+                        0.0f,                       //fromXValue
+                        Animation.RELATIVE_TO_SELF, //toXType
+                        -1.0f,                      //toXValue
+                        Animation.RELATIVE_TO_SELF, //fromYType
+                        0.0f,                       //fromYValue
+                        Animation.RELATIVE_TO_SELF, //toYType
+                        0.0f);
+                //animation.setFillAfter(true);
+                animation.setDuration(300);
+                logoView.startAnimation(animation);
+
+
+                Animation animation1 = new TranslateAnimation(
+                        Animation.RELATIVE_TO_SELF, //fromXType
+                        1.0f,                       //fromXValue
+                        Animation.RELATIVE_TO_SELF, //toXType
+                        0.0f,                      //toXValue
+                        Animation.RELATIVE_TO_SELF, //fromYType
+                        0.0f,                       //fromYValue
+                        Animation.RELATIVE_TO_SELF, //toYType
+                        0.0f);
+                //animation1.setFillAfter(true);
+                animation1.setDuration(300);
+                searchView.startAnimation(animation1);
+
+                searchIcon.setEnabled(false);
+                exitIcon.setEnabled(true);
+                searchView.setVisibility(View.VISIBLE);
+                logoView.setVisibility(View.GONE);
+            }
+        });
+
+        exitIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation animation = new TranslateAnimation(
+                        Animation.RELATIVE_TO_SELF, //fromXType
+                        0.0f,                       //fromXValue
+                        Animation.RELATIVE_TO_SELF, //toXType
+                        1.0f,                      //toXValue
+                        Animation.RELATIVE_TO_SELF, //fromYType
+                        0.0f,                       //fromYValue
+                        Animation.RELATIVE_TO_SELF, //toYType
+                        0.0f);
+                //animation.setFillAfter(true);
+                animation.setDuration(300);
+                searchView.startAnimation(animation);
+
+
+                Animation animation1 = new TranslateAnimation(
+                        Animation.RELATIVE_TO_SELF, //fromXType
+                        -1.0f,                       //fromXValue
+                        Animation.RELATIVE_TO_SELF, //toXType
+                        0.0f,                      //toXValue
+                        Animation.RELATIVE_TO_SELF, //fromYType
+                        0.0f,                       //fromYValue
+                        Animation.RELATIVE_TO_SELF, //toYType
+                        0.0f);
+                //animation1.setFillAfter(true);
+                animation1.setDuration(300);
+                logoView.startAnimation(animation1);
+
+                searchIcon.setEnabled(true);
+                exitIcon.setEnabled(false);
+                searchView.setVisibility(View.GONE);
+                logoView.setVisibility(View.VISIBLE);
+            }
+        });
 
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -156,7 +241,6 @@ public class FragmentGames extends Fragment {
         });
 
         search.addTextChangedListener(new TextWatcher() {
-
 
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -216,7 +300,8 @@ public class FragmentGames extends Fragment {
         } else {
              if(empty!=null)
                 empty.setVisibility(View.VISIBLE);
-             load.setVisibility(View.GONE);
+             if(load!=null)
+                load.setVisibility(View.GONE);
         }
 
     }

@@ -21,7 +21,7 @@
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
-            android:layout_height="44dp"
+            android:layout_height="55dp"
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
             android:fontFamily="@font/roboto_regular"
@@ -145,57 +145,96 @@
     <LinearLayout
         android:id="@+id/myWins"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:layout_gravity="center_horizontal"
-        android:orientation="vertical"
+        android:orientation="horizontal"
+        android:weightSum="10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="11dp"
-            android:orientation="horizontal"
+            android:id="@+id/myWins1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:id="@+id/imageView11"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="18dp"
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
                 android:src="@drawable/mywin"
-                tools:ignore="ContentDescription"/>
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="19dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="11dp"
+                android:fontFamily="@font/roboto_medium"
                 android:gravity="center_horizontal"
                 android:text="@string/activityMyWins_myWins"
                 android:textColor="#F08C3C"
                 android:textSize="16dp" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageView4"
+        <LinearLayout
+            android:id="@+id/creategame"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/profile_line_grey"
-            tools:ignore="ContentDescription"/>
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="32dp"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:src="@drawable/creategame"
+                tools:ignore="ContentDescription"/>
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="11dp"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_horizontal"
+                android:text="@string/activityProfile_mygame"
+                android:textColor="#F05A23"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/profile_line_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/myWins"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
         android:id="@+id/myGames"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:padding="12dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:padding="15dp"
         android:adjustViewBounds="true"
         android:cropToPadding="true"
         android:src="@drawable/clock"
