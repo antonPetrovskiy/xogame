@@ -21,7 +21,7 @@
     <string name="popupSettings_badContent">Inappropriate content</string>
     <string name="popupSettings_badTask">Far from the mission</string>
     <string name="popupSettings_other">Help us understand what\'s happening</string>
-    <string name="activityMyWins_myWins">My winnings</string>
+    <string name="activityMyWins_myWins">Winnings</string>
     <string name="fragmentProfile_current">Current</string>
     <string name="fragmentProfile_future">Future</string>
     <string name="activityMyWins_dontWin">No winnings yet. But please dont`t give up</string>
@@ -143,7 +143,7 @@
     <string name="activityCreate_name">Название игры</string>
     <string name="activityCreate_description">Описание</string>
     <string name="activityProfile_mygame">Мои игры</string>
-    <string name="activityCreate_auditory">Аудитория</string>
+    <string name="activityCreate_auditory">Локация</string>
     <string name="activityCreate_task">Задания</string>
     <string name="activityCreate_info">Дату и время можно будет ввести после того как игра пройдет модерацию и будет оплачена.</string>
     <string name="activityCreate_address">Точный адрес (если нужно)</string>
@@ -153,12 +153,36 @@
     <string name="activityCreate_house">Номер дома</string>
     <string name="activityCreate_moderation">Отправить на модерацию</string>
     <string name="activityCreate_sum">Сумма</string>
-    <string name="activityCreate_pay">Оплата</string>
+    <string name="activityCreate_pay">Оплатить</string>
     <string name="activityCreate_empty">Вы еще не создали ни одной игры</string>
-    <string name="activityCreateAuditory_enter">Введите страну и город</string>
+    <string name="activityCreateAuditory_enter">Выберите область</string>
     <string name="activityCreate_howCreate">Как создать игру</string>
     <string name="activityCreateTask_fillAll">Заполните все задания</string>
     <string name="activityCreate_addtask">Добавить задание</string>
+    <string name="popup_no">No</string>
+    <string name="popup_yes">Yes</string>
+    <string name="activityCreateGame_delete">Удалить игру?</string>
+    <string name="activityCreateGame_save">Сохранить и выйти?</string>
+    <string name="activityCreate_autostreet">Автоподбор адреса</string>
+    <string name="activityCreate_chooseRadius">Выберите радиус</string>
+    <string name="activityProfile_create">Создать</string>
+    <string name="actibityCreateGame_gameSend">Игра отправлена на модерацию</string>
+    <string name="activityCreateGame_fillInfo">Заполните всю информацию</string>
+    <string name="status_draft">Черновик</string>
+    <string name="status_moderation">Модерация</string>
+    <string name="status_active">Активно</string>
+    <string name="status_canceled">Отменено</string>
+    <string name="status_ended">Закончено</string>
+    <string name="status_date">Дата и время</string>
+    <string name="activityPay_pay">Оплата</string>
+    <string name="activityCreate_category">Категория</string>
+    <string name="activityCreate_mygames">Мои игры</string>
+    <string name="activityDate_date">Дата и время</string>
+    <string name="activityDate_startDay">Дата начала</string>
+    <string name="activityDate_endDay">Дата окончания</string>
+    <string name="activityDate_task">Задания будут приходить</string>
+    <string name="activityDate_from">с</string>
+    <string name="activityDate_to">по</string>
 
 
 </resources>

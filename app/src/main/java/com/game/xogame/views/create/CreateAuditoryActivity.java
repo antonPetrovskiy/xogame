@@ -2,35 +2,52 @@ package com.game.xogame.views.create;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.game.xogame.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class CreateAuditoryActivity extends AppCompatActivity {
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
-    String[] cityList = {"Білгород-Дністровський", "Бердянськ", "Берегове", "Буковель", "Вінниця", "Верховина", "Вилкове", "Ворохта", "Дніпро", "Донецьк", "Житомир", "Запоріжжя", "Затока", "Івано-Франківськ", "Кам'янець-подільский", "Київ", "Кирилівка", "Клеван", "Коблево", "Коломия", "Кривий Ріг", "Кропивницький", "Луцьк", "Львів", "Миколаїв", "Мукачево", "Одеса", "Пилипець", "Полтава", "Припять", "Славське", "Тернопіль", "Трускавець", "Ужгород", "Умань", "Харків", "Херсон", "Хмельницький", "Хотин", "Черкаси", "Чернівці", "Чернігів", "Чорнобиль", "Яремче",};
-    String[] countryList = {"Україна"};
+public class CreateAuditoryActivity extends FragmentActivity implements OnMapReadyCallback {
+
     private ImageView back;
-    private Spinner country;
-    private Spinner city;
-    private EditText oblast;
-    private EditText district;
-    private EditText street;
-    private EditText house;
-    private SeekBar radius;
     private ImageView save;
-    private TextView km;
+    private LatLng point;
+    private SeekBar radius;
+    private EditText street;
+
+    private ImageView iconPoint;
+    private ImageView iconMe;
+
+    private GoogleMap mMap;
+    private SupportMapFragment mapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,31 +55,17 @@ public class CreateAuditoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_auditory);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        MapsInitializer.initialize(getApplicationContext());
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
         init();
     }
 
     @SuppressLint("ClickableViewAccessibility")
     public void init(){
-        oblast = findViewById(R.id.editText3);
-        district = findViewById(R.id.editText4);
-        street = findViewById(R.id.editText5);
-        house = findViewById(R.id.editText6);
-
-        // адаптер
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, R.layout.spinner, countryList);
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, R.layout.spinner, cityList);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        country = findViewById(R.id.editText1);
-        city = findViewById(R.id.editText2);
-        country.setAdapter(adapter1);
-        city.setAdapter(adapter2);
-        // заголовок
-        //spinner.setPrompt("Title");
-        // выделяем элемент
-        //spinner.setSelection(2);
-
+        street = findViewById(R.id.edittext);
         back = findViewById(R.id.imageView);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,15 +83,13 @@ public class CreateAuditoryActivity extends AppCompatActivity {
                         break;
                     case MotionEvent.ACTION_UP: // отпускание
                         save.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
-                        if(!country.getSelectedItem().toString().equals("") && !city.getSelectedItem().toString().equals("")) {
+                        if(point!=null) {
                             Intent intent = new Intent(CreateAuditoryActivity.this, CreateGameActivity.class);
-                            intent.putExtra("country",country.getSelectedItem().toString()+"");
-                            intent.putExtra("city",city.getSelectedItem().toString()+"");
-                            intent.putExtra("oblast",oblast.getText().toString()+"");
-                            intent.putExtra("district",district.getText().toString()+"");
-                            intent.putExtra("street",street.getText().toString()+"");
-                            intent.putExtra("house",house.getText().toString()+"");
+                            intent.putExtra("lat",point.latitude+"");
+                            intent.putExtra("lng",point.longitude+"");
                             intent.putExtra("radius",radius.getProgress()+"");
+                            intent.putExtra("street",street.getText().toString()+"");
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             finish();
                         }else{
@@ -100,12 +101,29 @@ public class CreateAuditoryActivity extends AppCompatActivity {
             }
         });
 
-        km = findViewById(R.id.textView8);
         radius = findViewById(R.id.seekBar);
         radius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                km.setText(progress+" km");
+                if (point != null) {
+                    mMap.clear();
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(point);
+                    markerOptions.anchor(0.5f,0.5f);
+                    final float scale = getResources().getDisplayMetrics().density;
+                    int pixels = (int) (38 * scale + 0.5f);
+                    Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.icon_map_point);
+                    Bitmap smallMarker = Bitmap.createScaledBitmap(b, pixels, pixels, false);
+                    markerOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point, 10));
+                    mMap.addMarker(markerOptions);
+                    mMap.addCircle(new CircleOptions()
+                            .center(new LatLng(point.latitude, point.longitude))
+                            .radius(progress*1000)
+                            .strokeColor(Color.parseColor("#00FF6800"))
+                            .fillColor(Color.parseColor("#8CFF6800")));
+                }
+
             }
 
             @Override
@@ -115,8 +133,161 @@ public class CreateAuditoryActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                if (point != null) {
+                    mMap.clear();
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(point);
+                    markerOptions.anchor(0.5f,0.5f);
+                    final float scale = getResources().getDisplayMetrics().density;
+                    int pixels = (int) (38 * scale + 0.5f);
+                    Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.icon_map_point);
+                    Bitmap smallMarker = Bitmap.createScaledBitmap(b, pixels, pixels, false);
+                    markerOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point, 10));
+                    mMap.addMarker(markerOptions);
+                    mMap.addCircle(new CircleOptions()
+                            .center(new LatLng(point.latitude, point.longitude))
+                            .radius(seekBar.getProgress()*1000)
+                            .strokeColor(Color.parseColor("#00FF6800"))
+                            .fillColor(Color.parseColor("#8CFF6800")));
+                }
             }
+        });
+
+        iconPoint = findViewById(R.id.imageView10);
+        iconPoint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(point!=null)
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point, 10));
+            }
+        });
+        iconMe = findViewById(R.id.imageView9);
+        iconMe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
+                String lat = sharedPref.getString("lat", "null");
+                String lon = sharedPref.getString("lng", "null");
+                mMap.clear();
+                // Creating a marker
+                MarkerOptions markerOptions = new MarkerOptions();
+                // Setting the position for the marker
+                markerOptions.position(new LatLng(Double.parseDouble(lat),Double.parseDouble(lon)));
+                markerOptions.anchor(0.5f,0.5f);
+                point = new LatLng(Double.parseDouble(lat),Double.parseDouble(lon));
+                final float scale = getResources().getDisplayMetrics().density;
+                int pixels = (int) (38 * scale + 0.5f);
+                Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.icon_map_point);
+                Bitmap smallMarker = Bitmap.createScaledBitmap(b, pixels, pixels, false);
+                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+                // Animating to the touched position
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point, 10));
+                // Placing a marker on the touched position
+                mMap.addMarker(markerOptions);
+
+
+                mMap.addCircle(new CircleOptions()
+                        .center(new LatLng(point.latitude, point.longitude))
+                        .radius(radius.getProgress()*1000)
+                        .strokeColor(Color.parseColor("#00FF6800"))
+                        .fillColor(Color.parseColor("#8CFF6800")));
+
+                Geocoder geocoder;
+                List<Address> addresses = null;
+                geocoder = new Geocoder(CreateAuditoryActivity.this, Locale.getDefault());
+
+                try {
+                    addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                String city = addresses.get(0).getLocality();
+                String state = addresses.get(0).getAdminArea();
+                String country = addresses.get(0).getCountryName();
+                String postalCode = addresses.get(0).getPostalCode();
+                String knownName = addresses.get(0).getFeatureName();
+                street.setText(address);
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+//        try {
+//            // Customise the styling of the base map using a JSON object defined
+//            // in a raw resource file.
+//            boolean success = googleMap.setMapStyle(
+//                    MapStyleOptions.loadRawResourceStyle(this, R.raw.style_json));
+//
+//            if (!success) {
+//                Log.e("Log", "Style parsing failed.");
+//            }
+//        } catch (Resources.NotFoundException e) {
+//            Log.e("Log", "Can't find style. Error: ", e);
+//        }
+
+        iconMe.performClick();
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                return true;
+            }
+        });
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                mMap.clear();
+                // Creating a marker
+                MarkerOptions markerOptions = new MarkerOptions();
+                // Setting the position for the marker
+                markerOptions.position(latLng);
+                markerOptions.anchor(0.5f,0.5f);
+                point = latLng;
+                final float scale = getResources().getDisplayMetrics().density;
+                int pixels = (int) (38 * scale + 0.5f);
+                Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.icon_map_point);
+                Bitmap smallMarker = Bitmap.createScaledBitmap(b, pixels, pixels, false);
+                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+                // Animating to the touched position
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                // Placing a marker on the touched position
+                mMap.addMarker(markerOptions);
+
+
+                mMap.addCircle(new CircleOptions()
+                        .center(new LatLng(point.latitude, point.longitude))
+                        .radius(radius.getProgress()*1000)
+                        .strokeColor(Color.parseColor("#00FF6800"))
+                        .fillColor(Color.parseColor("#8CFF6800")));
+
+
+                Geocoder geocoder;
+                List<Address> addresses = null;
+                geocoder = new Geocoder(CreateAuditoryActivity.this, Locale.getDefault());
+
+                try {
+                    addresses = geocoder.getFromLocation(point.latitude, point.longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                String city = addresses.get(0).getLocality();
+                String state = addresses.get(0).getAdminArea();
+                String country = addresses.get(0).getCountryName();
+                String postalCode = addresses.get(0).getPostalCode();
+                String knownName = addresses.get(0).getFeatureName();
+                street.setText(address);
+            }
+
         });
     }
 

@@ -18,7 +18,7 @@
     <string name="popupSettings_badContent">Inappropriate content</string>
     <string name="popupSettings_badTask">Far from the mission</string>
     <string name="popupSettings_other">Help us understand what\'s happening</string>
-    <string name="activityMyWins_myWins">My winnings</string>
+    <string name="activityMyWins_myWins">Winnings</string>
     <string name="fragmentProfile_current">Current</string>
     <string name="fragmentProfile_future">Future</string>
     <string name="activityMyWins_dontWin">No winnings yet. But please dont`t give up</string>

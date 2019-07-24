@@ -1,8 +1,10 @@
 package com.game.xogame.api;
 
+import com.game.xogame.entity.CreateCallback;
 import com.game.xogame.entity.DefaultCallback;
 import com.game.xogame.entity.FeedCallback;
 import com.game.xogame.entity.GamesCallback;
+import com.game.xogame.entity.GamesNewCallback;
 import com.game.xogame.entity.ModerationCallback;
 import com.game.xogame.entity.ProfileGamesCallback;
 import com.game.xogame.entity.RatingCallback;
@@ -153,17 +155,23 @@ public interface ApiService {
 
     @Multipart
     @POST("game/create/")
-    Call<DefaultCallback> createGame(@Part("token") String token,
+    Call<CreateCallback> createGame(@Part("token") String token,
                                     @Part("title") String title,
-                                     @Part("description") String description,
-                                     @Part MultipartBody.Part background,
-                                     @Part("name[]") String[] name,
-                                     @Part("limpeople") String limpeople,
-                                     @Part("city") String city,
-                                     @Part("address") String address,
-                                     @Part("flevel") String flevel);
+                                    @Part("description") String description,
+                                    @Part MultipartBody.Part background,
+                                    @Part("name[]") String[] name,
+                                    @Part("lat") String lat,
+                                    @Part("lon") String lon,
+                                    @Part("address") String address,
+                                    @Part("flevel") String flevel,
+                                    @Part("category") String category);
+
+    @FormUrlEncoded
+    @POST("game/delete/")
+    Call<DefaultCallback> deleteGame(@Field("token") String token,
+                                           @Field("gameid") String gameid);
 
     @FormUrlEncoded
     @POST("game/mygames/")
-    Call<GamesCallback> getCreatedGames(@Field("token") String token);
+    Call<GamesNewCallback> getCreatedGames(@Field("token") String token);
 }

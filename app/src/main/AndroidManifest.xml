@@ -22,20 +22,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".views.create.CreateTaskActivity"
+        <activity android:name=".views.create.ModeratedActivity"></activity>
+        <activity android:name=".views.create.DateActivity" />
+        <activity android:name=".views.create.CreateCategoryActivity" />
+        <activity android:name=".views.create.PayActivity" />
+        <activity
+            android:name=".views.create.CreateTaskActivity"
             android:descendantFocusability="beforeDescendants"
             android:focusableInTouchMode="true"
-            android:windowSoftInputMode="adjustPan">
-
-
-        </activity>
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".views.create.MyCreatedActivity" />
-        <activity android:name=".views.create.CreateAuditoryActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".views.create.CreateGameActivity"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".views.create.CreateAuditoryActivity"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".views.create.CreateGameActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".views.authentication.TutorialActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -108,6 +115,10 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="fcm" /> <!-- Branch install referrer tracking -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <receiver
             android:name="io.branch.referral.InstallListener"
             android:exported="true">

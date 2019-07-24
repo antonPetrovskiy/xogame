@@ -2,6 +2,8 @@ package com.game.xogame.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,18 +16,18 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.game.xogame.R;
-import com.game.xogame.entity.Game;
+import com.game.xogame.entity.GameNew;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class GamesAdapter  extends ArrayAdapter<Game> {
-    private List<Game> gameList;
+public class GamesNewAdapter extends ArrayAdapter<GameNew> {
+    private List<GameNew> gameList;
     private Context context;
     private LayoutInflater mInflater;
 
     // Constructors
-    public GamesAdapter(Context context, List<Game> objects) {
+    public GamesNewAdapter(Context context, List<GameNew> objects) {
         super(context, 0, objects);
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
@@ -33,7 +35,7 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
     }
 
     @Override
-    public Game getItem(int position) {
+    public GameNew getItem(int position) {
         return gameList.get(position);
     }
 
@@ -41,32 +43,77 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
     @SuppressLint("SetTextI18n")
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        final GamesAdapter.ViewHolder vh;
+        final GamesNewAdapter.ViewHolder vh;
         if (convertView == null) {
             View view = mInflater.inflate(R.layout.layout_games, parent, false);
-            vh = GamesAdapter.ViewHolder.create((RelativeLayout) view);
+            vh = GamesNewAdapter.ViewHolder.create((RelativeLayout) view);
             view.setTag(vh);
 
         } else {
-            vh = (GamesAdapter.ViewHolder) convertView.getTag();
+            vh = (GamesNewAdapter.ViewHolder) convertView.getTag();
         }
 
-        final Game item = getItem(position);
+        final GameNew item = getItem(position);
         assert item != null;
         //Log.i("LOG_allgames" , item.getBackground()+" 0123");
 
         vh.rootView.setClipToOutline(true);
 
         vh.textViewName1.setText(item.getCompany()+"");
-        vh.textViewName2.setText(item.getTitle()+"");
-        vh.textViewDate.setText(item.getStartdate()+" - "+item.getEnddate()+"   "+item.getStarttime()+" - "+item.getEndtime());
-        vh.textViewTasks.setText(item.getTasks()+" "+context.getString(R.string.adapterGames_tasks));
+        vh.textViewName2.setText(item.getName_game()+"");
+        vh.textViewDate.setText(item.getStartdate()+" - "+item.getEnddate()+"   "+item.getStart_task_time()+" - "+item.getEnd_task_time());
+        vh.textViewTasks.setText(item.getTasksGame().size()+" "+context.getString(R.string.adapterGames_tasks));
         vh.textViewPrize.setText(item.getReward()+" ₴");
         vh.textViewPlay.setText(item.getFollowers()+" "+context.getString(R.string.adapterGames_participates));
 
+        switch(item.getStatus()){
+            case "Draft" :
+                vh.textViewStatus.setVisibility(View.VISIBLE);
+                vh.textViewStatus.setText(context.getString(R.string.status_draft));
+                vh.textViewStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#000000")));
+                vh.textViewDate.setVisibility(View.GONE);
+                vh.textViewPlay.setVisibility(View.GONE);
+                break;
+            case "Moderation" :
+                vh.textViewStatus.setVisibility(View.VISIBLE);
+                vh.textViewStatus.setText(context.getString(R.string.status_moderation));
+                vh.textViewStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#9BB2C0")));
+                vh.textViewDate.setVisibility(View.GONE);
+                vh.textViewPlay.setVisibility(View.GONE);
+                break;
+            case "Active" :
+                vh.textViewStatus.setVisibility(View.VISIBLE);
+                vh.textViewStatus.setText(context.getString(R.string.status_active));
+                vh.textViewStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#00C088")));
+                break;
+            case "Canceled" :
+                vh.textViewStatus.setVisibility(View.VISIBLE);
+                vh.textViewStatus.setText(context.getString(R.string.status_canceled));
+                vh.textViewStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF6800")));
+                vh.textViewDate.setVisibility(View.GONE);
+                vh.textViewPlay.setVisibility(View.GONE);
+                break;
+            case "Ended" :
+                vh.textViewStatus.setVisibility(View.VISIBLE);
+                vh.textViewStatus.setText(context.getString(R.string.status_ended));
+                vh.textViewStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9B800")));
+                break;
+            case "Date and time" :
+                vh.textViewStatus.setVisibility(View.VISIBLE);
+                vh.textViewStatus.setText(context.getString(R.string.status_date));
+                vh.textViewStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2876BE")));
+                vh.textViewDate.setVisibility(View.GONE);
+                vh.textViewPlay.setVisibility(View.GONE);
+                break;
+            default :
+                vh.textViewStatus.setVisibility(View.GONE);
+                vh.textViewPlay.setVisibility(View.VISIBLE);
+                vh.textViewDate.setVisibility(View.VISIBLE);
+        }
+
         vh.textViewHolder.setText(item.getCompany().substring(0,1).toUpperCase()+"");
         vh.imageView.setImageResource(getPlaceholder(item.getCompany()+""));
-        if(item.getSubscribe()==null || item.getSubscribe().equals("0")){
+        if(item.getSub()==null || item.getSub().equals("0")){
             vh.imageView2.setVisibility(View.GONE);
         }else{
             vh.imageView2.setVisibility(View.VISIBLE);
@@ -165,10 +212,10 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
     }
 
     private static class ViewHolder {
-        private final RelativeLayout rootView;
         public final ImageView imageView;
         public final ImageView imageView1;
         public final ImageView imageView2;
+        private final RelativeLayout rootView;
         private final TextView textViewName1;
         private final TextView textViewName2;
         private final TextView textViewTasks;
@@ -176,8 +223,9 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
         private final TextView textViewPlay;
         private final TextView textViewPrize;
         private final TextView textViewHolder;
+        private final TextView textViewStatus;
 
-        private ViewHolder(RelativeLayout rootView, ImageView imageView, ImageView imageView1, ImageView imageView2, TextView textViewName1, TextView textViewName2, TextView textViewTasks, TextView textViewDate, TextView textViewPrize, TextView textViewPlay, TextView textViewHolder) {
+        private ViewHolder(RelativeLayout rootView, ImageView imageView, ImageView imageView1, ImageView imageView2, TextView textViewName1, TextView textViewName2, TextView textViewTasks, TextView textViewDate, TextView textViewPrize, TextView textViewPlay, TextView textViewHolder, TextView textViewStatus) {
             this.rootView = rootView;
             this.imageView = imageView;
             this.imageView1 = imageView1;
@@ -189,9 +237,10 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
             this.textViewPlay = textViewPlay;
             this.textViewPrize = textViewPrize;
             this.textViewHolder = textViewHolder;
+            this.textViewStatus = textViewStatus;
         }
 
-        public static GamesAdapter.ViewHolder create(RelativeLayout rootView) {
+        public static GamesNewAdapter.ViewHolder create(RelativeLayout rootView) {
             ImageView imageView = rootView.findViewById(R.id.imageView);
             ImageView imageView1 = rootView.findViewById(R.id.imageView1);
             ImageView imageView2 = rootView.findViewById(R.id.imageView2);
@@ -202,7 +251,8 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
             TextView textViewPrize = rootView.findViewById(R.id.name5);
             TextView textViewPlay = rootView.findViewById(R.id.name6);
             TextView textViewHolder = rootView.findViewById(R.id.textHolder1);
-            return new GamesAdapter.ViewHolder(rootView, imageView, imageView1, imageView2, textViewName1, textViewName2, textViewTasks, textViewDate, textViewPrize, textViewPlay, textViewHolder);
+            TextView textViewStatus = rootView.findViewById(R.id.status);
+            return new GamesNewAdapter.ViewHolder(rootView, imageView, imageView1, imageView2, textViewName1, textViewName2, textViewTasks, textViewDate, textViewPrize, textViewPlay, textViewHolder, textViewStatus);
         }
 
     }

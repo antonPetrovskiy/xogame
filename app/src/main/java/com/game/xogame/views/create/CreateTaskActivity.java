@@ -1,12 +1,14 @@
 package com.game.xogame.views.create;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -55,6 +57,8 @@ public class CreateTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 for(int i = 0; i < list.size(); i ++){
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(save.getWindowToken(), 0);
                     if(list.get(i).equals("")){
                         showToast(getString(R.string.activityCreateTask_fillAll));
                         return;
@@ -62,6 +66,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 }
                 Intent intent = new Intent(CreateTaskActivity.this, CreateGameActivity.class);
                 intent.putStringArrayListExtra("tasks",list);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
             }
@@ -70,12 +75,17 @@ public class CreateTaskActivity extends AppCompatActivity {
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                list.add("");
-                setList(list);
+                CreateTaskAdapter.itemList.add("");
+                //list.add("");
+                setList(CreateTaskAdapter.itemList);
             }
         });
         list = new ArrayList<>();
         list.add("");
+
+        if(getIntent().getStringArrayListExtra("list")!=null){
+            list=getIntent().getStringArrayListExtra("list");
+        }
         setList(list);
     }
 
@@ -84,10 +94,12 @@ public class CreateTaskActivity extends AppCompatActivity {
     }
 
     public void setList(List<String> list) {
-        viewPagerAdapter = new CreateTaskAdapter(this,list);
+        if(viewPagerAdapter==null) {
+            viewPagerAdapter = new CreateTaskAdapter(this, list);
+        }
         viewPagerAdapter.notifyDataSetChanged();
         taskList.setAdapter(viewPagerAdapter);
-        money.setText((100*list.size())+"");
+        money.setText((5*list.size())+" $");
         task.setText(list.size()+"");
     }
 

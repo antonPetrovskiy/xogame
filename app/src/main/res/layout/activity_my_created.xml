@@ -49,7 +49,7 @@
                 android:layout_marginRight="55dp"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center_vertical"
-                android:text="@string/activityCreate_create"
+                android:text="@string/activityCreate_mygames"
                 android:textAlignment="center"
                 android:textColor="#2F3542"
                 android:textSize="16dp"

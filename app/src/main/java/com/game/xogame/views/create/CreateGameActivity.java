@@ -2,6 +2,7 @@ package com.game.xogame.views.create;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
@@ -14,12 +15,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.game.xogame.R;
 import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
@@ -36,35 +40,37 @@ import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 
 public class CreateGameActivity extends AppCompatActivity {
     public static final int REQ_CODE_PICK_PHOTO = 0;
+    private static String nameStr = "";
     private static String imagePath;
     private static EditText name;
     private static EditText description;
-    private static String country;
-    private static String city;
-    private static String oblast;
-    private static String district;
+    private static String descriptionStr = "";
+    private static String categoryID = "";
+    private static String lat;
+    private static String lng;
+    private static String category;
     private static String street;
-    private static String house;
     private static String radius;
+    public String gameid;
     private static ArrayList<String> list;
-    final int PIC_CROP = 1;
     public ApiService api;
     private CreateGamePresenter presenter;
     private ImageView back;
+    private Button pay;
     private ImageView save;
     private TextView info;
     private ImageView photo;
-    private TextView auditory;
-    private TextView gameInfo;
-    private TextView tasks;
-    private TextView end;
     private RelativeLayout addAuditory;
     private RelativeLayout addTask;
+    private RelativeLayout addCategory;
     private LinearLayout auditoryLay;
     private LinearLayout taskLay;
+    private LinearLayout categoryLay;
+    private TextView categoryText;
     private TextView auditoryText;
     private TextView taskText;
     private TextView rewardText;
+    private LinearLayout load;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,57 +81,69 @@ public class CreateGameActivity extends AppCompatActivity {
         init();
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            if(extras.getString("country")!=null && !extras.getString("country").equals(""))
-                country = extras.getString("country");
-            if(extras.getString("city")!=null && !extras.getString("city").equals(""))
-                city = extras.getString("city");
-            if(extras.getString("oblast")!=null && !extras.getString("oblast").equals(""))
-                oblast = extras.getString("oblast");
-            if(extras.getString("district")!=null && !extras.getString("district").equals(""))
-                district = extras.getString("district");
             if(extras.getString("street")!=null && !extras.getString("street").equals(""))
                 street = extras.getString("street");
-            if(extras.getString("house")!=null && !extras.getString("house").equals(""))
-                house = extras.getString("house");
+            if(extras.getString("lat")!=null && !extras.getString("lat").equals(""))
+                lat = extras.getString("lat");
+            if(extras.getString("lng")!=null && !extras.getString("lng").equals(""))
+                lng = extras.getString("lng");
             if(extras.getString("radius")!=null && !extras.getString("radius").equals(""))
                 radius = extras.getString("radius");
             if(extras.getStringArrayList("tasks")!=null && extras.getStringArrayList("tasks").size()!=0)
                 list = extras.getStringArrayList("tasks");
+            if(extras.getString("category")!=null && !extras.getString("category").equals(""))
+                category = extras.getString("category");
+            if(extras.getString("categoryID")!=null && !extras.getString("categoryID").equals(""))
+                categoryID = extras.getString("categoryID");
+
+            if(extras.getString("name")!=null && !extras.getString("name").equals(""))
+                nameStr = extras.getString("name");
+            if(extras.getString("description")!=null && !extras.getString("description").equals(""))
+                descriptionStr = extras.getString("description");
+            if(extras.getString("photo")!=null && !extras.getString("photo").equals(""))
+                imagePath = extras.getString("photo");
+            if(extras.getString("gameid")!=null && !extras.getString("gameid").equals(""))
+                gameid = extras.getString("gameid");
         }
     }
 
     @Override
     protected void onResume() {
-        String auditory = "";
-        if(street!=null)
-            auditory+=street;
-        if(house!=null) {
-            auditory += (" " + house + ", ");
-        }else if(!auditory.equals("")){
-            auditory += ", ";
-        }
-        if(district!=null)
-            auditory+=(district + ", ");
-        if(oblast!=null)
-            auditory+=(oblast + ", ");
-        if(city!=null)
-            auditory+=(city + ", ");
-        if(country!=null)
-            auditory+=country;
+        name.setText(nameStr+"");
+        description.setText(descriptionStr+"");
 
-        if(country!=null && !country.equals("")){
+        if(imagePath!=null && !imagePath.equals("")){
+                RequestOptions requestOptions = new RequestOptions();
+                requestOptions.placeholder(R.drawable.unknow_wide);
+                requestOptions.error(R.drawable.unknow_wide);
+                requestOptions.centerCrop();
+                Glide.with(this).setDefaultRequestOptions(requestOptions).load(imagePath+"").thumbnail(0.3f).into(photo);
+        }
+
+        if(street!=null && !street.equals("")){
             auditoryLay.setVisibility(View.VISIBLE);
-            auditoryText.setText(auditory);
+            auditoryText.setText(street);
         }
 
         if(list!=null && list.size()>0){
             taskLay.setVisibility(View.VISIBLE);
             taskText.setText(list.size()+" заданий");
-            rewardText.setText((list.size()*100)+" грн");
+            rewardText.setText((list.size()*5)+" $");
+        }
+
+        if(category!=null && !category.equals("")){
+            categoryLay.setVisibility(View.VISIBLE);
+            categoryText.setText(category);
         }
 
 
+
         super.onResume();
+    }
+
+    @Override
+    public void onBackPressed() {
+        back.performClick();
     }
 
     public void init(){
@@ -137,23 +155,101 @@ public class CreateGameActivity extends AppCompatActivity {
         presenter.attachView(this);
         auditoryLay = findViewById(R.id.layAuditory);
         taskLay = findViewById(R.id.layTask);
+        categoryLay = findViewById(R.id.layCategory);
         auditoryText = findViewById(R.id.textViewAuditory);
         taskText = findViewById(R.id.textViewTasks);
+        categoryText = findViewById(R.id.textViewCategory);
         rewardText = findViewById(R.id.textViewReward);
         name = findViewById(R.id.editText1);
         description = findViewById(R.id.editText2);
+        load = findViewById(R.id.targetView);
+
+
 
         back = findViewById(R.id.imageView);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                LayoutInflater layoutInflater = LayoutInflater.from(CreateGameActivity.this);
+                @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_yesno, null);
+                final AlertDialog alertD = new AlertDialog.Builder(CreateGameActivity.this).create();
+                TextView title = promptView.findViewById(R.id.textView1);
+                Button btnAdd1 = promptView.findViewById(R.id.button1);
+                Button btnAdd2 = promptView.findViewById(R.id.button2);
+                title.setText(getString(R.string.activityCreateGame_delete));
+                btnAdd1.setText(getString(R.string.popupSignout_no));
+                btnAdd2.setText(getString(R.string.popupSignout_yes));
+
+                btnAdd1.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("ApplySharedPref")
+                    public void onClick(View v) {
+                        alertD.cancel();
+                    }
+                });
+
+                btnAdd2.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        refresh();
+                        if(gameid!=null && !gameid.equals("")) {
+                            presenter.deleteGame(gameid);
+                        }else{
+                            end();
+                        }
+                        alertD.cancel();
+                    }
+                });
+
+                alertD.setView(promptView);
+                alertD.show();
+            }
+        });
+        save = findViewById(R.id.button);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater layoutInflater = LayoutInflater.from(CreateGameActivity.this);
+                @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_yesno, null);
+                final AlertDialog alertD = new AlertDialog.Builder(CreateGameActivity.this).create();
+                TextView title = promptView.findViewById(R.id.textView1);
+                Button btnAdd1 = promptView.findViewById(R.id.button1);
+                Button btnAdd2 = promptView.findViewById(R.id.button2);
+                title.setText(getString(R.string.activityCreateGame_save));
+                btnAdd1.setText(getString(R.string.popupSignout_no));
+                btnAdd2.setText(getString(R.string.popupSignout_yes));
+
+                btnAdd1.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("ApplySharedPref")
+                    public void onClick(View v) {
+                        alertD.cancel();
+                    }
+                });
+
+                btnAdd2.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        alertD.cancel();
+                        if(street!=null && !street.equals("") && !name.getText().toString().equals("") && !description.getText().toString().equals("") && imagePath!=null && list.size()>0 && lat!=null && !lat.equals("") && categoryID!=null && !categoryID.equals("")) {
+                            String[] arr = new String[list.size()];
+                            for (int i = 0; i < arr.length; i++) {
+                                arr[i] = list.get(i);
+                            }
+                            load.setVisibility(View.VISIBLE);
+                            presenter.createGame(name.getText().toString(), description.getText().toString(), imagePath, arr, lat, lng, street, radius, categoryID, false);
+                        }else{
+                            showToast(getString(R.string.activityCreateGame_fillInfo));
+                        }
+                    }
+                });
+
+                alertD.setView(promptView);
+                alertD.show();
             }
         });
         addAuditory = findViewById(R.id.addAuditory);
         addAuditory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                nameStr = name.getText().toString()+"";
+                descriptionStr = description.getText().toString()+"";
                 Intent intent = new Intent(CreateGameActivity.this, CreateAuditoryActivity.class);
                 startActivity(intent);
             }
@@ -162,7 +258,22 @@ public class CreateGameActivity extends AppCompatActivity {
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                nameStr = name.getText().toString()+"";
+                descriptionStr = description.getText().toString()+"";
                 Intent intent = new Intent(CreateGameActivity.this, CreateTaskActivity.class);
+                if(list!=null && list.size()!=0){
+                    intent.putStringArrayListExtra("list",list);
+                }
+                startActivity(intent);
+            }
+        });
+        addCategory = findViewById(R.id.addCategory);
+        addCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nameStr = name.getText().toString()+"";
+                descriptionStr = description.getText().toString()+"";
+                Intent intent = new Intent(CreateGameActivity.this, CreateCategoryActivity.class);
                 startActivity(intent);
             }
         });
@@ -177,50 +288,69 @@ public class CreateGameActivity extends AppCompatActivity {
                 intent.setType("image/*");
                 intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
                 Log.i("LOG_photo1" , "-1");
+                nameStr = name.getText().toString()+"";
+                descriptionStr = description.getText().toString()+"";
                 startActivityForResult(intent, REQ_CODE_PICK_PHOTO);
             }
         });
-        list.add("Напиши по поводу зарплаты");
-        list.add("Позвони по поводу зарплаты");
-        list.add("Скажи по поводу зарплаты");
-        save = findViewById(R.id.button);
-        save.setOnClickListener(new View.OnClickListener() {
+
+        pay = findViewById(R.id.imageButton);
+        pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(city!=null && country!=null && !name.getText().toString().equals("") && !description.getText().toString().equals("") && imagePath!=null && list.size()>0) {
+                if(street!=null && !street.equals("") && !name.getText().toString().equals("") && !description.getText().toString().equals("") && imagePath!=null && list.size()>0 && lat!=null && !lat.equals("") && categoryID!=null && !categoryID.equals("")) {
                     String[] arr = new String[list.size()];
                     for (int i = 0; i < arr.length; i++) {
                         arr[i] = list.get(i);
                     }
-                    String cityId;
-                    switch (city) {
-                        case "Київ":
-                            cityId = "1";
-                            break;
-                        default:
-                            cityId = "1";
-                            break;
-                    }
-                    presenter.createGame(name.getText().toString(), description.getText().toString(), imagePath, arr, "5", cityId, (street + " " + house), radius);
+                    presenter.createGame(name.getText().toString(), description.getText().toString(), imagePath, arr, lat, lng, street, radius, categoryID, true);
+                    load.setVisibility(View.VISIBLE);
                 }else{
-                    showToast("Заполните всю информацию");
+                    showToast(getString(R.string.activityCreateGame_fillInfo));
                 }
             }
         });
     }
 
-    public void refreshAll(){
+    public void end(){
+        load.setVisibility(View.GONE);
+        nameStr = "";
+        descriptionStr = "";
+        imagePath = "";
+        street = "";
+        radius = "";
+        lat = "";
+        lng = "";
+        list = new ArrayList<>();
+        finish();
+    }
 
+    public void toPay(String gameid, String url){
+        load.setVisibility(View.GONE);
+        refresh();
+        Intent intent = new Intent(CreateGameActivity.this, PayActivity.class);
+        intent.putExtra("gameid",gameid);
+        intent.putExtra("url",url);
+        startActivity(intent);
+        finish();
+    }
+
+    public void refresh(){
+        nameStr = "";
+        descriptionStr = "";
+        imagePath = "";
+        street = "";
+        radius = "";
+        lat = "";
+        lng = "";
+        category = "";
+        categoryID = "";
+        list = new ArrayList<>();
     }
 
     private void performCrop(Uri picUri) {
-
-
-// start cropping activity for pre-acquired image saved on the device
         CropImage.activity(picUri).setAspectRatio(16,9).setFixAspectRatio(true)
                 .start(CreateGameActivity.this);
-
-
     }
 
     @Override
@@ -242,22 +372,13 @@ public class CreateGameActivity extends AppCompatActivity {
             }
         }
 
-        if (requestCode == PIC_CROP) {
-            if (data != null) {
-                // get the returned data
-                Bundle extras = data.getExtras();
-                // get the cropped bitmap
-                Bitmap selectedBitmap = extras.getParcelable("data");
-
-                photo.setImageBitmap(selectedBitmap);
-            }
-        }
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
                 photo.setImageURI(resultUri);
+                imagePath = resultUri.getPath();
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
@@ -281,6 +402,7 @@ public class CreateGameActivity extends AppCompatActivity {
     }
 
     public void showToast(String s) {
+        load.setVisibility(View.GONE);
         LayoutInflater layoutInflater = LayoutInflater.from(CreateGameActivity.this);
         @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
         final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(this).create();

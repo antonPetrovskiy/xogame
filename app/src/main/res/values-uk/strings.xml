@@ -16,7 +16,7 @@
     <string name="activityReport_report">Поскаржитись</string>
     <string name="activityReport_reportDescription">Будь-ласка, вкажіть причину скарги</string>
     <string name="activityReport_push">Надіслати</string>
-    <string name="activityMyWins_myWins">Мої виграші</string>
+    <string name="activityMyWins_myWins">Виграші</string>
     <string name="activityMoney_sentMoneyCard">Перевести гроші на кредитну картку</string>
     <string name="activityMoney_card">Номер кредитної картки</string>
     <string name="activityMoney_confirm">Підтвердити</string>

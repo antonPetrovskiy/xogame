@@ -38,6 +38,7 @@ import com.game.xogame.R;
 import com.game.xogame.adapter.GamesAdapter;
 import com.game.xogame.entity.Game;
 import com.game.xogame.presenters.MainPresenter;
+import com.game.xogame.views.create.CreateGameActivity;
 import com.game.xogame.views.create.MyCreatedActivity;
 import com.game.xogame.views.game.GameInfoActivity;
 import com.game.xogame.views.main.MainActivity;
@@ -75,6 +76,7 @@ public class FragmentProfile extends Fragment {
     private ImageView myGames;
     private LinearLayout myWins;
     private LinearLayout creategame;
+    private LinearLayout mygames;
     private LinearLayout load;
     private Button find;
     private ListView list1;
@@ -183,6 +185,7 @@ public class FragmentProfile extends Fragment {
         myGames = rootView.findViewById(R.id.myGames);
         myWins = rootView.findViewById(R.id.myWins1);
         creategame = rootView.findViewById(R.id.creategame);
+        mygames = rootView.findViewById(R.id.mygames);
         load = rootView.findViewById(R.id.targetView);
         empty = rootView.findViewById(R.id.empty);
         list1 = rootView.findViewById(R.id.list1);
@@ -270,6 +273,24 @@ public class FragmentProfile extends Fragment {
                     case MotionEvent.ACTION_UP: // отпускание
                     case MotionEvent.ACTION_CANCEL:
                         creategame.animate().setDuration(100).alpha(1.0f).start();
+                        Intent intent = new Intent(context, CreateGameActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                return true;
+            }
+        });
+
+        mygames.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: // нажатие
+                        mygames.animate().setDuration(200).alpha(0.5f).start();
+                        return true;
+                    case MotionEvent.ACTION_UP: // отпускание
+                    case MotionEvent.ACTION_CANCEL:
+                        mygames.animate().setDuration(100).alpha(1.0f).start();
                         Intent intent = new Intent(context, MyCreatedActivity.class);
                         startActivity(intent);
                         break;

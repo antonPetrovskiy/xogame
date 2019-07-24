@@ -18,7 +18,7 @@
     <string name="popupSettings_badContent">Неприемлемый контент</string>
     <string name="popupSettings_badTask">Не соответствует заданию</string>
     <string name="popupSettings_other">Расскажите нам что случилось</string>
-    <string name="activityMyWins_myWins">Мои выигрыши</string>
+    <string name="activityMyWins_myWins">Выигрыши</string>
     <string name="fragmentProfile_current">Текущие</string>
     <string name="fragmentProfile_future">Будущие</string>
     <string name="activityMyWins_dontWin">У вас пока нет выигрышей. Продолжайте играть</string>

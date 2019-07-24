@@ -16,7 +16,8 @@ import java.util.List;
 
 
 public class CreateTaskAdapter  extends ArrayAdapter<String> {
-    public List<String> itemList;
+    public static List<String> itemList;
+    public List<String> tempList;
     private LayoutInflater mInflater;
     private CreateTaskActivity context;
 
@@ -46,9 +47,48 @@ public class CreateTaskAdapter  extends ArrayAdapter<String> {
             vh = (CreateTaskAdapter.ViewHolder) convertView.getTag();
         }
 
+        //Fill EditText with the value you have in data source
+        vh.textViewTask.setText(itemList.get(position));
+        vh.textViewTask.setId(position);
+
+        //we need to update adapter once we finish with editing
+        vh.textViewTask.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus){
+                    final int position = v.getId();
+                    final EditText Caption = (EditText) v;
+                    if(itemList.size()>position)
+                        itemList.set(position,Caption.getText().toString());
+                }
+            }
+        });
+
         final String item = getItem(position);
         assert item != null;
-        vh.textViewTask.setText(item);
+//        vh.textViewTask.setText(itemList.get(position)+"");
+//        vh.textViewTask.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//                if(!s.toString().equals("")){
+//                    Log.i("LOG_chang" , s+" after " + itemList.size());
+//                    for(int i = 0; i < itemList.size(); i ++)
+//                        Log.i("LOG_chang" , itemList.get(i));
+//                    itemList.set(position,s.toString());
+//                }
+//
+//            }
+//        });
         vh.textViewNumber.setText("Задание "+(position+1));
         if(position==0){
             vh.imageView.setVisibility(View.GONE);
@@ -69,6 +109,8 @@ public class CreateTaskAdapter  extends ArrayAdapter<String> {
 
         return vh.rootView;
     }
+
+
 
 
     private static class ViewHolder {

@@ -18,19 +18,48 @@ public class CreateGamePresenter {
     }
 
 
-    public void createGame(String title, String description, String background, String[] name, String limpeople, String city, String address, String flevel) {
+    public void deleteGame(String gameid) {
+        ContentValues cv = new ContentValues(1);
+        cv.put("GAMEID", gameid);
+        model.deleteGame(cv, new CreateGameModel.DeleteGameCallback() {
+            @Override
+            public void onDelete(String status, String error) {
+                if(status.equals("success")){
+                    view.end();
+                }else{
+                    view.showToast(error+"");
+                }
+
+
+            }
+        });
+    }
+
+    public void createGame(String title, String description, String background, String[] name, String lat, String lon, String address, String flevel, String category, final boolean pay) {
         ContentValues cv = new ContentValues(1);
         cv.put("TITLE", title);
         cv.put("DESCRIPTION", description);
         cv.put("BACKGROUND", background);
-        cv.put("LIMPEOPLE", limpeople);
-        cv.put("CITY", city);
+        cv.put("LAT", lat);
+        cv.put("LON", lon);
         cv.put("ADDRESS", address);
         cv.put("FLEVEL", flevel);
+        cv.put("CATEGORY", category);
         model.createGame(cv, name, new CreateGameModel.CreateGameCallback() {
             @Override
-            public void onCreate() {
-                //view.success();
+            public void onCreate(String status, String error, String gameid, String url) {
+                if(status.equals("success")){
+                    if(pay){
+                        view.toPay(gameid, url);
+                    }else{
+                        view.end();
+                    }
+
+                }else{
+                    view.showToast(error+"");
+                }
+
+
             }
         });
     }
