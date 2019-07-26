@@ -282,7 +282,6 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/bggradient"
             android:fontFamily="@font/roboto_bold"
             android:gravity="center_vertical"
             android:text="@string/activityMyWins_sent"
@@ -290,29 +289,15 @@
             android:textColor="#586575"
             android:textSize="16dp" />
 
-        <TextView
-            android:id="@+id/textView16"
+        <ImageView
+            android:id="@+id/paypal"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/bggradient"
-            android:fontFamily="@font/roboto_regular"
-            android:gravity="center_vertical"
-            android:text="@string/activityMyWins_mobile"
-            android:textAlignment="center"
-            android:textColor="#586575"
-            android:textSize="16dp" />
-
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/bggradient"
-            android:fontFamily="@font/roboto_regular"
-            android:gravity="center_vertical"
-            android:text="@string/activityMyWins_card"
-            android:textAlignment="center"
-            android:textColor="#586575"
-            android:textSize="16dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="100dp"
+            app:srcCompat="@drawable/paypal"
+            />
 
 
     </LinearLayout>

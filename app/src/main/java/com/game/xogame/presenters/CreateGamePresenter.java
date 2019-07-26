@@ -35,7 +35,7 @@ public class CreateGamePresenter {
         });
     }
 
-    public void createGame(String title, String description, String background, String[] name, String lat, String lon, String address, String flevel, String category, final boolean pay) {
+    public void createGame(String title, String description, String background, String[] name, String lat, String lon, String address, String flevel, String category, String gameid, final boolean pay) {
         ContentValues cv = new ContentValues(1);
         cv.put("TITLE", title);
         cv.put("DESCRIPTION", description);
@@ -45,12 +45,13 @@ public class CreateGamePresenter {
         cv.put("ADDRESS", address);
         cv.put("FLEVEL", flevel);
         cv.put("CATEGORY", category);
+        cv.put("GAMEID", gameid);
         model.createGame(cv, name, new CreateGameModel.CreateGameCallback() {
             @Override
-            public void onCreate(String status, String error, String gameid, String url) {
+            public void onCreate(String status, String error, String url) {
                 if(status.equals("success")){
                     if(pay){
-                        view.toPay(gameid, url);
+                        view.toPay(url);
                     }else{
                         view.end();
                     }

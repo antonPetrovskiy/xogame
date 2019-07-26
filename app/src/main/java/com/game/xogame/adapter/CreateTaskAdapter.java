@@ -63,32 +63,7 @@ public class CreateTaskAdapter  extends ArrayAdapter<String> {
             }
         });
 
-        final String item = getItem(position);
-        assert item != null;
-//        vh.textViewTask.setText(itemList.get(position)+"");
-//        vh.textViewTask.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//                if(!s.toString().equals("")){
-//                    Log.i("LOG_chang" , s+" after " + itemList.size());
-//                    for(int i = 0; i < itemList.size(); i ++)
-//                        Log.i("LOG_chang" , itemList.get(i));
-//                    itemList.set(position,s.toString());
-//                }
-//
-//            }
-//        });
+
         vh.textViewNumber.setText("Задание "+(position+1));
         if(position==0){
             vh.imageView.setVisibility(View.GONE);

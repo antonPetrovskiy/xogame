@@ -52,7 +52,7 @@ public class CreateGameActivity extends AppCompatActivity {
     private static String street;
     private static String radius;
     public String gameid;
-    private static ArrayList<String> list;
+    private static ArrayList<String> list = new ArrayList<>();
     public ApiService api;
     private CreateGamePresenter presenter;
     private ImageView back;
@@ -151,7 +151,6 @@ public class CreateGameActivity extends AppCompatActivity {
         final CreateGameModel model = new CreateGameModel(api, getApplicationContext());
         presenter = new CreateGamePresenter(model);
 
-        list = new ArrayList<>();
         presenter.attachView(this);
         auditoryLay = findViewById(R.id.layAuditory);
         taskLay = findViewById(R.id.layTask);
@@ -233,7 +232,7 @@ public class CreateGameActivity extends AppCompatActivity {
                                 arr[i] = list.get(i);
                             }
                             load.setVisibility(View.VISIBLE);
-                            presenter.createGame(name.getText().toString(), description.getText().toString(), imagePath, arr, lat, lng, street, radius, categoryID, false);
+                            presenter.createGame(name.getText().toString(), description.getText().toString(), imagePath, arr, lat, lng, street, radius, categoryID, "", false);
                         }else{
                             showToast(getString(R.string.activityCreateGame_fillInfo));
                         }
@@ -303,7 +302,7 @@ public class CreateGameActivity extends AppCompatActivity {
                     for (int i = 0; i < arr.length; i++) {
                         arr[i] = list.get(i);
                     }
-                    presenter.createGame(name.getText().toString(), description.getText().toString(), imagePath, arr, lat, lng, street, radius, categoryID, true);
+                    presenter.createGame(name.getText().toString(), description.getText().toString(), imagePath, arr, lat, lng, street, radius, categoryID, gameid, true);
                     load.setVisibility(View.VISIBLE);
                 }else{
                     showToast(getString(R.string.activityCreateGame_fillInfo));
@@ -325,11 +324,10 @@ public class CreateGameActivity extends AppCompatActivity {
         finish();
     }
 
-    public void toPay(String gameid, String url){
+    public void toPay(String url){
         load.setVisibility(View.GONE);
         refresh();
         Intent intent = new Intent(CreateGameActivity.this, PayActivity.class);
-        intent.putExtra("gameid",gameid);
         intent.putExtra("url",url);
         startActivity(intent);
         finish();

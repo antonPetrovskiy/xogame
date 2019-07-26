@@ -47,6 +47,7 @@ public class GameInfoActivity extends AppCompatActivity {
     private TextView tasks;
     private TextView money;
     private TextView people;
+    private TextView category;
     public static MainActivity activity;
     private TextView address;
     private String avalible;
@@ -91,6 +92,7 @@ public class GameInfoActivity extends AppCompatActivity {
         time = findViewById(R.id.textView32);
         tasks = findViewById(R.id.textView29);
         money = findViewById(R.id.textView33);
+        category = findViewById(R.id.textView34);
         people = findViewById(R.id.textView31);
         address = findViewById(R.id.textView303);
         statistic = findViewById(R.id.imageView0);
@@ -115,6 +117,7 @@ public class GameInfoActivity extends AppCompatActivity {
         tasks.setText(extras.getString("TASKS") + " " + getString(R.string.activityGameInfo_tasks));
         money.setText(extras.getString("MONEY") + " ₴");
         people.setText(extras.getString("PEOPLE") + " " + getString(R.string.activityGameInfo_people));
+        category.setText(extras.getShort("CATEGORY")+"");
         count = extras.getString("PEOPLE");
         share = extras.getString("SHARE");
         avalible = extras.getString("AVALIBLE");

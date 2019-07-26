@@ -495,6 +495,7 @@ public class FragmentProfile extends Fragment {
                 intent.putExtra("MONEY", l.get(position).getReward());
                 intent.putExtra("PEOPLE", l.get(position).getFollowers());
                 intent.putExtra("ADDRESS", l.get(position).getAddress());
+                intent.putExtra("CATEGORY", l.get(position).getCategory());
                 intent.putExtra("STATISTIC", "true");
                 startActivity(intent);
             }
@@ -543,6 +544,7 @@ public class FragmentProfile extends Fragment {
                 intent.putExtra("SHARE", l.get(position).getSiteurl());
                 intent.putExtra("AVALIBLE", l.get(position).getGameAvaible());
                 intent.putExtra("ADDRESS", l.get(position).getAddress());
+                intent.putExtra("CATEGORY", l.get(position).getCategory());
                 intent.putExtra("STATISTIC", "false");
                 startActivity(intent);
             }

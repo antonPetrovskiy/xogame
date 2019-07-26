@@ -103,7 +103,7 @@
     <string name="activityWin_first">Ви зайняли 1-е мiсце</string>
     <string name="activityModeration_place">мiсце</string>
     <string name="adapterFeed_task">Завдання</string>
-    <string name="activitySetting_wrongcard">Невiрний формат карти</string>
+    <string name="activitySetting_wrongcard">Невiрний формат пошти</string>
     <string name="phoneNumber">Номер телефону</string>
     <string name="fragmentGames_nogames">На даний момент немає ігор для вашого регіону</string>
     <string name="activityEditinfo_badnickname">Ім\'я користувача має містити, як мінімум, 3 англійські літери чи цифри</string>

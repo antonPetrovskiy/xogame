@@ -1,5 +1,6 @@
 package com.game.xogame.views.create;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.pm.ActivityInfo;
@@ -7,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -15,13 +17,18 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.game.xogame.R;
+import com.game.xogame.api.ApiService;
+import com.game.xogame.api.RetroClient;
+import com.game.xogame.models.CreateGameModel;
+import com.game.xogame.presenters.DatePresenter;
 
 import java.util.Calendar;
 import java.util.Objects;
 
 
 public class DateActivity extends AppCompatActivity {
-
+    public ApiService api;
+    private DatePresenter presenter;
     public ImageView back;
     public ImageView save;
     public RelativeLayout startDay;
@@ -47,6 +54,10 @@ public class DateActivity extends AppCompatActivity {
     }
 
     public void init(){
+        api = RetroClient.getApiService();
+        final CreateGameModel model = new CreateGameModel(api, getApplicationContext());
+        presenter = new DatePresenter(model);
+        presenter.attachView(this);
         textStartDay = findViewById(R.id.text2);
         textEndDay = findViewById(R.id.text4);
         textStartTime = findViewById(R.id.text7);
@@ -59,6 +70,12 @@ public class DateActivity extends AppCompatActivity {
             }
         });
         save = findViewById(R.id.imageView0);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.setDateGame(getIntent().getStringExtra("gameid"),textStartDay.getText().toString(),textEndDay.getText().toString(),textStartTime.getText().toString(),textEndTime.getText().toString());
+            }
+        });
         startDay = findViewById(R.id.relativeLayout);
         startDay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,5 +208,21 @@ public class DateActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+    }
+
+    public void success(){
+        finish();
+    }
+
+    public void showToast(String s) {
+        //load.setVisibility(View.GONE);
+        LayoutInflater layoutInflater = LayoutInflater.from(DateActivity.this);
+        @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
+        final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(this).create();
+        TextView btnAdd1 = promptView.findViewById(R.id.textView1);
+        btnAdd1.setText(s);
+        alertD.setView(promptView);
+        alertD.show();
+
     }
 }

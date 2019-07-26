@@ -64,6 +64,9 @@ public class Game {
     @SerializedName("address")
     @Expose
     private String address;
+    @SerializedName("category")
+    @Expose
+    private String category;
 
 
     public String getGameid() {
@@ -144,5 +147,9 @@ public class Game {
 
     public String getAddress() {
         return address;
+    }
+
+    public String getCategory() {
+        return category;
     }
 }

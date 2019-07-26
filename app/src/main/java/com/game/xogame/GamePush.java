@@ -225,6 +225,7 @@ public class GamePush extends FirebaseMessagingService {
         intent.putExtra("PEOPLE", data.get("followers"));
         intent.putExtra("SHARE", data.get("gameid"));
         intent.putExtra("ADDRESS", data.get("address"));
+        intent.putExtra("CATEGORY", data.get("category"));
         intent.putExtra("STATISTIC", "siteurl");
         //activity.finish();
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

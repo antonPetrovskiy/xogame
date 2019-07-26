@@ -5,12 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -93,49 +92,17 @@ public class MyWinsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(gameList.get(position).getRewardstatus().equals("1")) {
-                    LayoutInflater layoutInflater = LayoutInflater.from(MyWinsActivity.this);
-                    @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.popup_genderchooser, null);
-                    final AlertDialog alertD = new AlertDialog.Builder(MyWinsActivity.this).create();
-
-                    final int i = position;
-                    TextView title = promptView.findViewById(R.id.textView1);
-                    TextView btnAdd1 = promptView.findViewById(R.id.textView3);
-                    TextView btnAdd2 = promptView.findViewById(R.id.textView2);
-                    title.setText(getString(R.string.activityMyWins_sent) + " " + presenter.getWinsList().get(position).getReward() + " ₴");
-                    btnAdd1.setText(getString(R.string.activityMyWins_mobile));
-                    btnAdd2.setText(getString(R.string.activityMyWins_card));
-
-                    btnAdd1.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
                             Intent intent = new Intent(MyWinsActivity.this, MoneyActivity.class);
-                            intent.putExtra("type", "phone");
-                            intent.putExtra("gameid", presenter.getWinsList().get(i).getGameid());
-                            intent.putExtra("money", presenter.getWinsList().get(i).getReward());
+                            intent.putExtra("type", "paypal");
+                            intent.putExtra("gameid", presenter.getWinsList().get(position).getGameid());
+                            intent.putExtra("money", presenter.getWinsList().get(position).getReward());
                             startActivity(intent);
-                            alertD.cancel();
-                        }
-                    });
-
-                    btnAdd2.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            Intent intent = new Intent(MyWinsActivity.this, MoneyActivity.class);
-                            intent.putExtra("type", "ccard");
-                            intent.putExtra("gameid", presenter.getWinsList().get(i).getGameid());
-                            intent.putExtra("money", presenter.getWinsList().get(i).getReward());
-                            startActivity(intent);
-                            alertD.cancel();
-                        }
-                    });
-
-                    alertD.setView(promptView);
-                    alertD.show();
                 }else{
                     LayoutInflater layoutInflater = LayoutInflater.from(MyWinsActivity.this);
                     @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
                     final AlertDialog alertD = new AlertDialog.Builder(MyWinsActivity.this).create();
                     TextView title = promptView.findViewById(R.id.textView1);
                     title.setText(getString(R.string.activityMyWins_onmoderate));
-
                     alertD.setView(promptView);
                     alertD.show();
                 }

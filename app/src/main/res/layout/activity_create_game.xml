@@ -137,6 +137,7 @@
             android:maxLines="1"
             android:scrollbars="vertical"
             android:textColor="#2F3542"
+            android:imeOptions="actionDone"
             android:textSize="16dp"
             tools:ignore="Autofill,LabelFor" />
 
@@ -170,9 +171,11 @@
             android:layout_marginRight="12dp"
             android:backgroundTint="#586575"
             android:ems="10"
+            android:imeOptions="actionDone"
             android:fontFamily="@font/roboto_regular"
             android:inputType="textMultiLine"
             android:scrollbars="vertical"
+            android:scrollHorizontally="false"
             android:textColor="#2F3542"
             android:textSize="16dp"
             tools:ignore="Autofill,LabelFor" />

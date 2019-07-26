@@ -38,7 +38,6 @@ public class SettingPresenter {
                 viewSetting.setAge(model.user.getBirthday() + "");
                 viewSetting.setEmail(model.user.getMail() + "");
                 //viewSetting.setInfo(model.user.getAbout() + "");
-                viewSetting.setCard(model.user.getCard() + "");
                 viewSetting.setCountry(model.user.getCountry() + "");
                 viewSetting.setCity(model.user.getCity() + "");
                 //viewSetting.getLoadView().setVisibility(View.GONE);
@@ -64,7 +63,6 @@ public class SettingPresenter {
         cv.put("EMAIL", viewSetting.getEmail());
         cv.put("COUNTRY", viewSetting.getCountry());
         cv.put("CITY", viewSetting.getCity());
-        cv.put("CARD", viewSetting.getCard());
 
         model.editInfo(cv, new UserInfoModel.EditInfoCallback() {
             @Override

@@ -22,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".views.create.ModeratedActivity"></activity>
+        <activity android:name=".views.game.CategoryActivity"></activity>
+        <activity android:name=".views.create.ModeratedActivity" />
         <activity android:name=".views.create.DateActivity" />
         <activity android:name=".views.create.CreateCategoryActivity" />
         <activity android:name=".views.create.PayActivity" />

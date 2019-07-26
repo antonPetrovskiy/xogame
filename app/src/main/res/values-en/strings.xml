@@ -103,7 +103,7 @@
     <string name="activityWin_third">3rd place</string>
     <string name="activityModeration_place">place</string>
     <string name="adapterFeed_task">Mission</string>
-    <string name="activitySetting_wrongcard">Wrong card format</string>
+    <string name="activitySetting_wrongcard">Wrong email format</string>
     <string name="phoneNumber">Phone number</string>
     <string name="fragmentGames_nogames">No games in your area yet</string>
     <string name="activityEditinfo_badnickname">Username must contain at least 3 letters in English or digits</string>

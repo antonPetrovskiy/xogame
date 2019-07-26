@@ -75,6 +75,7 @@ public class MoneyActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
         String phone = sharedPref.getString("phone", "");
         String ccard = sharedPref.getString("ccard", "");
+        String paypal = sharedPref.getString("email", "");
         if (type.equals("phone")) {
             header.setText(getString(R.string.activityMoney_sentMoneyPhone));
             money.setText(count + " ₴");
@@ -90,6 +91,14 @@ public class MoneyActivity extends AppCompatActivity {
             info.setText(ccard);
             assert ccard != null;
             if(ccard.equals(""))
+                ok.setEnabled(false);
+        } else if (type.equals("paypal")){
+            header.setText(getString(R.string.R_string_activityMoney_sentMoneyPaypal));
+            money.setText(count + " $");
+            way.setText(getString(R.string.activityMyWins_email));
+            info.setText(paypal);
+            assert ccard != null;
+            //if(ccard.equals(""))
                 ok.setEnabled(false);
         }
 

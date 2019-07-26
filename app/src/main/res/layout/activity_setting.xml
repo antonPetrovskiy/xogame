@@ -227,31 +227,7 @@
                     android:textColor="#2F3542"
                     android:textSize="14dp" />
 
-                <TextView
-                    android:id="@+id/textView25"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="11dp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="@string/activitySetting_mail"
-                    android:textColor="#586575"
-                    android:textSize="12dp" />
 
-                <EditText
-                    android:id="@+id/editText5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
-                    android:backgroundTint="#586575"
-                    android:ems="10"
-                    android:fontFamily="@font/roboto_regular"
-                    android:inputType="textPersonName"
-                    android:textColor="#2F3542"
-                    android:textColorHint="#586575"
-                    android:textSize="16dp"
-                    tools:ignore="Autofill,LabelFor" />
 
                 <TextView
                     android:id="@+id/textView26"
@@ -320,7 +296,7 @@
                     android:layout_marginStart="13dp"
                     android:layout_marginTop="9dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="@string/activitySetting_card"
+                    android:text="@string/activitySetting_pay"
                     android:textColor="#2F3542"
                     android:textSize="14dp" />
 
@@ -331,12 +307,12 @@
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="9dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="@string/activitySetting_cardNumber"
+                    android:text="@string/activitySetting_mail"
                     android:textColor="#586575"
                     android:textSize="12dp" />
 
                 <EditText
-                    android:id="@+id/editText8"
+                    android:id="@+id/editText5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
@@ -344,7 +320,7 @@
                     android:backgroundTint="#586575"
                     android:ems="10"
                     android:fontFamily="@font/roboto_regular"
-                    android:inputType="numberDecimal"
+                    android:inputType="textEmailAddress"
                     android:textColor="#2F3542"
                     android:textColorHint="#586575"
                     android:textSize="16dp"

@@ -4,10 +4,9 @@ import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.media.Image;
 import android.media.MediaPlayer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -22,8 +21,6 @@ import com.game.xogame.views.main.MainActivity;
 import com.game.xogame.views.profile.MoneyActivity;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-
 public class WinActivity extends AppCompatActivity {
     public static MainActivity activity;
     private TextView header;
@@ -34,8 +31,7 @@ public class WinActivity extends AppCompatActivity {
     private ImageView logo;
     private ImageView photo;
     private ProgressBar progress;
-    private TextView toMobile;
-    private TextView toCard;
+    private ImageView toPaypal;
     private LottieAnimationView anim;
     private LinearLayout layAnimation;
 
@@ -129,8 +125,7 @@ public class WinActivity extends AppCompatActivity {
         nickname = findViewById(R.id.textView11);
         task = findViewById(R.id.textView14);
         money = findViewById(R.id.textView12);
-        toMobile = findViewById(R.id.textView16);
-        toCard = findViewById(R.id.textView15);
+        toPaypal = findViewById(R.id.paypal);
         layAnimation = findViewById(R.id.linearLayout6);
 
         logo = findViewById(R.id.imageView);
@@ -138,27 +133,17 @@ public class WinActivity extends AppCompatActivity {
         progress = findViewById(R.id.bar1);
         ok = findViewById(R.id.imageButton);
 
-        toMobile.setOnClickListener(new View.OnClickListener() {
+        toPaypal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(WinActivity.this, MoneyActivity.class);
-                intent.putExtra("type", "phone");
+                intent.putExtra("type", "paypal");
                 intent.putExtra("gameid", gameid);
                 intent.putExtra("money", money.getText()+"");
                 startActivity(intent);
             }
         });
 
-        toCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WinActivity.this, MoneyActivity.class);
-                intent.putExtra("type", "ccard");
-                intent.putExtra("gameid", gameid);
-                intent.putExtra("money", money.getText()+"");
-                startActivity(intent);
-            }
-        });
 
         ok.setOnTouchListener(new View.OnTouchListener() {
             @Override

@@ -50,7 +50,6 @@ public class SettingActivity extends AppCompatActivity {
     private EditText email;
     private EditText country;
     private EditText city;
-    private EditText card;
     private TextView rules;
     private TextView support;
     private TextView rateus;
@@ -80,7 +79,6 @@ public class SettingActivity extends AppCompatActivity {
         email = findViewById(R.id.editText5);
         country = findViewById(R.id.editText6);
         city = findViewById(R.id.editText7);
-        card = findViewById(R.id.editText8);
         save = findViewById(R.id.imageView2);
         back = findViewById(R.id.imageView1);
         load = findViewById(R.id.targetView);
@@ -94,7 +92,7 @@ public class SettingActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (card.getText().toString().length() != 16 && card.getText().toString().length() != 0) {
+                if ((email.getText().toString()+"").equals("") || !email.getText().toString().contains("@") || !email.getText().toString().contains(".")) {
                     error(getString(R.string.activitySetting_wrongcard));
                 } else {
                     presenter.editInfo();
@@ -360,16 +358,6 @@ public class SettingActivity extends AppCompatActivity {
 
     public void setCity(String city) {
         this.city.setText(city);
-    }
-
-    public String getCard() {
-        return card.getText().toString();
-    }
-
-    public void setCard(String card) {
-        this.card.setText(card);
-        SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
-        sharedPref.edit().putString("ccard", card).commit();
     }
 
     public void error(String s) {

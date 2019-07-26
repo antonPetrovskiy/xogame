@@ -59,8 +59,7 @@ public interface ApiService {
                                 @Field("gender") String gender,
                                 @Field("birthday") String age,
                                 @Field("country") String country,
-                                @Field("city") String city,
-                                @Field("ccard") String ccard);
+                                @Field("city") String city);
 
 
     @FormUrlEncoded
@@ -164,7 +163,8 @@ public interface ApiService {
                                     @Part("lon") String lon,
                                     @Part("address") String address,
                                     @Part("flevel") String flevel,
-                                    @Part("category") String category);
+                                    @Part("category") String category,
+                                    @Part("gameid") String gameid);
 
     @FormUrlEncoded
     @POST("game/delete/")
@@ -174,4 +174,13 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("game/mygames/")
     Call<GamesNewCallback> getCreatedGames(@Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("game/dateandtime/")
+    Call<DefaultCallback> setDateGame(@Field("token") String token,
+                                       @Field("gameid") String gameid,
+                                       @Field("startdate") String startdate,
+                                       @Field("enddate") String enddate,
+                                       @Field("starttime") String starttime,
+                                       @Field("endtime") String endtime);
 }

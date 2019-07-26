@@ -203,15 +203,14 @@ public class UserInfoModel {
             //String info = params[0].getAsString("INFO");
             String gender = params[0].getAsString("GENDER");
             String age = params[0].getAsString("AGE");
-            String email = params[0].getAsString("EMAIL");
+            final String email = params[0].getAsString("EMAIL");
             String country = params[0].getAsString("COUNTRY");
             String city = params[0].getAsString("CITY");
-            final String card = params[0].getAsString("CARD");
             SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
             String id = sharedPref.getString("token", "null");
             Log.i("LOG_edit" , id);
             if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
-                Call<RegistrationCallback> call = api.editInfo(id,name,email,gender,age,country,city,card);
+                Call<RegistrationCallback> call = api.editInfo(id,name,email,gender,age,country,city);
                 call.enqueue(new Callback<RegistrationCallback>() {
                     @Override
                     public void onResponse(Call<RegistrationCallback> call, Response<RegistrationCallback> response) {
@@ -220,7 +219,7 @@ public class UserInfoModel {
                             Log.i("LOG_edit" , "Success(error): " + response.body().getStatus());
                             Log.i("LOG_edit" , "Success(error): " + response.body().getError());
                             SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
-                            sharedPref.edit().putString("ccard", card).commit();
+                            sharedPref.edit().putString("email", email).commit();
                             callback.onEdit();
                         } else {
                             String jObjError = null;

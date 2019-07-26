@@ -103,7 +103,7 @@
     <string name="activityWin_third">Вы заняли 3-е место</string>
     <string name="activityModeration_place">место</string>
     <string name="adapterFeed_task">Задание</string>
-    <string name="activitySetting_wrongcard">Неверный формат карты</string>
+    <string name="activitySetting_wrongcard">Неверный формат почты</string>
     <string name="phoneNumber">Номер телефона</string>
     <string name="fragmentGames_nogames">На данный момент нет игр для вашего региона</string>
     <string name="activityEditinfo_badnickname">Имя пользователя должно содержать, как минимум, 3 английских буквы или цифры</string>

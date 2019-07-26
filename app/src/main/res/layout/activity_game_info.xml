@@ -190,7 +190,7 @@
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:adjustViewBounds="true"
-                            app:srcCompat="@drawable/game_icon_users"
+                            app:srcCompat="@drawable/icon_users_orange"
                             tools:ignore="ContentDescription" />
                     </LinearLayout>
 
@@ -223,7 +223,7 @@
                             android:id="@+id/textView31"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="#ABB2BA"
+                            android:textColor="#F08C3C"
                             android:textSize="12dp"
                             tools:text="1232 человек" />
                     </LinearLayout>
@@ -256,8 +256,17 @@
                             android:id="@+id/imageView14"
                             android:layout_width="16dp"
                             android:layout_height="16dp"
+                            android:layout_marginBottom="12dp"
                             android:adjustViewBounds="true"
                             app:srcCompat="@drawable/game_icon_money"
+                            tools:ignore="ContentDescription"/>
+
+                        <ImageView
+                            android:id="@+id/imageView15"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:adjustViewBounds="true"
+                            app:srcCompat="@drawable/icon_category_orange"
                             tools:ignore="ContentDescription"/>
 
 
@@ -283,8 +292,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="#ABB2BA"
+                            android:paddingBottom="12dp"
                             android:textSize="12dp"
                             tools:text="1000 uah" />
+                        <TextView
+                            android:id="@+id/textView34"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#F08C3C"
+                            android:textSize="12dp"
+                            tools:text="Игры" />
+
 
                     </LinearLayout>
 

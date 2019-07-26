@@ -128,6 +128,17 @@
                     android:textSize="16dp"
                     tools:ignore="Autofill,LabelFor" />
 
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/activityCreate_wrongName"
+                    android:textColor="#BE3C28"
+                    android:textSize="10dp"
+                    android:visibility="gone" />
+
                 <ImageView
                     android:id="@+id/imageView1"
                     android:layout_width="match_parent"
@@ -138,6 +149,17 @@
                     android:adjustViewBounds="true"
                     android:maxHeight="300dp"
                     app:srcCompat="@drawable/unknow_creategame" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/activityCreate_wrongPhoto"
+                    android:textColor="#BE3C28"
+                    android:textSize="10dp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/textView2"
@@ -166,6 +188,17 @@
                     android:textColor="#2F3542"
                     android:textSize="16dp"
                     tools:ignore="Autofill,LabelFor" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/activityCreate_wrongDescription"
+                    android:textColor="#BE3C28"
+                    android:textSize="10dp"
+                    android:visibility="gone" />
 
 
                 <RelativeLayout
@@ -234,6 +267,19 @@
                             tools:text="ул.Хорива 23, Киев 04071, Украинаул.Хорива 23, Киев 04071, Украина" />
 
                     </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/imageViewError1"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="12dp"
+                        android:adjustViewBounds="true"
+                        android:cropToPadding="true"
+                        android:src="@drawable/icon_error"
+                        android:visibility="gone"
+                        tools:ignore="ContentDescription" />
 
 
 
@@ -305,6 +351,18 @@
 
                     </LinearLayout>
 
+                    <ImageView
+                        android:id="@+id/imageViewError2"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="12dp"
+                        android:adjustViewBounds="true"
+                        android:cropToPadding="true"
+                        android:src="@drawable/icon_error"
+                        android:visibility="gone"
+                        tools:ignore="ContentDescription" />
 
                 </RelativeLayout>
 
@@ -397,6 +455,18 @@
 
                     </LinearLayout>
 
+                    <ImageView
+                        android:id="@+id/imageViewError3"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="12dp"
+                        android:adjustViewBounds="true"
+                        android:cropToPadding="true"
+                        android:src="@drawable/icon_error"
+                        android:visibility="gone"
+                        tools:ignore="ContentDescription" />
 
                 </RelativeLayout>
 
@@ -414,17 +484,11 @@
                         android:src="@drawable/profile_line_grey"
                         tools:ignore="ContentDescription" />
 
-                    <TextView
-                        android:id="@+id/textView34"
+
+                    <ListView
+                        android:id="@+id/tasklist"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="12dp"
-                        android:fontFamily="@font/roboto_regular"
-                        android:text="@string/activityCreate_info"
-                        android:textColor="#9EA4AC"
-                        android:textSize="12dp" />
+                        android:layout_height="wrap_content" />
 
 
 

@@ -153,6 +153,7 @@ public class MyCreatedActivity extends AppCompatActivity {
                             break;
                         case "Date and time":
                             Intent intent6 = new Intent(MyCreatedActivity.this, DateActivity.class);
+                            intent6.putExtra("gameid",gameList.get(position).getGameid()+"");
                             startActivity(intent6);
                             break;
                     }

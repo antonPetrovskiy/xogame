@@ -103,7 +103,7 @@
     <string name="activityWin_first">1st place</string>
     <string name="activityWin_second">2nd place</string>
     <string name="activityWin_third">3rd place</string>
-    <string name="activitySetting_wrongcard">Wrong card format</string>
+    <string name="activitySetting_wrongcard">Wrong email format</string>
     <string name="phoneNumber">Phone number</string>
     <string name="fragmentGames_nogames">No games in your area yet</string>
     <string name="tutorial_welcome">Welcome to PAPARAZZI Games</string>
@@ -183,6 +183,12 @@
     <string name="activityDate_task">Задания будут приходить</string>
     <string name="activityDate_from">с</string>
     <string name="activityDate_to">по</string>
+    <string name="activitySetting_pay">Платежная информация</string>
+    <string name="R.string.activityMoney_sentMoneyPaypal">Перевести деньги на PayPal</string>
+    <string name="activityMyWins_email">На e-mail</string>
+    <string name="activityCreate_wrongName">Недопустимое название</string>
+    <string name="activityCreate_wrongPhoto">Недопустимое изображение</string>
+    <string name="activityCreate_wrongDescription">Недопустимое описание</string>
 
 
 </resources>

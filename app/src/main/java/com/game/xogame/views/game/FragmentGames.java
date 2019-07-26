@@ -32,6 +32,7 @@ import com.game.xogame.api.ApiService;
 import com.game.xogame.api.RetroClient;
 import com.game.xogame.entity.Game;
 import com.game.xogame.presenters.MainPresenter;
+import com.game.xogame.views.create.CreateGameActivity;
 import com.game.xogame.views.main.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -59,7 +60,7 @@ public class FragmentGames extends Fragment {
     private View rootView;
     private Button refresh;
     private SwipeRefreshLayout pullToRefresh;
-    private List<Game> gameList;
+    public static List<Game> gameList;
     private List<Game> tmpgameList;
     public EditText search;
     private ImageView searchIcon;
@@ -71,6 +72,9 @@ public class FragmentGames extends Fragment {
     private RelativeLayout tutorialView;
     private TextView tutorialText;
     private Button tutorialButton;
+
+    private TextView create;
+    private TextView all;
 
     public FragmentGames() {
     }
@@ -281,6 +285,24 @@ public class FragmentGames extends Fragment {
             }
         });
 
+        create = rootView.findViewById(R.id.textView1);
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CreateGameActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        all = rootView.findViewById(R.id.textView2);
+        all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CategoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
         checkTutorial();
     }
 
@@ -367,6 +389,7 @@ public class FragmentGames extends Fragment {
                 intent.putExtra("PEOPLE", tmpgameList.get(position).getFollowers());
                 intent.putExtra("SHARE", tmpgameList.get(position).getSiteurl());
                 intent.putExtra("ADDRESS", tmpgameList.get(position).getAddress());
+                intent.putExtra("CATEGORY", tmpgameList.get(position).getCategory());
                 intent.putExtra("STATISTIC", "false");
                 startActivity(intent);
             }
@@ -395,6 +418,7 @@ public class FragmentGames extends Fragment {
                     intent.putExtra("PEOPLE", tmpgameList.get(i).getFollowers());
                     intent.putExtra("SHARE", tmpgameList.get(i).getSiteurl());
                     intent.putExtra("ADDRESS", tmpgameList.get(i).getAddress());
+                    intent.putExtra("CATEGORY", tmpgameList.get(i).getCategory());
                     intent.putExtra("STATISTIC", "false");
                     MainActivity.gameId=null;
                     startActivity(intent);

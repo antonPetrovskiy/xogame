@@ -25,19 +25,21 @@ public class PayActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
 
+    }
 
     public void init(){
         ImageView back = findViewById(R.id.imageView);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                PayActivity.super.onBackPressed();
             }
         });
 
         String url = getIntent().getStringExtra("url");
-        String gameid = getIntent().getStringExtra("gameid");
         WebView webView = findViewById(R.id.webView);
 
 
@@ -70,7 +72,7 @@ public class PayActivity extends AppCompatActivity {
         // включаем поддержку JavaScript
         webView.getSettings().setJavaScriptEnabled(true);
         // указываем страницу загрузки
-        webView.loadUrl(url+gameid);
-        Log.i("LOG_web" , "" + url + gameid);
+        webView.loadUrl(url);
+        Log.i("LOG_web" , "" + url);
     }
 }
