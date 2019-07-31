@@ -71,26 +71,13 @@ public class CreateAuditoryActivity extends FragmentActivity implements OnMapRea
         PlacesClient placesClient = Places.createClient(this);
         autocompleteFragment = (AutocompleteSupportFragment)
                 getSupportFragmentManager().findFragmentById(R.id.place_autocomplete);
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
-
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG));
         MapsInitializer.initialize(getApplicationContext());
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
-                Log.d("Maps", "Place selected: " + place.getName());
-            }
 
-            @Override
-            public void onError(Status status) {
-                // TODO: Handle the error.
-                Log.d("Maps", "Place selected: " + status);
-            }
-        });
         init();
     }
 
@@ -270,6 +257,20 @@ public class CreateAuditoryActivity extends FragmentActivity implements OnMapRea
             @Override
             public boolean onMarkerClick(Marker marker) {
                 return true;
+            }
+        });
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                Log.d("Maps", "Place selected: " + place.getName());
+                Log.d("Maps", "Place selected: " + place.getLatLng());
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 10));
+            }
+
+            @Override
+            public void onError(Status status) {
+                Log.d("Maps", "Place selected: " + status);
             }
         });
 
