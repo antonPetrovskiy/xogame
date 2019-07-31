@@ -11,6 +11,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.game.xogame.R;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
@@ -30,8 +32,14 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -42,24 +50,47 @@ public class CreateAuditoryActivity extends FragmentActivity implements OnMapRea
     private LatLng point;
     private SeekBar radius;
     private EditText street;
+    AutocompleteSupportFragment autocompleteFragment;
 
     private ImageView iconPoint;
     private ImageView iconMe;
 
     private GoogleMap mMap;
     private SupportMapFragment mapFragment;
+    private EditText country;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_auditory);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Places.initialize(getApplicationContext(), "AIzaSyAFzTK5clEGuEaSL5AhRkp4s19CWBJHzFg");
+
+// Create a new Places client instance.
+
+        PlacesClient placesClient = Places.createClient(this);
+        autocompleteFragment = (AutocompleteSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.place_autocomplete);
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
 
         MapsInitializer.initialize(getApplicationContext());
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+                Log.d("Maps", "Place selected: " + place.getName());
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.d("Maps", "Place selected: " + status);
+            }
+        });
         init();
     }
 
@@ -202,16 +233,15 @@ public class CreateAuditoryActivity extends FragmentActivity implements OnMapRea
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                String address = "";
+                if(addresses!=null)
+                    address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
 
-                String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                String city = addresses.get(0).getLocality();
-                String state = addresses.get(0).getAdminArea();
-                String country = addresses.get(0).getCountryName();
-                String postalCode = addresses.get(0).getPostalCode();
-                String knownName = addresses.get(0).getFeatureName();
                 street.setText(address);
             }
         });
+
+
 
 
     }
@@ -232,7 +262,9 @@ public class CreateAuditoryActivity extends FragmentActivity implements OnMapRea
 //            Log.e("Log", "Can't find style. Error: ", e);
 //        }
 
-        iconMe.performClick();
+        SharedPreferences sharedPref = getSharedPreferences("myPref", MODE_PRIVATE);
+        if(!sharedPref.getString("lng", "null").equals("null"))
+            iconMe.performClick();
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -280,11 +312,7 @@ public class CreateAuditoryActivity extends FragmentActivity implements OnMapRea
                 }
 
                 String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                String city = addresses.get(0).getLocality();
-                String state = addresses.get(0).getAdminArea();
-                String country = addresses.get(0).getCountryName();
-                String postalCode = addresses.get(0).getPostalCode();
-                String knownName = addresses.get(0).getFeatureName();
+
                 street.setText(address);
             }
 

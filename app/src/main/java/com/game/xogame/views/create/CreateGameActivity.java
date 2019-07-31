@@ -72,6 +72,8 @@ public class CreateGameActivity extends AppCompatActivity {
     private TextView rewardText;
     private LinearLayout load;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +97,6 @@ public class CreateGameActivity extends AppCompatActivity {
                 category = extras.getString("category");
             if(extras.getString("categoryID")!=null && !extras.getString("categoryID").equals(""))
                 categoryID = extras.getString("categoryID");
-
             if(extras.getString("name")!=null && !extras.getString("name").equals(""))
                 nameStr = extras.getString("name");
             if(extras.getString("description")!=null && !extras.getString("description").equals(""))
@@ -104,6 +105,7 @@ public class CreateGameActivity extends AppCompatActivity {
                 imagePath = extras.getString("photo");
             if(extras.getString("gameid")!=null && !extras.getString("gameid").equals(""))
                 gameid = extras.getString("gameid");
+
         }
     }
 
@@ -162,6 +164,8 @@ public class CreateGameActivity extends AppCompatActivity {
         name = findViewById(R.id.editText1);
         description = findViewById(R.id.editText2);
         load = findViewById(R.id.targetView);
+
+
 
 
 

@@ -119,6 +119,7 @@ public class MyCreatedActivity extends AppCompatActivity {
                             intent1.putExtra("lng", gameList.get(position).getAddressGame().getCoordinateGame().getLon() + "");
                             intent1.putExtra("radius", gameList.get(position).getAddressGame().getRadius() + "");
                             intent1.putExtra("category", gameList.get(position).getCategory() + "");
+                            intent1.putExtra("type", "draft");
 
                             ArrayList<String> list = new ArrayList<>();
                             for (int i = 0; i < gameList.get(position).getTasksGame().size(); i++) {
@@ -148,6 +149,28 @@ public class MyCreatedActivity extends AppCompatActivity {
                         case "Active":
                             break;
                         case "Canceled":
+                            Intent intent4 = new Intent(MyCreatedActivity.this, ModeratedActivity.class);
+                            intent4.putExtra("name", gameList.get(position).getName_game());
+                            intent4.putExtra("description", gameList.get(position).getDescription());
+                            intent4.putExtra("photo", gameList.get(position).getBackground());
+                            intent4.putExtra("gameid", gameList.get(position).getGameid());
+                            intent4.putExtra("street", gameList.get(position).getAddressGame().getAddress_text());
+                            intent4.putExtra("lat", gameList.get(position).getAddressGame().getCoordinateGame().getLat() + "");
+                            intent4.putExtra("lng", gameList.get(position).getAddressGame().getCoordinateGame().getLon() + "");
+                            intent4.putExtra("radius", gameList.get(position).getAddressGame().getRadius() + "");
+                            intent4.putExtra("category", gameList.get(position).getCategory() + "");
+                            intent4.putExtra("type", "canceled");
+                            intent4.putExtra("badName", gameList.get(position).isWrong_name_game() + "");
+                            intent4.putExtra("badPhoto", gameList.get(position).isWrong_background() + "");
+                            intent4.putExtra("badDescription", gameList.get(position).isWrong_description() + "");
+                            intent4.putExtra("badTasks", gameList.get(position).isWrong_tasks() + "");
+
+                            ArrayList<String> list4 = new ArrayList<>();
+                            for (int i = 0; i < gameList.get(position).getTasksGame().size(); i++) {
+                                list4.add(gameList.get(position).getTasksGame().get(i).getTask_description());
+                            }
+                            intent4.putExtra("tasks", list4);
+                            startActivity(intent4);
                             break;
                         case "Ended":
                             break;

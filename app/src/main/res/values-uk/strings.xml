@@ -138,6 +138,8 @@
     <string name="error_secondPost">Повторне надсилання</string>
     <string name="error_dontUpload">Файл не завантажено</string>
     <string name="error_gameEnded">Гра завершена</string>
+    <string name="popup_yes">Так</string>
+    <string name="popup_no">Нi</string>
 
 
 </resources>

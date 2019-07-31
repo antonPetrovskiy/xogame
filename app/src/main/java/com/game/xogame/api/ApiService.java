@@ -179,8 +179,8 @@ public interface ApiService {
     @POST("game/dateandtime/")
     Call<DefaultCallback> setDateGame(@Field("token") String token,
                                        @Field("gameid") String gameid,
-                                       @Field("startdate") String startdate,
-                                       @Field("enddate") String enddate,
-                                       @Field("starttime") String starttime,
-                                       @Field("endtime") String endtime);
+                                       @Field("game_start_date") String startdate,
+                                       @Field("game_end_date") String enddate,
+                                       @Field("send_push_from_time") String starttime,
+                                       @Field("send_push_to_time") String endtime);
 }

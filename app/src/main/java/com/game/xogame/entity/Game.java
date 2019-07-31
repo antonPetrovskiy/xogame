@@ -1,5 +1,8 @@
 package com.game.xogame.entity;
 
+import android.content.res.Resources;
+
+import com.game.xogame.R;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -149,7 +152,38 @@ public class Game {
         return address;
     }
 
-    public String getCategory() {
+    public String getCategoryId() {
         return category;
+    }
+
+    public String getCategory() {
+        switch (category) {
+            case "0":
+                return Resources.getSystem().getString(R.string.category_food);
+            case "1":
+                return Resources.getSystem().getString(R.string.category_style);
+            case "2":
+                return Resources.getSystem().getString(R.string.category_art);
+            case "3":
+                return Resources.getSystem().getString(R.string.category_tv);
+            case "4":
+                return Resources.getSystem().getString(R.string.category_fun);
+            case "5":
+                return Resources.getSystem().getString(R.string.category_decor);
+            case "6":
+                return Resources.getSystem().getString(R.string.category_nature);
+            case "7":
+                return Resources.getSystem().getString(R.string.category_since);
+            case "8":
+                return Resources.getSystem().getString(R.string.category_iscustvo);
+            case "9":
+                return Resources.getSystem().getString(R.string.category_beauty);
+            case "10":
+                return Resources.getSystem().getString(R.string.category_sport);
+            case "11":
+                return Resources.getSystem().getString(R.string.category_texture);
+            default:
+                return "";
+        }
     }
 }

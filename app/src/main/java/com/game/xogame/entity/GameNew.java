@@ -141,7 +141,7 @@ public class GameNew {
         return description;
     }
 
-    public String getWrong_description() {
+    public String isWrong_description() {
         return wrong_description;
     }
 

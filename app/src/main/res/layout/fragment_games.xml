@@ -187,6 +187,7 @@
 
         <LinearLayout
             android:id="@+id/categories"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
@@ -197,7 +198,7 @@
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"
-                android:text="Создать"
+                android:text="@string/category_create"
                 android:textColor="#BE3C28"
                 android:textSize="14dp" />
 
@@ -208,139 +209,151 @@
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
-                android:text="Все"
+                android:text="@string/category_all"
                 android:textColor="#586575"
                 android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/textView3"
+                android:text="@string/category_food"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
-                android:text="Еда"
+                android:visibility="gone"
                 android:textColor="#586575"
                 android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/textView4"
+                android:text="@string/category_style"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
-                android:text="Стиль"
+                android:visibility="gone"
                 android:textColor="#586575"
                 android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/textView5"
+                android:text="@string/category_art"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
-                android:text="Архитектура"
+                android:visibility="gone"
                 android:textColor="#586575"
                 android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/textView6"
+                android:text="@string/category_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
-                android:text="Тв и фильмы"
+                android:visibility="gone"
                 android:textColor="#586575"
                 android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/textView7"
+                android:text="@string/category_fun"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
-                android:text="Юмор"
+                android:visibility="gone"
                 android:textColor="#586575"
                 android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/textView8"
+                android:text="@string/category_decor"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
-                android:text="Декор"
+                android:visibility="gone"
                 android:textColor="#586575"
                 android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/textView9"
+                android:text="@string/category_nature"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
-                android:text="Природа"
+                android:visibility="gone"
                 android:textColor="#586575"
                 android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/textView10"
+                android:text="@string/category_since"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
-                android:text="Наука"
+                android:visibility="gone"
                 android:textColor="#586575"
                 android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/textView11"
+                android:text="@string/category_iscustvo"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
-                android:text="Искуство"
+                android:visibility="gone"
                 android:textColor="#586575"
                 android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/textView12"
+                android:text="@string/category_beauty"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
-                android:text="Красота"
+                android:visibility="gone"
                 android:textColor="#586575"
                 android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/textView13"
+                android:text="@string/category_sport"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
-                android:text="Спорт"
+                android:visibility="gone"
                 android:textColor="#586575"
                 android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/textView14"
+                android:text="@string/category_texture"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
-                android:text="Текстура"
+                android:visibility="gone"
                 android:textColor="#586575"
                 android:textSize="14dp" />
 

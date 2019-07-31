@@ -68,6 +68,7 @@ public class FragmentGames extends Fragment {
     private boolean subscribeCheck = false;
     private RelativeLayout logoView;
     private RelativeLayout searchView;
+    private LinearLayout categories;
 
     private RelativeLayout tutorialView;
     private TextView tutorialText;
@@ -75,6 +76,20 @@ public class FragmentGames extends Fragment {
 
     private TextView create;
     private TextView all;
+    private TextView category_food;
+    private TextView category_style;
+    private TextView category_art;
+    private TextView category_tv;
+    private TextView category_fun;
+    private TextView category_decor;
+    private TextView category_nature;
+    private TextView category_since;
+    private TextView category_iscustvo;
+    private TextView category_beauty;
+    private TextView category_sport;
+    private TextView category_texture;
+
+
 
     public FragmentGames() {
     }
@@ -119,6 +134,7 @@ public class FragmentGames extends Fragment {
         tutorialView = rootView.findViewById(R.id.tutorial);
         tutorialText = rootView.findViewById(R.id.tutorial_text);
         tutorialButton = rootView.findViewById(R.id.tutorial_button);
+        categories = rootView.findViewById(R.id.categories);
         api = RetroClient.getApiService();
 
         gameList = new LinkedList<>();
@@ -299,6 +315,115 @@ public class FragmentGames extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, CategoryActivity.class);
+                intent.putExtra("category","all");
+                startActivity(intent);
+            }
+        });
+        category_food = rootView.findViewById(R.id.textView3);
+        category_food.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CategoryActivity.class);
+                intent.putExtra("category","food");
+                startActivity(intent);
+            }
+        });
+        category_style = rootView.findViewById(R.id.textView4);
+        category_style.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CategoryActivity.class);
+                intent.putExtra("category","style");
+                startActivity(intent);
+            }
+        });
+        category_art = rootView.findViewById(R.id.textView5);
+        category_art.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CategoryActivity.class);
+                intent.putExtra("category","art");
+                startActivity(intent);
+            }
+        });
+        category_tv = rootView.findViewById(R.id.textView6);
+        category_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CategoryActivity.class);
+                intent.putExtra("category","tv");
+                startActivity(intent);
+            }
+        });
+        category_fun = rootView.findViewById(R.id.textView7);
+        category_fun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CategoryActivity.class);
+                intent.putExtra("category","fun");
+                startActivity(intent);
+            }
+        });
+        category_decor = rootView.findViewById(R.id.textView8);
+        category_decor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CategoryActivity.class);
+                intent.putExtra("category","decor");
+                startActivity(intent);
+            }
+        });
+        category_nature = rootView.findViewById(R.id.textView9);
+        category_nature.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CategoryActivity.class);
+                intent.putExtra("category","nature");
+                startActivity(intent);
+            }
+        });
+        category_since = rootView.findViewById(R.id.textView10);
+        category_since.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CategoryActivity.class);
+                intent.putExtra("category","since");
+                startActivity(intent);
+            }
+        });
+        category_iscustvo = rootView.findViewById(R.id.textView11);
+        category_iscustvo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CategoryActivity.class);
+                intent.putExtra("category","iscustvo");
+                startActivity(intent);
+            }
+        });
+        category_beauty = rootView.findViewById(R.id.textView12);
+        category_beauty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CategoryActivity.class);
+                intent.putExtra("category","beauty");
+                startActivity(intent);
+            }
+        });
+        category_sport = rootView.findViewById(R.id.textView13);
+        category_sport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CategoryActivity.class);
+                intent.putExtra("category","sport");
+                startActivity(intent);
+            }
+        });
+        category_texture = rootView.findViewById(R.id.textView14);
+        category_texture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CategoryActivity.class);
+                intent.putExtra("category","texture");
                 startActivity(intent);
             }
         });
@@ -365,11 +490,42 @@ public class FragmentGames extends Fragment {
         }
 
         if(list == null || list.size()==0){
+            categories.setVisibility(View.GONE);
             empty.setVisibility(View.VISIBLE);
             refresh.setVisibility(View.GONE);
             error.setText(getString(R.string.fragmentGames_nogames));
+        }else{
+            for(int i = 0; i < list.size(); i ++){
+                switch (list.get(i).getCategoryId()) {
+                    case "0":
+                        category_food.setVisibility(View.VISIBLE);
+                    case "1":
+                        category_style.setVisibility(View.VISIBLE);
+                    case "2":
+                        category_food.setVisibility(View.VISIBLE);
+                    case "3":
+                        category_tv.setVisibility(View.VISIBLE);
+                    case "4":
+                        category_fun.setVisibility(View.VISIBLE);
+                    case "5":
+                        category_decor.setVisibility(View.VISIBLE);
+                    case "6":
+                        category_nature.setVisibility(View.VISIBLE);
+                    case "7":
+                        category_since.setVisibility(View.VISIBLE);
+                    case "8":
+                        category_iscustvo.setVisibility(View.VISIBLE);
+                    case "9":
+                        category_beauty.setVisibility(View.VISIBLE);
+                    case "10":
+                        category_sport.setVisibility(View.VISIBLE);
+                    case "11":
+                        category_texture.setVisibility(View.VISIBLE);
+                }
+            }
         }
 
+        categories.setVisibility(View.VISIBLE);
         load.setVisibility(View.GONE);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -394,6 +550,8 @@ public class FragmentGames extends Fragment {
                 startActivity(intent);
             }
         });
+
+
 
         if(!subscribeCheck) {
             updateSubscribe();
@@ -460,6 +618,7 @@ public class FragmentGames extends Fragment {
     public void setError(String msg){
         load.setVisibility(View.GONE);
         empty.setVisibility(View.VISIBLE);
+        categories.setVisibility(View.GONE);
         error.setText(msg);
         refresh.setVisibility(View.GONE);
     }

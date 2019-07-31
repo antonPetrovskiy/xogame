@@ -41,6 +41,11 @@ public class ModeratedActivity extends AppCompatActivity {
     private TextView taskText;
     private TextView rewardText;
 
+    private TextView badName;
+    private TextView badPhoto;
+    private TextView badDescription;
+    private ImageView badTasks;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +54,7 @@ public class ModeratedActivity extends AppCompatActivity {
 
         taskList = new ArrayList<>();
         listView = findViewById(R.id.tasklist);
+        init();
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             if(extras.getString("street")!=null && !extras.getString("street").equals(""))
@@ -69,9 +75,18 @@ public class ModeratedActivity extends AppCompatActivity {
                 descriptionStr = extras.getString("description");
             if(extras.getString("photo")!=null && !extras.getString("photo").equals(""))
                 imagePath = extras.getString("photo");
-        }
 
-        init();
+            if(extras.getString("type")!=null && extras.getString("type").equals("canceled")){
+                if(extras.getString("badName")!=null && extras.getString("badName").equals("true"))
+                    badName.setVisibility(View.VISIBLE);
+                if(extras.getString("badPhoto")!=null && extras.getString("badPhoto").equals("true"))
+                    badPhoto.setVisibility(View.VISIBLE);
+                if(extras.getString("badDescription")!=null && extras.getString("badDescription").equals("true"))
+                    badDescription.setVisibility(View.VISIBLE);
+                if(extras.getString("badTasks")!=null && extras.getString("badTasks").equals("true"))
+                    badTasks.setVisibility(View.VISIBLE);
+            }
+        }
         setList(taskList);
     }
 
@@ -97,6 +112,11 @@ public class ModeratedActivity extends AppCompatActivity {
         categoryText.setText(category+"");
         taskText.setText(taskList.size()+" заданий");
         rewardText.setText((taskList.size()*5)+" $");
+
+        badName = findViewById(R.id.textView11);
+        badPhoto = findViewById(R.id.textView12);
+        badDescription = findViewById(R.id.textView13);
+        badTasks = findViewById(R.id.imageViewError3);
 
         if(imagePath!=null && !imagePath.equals("")){
             RequestOptions requestOptions = new RequestOptions();
