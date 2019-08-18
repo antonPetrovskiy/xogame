@@ -39,7 +39,8 @@ public class CreateGamePresenter {
         ContentValues cv = new ContentValues(1);
         cv.put("TITLE", title);
         cv.put("DESCRIPTION", description);
-        cv.put("BACKGROUND", background);
+        if(background!=null && !background.equals("") && background.charAt(0) != 'h')
+            cv.put("BACKGROUND", background);
         cv.put("LAT", lat);
         cv.put("LON", lon);
         cv.put("ADDRESS", address);
@@ -64,4 +65,6 @@ public class CreateGamePresenter {
             }
         });
     }
+
+
 }

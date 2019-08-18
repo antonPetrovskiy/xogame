@@ -10,6 +10,7 @@ public class MyWinsPresenter {
     private MyWinsActivity viewMyWins;
     private final UserInfoModel model;
 
+
     public MyWinsPresenter(UserInfoModel model) {
         this.model = model;
     }
@@ -33,6 +34,20 @@ public class MyWinsPresenter {
 
     public List<Game> getWinsList(){
         return model.winGameList;
+    }
+
+    public void sendMoney(String type, String gameid) {
+        model.sendMoney(type,gameid,new UserInfoModel.SendMoneyCallback() {
+            @Override
+            public void onSend() {
+                if(model.status.equals("success")){
+                    viewMyWins.success();
+                }else{
+                    viewMyWins.showToast(model.error);
+                }
+
+            }
+        });
     }
 
 }

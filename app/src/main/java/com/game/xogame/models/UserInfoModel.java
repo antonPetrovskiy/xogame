@@ -36,6 +36,8 @@ public class UserInfoModel {
     public String type;
     public String userid;
     public String gameid;
+    public String error;
+    public String status;
     public List<Game> gameList;
     public List<Game> winGameList;
 
@@ -181,7 +183,6 @@ public class UserInfoModel {
         }
     }
 
-
     public void editInfo(ContentValues contentValues, UserInfoModel.EditInfoCallback callback) {
         UserInfoModel.EditInfoTask editInfoTask = new UserInfoModel.EditInfoTask(callback);
         editInfoTask.execute(contentValues);
@@ -236,6 +237,71 @@ public class UserInfoModel {
 
                     @Override
                     public void onFailure(Call<RegistrationCallback> call, Throwable t) {
+                        Log.i("LOG_edit" , t.getMessage()+" fail");
+                    }
+                });
+
+            } else {
+                Log.i("LOG_edit" , "error internet");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+        }
+    }
+
+    public void verify(ContentValues contentValues, UserInfoModel.VerifyCallback callback) {
+        UserInfoModel.VerifyTask verifyTask = new UserInfoModel.VerifyTask(callback);
+        verifyTask.execute(contentValues);
+    }
+    public interface VerifyCallback {
+        void onEdit();
+    }
+    class VerifyTask extends AsyncTask<ContentValues, Void, Void> {
+
+        private final UserInfoModel.VerifyCallback callback;
+
+        VerifyTask(UserInfoModel.VerifyCallback callback) {
+            this.callback = callback;
+        }
+
+        @Override
+        protected Void doInBackground(ContentValues... params) {
+            final String email = params[0].getAsString("EMAIL");
+            Log.i("LOG_edit" , "Success(error): " + email);
+            SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
+            String id = sharedPref.getString("token", "null");
+            if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
+                Call<DefaultCallback> call = api.verifyMail(id,email);
+                call.enqueue(new Callback<DefaultCallback>() {
+                    @Override
+                    public void onResponse(Call<DefaultCallback> call, Response<DefaultCallback> response) {
+                        if (response.isSuccessful()) {
+                            //Log.i("LOG_photo" , "Success(code): " + response.body().getCode());
+                            Log.i("LOG_edit" , "Success(error): " + response.body().getStatus());
+                            Log.i("LOG_edit" , "Success(error): " + response.body().getError());
+                            SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
+                            sharedPref.edit().putString("email", email).commit();
+                            callback.onEdit();
+                        } else {
+                            String jObjError = null;
+                            try {
+                                jObjError = response.errorBody().string()+"";
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            Log.i("LOG_edit" , jObjError+" error");
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DefaultCallback> call, Throwable t) {
                         Log.i("LOG_edit" , t.getMessage()+" fail");
                     }
                 });
@@ -593,29 +659,24 @@ public class UserInfoModel {
         protected Void doInBackground(ContentValues... params) {
             SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
             String id = sharedPref.getString("token", "null");
-            String phone = sharedPref.getString("phone", "null");
-            String ccard = sharedPref.getString("ccard", "null");
+            String email = sharedPref.getString("email", "null");
             if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
                 Call<DefaultCallback> call;
-                if(type.equals("phone") && phone!=null){
-                    call = api.getMoneyPhone(id,gameid,phone);
-                }else if(type.equals("ccard") && ccard!=null){
-                    call = api.getMoneyCard(id,gameid,ccard);
-                }else{
-                    return null;
-                }
+                call = api.getMoneyEmail(id,gameid,email);
+
                 Log.i("LOG_money" , "token: " + id);
                 Log.i("LOG_money" , "gameid: " + gameid);
-                Log.i("LOG_money" , "phone: " + phone);
+                Log.i("LOG_money" , "email: " + email);
                 call.enqueue(new Callback<DefaultCallback>() {
                     @Override
                     public void onResponse(Call<DefaultCallback> call, Response<DefaultCallback> response) {
                         if (response.isSuccessful()) {
                             Log.i("LOG_money" , "Success(error): " + response.body().getStatus());
                             Log.i("LOG_money" , "Success(error): " + response.body().getError());
-                            if(response.body().getStatus().equals("success")){
-                                callback.onSend();
-                            }
+                            status = response.body().getStatus();
+                            error = response.body().getError();
+                            callback.onSend();
+
                         } else {
                             String jObjError = null;
                             try {

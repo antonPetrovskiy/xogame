@@ -10,6 +10,8 @@ import android.util.Log;
 import com.game.xogame.api.ApiService;
 import com.game.xogame.entity.CreateCallback;
 import com.game.xogame.entity.DefaultCallback;
+import com.game.xogame.entity.Feed;
+import com.game.xogame.entity.FeedCallback;
 import com.game.xogame.entity.GameNew;
 import com.game.xogame.entity.GamesNewCallback;
 
@@ -35,7 +37,7 @@ public class CreateGameModel {
     public List<GameNew> gameList;
     private ApiService api;
     private Context context;
-
+    public List<Feed> feedList;
 
     public CreateGameModel(ApiService a, Context c){
         api = a;
@@ -182,12 +184,34 @@ public class CreateGameModel {
             String category = params[0].getAsString("CATEGORY");
             String gameid = params[0].getAsString("GAMEID")+"";
             Log.i("LOG_create" , " category - "+category);
-            File file = new File(background);
-            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            MultipartBody.Part photo = MultipartBody.Part.createFormData("background", file.getName(), requestFile);
+            Log.i("LOG_create" , " address - "+address);
+            Log.i("LOG_create" , " lat - "+lat);
+            Log.i("LOG_create" , " lon - "+lon);
+            Log.i("LOG_create" , " flevel - "+flevel);
+            Log.i("LOG_create" , " id - "+gameid);
+            Log.i("LOG_create" , " bg - "+background);
+            Log.i("LOG_create" , " list - "+list.length);
+            MultipartBody.Part photo;
+            if(background!=null) {
+                File file = new File(background);
+                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                photo = MultipartBody.Part.createFormData("background", file.getName(), requestFile);
+            }else{
+                photo=null;
+            }
 
             if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
-                Call<CreateCallback> call = api.createGame(token,title,description,photo,list,lat,lon,address,flevel,category,gameid);
+                Call<CreateCallback> call;
+                if(!gameid.equals("")&&!gameid.equals("null")){
+                    if(background!=null && background.length()>6 && background.charAt(0)=='h' && background.charAt(5)==':'){
+                        call = api.createGame(token,title,description,list,lat,lon,address,flevel,category,gameid);
+                    }else{
+                        call = api.createGame(token,title,description,photo,list,lat,lon,address,flevel,category,gameid);
+                    }
+                }else{
+                    call = api.createGame(token,title,description,photo,list,lat,lon,address,flevel,category);
+                }
+
                 Log.i("LOG_create" , " token - "+token);
                 call.enqueue(new Callback<CreateCallback>() {
                     @Override
@@ -401,4 +425,76 @@ public class CreateGameModel {
         }
 
     }
+
+
+
+
+
+
+    public void getFeeds(String gameid,GamesModel.GetFeedsCallback callback) {
+        CreateGameModel.GetFeedsTask getFeedsTask = new CreateGameModel.GetFeedsTask(callback);
+        getFeedsTask.execute();
+        this.gameid = gameid;
+    }
+    public interface GetFeedsCallback {
+        void onGet(String status, String error);
+    }
+    class GetFeedsTask extends AsyncTask<ContentValues, Void, Void> {
+
+        private final GamesModel.GetFeedsCallback callback;
+
+        GetFeedsTask(GamesModel.GetFeedsCallback callback) {
+            this.callback = callback;
+        }
+
+        @Override
+        protected Void doInBackground(ContentValues... params) {
+            SharedPreferences sharedPref = context.getSharedPreferences("myPref", MODE_PRIVATE);
+            String id = sharedPref.getString("token", "null");
+            if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
+                Call<FeedCallback> call = api.getFullFeeds(id,gameid);
+                call.enqueue(new Callback<FeedCallback>() {
+                    @Override
+                    public void onResponse(Call<FeedCallback> call, Response<FeedCallback> response) {
+                        if (response.isSuccessful()) {
+                            Log.i("LOG_getfeeds" , "Success(error): " + response.body().getStatus());
+                            feedList = response.body().getFeeds();
+                            callback.onGet(response.body().getStatus()+"",response.body().getError()+"");
+
+                        } else {
+                            String jObjError = null;
+                            try {
+                                jObjError = response.errorBody().string()+"";
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            Log.i("LOG_getfeeds" , jObjError+" error");
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<FeedCallback> call, Throwable t) {
+                        Log.i("LOG_getfeeds" , t.getMessage()+" fail");
+                    }
+                });
+
+            } else {
+                Log.i("LOG_getfeeds" , "error internet");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+        }
+    }
+
+
+
+
+
 }

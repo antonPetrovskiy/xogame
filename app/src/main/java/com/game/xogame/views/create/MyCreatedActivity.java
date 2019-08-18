@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -114,11 +115,16 @@ public class MyCreatedActivity extends AppCompatActivity {
                             intent1.putExtra("description", gameList.get(position).getDescription());
                             intent1.putExtra("photo", gameList.get(position).getBackground());
                             intent1.putExtra("gameid", gameList.get(position).getGameid());
-                            intent1.putExtra("street", gameList.get(position).getAddressGame().getAddress_text());
-                            intent1.putExtra("lat", gameList.get(position).getAddressGame().getCoordinateGame().getLat() + "");
-                            intent1.putExtra("lng", gameList.get(position).getAddressGame().getCoordinateGame().getLon() + "");
-                            intent1.putExtra("radius", gameList.get(position).getAddressGame().getRadius() + "");
-                            intent1.putExtra("category", gameList.get(position).getCategory() + "");
+                            Log.i("LOG_create" , " id0 - "+gameList.get(position).getGameid());
+                            if(gameList.get(position).getAddressGame()!=null) {
+                                intent1.putExtra("street", gameList.get(position).getAddressGame().getAddress_text() + "");
+                                intent1.putExtra("lat", gameList.get(position).getAddressGame().getCoordinateGame().getLat() + "");
+                                intent1.putExtra("lng", gameList.get(position).getAddressGame().getCoordinateGame().getLon() + "");
+                                intent1.putExtra("radius", gameList.get(position).getAddressGame().getRadius() + "");
+                            }
+                            //Log.i("LOG_category" , gameList.get(position).getCategory()+"");
+                            intent1.putExtra("category", gameList.get(position).getCategoryText() + "");
+                            intent1.putExtra("categoryID", gameList.get(position).getCategory() + "");
                             intent1.putExtra("type", "draft");
 
                             ArrayList<String> list = new ArrayList<>();
@@ -134,11 +140,15 @@ public class MyCreatedActivity extends AppCompatActivity {
                             intent2.putExtra("description", gameList.get(position).getDescription());
                             intent2.putExtra("photo", gameList.get(position).getBackground());
                             intent2.putExtra("gameid", gameList.get(position).getGameid());
-                            intent2.putExtra("street", gameList.get(position).getAddressGame().getAddress_text());
-                            intent2.putExtra("lat", gameList.get(position).getAddressGame().getCoordinateGame().getLat() + "");
-                            intent2.putExtra("lng", gameList.get(position).getAddressGame().getCoordinateGame().getLon() + "");
-                            intent2.putExtra("radius", gameList.get(position).getAddressGame().getRadius() + "");
-                            intent2.putExtra("category", gameList.get(position).getCategory() + "");
+                            if(gameList.get(position).getAddressGame()!=null) {
+                                intent2.putExtra("street", gameList.get(position).getAddressGame().getAddress_text());
+                                intent2.putExtra("lat", gameList.get(position).getAddressGame().getCoordinateGame().getLat() + "");
+                                intent2.putExtra("lng", gameList.get(position).getAddressGame().getCoordinateGame().getLon() + "");
+                                intent2.putExtra("radius", gameList.get(position).getAddressGame().getRadius() + "");
+                            }
+                            intent2.putExtra("category", gameList.get(position).getCategoryText() + "");
+                            intent2.putExtra("type", "moderation");
+
                             ArrayList<String> list1 = new ArrayList<>();
                             for (int i = 0; i < gameList.get(position).getTasksGame().size(); i++) {
                                 list1.add(gameList.get(position).getTasksGame().get(i).getTask_description());
@@ -146,10 +156,8 @@ public class MyCreatedActivity extends AppCompatActivity {
                             intent2.putExtra("tasks", list1);
                             startActivity(intent2);
                             break;
-                        case "Active":
-                            break;
                         case "Canceled":
-                            Intent intent4 = new Intent(MyCreatedActivity.this, ModeratedActivity.class);
+                            Intent intent4 = new Intent(MyCreatedActivity.this, CreateGameActivity.class);
                             intent4.putExtra("name", gameList.get(position).getName_game());
                             intent4.putExtra("description", gameList.get(position).getDescription());
                             intent4.putExtra("photo", gameList.get(position).getBackground());
@@ -158,12 +166,13 @@ public class MyCreatedActivity extends AppCompatActivity {
                             intent4.putExtra("lat", gameList.get(position).getAddressGame().getCoordinateGame().getLat() + "");
                             intent4.putExtra("lng", gameList.get(position).getAddressGame().getCoordinateGame().getLon() + "");
                             intent4.putExtra("radius", gameList.get(position).getAddressGame().getRadius() + "");
-                            intent4.putExtra("category", gameList.get(position).getCategory() + "");
+                            intent4.putExtra("category", gameList.get(position).getCategoryText() + "");
                             intent4.putExtra("type", "canceled");
                             intent4.putExtra("badName", gameList.get(position).isWrong_name_game() + "");
                             intent4.putExtra("badPhoto", gameList.get(position).isWrong_background() + "");
                             intent4.putExtra("badDescription", gameList.get(position).isWrong_description() + "");
                             intent4.putExtra("badTasks", gameList.get(position).isWrong_tasks() + "");
+                            intent4.putExtra("type", "canceled" + "");
 
                             ArrayList<String> list4 = new ArrayList<>();
                             for (int i = 0; i < gameList.get(position).getTasksGame().size(); i++) {
@@ -172,7 +181,32 @@ public class MyCreatedActivity extends AppCompatActivity {
                             intent4.putExtra("tasks", list4);
                             startActivity(intent4);
                             break;
+                        case "Active":
+                            Intent intent5 = new Intent(MyCreatedActivity.this, CreatedFeedsActivity.class);
+                            intent5.putExtra("gameid",gameList.get(position).getGameid()+"");
+                            intent5.putExtra("name",gameList.get(position).getName_game()+"");
+
+                            startActivity(intent5);
+                            break;
                         case "Ended":
+                            Intent intent3 = new Intent(MyCreatedActivity.this, CreatedFeedsActivity.class);
+                            intent3.putExtra("gameid",gameList.get(position).getGameid()+"");
+                            intent3.putExtra("name",gameList.get(position).getName_game()+"");
+                            intent3.putExtra("description", gameList.get(position).getDescription());
+                            intent3.putExtra("photo", gameList.get(position).getBackground());
+                            intent3.putExtra("street", gameList.get(position).getAddressGame().getAddress_text());
+                            intent3.putExtra("category", gameList.get(position).getCategoryText() + "");
+                            if(gameList.get(position).getStartdate().equals(gameList.get(position).getEnddate())){
+                                intent3.putExtra("date", gameList.get(position).getStartdate() + "");
+                            }else{
+                                intent3.putExtra("date", gameList.get(position).getStartdate() + " - " + gameList.get(position).getEnddate());
+                            }
+                            intent3.putExtra("time", gameList.get(position).getStart_task_time() + " - " + gameList.get(position).getEnd_task_time());
+                            intent3.putExtra("people", gameList.get(position).getFollowers() + "");
+                            intent3.putExtra("tasks", gameList.get(position).getTasksGame().size() + "");
+                            intent3.putExtra("money", gameList.get(position).getReward() + "");
+                            intent3.putExtra("type","ended");
+                            startActivity(intent3);
                             break;
                         case "Date and time":
                             Intent intent6 = new Intent(MyCreatedActivity.this, DateActivity.class);
@@ -203,7 +237,7 @@ public class MyCreatedActivity extends AppCompatActivity {
         gameList = new LinkedList<>();
         adapter = null;
         presenter.getGames();
-        empty.setVisibility(View.GONE);
+        //empty.setVisibility(View.GONE);
     }
 
     public void setList(List<GameNew> list) {
@@ -219,9 +253,11 @@ public class MyCreatedActivity extends AppCompatActivity {
         }
 
         if(list == null || list.size()==0){
-            //empty.setVisibility(View.VISIBLE);
+            empty.setVisibility(View.VISIBLE);
             //refresh.setVisibility(View.GONE);
-            error.setText(getString(R.string.fragmentGames_nogames));
+            //error.setText(getString(R.string.fragmentGames_nogames));
+        }else{
+            empty.setVisibility(View.GONE);
         }
         load.setVisibility(View.GONE);
 

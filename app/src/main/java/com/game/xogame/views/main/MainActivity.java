@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
@@ -54,6 +55,7 @@ import com.game.xogame.views.game.RatingGameActivity;
 import com.game.xogame.views.game.WinActivity;
 import com.game.xogame.views.profile.FragmentProfile;
 import com.game.xogame.views.profile.MyGamesActivity;
+import com.game.xogame.views.profile.MyWinsActivity;
 import com.game.xogame.views.profile.SettingActivity;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -105,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     public static ImageView button4;
     public static ImageView button5;
     public static ImageView button6;
-
+    public static Context mContext;
     public static String gameId;
     public static RelativeLayout bar;
     // location last updated time
@@ -124,12 +126,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mContext = this;
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         PlayActivity.activity = this;
         RatingGameActivity.activity = this;
         ModerationActivity.activity = this;
         WinActivity.activity = this;
         MyGamesActivity.activity = this;
+        MyWinsActivity.activity = this;
         SettingActivity.activity = this;
         GamePush.activity = this;
         GameInfoActivity.activity = this;

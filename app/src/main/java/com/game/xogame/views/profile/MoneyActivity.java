@@ -78,7 +78,7 @@ public class MoneyActivity extends AppCompatActivity {
         String paypal = sharedPref.getString("email", "");
         if (type.equals("phone")) {
             header.setText(getString(R.string.activityMoney_sentMoneyPhone));
-            money.setText(count + " ₴");
+            money.setText(count + " $");
             way.setText(getString(R.string.activityMyWins_mobile));
             info.setText(phone);
             assert phone != null;
@@ -86,7 +86,7 @@ public class MoneyActivity extends AppCompatActivity {
                 ok.setEnabled(false);
         } else if (type.equals("ccard")){
             header.setText(getString(R.string.activityMoney_sentMoneyCard));
-            money.setText(count + " ₴");
+            money.setText(count + " $");
             way.setText(getString(R.string.activityMyWins_card));
             info.setText(ccard);
             assert ccard != null;
@@ -99,7 +99,7 @@ public class MoneyActivity extends AppCompatActivity {
             info.setText(paypal);
             assert ccard != null;
             //if(ccard.equals(""))
-                ok.setEnabled(false);
+                //ok.setEnabled(false);
         }
 
         ok.setOnTouchListener(new View.OnTouchListener() {

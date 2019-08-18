@@ -37,8 +37,6 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 public class FragmentFeeds extends Fragment {
-
-
     static FeedsAdapter adapter;
     private static MainPresenter presenter;
     @SuppressLint("StaticFieldLeak")

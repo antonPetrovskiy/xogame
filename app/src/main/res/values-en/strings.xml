@@ -108,13 +108,13 @@
     <string name="fragmentGames_nogames">No games in your area yet</string>
     <string name="activityEditinfo_badnickname">Username must contain at least 3 letters in English or digits</string>
     <string name="activityInfo_termLink">terms of service and privacy policy</string>
-    <string name="activityTutorial_welcome">Welcome to Paparazzi</string>
-    <string name="activityTutorial_subscribe">Sign up for games</string>
-    <string name="activityTutorial_dotasks">Carry out task</string>
-    <string name="activityTutorial_befast">Be faster than other Paparazzi</string>
-    <string name="activityTutorial_win">Win the money</string>
-    <string name="activityTutorial_type">Transfer money to a mobile or credit card</string>
-    <string name="activityTurorial_signin">Sign in</string>
+    <string name="activityTutorial_welcome">Play</string>
+    <string name="activityTutorial_subscribe">Be fast</string>
+    <string name="activityTutorial_dotasks">Win</string>
+    <string name="activityTutorial_befast">Transfer your wininngs</string>
+    <string name="activityTutorial_win">Create games</string>
+    <string name="activityTutorial_type">Set location for your game</string>
+    <string name="activityTurorial_signin">Manage</string>
     <string name="activityMyWins_onmoderate">At the moment, there is a moderation. Please wait.</string>
     <string name="tutorial_welcome">Welcome to PAPARAZZI Games</string>
     <string name="tutorial_gamelist">This is a list of all available games in your area. Click on a game to view it\'s description</string>
@@ -172,7 +172,7 @@
     <string name="activityMyWins_email">To e-mail</string>
     <string name="activityPay_pay">Payment</string>
     <string name="activityProfile_create">" Create"</string>
-    <string name="activityProfile_mygame">Мои игры</string>
+    <string name="activityProfile_mygame">My games</string>
     <string name="activitySetting_pay">Billing information</string>
     <string name="category_all">All</string>
     <string name="category_art">Architecture</string>
@@ -182,12 +182,9 @@
     <string name="category_food">Food</string>
     <string name="category_fun">Humor</string>
     <string name="category_iscustvo">Art</string>
-    <string name="category_nature">Nature</string>
-    <string name="category_since">The science</string>
     <string name="category_sport">Sport</string>
     <string name="category_style">Style</string>
-    <string name="category_texture">Texture</string>
-    <string name="category_tv">Tv and movies</string>
+    <string name="category_tv">Movies</string>
     <string name="popup_no">No</string>
     <string name="popup_yes">Yes</string>
     <string name="status_active">Active</string>
@@ -196,6 +193,17 @@
     <string name="status_draft">Draft</string>
     <string name="status_ended">Finished</string>
     <string name="status_moderation">Moderation</string>
+    <string name="category_auto">Auto</string>
+    <string name="category_myday">My day</string>
+    <string name="category_other">Other</string>
+    <string name="category_travel">Travel</string>
+    <string name="activityCreateInfo_info">Instructions To create your own game or event   1. Give your game or event a cool name.  2. describe in few words what is this game or event about. So paparazzi around you will sign up to participate in your project.    3. set an image to make it extra interesting   4. Choose matching category to your game or event.    5. Using our cool and easy paparazzi games map touch system you can either touch on the map to invite audience near you.  Or type country region or just an address your game or event will take place.    6.  After successfully entering necessary information about your game or event. , you must add-missions for the paparazzi that will participate in your project. Think of it as you hiring real paparazzi to take photo you need for your project , magazine or just some advertising campaign.  7. Each mission that added by you will cost you $5 that will be paid to the winner of your game or event.  Think of it as you hired 1000 paparazzi but paid only to 3 of them   First place 60% second 25% third 15%   8. After successful transfer of the prize money by PayPal , your project will enter to our moderation team to check if all info you entered is 100% legal and have no disrespectful info or missions to public to see or participate.  9. During moderation, we will check all data of your game and, if any data is invalid, or disrespectful we will send you a notification with the game or event status \\\"canceled\\\" so that you can change them and send it to our moderation team again. After successful approval by our  moderation team , you will receive a notification. And only then you will be able to set time of start and end of your game or event.    Good luck</string>
+    <string name="activitySetting_notConfirmed">confirm</string>
+    <string name="category_fashion">Fashion</string>
+    <string name="activityTurorial_go">Enter</string>
+    <string name="activitySetting_confirmed">Confirmed</string>
+    <string name="activitySetting_sent">Request sent to mail</string>
+    <string name="activityMyWins_validate">Please first validate the mail in the profile settings</string>
 
 
 </resources>

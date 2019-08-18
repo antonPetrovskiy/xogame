@@ -55,6 +55,7 @@ public class SettingActivity extends AppCompatActivity {
     private TextView rateus;
     private LinearLayout load;
     private WebView web;
+    public TextView confirm;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     @Override
@@ -88,17 +89,25 @@ public class SettingActivity extends AppCompatActivity {
         rateus = findViewById(R.id.textView15);
         main = findViewById(R.id.all);
         web = findViewById(R.id.web);
+        confirm = findViewById(R.id.textView00);
 
-        save.setOnClickListener(new View.OnClickListener() {
+        confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if ((email.getText().toString()+"").equals("") || !email.getText().toString().contains("@") || !email.getText().toString().contains(".")) {
                     error(getString(R.string.activitySetting_wrongcard));
                 } else {
-                    presenter.editInfo();
+                    presenter.sentVerify();
                     getLoadView().setVisibility(View.VISIBLE);
                 }
+            }
+        });
 
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    presenter.editInfo();
+                    getLoadView().setVisibility(View.VISIBLE);
             }
         });
 
@@ -247,19 +256,19 @@ public class SettingActivity extends AppCompatActivity {
                 web.setVisibility(View.VISIBLE);
                 switch (getResources().getConfiguration().locale.getLanguage()) {
                     case "ru":
-                        web.loadUrl("https://paparazzi.games/lang/ru/contact-us.php");
+                        web.loadUrl("https://paparazzi.games/info/ru/feedback.php");
                         //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ru/contact-us.php")));
                         break;
                     case "uk":
-                        web.loadUrl("https://paparazzi.games/lang/ua/contact-us.php");
+                        web.loadUrl("https://paparazzi.games/info/ua/feedback.php");
                         //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ua/contact-us.php")));
                         break;
                     case "en":
-                        web.loadUrl("https://paparazzi.games/lang/en/contact-us.php");
+                        web.loadUrl("https://paparazzi.games/info/en/feedback.php");
                         //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/contact-us.php")));
                         break;
                     default:
-                        web.loadUrl("https://paparazzi.games/lang/en/contact-us.php");
+                        web.loadUrl("https://paparazzi.games/info/en/feedback.php");
                         //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/contact-us.php")));
                         break;
                 }
@@ -272,19 +281,19 @@ public class SettingActivity extends AppCompatActivity {
                 web.setVisibility(View.VISIBLE);
                 switch (getResources().getConfiguration().locale.getLanguage()) {
                     case "ru":
-                        web.loadUrl("https://paparazzi.games/lang/ru/Rules.html");
+                        web.loadUrl("https://paparazzi.games/info/ru/game-rules.html");
                         //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ru/Rules.html")));
                         break;
                     case "uk":
-                        web.loadUrl("https://paparazzi.games/lang/ua/Rules.html");
+                        web.loadUrl("https://paparazzi.games/info/ua/game-rules.html");
                         //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/ua/Rules.html")));
                         break;
                     case "en":
-                        web.loadUrl("https://paparazzi.games/lang/en/Rules.html");
+                        web.loadUrl("https://paparazzi.games/info/en/game-rules.html");
                         //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/Rules.html")));
                         break;
                     default:
-                        web.loadUrl("https://paparazzi.games/lang/en/Rules.html");
+                        web.loadUrl("https://paparazzi.games/info/en/game-rules.html");
                         //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paparazzi.games/lang/en/Rules.html")));
                         break;
                 }

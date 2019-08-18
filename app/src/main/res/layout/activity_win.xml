@@ -248,7 +248,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layUser1">
@@ -292,10 +292,12 @@
         <ImageView
             android:id="@+id/paypal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="29dp"
+            android:padding="8dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="100dp"
+            android:layout_marginEnd="29dp"
+            android:background="@drawable/oval_line_orange"
             app:srcCompat="@drawable/paypal"
             />
 

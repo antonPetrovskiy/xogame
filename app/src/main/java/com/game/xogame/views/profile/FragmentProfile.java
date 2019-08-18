@@ -488,7 +488,11 @@ public class FragmentProfile extends Fragment {
                 intent.putExtra("NAME", l.get(position).getCompany());
                 intent.putExtra("LOGO", l.get(position).getLogo());
                 intent.putExtra("BACKGROUND", l.get(position).getBackground());
-                intent.putExtra("DATE", l.get(position).getStartdate() + "-" + l.get(position).getEnddate());
+                if(l.get(position).getStartdate().equals(l.get(position).getEnddate())){
+                    intent.putExtra("DATE", l.get(position).getStartdate());
+                }else{
+                    intent.putExtra("DATE", l.get(position).getStartdate() + " - " + l.get(position).getEnddate());
+                }
                 intent.putExtra("DESCRIPTION", l.get(position).getDescription());
                 intent.putExtra("TASKS", l.get(position).getTasks());
                 intent.putExtra("TIME", l.get(position).getStarttime() + "-" + l.get(position).getEndtime());
@@ -496,6 +500,8 @@ public class FragmentProfile extends Fragment {
                 intent.putExtra("PEOPLE", l.get(position).getFollowers());
                 intent.putExtra("ADDRESS", l.get(position).getAddress());
                 intent.putExtra("CATEGORY", l.get(position).getCategory());
+                intent.putExtra("CATEGORYID", l.get(position).getCategoryId());
+                intent.putExtra("OWNER", l.get(position).isOwner()+"");
                 intent.putExtra("STATISTIC", "true");
                 startActivity(intent);
             }
@@ -535,7 +541,11 @@ public class FragmentProfile extends Fragment {
                 intent.putExtra("NAME", l.get(position).getCompany());
                 intent.putExtra("LOGO", l.get(position).getLogo());
                 intent.putExtra("BACKGROUND", l.get(position).getBackground());
-                intent.putExtra("DATE", l.get(position).getStartdate() + "-" + l.get(position).getEnddate());
+                if(l.get(position).getStartdate().equals(l.get(position).getEnddate())){
+                    intent.putExtra("DATE", l.get(position).getStartdate());
+                }else{
+                    intent.putExtra("DATE", l.get(position).getStartdate() + " - " + l.get(position).getEnddate());
+                }
                 intent.putExtra("DESCRIPTION", l.get(position).getDescription());
                 intent.putExtra("TASKS", l.get(position).getTasks());
                 intent.putExtra("TIME", l.get(position).getStarttime() + "-" + l.get(position).getEndtime());
@@ -545,6 +555,8 @@ public class FragmentProfile extends Fragment {
                 intent.putExtra("AVALIBLE", l.get(position).getGameAvaible());
                 intent.putExtra("ADDRESS", l.get(position).getAddress());
                 intent.putExtra("CATEGORY", l.get(position).getCategory());
+                intent.putExtra("CATEGORYID", l.get(position).getCategoryId());
+                intent.putExtra("OWNER", l.get(position).isOwner()+"");
                 intent.putExtra("STATISTIC", "false");
                 startActivity(intent);
             }

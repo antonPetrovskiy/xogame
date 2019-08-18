@@ -59,16 +59,28 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
 
         vh.textViewName1.setText(item.getCompany()+"");
         vh.textViewName2.setText(item.getTitle()+"");
-        vh.textViewDate.setText(item.getStartdate()+" - "+item.getEnddate()+"   "+item.getStarttime()+" - "+item.getEndtime());
+        if(item.getStartdate().equals(item.getEnddate())){
+            vh.textViewDate.setText(item.getStartdate()+"   "+item.getStarttime()+" - "+item.getEndtime());
+        }else{
+            vh.textViewDate.setText(item.getStartdate()+" - "+item.getEnddate()+"   "+item.getStarttime()+" - "+item.getEndtime());
+        }
+
         vh.textViewTasks.setText(item.getTasks()+" "+context.getString(R.string.adapterGames_tasks));
-        vh.textViewPrize.setText(item.getReward()+" ₴");
+        vh.textViewPrize.setText(item.getReward()+" $");
         vh.textViewPlay.setText(item.getFollowers()+" "+context.getString(R.string.adapterGames_participates));
 
         vh.textViewHolder.setText(item.getCompany().substring(0,1).toUpperCase()+"");
         vh.imageView.setImageResource(getPlaceholder(item.getCompany()+""));
-        if(item.getSubscribe()==null || item.getSubscribe().equals("0")){
+        Log.i("LOG_sub" , item.getSubscribe()+" ");
+        if(!item.getSubscribe()){
+
             vh.imageView2.setVisibility(View.GONE);
         }else{
+            vh.imageView2.setImageResource(R.drawable.game_plaing);
+            vh.imageView2.setVisibility(View.VISIBLE);
+        }
+        if(item.isOwner()){
+            vh.imageView2.setImageResource(R.drawable.icon_mygame);
             vh.imageView2.setVisibility(View.VISIBLE);
         }
         Picasso.with(context).load(item.getLogo()+"").placeholder(getPlaceholder(item.getCompany()+"")).error(getPlaceholder(item.getCompany()+"")).into(vh.imageView, new com.squareup.picasso.Callback() {
@@ -89,7 +101,7 @@ public class GamesAdapter  extends ArrayAdapter<Game> {
         requestOptions.centerCrop();
 
 
-        if(!item.getBackground().equals("")){
+        if(item.getBackground()!= null && !item.getBackground().equals("")){
             Glide.with(context).setDefaultRequestOptions(requestOptions).load(item.getBackground()+"").thumbnail(0.3f).into(vh.imageView1);
             //Picasso.with(context).load(item.getBackground()+"").placeholder(R.drawable.unknow_wide).error(R.drawable.unknow_wide).into(vh.imageView1);
         }

@@ -181,6 +181,7 @@
         android:layout_height="45dp"
         android:orientation="horizontal"
         android:scrollbarSize="2dp"
+        android:background="@drawable/bggradient"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearLayout77">
@@ -194,7 +195,10 @@
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/oval_line_o"
+                android:padding="5dp"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"
@@ -205,31 +209,40 @@
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
+                android:background="@drawable/oval_line_oo"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
                 android:text="@string/category_all"
                 android:textColor="#586575"
                 android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/textView3"
-                android:text="@string/category_food"
+                android:text="@string/category_auto"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
                 android:visibility="gone"
+                android:background="@drawable/oval_line_oo"
+                android:padding="5dp"
                 android:textColor="#586575"
                 android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/textView4"
-                android:text="@string/category_style"
+                android:text="@string/category_sport"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/oval_line_oo"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
@@ -239,9 +252,12 @@
 
             <TextView
                 android:id="@+id/textView5"
-                android:text="@string/category_art"
+                android:text="@string/category_food"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/oval_line_oo"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
@@ -251,9 +267,12 @@
 
             <TextView
                 android:id="@+id/textView6"
-                android:text="@string/category_tv"
+                android:text="@string/category_travel"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/oval_line_oo"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
@@ -265,7 +284,10 @@
                 android:id="@+id/textView7"
                 android:text="@string/category_fun"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/oval_line_oo"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
@@ -275,9 +297,12 @@
 
             <TextView
                 android:id="@+id/textView8"
-                android:text="@string/category_decor"
+                android:text="@string/category_tv"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/oval_line_oo"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
@@ -287,9 +312,27 @@
 
             <TextView
                 android:id="@+id/textView9"
-                android:text="@string/category_nature"
+                android:text="@string/category_beauty"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/oval_line_oo"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
+                android:layout_marginStart="14dp"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="center_vertical"
+                android:visibility="gone"
+                android:textColor="#586575"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/textView99"
+                android:text="@string/category_fashion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/oval_line_oo"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
@@ -299,9 +342,12 @@
 
             <TextView
                 android:id="@+id/textView10"
-                android:text="@string/category_since"
+                android:text="@string/category_decor"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/oval_line_oo"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
@@ -313,7 +359,10 @@
                 android:id="@+id/textView11"
                 android:text="@string/category_iscustvo"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/oval_line_oo"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
@@ -323,9 +372,12 @@
 
             <TextView
                 android:id="@+id/textView12"
-                android:text="@string/category_beauty"
+                android:text="@string/category_art"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/oval_line_oo"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
@@ -335,9 +387,12 @@
 
             <TextView
                 android:id="@+id/textView13"
-                android:text="@string/category_sport"
+                android:text="@string/category_style"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/oval_line_oo"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
@@ -347,9 +402,27 @@
 
             <TextView
                 android:id="@+id/textView14"
-                android:text="@string/category_texture"
+                android:text="@string/category_myday"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/oval_line_oo"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
+                android:layout_marginStart="14dp"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="center_vertical"
+                android:visibility="gone"
+                android:textColor="#586575"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:text="@string/category_other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/oval_line_oo"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
                 android:layout_marginStart="14dp"
                 android:fontFamily="@font/roboto_light"
                 android:gravity="center_vertical"
@@ -360,6 +433,18 @@
 
         </LinearLayout>
     </HorizontalScrollView>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scroll"
+        android:src="@drawable/profile_line_grey"
+        tools:ignore="ContentDescription"/>
 
     <LinearLayout
         android:layout_width="159dp"

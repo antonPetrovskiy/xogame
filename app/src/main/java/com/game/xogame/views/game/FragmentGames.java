@@ -61,7 +61,7 @@ public class FragmentGames extends Fragment {
     private Button refresh;
     private SwipeRefreshLayout pullToRefresh;
     public static List<Game> gameList;
-    private List<Game> tmpgameList;
+    public static List<Game> tmpgameList;
     public EditText search;
     private ImageView searchIcon;
     private ImageView exitIcon;
@@ -76,19 +76,20 @@ public class FragmentGames extends Fragment {
 
     private TextView create;
     private TextView all;
-    private TextView category_food;
-    private TextView category_style;
-    private TextView category_art;
-    private TextView category_tv;
-    private TextView category_fun;
-    private TextView category_decor;
-    private TextView category_nature;
-    private TextView category_since;
-    private TextView category_iscustvo;
-    private TextView category_beauty;
+    private TextView category_auto;
     private TextView category_sport;
-    private TextView category_texture;
-
+    private TextView category_food;
+    private TextView category_travel;
+    private TextView category_humor;
+    private TextView category_tv;
+    private TextView category_beauty;
+    private TextView category_fashion;
+    private TextView category_decor;
+    private TextView category_iscustvo;
+    private TextView category_art;
+    private TextView category_style;
+    private TextView category_myday;
+    private TextView category_other;
 
 
     public FragmentGames() {
@@ -280,8 +281,13 @@ public class FragmentGames extends Fragment {
                         tmpgameList.add(gameList.get(j));
                     }
                 }
-                adapter = new GamesAdapter(context, tmpgameList);
-                listView.setAdapter(adapter);
+                try{
+                    adapter = new GamesAdapter(context, tmpgameList);
+                    listView.setAdapter(adapter);
+                }catch (NullPointerException e){
+
+                }
+
             }
 
             @Override
@@ -319,7 +325,25 @@ public class FragmentGames extends Fragment {
                 startActivity(intent);
             }
         });
-        category_food = rootView.findViewById(R.id.textView3);
+        category_auto = rootView.findViewById(R.id.textView3);
+        category_auto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CategoryActivity.class);
+                intent.putExtra("category","auto");
+                startActivity(intent);
+            }
+        });
+        category_sport = rootView.findViewById(R.id.textView4);
+        category_sport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CategoryActivity.class);
+                intent.putExtra("category","sport");
+                startActivity(intent);
+            }
+        });
+        category_food = rootView.findViewById(R.id.textView5);
         category_food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -328,25 +352,25 @@ public class FragmentGames extends Fragment {
                 startActivity(intent);
             }
         });
-        category_style = rootView.findViewById(R.id.textView4);
-        category_style.setOnClickListener(new View.OnClickListener() {
+        category_travel = rootView.findViewById(R.id.textView6);
+        category_travel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, CategoryActivity.class);
-                intent.putExtra("category","style");
+                intent.putExtra("category","travel");
                 startActivity(intent);
             }
         });
-        category_art = rootView.findViewById(R.id.textView5);
-        category_art.setOnClickListener(new View.OnClickListener() {
+        category_humor = rootView.findViewById(R.id.textView7);
+        category_humor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, CategoryActivity.class);
-                intent.putExtra("category","art");
+                intent.putExtra("category","fun");
                 startActivity(intent);
             }
         });
-        category_tv = rootView.findViewById(R.id.textView6);
+        category_tv = rootView.findViewById(R.id.textView8);
         category_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -355,39 +379,30 @@ public class FragmentGames extends Fragment {
                 startActivity(intent);
             }
         });
-        category_fun = rootView.findViewById(R.id.textView7);
-        category_fun.setOnClickListener(new View.OnClickListener() {
+        category_beauty = rootView.findViewById(R.id.textView9);
+        category_beauty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, CategoryActivity.class);
-                intent.putExtra("category","fun");
+                intent.putExtra("category","beauty");
                 startActivity(intent);
             }
         });
-        category_decor = rootView.findViewById(R.id.textView8);
+        category_fashion = rootView.findViewById(R.id.textView99);
+        category_fashion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CategoryActivity.class);
+                intent.putExtra("category","fashion");
+                startActivity(intent);
+            }
+        });
+        category_decor = rootView.findViewById(R.id.textView10);
         category_decor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, CategoryActivity.class);
                 intent.putExtra("category","decor");
-                startActivity(intent);
-            }
-        });
-        category_nature = rootView.findViewById(R.id.textView9);
-        category_nature.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, CategoryActivity.class);
-                intent.putExtra("category","nature");
-                startActivity(intent);
-            }
-        });
-        category_since = rootView.findViewById(R.id.textView10);
-        category_since.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, CategoryActivity.class);
-                intent.putExtra("category","since");
                 startActivity(intent);
             }
         });
@@ -400,30 +415,39 @@ public class FragmentGames extends Fragment {
                 startActivity(intent);
             }
         });
-        category_beauty = rootView.findViewById(R.id.textView12);
-        category_beauty.setOnClickListener(new View.OnClickListener() {
+        category_art = rootView.findViewById(R.id.textView12);
+        category_art.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, CategoryActivity.class);
-                intent.putExtra("category","beauty");
+                intent.putExtra("category","art");
                 startActivity(intent);
             }
         });
-        category_sport = rootView.findViewById(R.id.textView13);
-        category_sport.setOnClickListener(new View.OnClickListener() {
+        category_style = rootView.findViewById(R.id.textView13);
+        category_style.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, CategoryActivity.class);
-                intent.putExtra("category","sport");
+                intent.putExtra("category","style");
                 startActivity(intent);
             }
         });
-        category_texture = rootView.findViewById(R.id.textView14);
-        category_texture.setOnClickListener(new View.OnClickListener() {
+        category_myday = rootView.findViewById(R.id.textView14);
+        category_myday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, CategoryActivity.class);
-                intent.putExtra("category","texture");
+                intent.putExtra("category","myday");
+                startActivity(intent);
+            }
+        });
+        category_other = rootView.findViewById(R.id.textView15);
+        category_other.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CategoryActivity.class);
+                intent.putExtra("category","other");
                 startActivity(intent);
             }
         });
@@ -455,7 +479,7 @@ public class FragmentGames extends Fragment {
 
     public void updateSubscribe(){
         for(final Game item : gameList){
-            if(item.getSubscribe()==null || item.getSubscribe().equals("1")){
+            if(!item.getSubscribe()){
                 FirebaseMessaging.getInstance().subscribeToTopic("/topics/agame" + item.getGameid())
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -489,38 +513,73 @@ public class FragmentGames extends Fragment {
             adapter.notifyDataSetChanged();
         }
 
+
+        all.setVisibility(View.GONE);
+        category_auto.setVisibility(View.GONE);
+        category_sport.setVisibility(View.GONE);
+        category_food.setVisibility(View.GONE);
+        category_travel.setVisibility(View.GONE);
+        category_humor.setVisibility(View.GONE);
+        category_tv.setVisibility(View.GONE);
+        category_beauty.setVisibility(View.GONE);
+        category_fashion.setVisibility(View.GONE);
+        category_decor.setVisibility(View.GONE);
+        category_iscustvo.setVisibility(View.GONE);
+        category_art.setVisibility(View.GONE);
+        category_style.setVisibility(View.GONE);
+        category_myday.setVisibility(View.GONE);
+        category_other.setVisibility(View.GONE);
         if(list == null || list.size()==0){
             categories.setVisibility(View.GONE);
             empty.setVisibility(View.VISIBLE);
             refresh.setVisibility(View.GONE);
             error.setText(getString(R.string.fragmentGames_nogames));
         }else{
+            all.setVisibility(View.VISIBLE);
             for(int i = 0; i < list.size(); i ++){
                 switch (list.get(i).getCategoryId()) {
                     case "0":
-                        category_food.setVisibility(View.VISIBLE);
+                        category_auto.setVisibility(View.VISIBLE);
+                        break;
                     case "1":
-                        category_style.setVisibility(View.VISIBLE);
+                        category_sport.setVisibility(View.VISIBLE);
+                        break;
                     case "2":
                         category_food.setVisibility(View.VISIBLE);
+                        break;
                     case "3":
-                        category_tv.setVisibility(View.VISIBLE);
+                        category_travel.setVisibility(View.VISIBLE);
+                        break;
                     case "4":
-                        category_fun.setVisibility(View.VISIBLE);
+                        category_humor.setVisibility(View.VISIBLE);
+                        break;
                     case "5":
-                        category_decor.setVisibility(View.VISIBLE);
+                        category_tv.setVisibility(View.VISIBLE);
+                        break;
                     case "6":
-                        category_nature.setVisibility(View.VISIBLE);
-                    case "7":
-                        category_since.setVisibility(View.VISIBLE);
-                    case "8":
-                        category_iscustvo.setVisibility(View.VISIBLE);
-                    case "9":
                         category_beauty.setVisibility(View.VISIBLE);
+                        break;
+                    case "7":
+                        category_fashion.setVisibility(View.VISIBLE);
+                        break;
+                    case "8":
+                        category_decor.setVisibility(View.VISIBLE);
+                        break;
+                    case "9":
+                        category_iscustvo.setVisibility(View.VISIBLE);
+                        break;
                     case "10":
-                        category_sport.setVisibility(View.VISIBLE);
+                        category_art.setVisibility(View.VISIBLE);
+                        break;
                     case "11":
-                        category_texture.setVisibility(View.VISIBLE);
+                        category_style.setVisibility(View.VISIBLE);
+                        break;
+                    case "12":
+                        category_myday.setVisibility(View.VISIBLE);
+                        break;
+                    case "13":
+                        category_other.setVisibility(View.VISIBLE);
+                        break;
                 }
             }
         }
@@ -537,7 +596,11 @@ public class FragmentGames extends Fragment {
                 intent.putExtra("NAME", tmpgameList.get(position).getCompany());
                 intent.putExtra("LOGO", tmpgameList.get(position).getLogo());
                 intent.putExtra("BACKGROUND", tmpgameList.get(position).getBackground());
-                intent.putExtra("DATE", tmpgameList.get(position).getStartdate() + " - " + l.get(position).getEnddate());
+                if(tmpgameList.get(position).getStartdate().equals(l.get(position).getEnddate())){
+                    intent.putExtra("DATE", tmpgameList.get(position).getStartdate());
+                }else{
+                    intent.putExtra("DATE", tmpgameList.get(position).getStartdate() + " - " + l.get(position).getEnddate());
+                }
                 intent.putExtra("DESCRIPTION", tmpgameList.get(position).getDescription());
                 intent.putExtra("TASKS", tmpgameList.get(position).getTasks());
                 intent.putExtra("TIME", tmpgameList.get(position).getStarttime() + " - " + l.get(position).getEndtime());
@@ -546,6 +609,8 @@ public class FragmentGames extends Fragment {
                 intent.putExtra("SHARE", tmpgameList.get(position).getSiteurl());
                 intent.putExtra("ADDRESS", tmpgameList.get(position).getAddress());
                 intent.putExtra("CATEGORY", tmpgameList.get(position).getCategory());
+                intent.putExtra("CATEGORYID", tmpgameList.get(position).getCategoryId());
+                intent.putExtra("OWNER", tmpgameList.get(position).isOwner()+"");
                 intent.putExtra("STATISTIC", "false");
                 startActivity(intent);
             }
@@ -568,7 +633,11 @@ public class FragmentGames extends Fragment {
                     intent.putExtra("NAME", tmpgameList.get(i).getCompany());
                     intent.putExtra("LOGO", tmpgameList.get(i).getLogo());
                     intent.putExtra("BACKGROUND", tmpgameList.get(i).getBackground());
-                    intent.putExtra("DATE", tmpgameList.get(i).getStartdate() + " - " + l.get(i).getEnddate());
+                    if(tmpgameList.get(i).getStartdate().equals(l.get(i).getEnddate())){
+                        intent.putExtra("DATE", tmpgameList.get(i).getStartdate());
+                    }else{
+                        intent.putExtra("DATE", tmpgameList.get(i).getStartdate() + " - " + l.get(i).getEnddate());
+                    }
                     intent.putExtra("DESCRIPTION", tmpgameList.get(i).getDescription());
                     intent.putExtra("TASKS", tmpgameList.get(i).getTasks());
                     intent.putExtra("TIME", tmpgameList.get(i).getStarttime() + " - " + l.get(i).getEndtime());
@@ -577,7 +646,9 @@ public class FragmentGames extends Fragment {
                     intent.putExtra("SHARE", tmpgameList.get(i).getSiteurl());
                     intent.putExtra("ADDRESS", tmpgameList.get(i).getAddress());
                     intent.putExtra("CATEGORY", tmpgameList.get(i).getCategory());
+                    intent.putExtra("CATEGORYID", tmpgameList.get(i).getCategoryId());
                     intent.putExtra("STATISTIC", "false");
+                    intent.putExtra("OWNER", tmpgameList.get(i).isOwner()+"");
                     MainActivity.gameId=null;
                     startActivity(intent);
                 }

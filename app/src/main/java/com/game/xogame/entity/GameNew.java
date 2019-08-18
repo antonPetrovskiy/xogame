@@ -1,5 +1,7 @@
 package com.game.xogame.entity;
 
+import com.game.xogame.R;
+import com.game.xogame.views.main.MainActivity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -21,13 +23,13 @@ public class GameNew {
     @SerializedName("wrong_name_game")
     @Expose
     private boolean wrong_name_game ;
-    @SerializedName("startdate")
+    @SerializedName("start_date")
     @Expose
     private String startdate;
     @SerializedName("start_task_time")
     @Expose
     private String start_task_time;
-    @SerializedName("enddate")
+    @SerializedName("end_date")
     @Expose
     private String enddate;
     @SerializedName("end_task_time")
@@ -75,7 +77,7 @@ public class GameNew {
     @SerializedName("wrong_tasks")
     @Expose
     private boolean wrong_tasks;
-    @SerializedName("game_category")
+    @SerializedName("category")
     @Expose
     private String category;
     @SerializedName("address_game")
@@ -185,6 +187,41 @@ public class GameNew {
         return category;
     }
 
+    public String getCategoryText() {
+        switch (category) {
+            case "0":
+                return MainActivity.mContext.getResources().getString(R.string.category_auto);
+            case "1":
+                return MainActivity.mContext.getResources().getString(R.string.category_sport);
+            case "2":
+                return MainActivity.mContext.getResources().getString(R.string.category_food);
+            case "3":
+                return MainActivity.mContext.getResources().getString(R.string.category_travel);
+            case "4":
+                return MainActivity.mContext.getResources().getString(R.string.category_fun);
+            case "5":
+                return MainActivity.mContext.getResources().getString(R.string.category_tv);
+            case "6":
+                return MainActivity.mContext.getResources().getString(R.string.category_beauty);
+            case "7":
+                return MainActivity.mContext.getResources().getString(R.string.category_fashion);
+            case "8":
+                return MainActivity.mContext.getResources().getString(R.string.category_decor);
+            case "9":
+                return MainActivity.mContext.getResources().getString(R.string.category_iscustvo);
+            case "10":
+                return MainActivity.mContext.getResources().getString(R.string.category_art);
+            case "11":
+                return MainActivity.mContext.getResources().getString(R.string.category_style);
+            case "12":
+                return MainActivity.mContext.getResources().getString (R.string.category_myday);
+            case "13":
+                return MainActivity.mContext.getResources().getString(R.string.category_other);
+            default:
+                return MainActivity.mContext.getResources().getString(R.string.category_other);
+        }
+    }
+
     public ArrayList<TasksGame> getTasksGame() {
         return tasksGame;
     }
@@ -201,7 +238,7 @@ public class GameNew {
         private CoordinateGame coordinateGame;
 
         public String getAddress_text() {
-            return address_text;
+            return address_text+"";
         }
 
         public int getRadius() {

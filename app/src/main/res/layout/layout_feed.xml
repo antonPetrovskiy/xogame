@@ -42,7 +42,7 @@
                 android:scaleType="centerCrop"
                 app:cardBackgroundColor="#ffffff"
                 app:cardCornerRadius="15dp"
-                app:cardElevation="5dp">
+                app:cardElevation="2dp">
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/imageView1"
@@ -85,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/roboto_medium"
+                    android:fontFamily="@font/roboto_regular"
                     android:textColor="#57606F"
                     android:maxLines="1"
                     android:textSize="12dp"
@@ -116,7 +116,7 @@
                 android:scaleType="centerCrop"
                 app:cardBackgroundColor="#ffffff"
                 app:cardCornerRadius="20dp"
-                app:cardElevation="5dp">
+                app:cardElevation="2dp">
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/imageView2"
@@ -180,7 +180,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/roboto_medium"
+                android:fontFamily="@font/roboto_light"
                 android:textColor="#57606F"
                 android:maxLines="1"
                 android:textSize="14dp"

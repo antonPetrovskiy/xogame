@@ -107,17 +107,18 @@ public class LoginActivity extends AppCompatActivity {
                         break;
                     case MotionEvent.ACTION_UP: // отпускание
                         next.animate().setDuration(100).scaleX(1.0f).scaleY(1.0f).start();
-                        if (ccp.getFullNumber().length() == 12) {
+                        //if (ccp.getFullNumber().length() == 12) {
                             if (((ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
                                 next.setClickable(false);
+                                next.setEnabled(false);
                                 presenter.login();
                                 //loading...
                             } else {
                                 showToast(getString(R.string.toast_noInternet));
                             }
-                        } else {
-                            showToast(getString(R.string.toast_wrongNumber));
-                        }
+                        //} else {
+                            //showToast(getString(R.string.toast_wrongNumber));
+                        //}
                         break;
                 }
                 return true;
@@ -125,6 +126,13 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        next.setClickable(true);
+        next.setEnabled(true);
+        super.onResume();
     }
 
     public void toConfirmPhoneActivity() {
@@ -141,6 +149,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void showToast(String s) {
+        next.setClickable(true);
+        next.setEnabled(true);
         LayoutInflater layoutInflater = LayoutInflater.from(LoginActivity.this);
         @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
         final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(this).create();

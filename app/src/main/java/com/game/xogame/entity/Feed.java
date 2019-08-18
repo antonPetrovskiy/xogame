@@ -33,7 +33,7 @@ public class Feed {
     private String userId;
     @SerializedName("userLike")
     @Expose
-    private String userLike;
+    private boolean userLike;
     @SerializedName("taskTime")
     @Expose
     private String taskTime;
@@ -87,7 +87,7 @@ public class Feed {
         return userId;
     }
 
-    public String getUserLike() {
+    public boolean getUserLike() {
         return userLike;
     }
 

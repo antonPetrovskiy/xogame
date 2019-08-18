@@ -37,6 +37,9 @@ public class User {
     @SerializedName("city")
     @Expose
     private String city;
+    @SerializedName("verify_status_mail")
+    @Expose
+    private String verifyMail;
 
 
     public String getNickname() {
@@ -77,5 +80,9 @@ public class User {
 
     public String getCity() {
         return city;
+    }
+
+    public String getVerifyMail() {
+        return verifyMail;
     }
 }

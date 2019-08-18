@@ -73,6 +73,7 @@ public class DateActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                save.setEnabled(false);
                 presenter.setDateGame(getIntent().getStringExtra("gameid"),textStartDay.getText().toString(),textEndDay.getText().toString(),textStartTime.getText().toString(),textEndTime.getText().toString());
             }
         });
@@ -86,9 +87,17 @@ public class DateActivity extends AppCompatActivity {
                         month = month + 1;
                         String date;
                         if (month < 10) {
-                            date = day + ".0" + month + "." + year;
+                            if(day<10){
+                                date = "0" + day + ".0" + month + "." + (year-2000);
+                            }else{
+                                date = day + ".0" + month + "." + (year-2000);
+                            }
                         } else {
-                            date = day + "." + month + "." + year;
+                            if(day<10){
+                                date = "0" + day + "." + month + "." + (year-2000);
+                            }else{
+                                date = day + "." + month + "." + (year-2000);
+                            }
                         }
                         textStartDay.setText(date);
                     }
@@ -118,9 +127,17 @@ public class DateActivity extends AppCompatActivity {
                         month = month + 1;
                         String date;
                         if (month < 10) {
-                            date = day + ".0" + month + "." + year;
+                            if(day<10){
+                                date = "0" + day + ".0" + month + "." + (year-2000);
+                            }else{
+                                date = day + ".0" + month + "." + (year-2000);
+                            }
                         } else {
-                            date = day + "." + month + "." + year;
+                            if(day<10){
+                                date = "0" + day + "." + month + "." + (year-2000);
+                            }else{
+                                date = day + "." + month + "." + (year-2000);
+                            }
                         }
                         textEndDay.setText(date);
                     }
@@ -216,6 +233,7 @@ public class DateActivity extends AppCompatActivity {
 
     public void showToast(String s) {
         //load.setVisibility(View.GONE);
+        save.setEnabled(true);
         LayoutInflater layoutInflater = LayoutInflater.from(DateActivity.this);
         @SuppressLint("InflateParams") View promptView = layoutInflater.inflate(R.layout.error, null);
         final android.app.AlertDialog alertD = new android.app.AlertDialog.Builder(this).create();

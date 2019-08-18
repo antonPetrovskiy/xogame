@@ -155,13 +155,14 @@
     <RelativeLayout
         android:id="@+id/empty"
         android:layout_width="match_parent"
-        android:layout_height="159dp"
+        android:layout_height="221dp"
         android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.69">
 
 
         <ImageView
@@ -175,14 +176,31 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_medium"
+            android:layout_alignTop="@+id/imageView23"
+            android:layout_alignBottom="@+id/imageView23"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_centerVertical="true"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:text="@string/activityMyWins_dontWin"
             android:textAlignment="center"
             android:textColor="#80586575"
-            android:textSize="16dp"
-            android:text="@string/activityMyWins_dontWin"/>
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/imageButton"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:background="@drawable/registration_button_view"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/activityMyGames_findgames"
+            android:textColor="#ffffff"
+            android:textSize="16dp" />
     </RelativeLayout>
 
     <RelativeLayout

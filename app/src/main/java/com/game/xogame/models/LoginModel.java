@@ -137,17 +137,17 @@ public class LoginModel {
         protected Void doInBackground(ContentValues... params) {
             String code = params[0].getAsString("CODE");
             final String number = params[0].getAsString("NUMBER");
-            Log.i("LOG_checkCode" , code);
-            Log.i("LOG_checkCode" , number);
+            //Log.i("LOG_checkCode" , code);
+            //Log.i("LOG_checkCode" , number);
             if (((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null) {
                 Call<RegistrationCallback> call = api.checkCode(code,number);
                 call.enqueue(new Callback<RegistrationCallback>() {
                     @Override
                     public void onResponse(Call<RegistrationCallback> call, Response<RegistrationCallback> response) {
                         if (response.isSuccessful()) {
-                            Log.i("LOG_checkCode" , "New user: " + response.body().getNewUser());
-                            Log.i("LOG_checkCode" , "Id: " + response.body().getId());
-                            Log.i("LOG_checkCode" , "Error: " + response.body().getError());
+                            //Log.i("LOG_checkCode" , "New user: " + response.body().getNewUser());
+                            //Log.i("LOG_checkCode" , "Id: " + response.body().getId());
+                            //Log.i("LOG_checkCode" , "Error: " + response.body().getError());
                             status = response.body().getStatus();
                             if(response.body().getStatus().equals("success")){
                                 newUser =  response.body().getNewUser();

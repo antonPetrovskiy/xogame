@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,6 +31,9 @@ public class ModeratedActivity extends AppCompatActivity {
     private ArrayList<String> taskList;
     private ListView listView;
     private CreateTaskAdapter adapter;
+    private LinearLayout auditoryLay;
+    private LinearLayout taskLay;
+    private LinearLayout categoryLay;
 
     private ImageView back;
 
@@ -51,6 +55,8 @@ public class ModeratedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moderated);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+
 
         taskList = new ArrayList<>();
         listView = findViewById(R.id.tasklist);
@@ -87,7 +93,42 @@ public class ModeratedActivity extends AppCompatActivity {
                     badTasks.setVisibility(View.VISIBLE);
             }
         }
+
         setList(taskList);
+    }
+
+    @Override
+    protected void onResume() {
+        name.setText(nameStr+"");
+        description.setText(descriptionStr+"");
+
+        if(imagePath!=null && !imagePath.equals("")){
+            RequestOptions requestOptions = new RequestOptions();
+            requestOptions.placeholder(R.drawable.unknow_wide);
+            requestOptions.error(R.drawable.unknow_wide);
+            requestOptions.centerCrop();
+            Glide.with(this).setDefaultRequestOptions(requestOptions).load(imagePath+"").thumbnail(0.3f).into(photo);
+        }
+
+        if(street!=null && !street.equals("")){
+            auditoryLay.setVisibility(View.VISIBLE);
+            auditoryText.setText(street);
+        }
+
+        if(taskList!=null && taskList.size()>0){
+            taskLay.setVisibility(View.VISIBLE);
+            taskText.setText(taskList.size()+" заданий");
+            rewardText.setText((taskList.size()*5)+" $");
+        }
+
+        if(category!=null && !category.equals("")){
+            categoryLay.setVisibility(View.VISIBLE);
+            categoryText.setText(category);
+        }
+
+
+
+        super.onResume();
     }
 
     public void init(){
@@ -105,6 +146,9 @@ public class ModeratedActivity extends AppCompatActivity {
         name = findViewById(R.id.editText1);
         description = findViewById(R.id.editText2);
         photo = findViewById(R.id.imageView1);
+        auditoryLay = findViewById(R.id.layAuditory);
+        taskLay = findViewById(R.id.layTask);
+        categoryLay = findViewById(R.id.layCategory);
 
         name.setText(nameStr+"");
         description.setText(descriptionStr+"");
@@ -129,7 +173,7 @@ public class ModeratedActivity extends AppCompatActivity {
 
     public void setList(List<String> list) {
         if(adapter==null) {
-            adapter = new CreateTaskAdapter(null, list);
+            adapter = new CreateTaskAdapter(this, list);
         }
         adapter.notifyDataSetChanged();
         listView.setAdapter(adapter);

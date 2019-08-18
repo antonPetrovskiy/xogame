@@ -1,5 +1,6 @@
 package com.game.xogame.adapter;
 
+import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +21,19 @@ public class CreateTaskAdapter  extends ArrayAdapter<String> {
     public List<String> tempList;
     private LayoutInflater mInflater;
     private CreateTaskActivity context;
+    private Context context1;
 
     // Constructors
     public CreateTaskAdapter(CreateTaskActivity context, List<String> objects) {
         super(context, 0, objects);
         this.context = context;
+        this.mInflater = LayoutInflater.from(context);
+        itemList = objects;
+    }
+
+    public CreateTaskAdapter(Context context, List<String> objects) {
+        super(context, 0, objects);
+        this.context1 = context;
         this.mInflater = LayoutInflater.from(context);
         itemList = objects;
     }
@@ -79,6 +88,13 @@ public class CreateTaskAdapter  extends ArrayAdapter<String> {
             }
         });
 
+        if(context1!=null){
+            vh.textViewTask.setEnabled(false);
+            vh.textViewTask.setFocusable(false);
+        }else{
+            vh.textViewTask.setEnabled(true);
+            vh.textViewTask.setFocusable(true);
+        }
 
 
 

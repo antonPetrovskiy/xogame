@@ -1,8 +1,10 @@
 package com.game.xogame.entity;
 
 import android.content.res.Resources;
+import android.util.Log;
 
 import com.game.xogame.R;
+import com.game.xogame.views.main.MainActivity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -51,7 +53,7 @@ public class Game {
     private String complited;
     @SerializedName("sub")
     @Expose
-    private String sub;
+    private boolean sub;
     @SerializedName("siteurl")
     @Expose
     private String siteurl;
@@ -70,6 +72,9 @@ public class Game {
     @SerializedName("category")
     @Expose
     private String category;
+    @SerializedName("owner")
+    @Expose
+    private boolean owner;
 
 
     public String getGameid() {
@@ -120,7 +125,7 @@ public class Game {
         return reward;
     }
 
-    public String getSubscribe() {
+    public boolean getSubscribe() {
         return sub;
     }
 
@@ -156,34 +161,42 @@ public class Game {
         return category;
     }
 
+    public boolean isOwner() {
+        return owner;
+    }
+
     public String getCategory() {
         switch (category) {
             case "0":
-                return Resources.getSystem().getString(R.string.category_food);
+                return MainActivity.mContext.getResources().getString(R.string.category_auto);
             case "1":
-                return Resources.getSystem().getString(R.string.category_style);
+                return MainActivity.mContext.getResources().getString(R.string.category_sport);
             case "2":
-                return Resources.getSystem().getString(R.string.category_art);
+                return MainActivity.mContext.getResources().getString(R.string.category_food);
             case "3":
-                return Resources.getSystem().getString(R.string.category_tv);
+                return MainActivity.mContext.getResources().getString(R.string.category_travel);
             case "4":
-                return Resources.getSystem().getString(R.string.category_fun);
+                return MainActivity.mContext.getResources().getString(R.string.category_fun);
             case "5":
-                return Resources.getSystem().getString(R.string.category_decor);
+                return MainActivity.mContext.getResources().getString(R.string.category_tv);
             case "6":
-                return Resources.getSystem().getString(R.string.category_nature);
+                return MainActivity.mContext.getResources().getString(R.string.category_beauty);
             case "7":
-                return Resources.getSystem().getString(R.string.category_since);
+                return MainActivity.mContext.getResources().getString(R.string.category_fashion);
             case "8":
-                return Resources.getSystem().getString(R.string.category_iscustvo);
+                return MainActivity.mContext.getResources().getString(R.string.category_decor);
             case "9":
-                return Resources.getSystem().getString(R.string.category_beauty);
+                return MainActivity.mContext.getResources().getString(R.string.category_iscustvo);
             case "10":
-                return Resources.getSystem().getString(R.string.category_sport);
+                return MainActivity.mContext.getResources().getString(R.string.category_art);
             case "11":
-                return Resources.getSystem().getString(R.string.category_texture);
+                return MainActivity.mContext.getResources().getString(R.string.category_style);
+            case "12":
+                return MainActivity.mContext.getResources().getString (R.string.category_myday);
+            case "13":
+                return MainActivity.mContext.getResources().getString(R.string.category_other);
             default:
-                return "";
+                return MainActivity.mContext.getResources().getString(R.string.category_other);
         }
     }
 }

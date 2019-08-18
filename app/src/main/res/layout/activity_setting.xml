@@ -309,11 +309,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginTop="9dp"
                         android:layout_marginEnd="12dp"
                         android:fontFamily="@font/roboto_regular"
                         android:text="@string/activitySetting_notConfirmed"
-                        android:textColor="#80586575"
+                        android:textColor="#F08C3C"
                         android:textSize="14dp" />
 
 

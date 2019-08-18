@@ -1,6 +1,8 @@
 package com.game.xogame.presenters;
 
 import android.content.ContentValues;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 
 import com.game.xogame.R;
@@ -33,6 +35,15 @@ public class SettingPresenter {
                     viewSetting.setGender(viewSetting.getString(R.string.popupGenderChooser_man));
                 }else if((model.user.getGender()+"").equals("Female")){
                     viewSetting.setGender(viewSetting.getString(R.string.popupGenderChooser_woman));
+                }
+
+                Log.i("LOG_logmail" , model.user.getVerifyMail());
+                if(model.user.getVerifyMail().equals("true")){
+                    viewSetting.confirm.setText(viewSetting.getString(R.string.activitySetting_confirmed));
+                    viewSetting.confirm.setTextColor(Color.parseColor("#80586575"));
+                }else{
+                    viewSetting.confirm.setText(viewSetting.getString(R.string.activitySetting_notConfirmed));
+                    viewSetting.confirm.setTextColor(Color.parseColor("#F08C3C"));
                 }
 
                 viewSetting.setAge(model.user.getBirthday() + "");
@@ -73,4 +84,18 @@ public class SettingPresenter {
             }
         });
     }
+
+    public void sentVerify() {
+        ContentValues cv = new ContentValues(1);
+        cv.put("EMAIL", viewSetting.getEmail());
+
+        model.verify(cv, new UserInfoModel.VerifyCallback() {
+            @Override
+            public void onEdit() {
+                viewSetting.error(viewSetting.getString(R.string.activitySetting_sent));
+                viewSetting.getLoadView().setVisibility(View.GONE);
+            }
+        });
+    }
+
 }

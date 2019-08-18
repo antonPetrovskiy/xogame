@@ -225,7 +225,62 @@ public class GamePush extends FirebaseMessagingService {
         intent.putExtra("PEOPLE", data.get("followers"));
         intent.putExtra("SHARE", data.get("gameid"));
         intent.putExtra("ADDRESS", data.get("address"));
-        intent.putExtra("CATEGORY", data.get("category"));
+        String s;
+        switch (data.get("category")+"") {
+            case "0":
+                s =  MainActivity.mContext.getResources().getString(R.string.category_auto);
+                break;
+            case "1":
+                s = MainActivity.mContext.getResources().getString(R.string.category_sport);
+                break;
+            case "2":
+                s = MainActivity.mContext.getResources().getString(R.string.category_food);
+                break;
+            case "3":
+                s = MainActivity.mContext.getResources().getString(R.string.category_travel);
+                break;
+            case "4":
+                s = MainActivity.mContext.getResources().getString(R.string.category_fun);
+                break;
+            case "5":
+                s = MainActivity.mContext.getResources().getString(R.string.category_tv);
+                break;
+            case "6":
+                s = MainActivity.mContext.getResources().getString(R.string.category_beauty);
+                break;
+            case "7":
+                s = MainActivity.mContext.getResources().getString(R.string.category_fashion);
+                break;
+            case "8":
+                s = MainActivity.mContext.getResources().getString(R.string.category_decor);
+                break;
+            case "9":
+                s = MainActivity.mContext.getResources().getString(R.string.category_iscustvo);
+                break;
+            case "10":
+                s = MainActivity.mContext.getResources().getString(R.string.category_art);
+                break;
+            case "11":
+                s = MainActivity.mContext.getResources().getString(R.string.category_style);
+                break;
+            case "12":
+                s = MainActivity.mContext.getResources().getString (R.string.category_myday);
+                break;
+            case "13":
+                s = MainActivity.mContext.getResources().getString(R.string.category_other);
+                break;
+            default:
+                try{
+                    s = MainActivity.mContext.getResources().getString(R.string.category_other);
+                }catch (NullPointerException e){
+                    s = "Other";
+                }
+
+                break;
+        }
+        intent.putExtra("CATEGORY", s);
+        intent.putExtra("CATEGORYID", data.get("category"));
+        intent.putExtra("OWNER", data.get("owner"));
         intent.putExtra("STATISTIC", "siteurl");
         //activity.finish();
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

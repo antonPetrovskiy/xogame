@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -56,9 +57,10 @@ public class CreateTaskActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                //imm.hideSoftInputFromWindow(save.getWindowToken(), 0);
+                getWindow().getDecorView().clearFocus();
                 for(int i = 0; i < list.size(); i ++){
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(save.getWindowToken(), 0);
                     if(list.get(i).equals("")){
                         showToast(getString(R.string.activityCreateTask_fillAll));
                         return;
@@ -69,6 +71,8 @@ public class CreateTaskActivity extends AppCompatActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
+
+
             }
         });
         plus = findViewById(R.id.imageViewPlus);

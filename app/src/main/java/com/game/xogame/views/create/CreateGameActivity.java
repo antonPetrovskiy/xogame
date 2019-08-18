@@ -51,7 +51,7 @@ public class CreateGameActivity extends AppCompatActivity {
     private static String category;
     private static String street;
     private static String radius;
-    public String gameid;
+    public static String gameid;
     private static ArrayList<String> list = new ArrayList<>();
     public ApiService api;
     private CreateGamePresenter presenter;
@@ -71,6 +71,7 @@ public class CreateGameActivity extends AppCompatActivity {
     private TextView taskText;
     private TextView rewardText;
     private LinearLayout load;
+    private TextView howCreate;
 
 
 
@@ -105,7 +106,9 @@ public class CreateGameActivity extends AppCompatActivity {
                 imagePath = extras.getString("photo");
             if(extras.getString("gameid")!=null && !extras.getString("gameid").equals(""))
                 gameid = extras.getString("gameid");
-
+            Log.i("LOG_create" , " id1 - "+gameid);
+        }else{
+            gameid = "";
         }
     }
 
@@ -167,7 +170,14 @@ public class CreateGameActivity extends AppCompatActivity {
 
 
 
-
+        howCreate = findViewById(R.id.imageView0);
+        howCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CreateGameActivity.this, CreateInfoActivity.class);
+                startActivity(intent);
+            }
+        });
 
         back = findViewById(R.id.imageView);
         back.setOnClickListener(new View.OnClickListener() {
@@ -230,16 +240,19 @@ public class CreateGameActivity extends AppCompatActivity {
                 btnAdd2.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         alertD.cancel();
-                        if(street!=null && !street.equals("") && !name.getText().toString().equals("") && !description.getText().toString().equals("") && imagePath!=null && list.size()>0 && lat!=null && !lat.equals("") && categoryID!=null && !categoryID.equals("")) {
                             String[] arr = new String[list.size()];
                             for (int i = 0; i < arr.length; i++) {
                                 arr[i] = list.get(i);
                             }
                             load.setVisibility(View.VISIBLE);
-                            presenter.createGame(name.getText().toString(), description.getText().toString(), imagePath, arr, lat, lng, street, radius, categoryID, "", false);
+                            Log.i("LOG_create" , " id2 - "+gameid);
+                        if(!name.getText().toString().equals("")) {
+                            presenter.createGame(name.getText().toString(), description.getText().toString(), imagePath, arr, lat, lng, street, radius, categoryID, gameid, false);
                         }else{
                             showToast(getString(R.string.activityCreateGame_fillInfo));
                         }
+
+
                     }
                 });
 
@@ -313,17 +326,69 @@ public class CreateGameActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Bundle extras = getIntent().getExtras();
+        if(extras!= null && extras.getString("type")!=null && extras.getString("type").equals("canceled")){
+            pay.setText("OK");
+            pay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(street!=null && !street.equals("") && !name.getText().toString().equals("") && !description.getText().toString().equals("") && imagePath!=null && list.size()>0 && lat!=null && !lat.equals("") && categoryID!=null && !categoryID.equals("")) {
+                        String[] arr = new String[list.size()];
+                        for (int i = 0; i < arr.length; i++) {
+                            arr[i] = list.get(i);
+                        }
+                        presenter.createGame(name.getText().toString(), description.getText().toString(), imagePath, arr, lat, lng, street, radius, categoryID, gameid, true);
+                        load.setVisibility(View.VISIBLE);
+                    }else{
+                        showToast(getString(R.string.activityCreateGame_fillInfo));
+                    }
+                }
+            });
+
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
+
+        }
+//            pay.setVisibility(View.GONE);
+//            name.setEnabled(false);
+//            name.setFocusable(false);
+//            description.setEnabled(false);
+//            description.setFocusable(false);
+//            auditoryLay.setEnabled(false);
+//            categoryLay.setEnabled(false);
+//            photo.setEnabled(false);
+//            back.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    onBackPressed();
+//                }
+//            });
+//            save.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    onBackPressed();
+//                }
+//            });
+//
+//        }
     }
 
     public void end(){
         load.setVisibility(View.GONE);
         nameStr = "";
         descriptionStr = "";
-        imagePath = "";
+        imagePath = null;
         street = "";
         radius = "";
         lat = "";
         lng = "";
+        category = "";
+        categoryID = "";
         list = new ArrayList<>();
         finish();
     }
@@ -340,7 +405,7 @@ public class CreateGameActivity extends AppCompatActivity {
     public void refresh(){
         nameStr = "";
         descriptionStr = "";
-        imagePath = "";
+        imagePath = null;
         street = "";
         radius = "";
         lat = "";

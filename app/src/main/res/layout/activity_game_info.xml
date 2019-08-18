@@ -164,14 +164,14 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/imageView10"
                             android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginBottom="12dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
                             android:adjustViewBounds="true"
                             app:srcCompat="@drawable/game_icon_date"
                             tools:ignore="ContentDescription"/>
@@ -179,8 +179,8 @@
                         <ImageView
                             android:id="@+id/imageView11"
                             android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginBottom="12dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
                             android:adjustViewBounds="true"
                             app:srcCompat="@drawable/game_icon_tasks"
                             tools:ignore="ContentDescription"/>
@@ -188,7 +188,8 @@
                         <ImageView
                             android:id="@+id/imageView12"
                             android:layout_width="16dp"
-                            android:layout_height="16dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
                             android:adjustViewBounds="true"
                             app:srcCompat="@drawable/icon_users_orange"
                             tools:ignore="ContentDescription" />
@@ -196,7 +197,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="12dp"
                         android:orientation="vertical">
 
@@ -204,27 +205,34 @@
                             android:id="@+id/textView28"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="12dp"
+                            android:paddingBottom="6dp"
+                            android:paddingTop="6dp"
                             android:maxLines="1"
-                            android:textColor="#ABB2BA"
-                            android:textSize="12dp"
-                            tools:text="21.12.12-21.12.121212121212122121212121" />
+                            android:textColor="#2F3542"
+                            android:textSize="14dp"
+                            android:fontFamily="@font/roboto_medium"
+                            tools:text="21.12.12-21.12.121212121212122128767676767671212121" />
 
                         <TextView
                             android:id="@+id/textView29"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="12dp"
-                            android:textColor="#ABB2BA"
-                            android:textSize="12dp"
+                            android:paddingBottom="6dp"
+                            android:paddingTop="6dp"
+                            android:textColor="#2F3542"
+                            android:textSize="14dp"
+                            android:fontFamily="@font/roboto_medium"
                             tools:text="20 заданий" />
 
                         <TextView
                             android:id="@+id/textView31"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="6dp"
+                            android:paddingTop="6dp"
                             android:textColor="#F08C3C"
-                            android:textSize="12dp"
+                            android:textSize="14dp"
+                            android:fontFamily="@font/roboto_medium"
                             tools:text="1232 человек" />
                     </LinearLayout>
 
@@ -234,20 +242,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:layout_gravity="bottom"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/imageView13"
                             android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginBottom="12dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
                             android:adjustViewBounds="true"
                             app:srcCompat="@drawable/game_icon_time"
                             tools:ignore="ContentDescription"/>
@@ -255,8 +262,8 @@
                         <ImageView
                             android:id="@+id/imageView14"
                             android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginBottom="12dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
                             android:adjustViewBounds="true"
                             app:srcCompat="@drawable/game_icon_money"
                             tools:ignore="ContentDescription"/>
@@ -264,7 +271,8 @@
                         <ImageView
                             android:id="@+id/imageView15"
                             android:layout_width="16dp"
-                            android:layout_height="16dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
                             android:adjustViewBounds="true"
                             app:srcCompat="@drawable/icon_category_orange"
                             tools:ignore="ContentDescription"/>
@@ -274,7 +282,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="12dp"
                         android:orientation="vertical">
 
@@ -282,25 +290,32 @@
                             android:id="@+id/textView32"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="12dp"
-                            android:textColor="#ABB2BA"
-                            android:textSize="12dp"
+                            android:paddingBottom="6dp"
+                            android:paddingTop="6dp"
+                            android:textColor="#2F3542"
+                            android:textSize="14dp"
+                            android:fontFamily="@font/roboto_medium"
                             tools:text="12:00 - 15:00" />
 
                         <TextView
                             android:id="@+id/textView33"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="#ABB2BA"
-                            android:paddingBottom="12dp"
-                            android:textSize="12dp"
+                            android:paddingBottom="6dp"
+                            android:paddingTop="6dp"
+                            android:textColor="#2F3542"
+                            android:textSize="14dp"
+                            android:fontFamily="@font/roboto_medium"
                             tools:text="1000 uah" />
                         <TextView
                             android:id="@+id/textView34"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="6dp"
+                            android:paddingTop="6dp"
                             android:textColor="#F08C3C"
-                            android:textSize="12dp"
+                            android:textSize="14dp"
+                            android:fontFamily="@font/roboto_medium"
                             tools:text="Игры" />
 
 
@@ -318,7 +333,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="12dp"
                 android:fontFamily="@font/roboto_regular"
-                android:textColor="#586575"
+                android:textColor="#2F3542"
                 android:textSize="14dp"
                 tools:text="When President Donald Trump first tried to stop citizens from seven predominantly Muslim countries from entering the United States, he cited the Sept. 11 terrorist attacks as his rationale. Yet none of the men behind those attacks hailed from these countries. In fact, a Cato Institute analysis shows that between 1975 and 2015 no one from these countries killed a single American in a U.S. terrorist attack." />
 
@@ -349,7 +364,7 @@
                 android:fontFamily="@font/roboto_regular"
                 android:text="Киев, Большая Китаевская 6"
                 android:textColor="#f08c3c"
-                android:textSize="12dp" />
+                android:textSize="14dp" />
 
         </LinearLayout>
 

@@ -61,9 +61,13 @@ public class GamesNewAdapter extends ArrayAdapter<GameNew> {
 
         vh.textViewName1.setText(item.getCompany()+"");
         vh.textViewName2.setText(item.getName_game()+"");
-        vh.textViewDate.setText(item.getStartdate()+" - "+item.getEnddate()+"   "+item.getStart_task_time()+" - "+item.getEnd_task_time());
+        if(item.getStartdate().equals(item.getEnddate())){
+            vh.textViewDate.setText(item.getStartdate()+"   "+item.getStart_task_time()+" - "+item.getEnd_task_time());
+        }else{
+            vh.textViewDate.setText(item.getStartdate()+" - "+item.getEnddate()+"   "+item.getStart_task_time()+" - "+item.getEnd_task_time());
+        }
         vh.textViewTasks.setText(item.getTasksGame().size()+" "+context.getString(R.string.adapterGames_tasks));
-        vh.textViewPrize.setText(item.getReward()+" ₴");
+        vh.textViewPrize.setText(item.getReward()+" $");
         vh.textViewPlay.setText(item.getFollowers()+" "+context.getString(R.string.adapterGames_participates));
 
         switch(item.getStatus()){
@@ -136,7 +140,7 @@ public class GamesNewAdapter extends ArrayAdapter<GameNew> {
         requestOptions.centerCrop();
 
 
-        if(!item.getBackground().equals("")){
+        if(item.getBackground()!=null && !item.getBackground().equals("")){
             Glide.with(context).setDefaultRequestOptions(requestOptions).load(item.getBackground()+"").thumbnail(0.3f).into(vh.imageView1);
             //Picasso.with(context).load(item.getBackground()+"").placeholder(R.drawable.unknow_wide).error(R.drawable.unknow_wide).into(vh.imageView1);
         }

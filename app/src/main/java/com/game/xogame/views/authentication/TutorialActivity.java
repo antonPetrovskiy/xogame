@@ -64,6 +64,7 @@ public class TutorialActivity extends AppCompatActivity {
                 itemList.add(R.drawable.tutorial5_ru);
                 itemList.add(R.drawable.tutorial6_ru);
                 itemList.add(R.drawable.tutorial7_ru);
+                itemList.add(R.drawable.tutorial8_ru);
                 break;
             case "uk":
                 itemList.add(R.drawable.tutorial1_ua);
@@ -73,6 +74,7 @@ public class TutorialActivity extends AppCompatActivity {
                 itemList.add(R.drawable.tutorial5_ua);
                 itemList.add(R.drawable.tutorial6_ua);
                 itemList.add(R.drawable.tutorial7_ua);
+                itemList.add(R.drawable.tutorial8_ua);
                 break;
             case "en":
                 itemList.add(R.drawable.tutorial1_en);
@@ -82,6 +84,7 @@ public class TutorialActivity extends AppCompatActivity {
                 itemList.add(R.drawable.tutorial5_en);
                 itemList.add(R.drawable.tutorial6_en);
                 itemList.add(R.drawable.tutorial7_en);
+                itemList.add(R.drawable.tutorial8_en);
                 break;
             default:
                 itemList.add(R.drawable.tutorial1_en);
@@ -91,6 +94,7 @@ public class TutorialActivity extends AppCompatActivity {
                 itemList.add(R.drawable.tutorial5_en);
                 itemList.add(R.drawable.tutorial6_en);
                 itemList.add(R.drawable.tutorial7_en);
+                itemList.add(R.drawable.tutorial8_en);
                 break;
         }
 
@@ -108,7 +112,7 @@ public class TutorialActivity extends AppCompatActivity {
         lay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(page == 6)
+                if(page == 7)
                     skip.performClick();
             }
         });
@@ -172,6 +176,10 @@ public class TutorialActivity extends AppCompatActivity {
                 break;
             case 6:
                 text.setText(getString(R.string.activityTurorial_signin));
+                Picasso.with(this).load(R.drawable.tutorial_n7).placeholder(R.drawable.tutorial_n0).into(number);
+                break;
+            case 7:
+                text.setText(getString(R.string.activityTurorial_go));
                 Picasso.with(this).load(R.drawable.tutorial_n7).placeholder(R.drawable.tutorial_n0).into(number);
                 break;
 

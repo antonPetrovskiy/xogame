@@ -34,6 +34,11 @@ public interface ApiService {
     Call<RegistrationCallback> checkCode(@Field("code") String code,
                                          @Field("number") String number);
 
+    @FormUrlEncoded
+    @POST("verifymail/")
+    Call<DefaultCallback> verifyMail(@Field("token") String token,
+                                         @Field("mail") String mail);
+
     @Multipart
     @POST("register/")
     Call<RegistrationCallback> setInfoRegister(@Part("nickname") String nickname,
@@ -70,15 +75,9 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("game/money/")
-    Call<DefaultCallback> getMoneyPhone(@Field("token") String token,
+    Call<DefaultCallback> getMoneyEmail(@Field("token") String token,
                                    @Field("gameid") String gameid,
-                                   @Field("number") String number);
-
-    @FormUrlEncoded
-    @POST("game/money/")
-    Call<DefaultCallback> getMoneyCard(@Field("token") String token,
-                                        @Field("gameid") String gameid,
-                                        @Field("ccard") String ccard);
+                                   @Field("mail") String email);
 
     @FormUrlEncoded
     @POST("game/rate/")
@@ -95,6 +94,11 @@ public interface ApiService {
     Call<FeedCallback> getFullFeeds(@Field("token") String token,
                                     @Field("flag") String flag,
                                     @Field("limit") String limit);
+
+    @FormUrlEncoded
+    @POST("game/lenta/")
+    Call<FeedCallback> getFullFeeds(@Field("token") String token,
+                                    @Field("gameid") String gameid);
 
     @FormUrlEncoded
     @POST("game/like/")
@@ -166,6 +170,32 @@ public interface ApiService {
                                     @Part("category") String category,
                                     @Part("gameid") String gameid);
 
+    @Multipart
+    @POST("game/create/")
+    Call<CreateCallback> createGame(@Part("token") String token,
+                                    @Part("title") String title,
+                                    @Part("description") String description,
+                                    @Part MultipartBody.Part background,
+                                    @Part("name[]") String[] name,
+                                    @Part("lat") String lat,
+                                    @Part("lon") String lon,
+                                    @Part("address") String address,
+                                    @Part("flevel") String flevel,
+                                    @Part("category") String category);
+
+    @Multipart
+    @POST("game/create/")
+    Call<CreateCallback> createGame(@Part("token") String token,
+                                    @Part("title") String title,
+                                    @Part("description") String description,
+                                    @Part("name[]") String[] name,
+                                    @Part("lat") String lat,
+                                    @Part("lon") String lon,
+                                    @Part("address") String address,
+                                    @Part("flevel") String flevel,
+                                    @Part("category") String category,
+                                    @Part("gameid") String gameid);
+
     @FormUrlEncoded
     @POST("game/delete/")
     Call<DefaultCallback> deleteGame(@Field("token") String token,
@@ -178,7 +208,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("game/dateandtime/")
     Call<DefaultCallback> setDateGame(@Field("token") String token,
-                                       @Field("gameid") String gameid,
+                                       @Field("game_id") String gameid,
                                        @Field("game_start_date") String startdate,
                                        @Field("game_end_date") String enddate,
                                        @Field("send_push_from_time") String starttime,

@@ -57,7 +57,7 @@
     <string name="activityMoney_sentMoneyPhone">Перевести деньги на мобильный телефон</string>
     <string name="activityMoney_sentMoneyCard">Перевести деньги на кредитную карту</string>
     <string name="activityGameInfo_people">папарацци</string>
-    <string name="activityGameInfo_leave">отказатся</string>
+    <string name="activityGameInfo_leave">отказаться</string>
     <string name="activityGameInfo_join">участвовать</string>
     <string name="activityMoney_sentMoneyOn">Перевести деньги на</string>
     <string name="activityMoney_confirm">Подтвердить</string>
@@ -108,13 +108,13 @@
     <string name="fragmentGames_nogames">На данный момент нет игр для вашего региона</string>
     <string name="activityEditinfo_badnickname">Имя пользователя должно содержать, как минимум, 3 английских буквы или цифры</string>
     <string name="activityInfo_termLink">условия обслуживания и политику конфиденциальности.</string>
-    <string name="activityTutorial_welcome">Добро пожаловать в Paparazzi</string>
-    <string name="activityTutorial_subscribe">Подписывайся на игры</string>
-    <string name="activityTutorial_dotasks">Выполняй задания</string>
-    <string name="activityTutorial_befast">Будь быстрее других Paparazzi</string>
-    <string name="activityTutorial_win">Выигрывай деньги</string>
-    <string name="activityTutorial_type">Переводи деньги на мобильный или кредитную карту</string>
-    <string name="activityTurorial_signin">Войти в приложение</string>
+    <string name="activityTutorial_welcome">Играй</string>
+    <string name="activityTutorial_subscribe">Буть быстрее</string>
+    <string name="activityTutorial_dotasks">Будь первым</string>
+    <string name="activityTutorial_befast">Переводи деньги</string>
+    <string name="activityTutorial_win">Создавай игры</string>
+    <string name="activityTutorial_type">Укажите место вашей игры</string>
+    <string name="activityTurorial_signin">Управляй</string>
     <string name="activityMyWins_onmoderate">На данный момент идет модерация. Подождите пожалуйста.</string>
     <string name="tutorial_welcome">Добро пожаловать в PAPARAZZI Games</string>
     <string name="tutorial_gamelist">Это список всех доступных игр на Вашей территории. Нажмите на игру что бы посмотреть ее описание</string>
@@ -182,12 +182,9 @@
     <string name="category_food">Еда</string>
     <string name="category_fun">Юмор</string>
     <string name="category_iscustvo">Искуство</string>
-    <string name="category_nature">Природа</string>
-    <string name="category_since">Наука</string>
     <string name="category_sport">Спорт</string>
     <string name="category_style">Стиль</string>
-    <string name="category_texture">Текстура</string>
-    <string name="category_tv">Тв и фильмы</string>
+    <string name="category_tv">Фильмы</string>
     <string name="popup_no">Нет</string>
     <string name="popup_yes">Да</string>
     <string name="status_active">Активно</string>
@@ -196,6 +193,17 @@
     <string name="status_draft">Черновик</string>
     <string name="status_ended">Закончено</string>
     <string name="status_moderation">Модерация</string>
+    <string name="category_auto">Авто</string>
+    <string name="category_myday">Мой день</string>
+    <string name="category_other">Остальное</string>
+    <string name="category_travel">Путешествия</string>
+    <string name="activityCreateInfo_info">Инструкция по созданию собственной игры или события 1. Дайте вашей игре или событию крутое имя. 2. Опишите в нескольких словах, что это за игра или событие. Так что бы папарацци вокруг вас заинтересовались в вашем проекте. 3. установите изображение, чтобы сделать ваш проект более интересным 4. Выберите подходящую категорию для вашей игры или события. 5. Используя нашу удобную сенсорную систему с картами игр папарацци, вы можете нажать на карту, чтобы пригласить аудиторию рядом с вами. Или введите регион страны или просто адрес вашей игры или события. 6. После успешного ввода необходимой информации о вашей игре или события . Вы должны добавить миссии для папарацци, которые будут участвовать в вашем проекте. Представьте, что вы нанимаете настоящих папарацци, чтобы делать фотографии, необходимые для вашего проекта, журнала или просто какой-то рекламной кампании. 7. Каждая добавленная вами миссия будет стоить вам 5 долларов, которые будут выплачены победителю вашей игры или мероприятия. Представьте, что вы наняли 1000 папарацци, но заплатили только 3 из них. Первое место 60% второе 25% третье 15% 8. После успешного перевода призового фонда через PayPal, ваш проект войдет в нашу команду модераторов, чтобы проверить, является ли вся введенная вами информация на 100% законной и не имеет неуважительной информации или заданий для просмотра или участия. 9. Во время модерации мы проверим все данные вашей игры и, если какие-либо данные будут недействительными или неуважительными, мы отправим вам уведомление со статусом игры или события «отменено», чтобы вы могли изменить их и отправить Команде модераторов снова. После успешного одобрения нашей командой модераторов вы получите уведомление. И только тогда вы сможете установить время начала и окончания вашей игры или события.</string>
+    <string name="activitySetting_notConfirmed">Подтвердить</string>
+    <string name="category_fashion">Мода</string>
+    <string name="activityTurorial_go">Войти</string>
+    <string name="activitySetting_confirmed">Подтверждена</string>
+    <string name="activitySetting_sent">На почту отправлен запрос</string>
+    <string name="activityMyWins_validate">Пожалуйста, подтвердите почту в настройках профиля</string>
 
 
 </resources>

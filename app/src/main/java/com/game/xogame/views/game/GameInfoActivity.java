@@ -59,6 +59,7 @@ public class GameInfoActivity extends AppCompatActivity {
     private String count;
     private String gameid;
     private String share;
+    private String owner;
     private RelativeLayout tutorialView;
     private TextView tutorialText;
     private Button tutorialButton;
@@ -115,12 +116,13 @@ public class GameInfoActivity extends AppCompatActivity {
         date.setText(extras.getString("DATE") + "");
         time.setText(extras.getString("TIME") + "");
         tasks.setText(extras.getString("TASKS") + " " + getString(R.string.activityGameInfo_tasks));
-        money.setText(extras.getString("MONEY") + " ₴");
+        money.setText(extras.getString("MONEY") + " $");
         people.setText(extras.getString("PEOPLE") + " " + getString(R.string.activityGameInfo_people));
-        category.setText(extras.getShort("CATEGORY")+"");
+        category.setText(extras.getString("CATEGORY")+"");
         count = extras.getString("PEOPLE");
         share = extras.getString("SHARE");
         avalible = extras.getString("AVALIBLE");
+        owner = extras.getString("OWNER");
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.placeholder(R.drawable.unknow_wide);
         requestOptions.error(R.drawable.unknow_wide);
@@ -134,7 +136,15 @@ public class GameInfoActivity extends AppCompatActivity {
         isStatistic = extras.getString("STATISTIC");
 
         if(avalible!=null) {
-            if(avalible.equals("0")){
+            if(avalible.equals("false")){
+                subscribe.setVisibility(View.GONE);
+            }else{
+                subscribe.setVisibility(View.VISIBLE);
+            }
+        }
+
+        if(owner!=null) {
+            if(owner.equals("true")){
                 subscribe.setVisibility(View.GONE);
             }else{
                 subscribe.setVisibility(View.VISIBLE);
@@ -176,7 +186,7 @@ public class GameInfoActivity extends AppCompatActivity {
                     startActivity(Intent.createChooser(sharingIntent, ""));
                 }
             });
-            if ((extras.getString("SUBSCRIBE")+"").equals("0")) {
+            if ((!extras.getBoolean("SUBSCRIBE"))) {
                 subscribe.setText(getString(R.string.activityGameInfo_join));
                 subscribe.setBackgroundResource(R.drawable.regbtn);
                 subscribe.setTextColor(Color.parseColor("#ffffff"));
@@ -186,7 +196,6 @@ public class GameInfoActivity extends AppCompatActivity {
                 subscribe.setTextColor(Color.parseColor("#F05A23"));
             }
         }
-
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -200,6 +209,61 @@ public class GameInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("geo:0,0?q="+address.getText().toString()));
+                startActivity(intent);
+            }
+        });
+
+        category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GameInfoActivity.this, CategoryActivity.class);
+                switch (extras.getString("CATEGORYID")+"") {
+                    case "0":
+                        intent.putExtra("category","auto");
+                        break;
+                    case "1":
+                        intent.putExtra("category","sport");
+                        break;
+                    case "2":
+                        intent.putExtra("category","food");
+                        break;
+                    case "3":
+                        intent.putExtra("category","travel");
+                        break;
+                    case "4":
+                        intent.putExtra("category","fun");
+                        break;
+                    case "5":
+                        intent.putExtra("category","tv");
+                        break;
+                    case "6":
+                        intent.putExtra("category","beauty");
+                        break;
+                    case "7":
+                        intent.putExtra("category","fashion");
+                        break;
+                    case "8":
+                        intent.putExtra("category","decor");
+                        break;
+                    case "9":
+                        intent.putExtra("category","iscustvo");
+                        break;
+                    case "10":
+                        intent.putExtra("category","art");
+                        break;
+                    case "11":
+                        intent.putExtra("category","style");
+                        break;
+                    case "12":
+                        intent.putExtra("category","myday");
+                        break;
+                    case "13":
+                        intent.putExtra("category","other");
+                        break;
+                    default:
+                        intent.putExtra("category","all");
+                        break;
+                }
                 startActivity(intent);
             }
         });

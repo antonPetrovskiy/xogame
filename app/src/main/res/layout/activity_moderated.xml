@@ -484,17 +484,14 @@
                         android:src="@drawable/profile_line_grey"
                         tools:ignore="ContentDescription" />
 
-
-                    <ListView
-                        android:id="@+id/tasklist"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-
-
                 </LinearLayout>
 
             </LinearLayout>
+
+            <ListView
+                android:id="@+id/tasklist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </TableLayout>
     </ScrollView>

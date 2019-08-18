@@ -63,7 +63,12 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
 
     @Override
     public Feed getItem(int position) {
-        return feedList.get(position);
+        if(position<feedList.size()){
+            return feedList.get(position);
+        }else{
+            return null;
+        }
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -516,7 +521,7 @@ public class FeedsAdapter extends ArrayAdapter<Feed> {
 
         Glide.with(context).setDefaultRequestOptions(requestOptions).load(item.getTaskPhotoUrl()).thumbnail(0.3f).into(vh.imageViewPhoto);
         //Picasso.with(context).load(item.getTaskPhotoUrl()+"").centerCrop().resize(1024,1024).placeholder(R.drawable.unknow).error(R.drawable.unknow).into(vh.imageViewPhoto);
-        if (item.getUserLike().equals("0")) {
+        if (!item.getUserLike()) {
             vh.imageViewLike.setImageResource(R.drawable.like_unused);
             vh.imageViewLike.setTag("unused");
         } else {
